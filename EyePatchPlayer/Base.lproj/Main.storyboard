@@ -1,53 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--Lists-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Lists" id="9pv-A4-QxB" customClass="EPPlaylistsListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="221" y="279" width="157.5" height="41.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <rect key="frame" x="203" y="329" width="194.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UFP-5N-bA2" customClass="EPPlaylistsListTableView" customModule="EyePatchPlayer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
+                            <constraint firstAttribute="bottom" secondItem="UFP-5N-bA2" secondAttribute="bottom" id="2yY-cP-zjl"/>
+                            <constraint firstAttribute="trailing" secondItem="UFP-5N-bA2" secondAttribute="trailing" id="Hg0-cQ-hjj"/>
+                            <constraint firstItem="UFP-5N-bA2" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="XlN-rk-Zgw"/>
+                            <constraint firstItem="UFP-5N-bA2" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="ZGk-yj-a6c"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <navigationItem key="navigationItem" title="Lists" id="JFS-mv-1CP"/>
+                    <connections>
+                        <outlet property="playlistsTableView" destination="UFP-5N-bA2" id="3X7-oJ-fic"/>
+                        <segue destination="Vzn-pY-gG7" kind="show" identifier="seguePlaylist" id="HbV-JP-ZLU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="1562" y="-320"/>
         </scene>
-        <!--Second-->
+        <!--Search-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Search" id="8rJ-Kc-sve" customClass="EPSearchViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -56,38 +52,228 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="195" y="279" width="209.5" height="41.5"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Search" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
+                                <rect key="frame" x="242" y="279" width="115" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="192" y="329" width="215.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <navigationItem key="navigationItem" title="Search" id="BaM-fa-jLp"/>
+                    <connections>
+                        <segue destination="ufx-sH-IEW" kind="show" identifier="seguePlayer" id="2EV-3X-SHg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="1562" y="360"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Downloaded-->
+        <scene sceneID="Sms-SF-CHa">
+            <objects>
+                <viewController title="Downloaded" id="ojo-P8-Ptg" customClass="EPDownloadedViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lv7-KR-gcV"/>
+                        <viewControllerLayoutGuide type="bottom" id="AQu-wm-5SP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="B0T-PL-f7x">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Downloaded / Cached" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hNN-Xh-TGN">
+                                <rect key="frame" x="123" y="279" width="355" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="hNN-Xh-TGN" secondAttribute="centerX" id="RxY-gF-Dao"/>
+                            <constraint firstAttribute="centerY" secondItem="hNN-Xh-TGN" secondAttribute="centerY" id="TqH-Bu-kK4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Downloaded" id="oPr-MR-wCu"/>
+                    <connections>
+                        <segue destination="ufx-sH-IEW" kind="show" identifier="seguePlayer" id="7BS-TG-3xs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LCd-ux-2kY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1562" y="1043"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="6NU-ze-xko">
+            <objects>
+                <viewController title="Settings" id="IMw-tn-L1E" customClass="EPSettingsViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vY5-vE-dyn"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sci-AF-UV3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WR0-gq-dBc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Da-hc-U9t">
+                                <rect key="frame" x="235" y="280" width="131" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="5Da-hc-U9t" secondAttribute="centerX" id="7HY-jl-Ldc"/>
+                            <constraint firstAttribute="centerY" secondItem="5Da-hc-U9t" secondAttribute="centerY" id="gBe-v2-QTh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="fG4-xk-RLq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PeT-kL-i1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1562" y="1704"/>
+        </scene>
+        <!--Player-->
+        <scene sceneID="34W-8X-dHB">
+            <objects>
+                <viewController title="Player" id="ufx-sH-IEW" customClass="EPPlayerViewController" customModule="EyePatchPlayer" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LkB-rm-O2r"/>
+                        <viewControllerLayoutGuide type="bottom" id="0j3-AV-6d9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OxQ-rE-EIi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FhZ-nz-eje">
+                                <rect key="frame" x="285" y="513" width="30" height="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="togglePlayPause:" destination="ufx-sH-IEW" eventType="touchUpInside" id="IL4-np-lwC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNv-3A-s3M">
+                                <rect key="frame" x="339" y="513" width="55" height="30"/>
+                                <state key="normal" title="&gt;&gt; Next">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIG-1p-Bmy">
+                                <rect key="frame" x="207" y="513" width="54" height="30"/>
+                                <state key="normal" title="Prev &lt;&lt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hw6-M1-ksL">
+                                <rect key="frame" x="280" y="478" width="41" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FM-CR-JmR">
+                                <rect key="frame" x="280" y="450" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Y8-vq-hWD">
+                                <rect key="frame" x="541" y="72" width="43" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0in-Jj-3da">
+                                <rect key="frame" x="16" y="72" width="43" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="Hw6-M1-ksL" secondAttribute="centerY" id="1qN-kW-FlF"/>
+                            <constraint firstAttribute="centerX" secondItem="9FM-CR-JmR" secondAttribute="centerX" id="6CT-nE-MUi"/>
+                            <constraint firstAttribute="centerX" secondItem="FhZ-nz-eje" secondAttribute="centerX" id="8nw-6e-amv"/>
+                            <constraint firstItem="0in-Jj-3da" firstAttribute="top" secondItem="LkB-rm-O2r" secondAttribute="bottom" constant="8" id="GXB-Mf-3gF"/>
+                            <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="FhZ-nz-eje" secondAttribute="bottom" constant="8" id="Hn9-vO-0YW"/>
+                            <constraint firstItem="FhZ-nz-eje" firstAttribute="leading" secondItem="kIG-1p-Bmy" secondAttribute="trailing" constant="24" id="LBf-7A-ls1"/>
+                            <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="kIG-1p-Bmy" secondAttribute="bottom" constant="8" id="QuD-Ge-2G8"/>
+                            <constraint firstItem="0in-Jj-3da" firstAttribute="leading" secondItem="OxQ-rE-EIi" secondAttribute="leadingMargin" id="Rjs-9h-exk"/>
+                            <constraint firstItem="fNv-3A-s3M" firstAttribute="leading" secondItem="FhZ-nz-eje" secondAttribute="trailing" constant="24" id="Spd-eo-cKG"/>
+                            <constraint firstItem="7Y8-vq-hWD" firstAttribute="top" secondItem="LkB-rm-O2r" secondAttribute="bottom" constant="8" id="Zdl-dy-d6N"/>
+                            <constraint firstItem="7Y8-vq-hWD" firstAttribute="trailing" secondItem="OxQ-rE-EIi" secondAttribute="trailingMargin" id="fya-r8-RUo"/>
+                            <constraint firstAttribute="centerX" secondItem="Hw6-M1-ksL" secondAttribute="centerX" id="g23-ac-NAr"/>
+                            <constraint firstItem="Hw6-M1-ksL" firstAttribute="top" secondItem="9FM-CR-JmR" secondAttribute="bottom" constant="8" id="h8Y-od-LLx"/>
+                            <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="fNv-3A-s3M" secondAttribute="bottom" constant="8" id="iJd-w1-TN5"/>
+                            <constraint firstItem="FhZ-nz-eje" firstAttribute="top" secondItem="Hw6-M1-ksL" secondAttribute="bottom" constant="8" id="pu9-dZ-FZM"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1qN-kW-FlF"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="artistLabel" destination="9FM-CR-JmR" id="siO-qM-KZb"/>
+                        <outlet property="currentTimeLabel" destination="0in-Jj-3da" id="rBT-1d-aAj"/>
+                        <outlet property="maxTimeLabel" destination="7Y8-vq-hWD" id="JbK-2L-XaD"/>
+                        <outlet property="playPauseButton" destination="FhZ-nz-eje" id="1df-T4-cEJ"/>
+                        <outlet property="titleLabel" destination="Hw6-M1-ksL" id="9So-aX-KPI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fJw-Rg-PDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3346" y="722"/>
+        </scene>
+        <!--Playlist View Controller-->
+        <scene sceneID="XDc-dI-Ma6">
+            <objects>
+                <viewController id="Vzn-pY-gG7" customClass="EPPlaylistViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X4d-ek-03S"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gbq-71-gCx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E8s-2w-4Lq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gtl-K3-9nz" customClass="EPPlaylistTableView" customModule="EyePatchPlayer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gtl-K3-9nz" firstAttribute="top" secondItem="E8s-2w-4Lq" secondAttribute="top" id="4on-IZ-PMb"/>
+                            <constraint firstItem="gtl-K3-9nz" firstAttribute="leading" secondItem="E8s-2w-4Lq" secondAttribute="leading" id="UYv-MK-CgL"/>
+                            <constraint firstAttribute="trailing" secondItem="gtl-K3-9nz" secondAttribute="trailing" id="sNS-aA-x8o"/>
+                            <constraint firstAttribute="bottom" secondItem="gtl-K3-9nz" secondAttribute="bottom" id="vDX-DU-1XA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playlistTableView" destination="gtl-K3-9nz" id="Epa-4T-yOo"/>
+                        <segue destination="ufx-sH-IEW" kind="show" identifier="seguePlayer" id="AR1-bm-7Z4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pO9-cW-7Nc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2352" y="-320"/>
+        </scene>
+        <!--Tab Bar Controller View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="EPTabBarControllerViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -95,17 +281,98 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="ksA-zG-SVl" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="l5w-fn-pYG" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="VxE-nv-Led" kind="relationship" relationship="viewControllers" id="i4S-Wp-ioh"/>
+                        <segue destination="4Yv-V1-4LW" kind="relationship" relationship="viewControllers" id="iNG-8P-TcU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--Lists-->
+        <scene sceneID="56H-RJ-9UK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ksA-zG-SVl" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Lists" image="first" id="acW-dT-cKf"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RFL-q7-bCh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="tr1-qc-ZHg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XD5-MJ-7e4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="-320"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="C1c-MR-oKF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l5w-fn-pYG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="second" id="cPa-gy-q4n"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fb3-Tn-hTX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="Vkh-NE-Ahl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sn3-gv-ddd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="360"/>
+        </scene>
+        <!--Downloaded-->
+        <scene sceneID="iwF-cw-FvA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VxE-nv-Led" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Downloaded" id="F43-94-NrH"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="R1O-Ip-uqw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ojo-P8-Ptg" kind="relationship" relationship="rootViewController" id="ywb-qQ-uTe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Akv-xC-mT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="1043"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="kgm-Zv-65Q">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Yv-V1-4LW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" id="M8H-hv-mPC"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6nL-wu-J8G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="IMw-tn-L1E" kind="relationship" relationship="rootViewController" id="Lhh-Q7-cuB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nAF-Af-X2N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="1704"/>
+        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="7BS-TG-3xs"/>
+    </inferredMetricsTieBreakers>
 </document>

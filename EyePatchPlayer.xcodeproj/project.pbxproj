@@ -8,12 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
-		C489EAC91BA83D1D00D788E0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* FirstViewController.swift */; };
-		C489EACB1BA83D1D00D788E0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* SecondViewController.swift */; };
+		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
+		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
 		C489EACE1BA83D1D00D788E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C489EACC1BA83D1D00D788E0 /* Main.storyboard */; };
 		C489EAD01BA83D1D00D788E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C489EACF1BA83D1D00D788E0 /* Images.xcassets */; };
 		C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C489EAD11BA83D1D00D788E0 /* LaunchScreen.xib */; };
 		C489EADF1BA83D1D00D788E0 /* EyePatchPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EADE1BA83D1D00D788E0 /* EyePatchPlayerTests.swift */; };
+		C489EAF11BA84F6E00D788E0 /* EPTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */; };
+		C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF21BA8506600D788E0 /* EPConstants.swift */; };
+		C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF41BA8658900D788E0 /* EPDownloadedViewController.swift */; };
+		C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */; };
+		C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */; };
+		C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAFE1BA8698700D788E0 /* EPTrack.swift */; };
+		C489EB011BA869FA00D788E0 /* EPPlaylistsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB001BA869FA00D788E0 /* EPPlaylistsTableView.swift */; };
+		C489EB071BA86A5F00D788E0 /* EPPlaylistTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB061BA86A5F00D788E0 /* EPPlaylistTableView.swift */; };
+		C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */; };
+		C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */; };
+		C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */; };
+		D65DF57A0AB10DE1DEEF265C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3206828384CD05A837AA9BE3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,17 +39,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		3206828384CD05A837AA9BE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C489EAC81BA83D1D00D788E0 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		C489EACA1BA83D1D00D788E0 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPPlaylistsListViewController.swift; sourceTree = "<group>"; };
+		C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPSearchViewController.swift; sourceTree = "<group>"; };
 		C489EACD1BA83D1D00D788E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C489EACF1BA83D1D00D788E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C489EAD21BA83D1D00D788E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C489EAD81BA83D1D00D788E0 /* EyePatchPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EyePatchPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EADD1BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EADE1BA83D1D00D788E0 /* EyePatchPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyePatchPlayerTests.swift; sourceTree = "<group>"; };
+		C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EyePatchPlayer-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTabBarControllerViewController.swift; sourceTree = "<group>"; };
+		C489EAF21BA8506600D788E0 /* EPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPConstants.swift; sourceTree = "<group>"; };
+		C489EAF41BA8658900D788E0 /* EPDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadedViewController.swift; sourceTree = "<group>"; };
+		C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsViewController.swift; sourceTree = "<group>"; };
+		C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlaylist.swift; sourceTree = "<group>"; };
+		C489EAFE1BA8698700D788E0 /* EPTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrack.swift; sourceTree = "<group>"; };
+		C489EB001BA869FA00D788E0 /* EPPlaylistsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistsTableView.swift; sourceTree = "<group>"; };
+		C489EB061BA86A5F00D788E0 /* EPPlaylistTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistTableView.swift; sourceTree = "<group>"; };
+		C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistViewController.swift; sourceTree = "<group>"; };
+		C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerViewController.swift; sourceTree = "<group>"; };
+		C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65DF57A0AB10DE1DEEF265C /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +86,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5778CDE021523F36B5B95232 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */,
+				233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		58F4D19E494145291077016A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3206828384CD05A837AA9BE3 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C489EAB81BA83D1D00D788E0 = {
 			isa = PBXGroup;
 			children = (
 				C489EAC31BA83D1D00D788E0 /* EyePatchPlayer */,
 				C489EADB1BA83D1D00D788E0 /* EyePatchPlayerTests */,
 				C489EAC21BA83D1D00D788E0 /* Products */,
+				5778CDE021523F36B5B95232 /* Pods */,
+				58F4D19E494145291077016A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,8 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */,
-				C489EAC81BA83D1D00D788E0 /* FirstViewController.swift */,
-				C489EACA1BA83D1D00D788E0 /* SecondViewController.swift */,
+				C489EB0B1BA9861100D788E0 /* Model */,
+				C489EAF91BA865B200D788E0 /* UI */,
+				C489EAF21BA8506600D788E0 /* EPConstants.swift */,
 				C489EACC1BA83D1D00D788E0 /* Main.storyboard */,
 				C489EACF1BA83D1D00D788E0 /* Images.xcassets */,
 				C489EAD11BA83D1D00D788E0 /* LaunchScreen.xib */,
@@ -93,6 +141,7 @@
 		C489EAC41BA83D1D00D788E0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */,
 				C489EAC51BA83D1D00D788E0 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -115,6 +164,88 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C489EAF81BA865A100D788E0 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				C489EB021BA86A0300D788E0 /* Playlists */,
+				C489EB031BA86A0900D788E0 /* Search */,
+				C489EB041BA86A1100D788E0 /* Downloaded */,
+				C489EB051BA86A1700D788E0 /* Settings */,
+			);
+			name = Tabs;
+			sourceTree = "<group>";
+		};
+		C489EAF91BA865B200D788E0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */,
+				C489EAF81BA865A100D788E0 /* Tabs */,
+				C489EB0E1BAAFF2A00D788E0 /* Player */,
+				C489EB0A1BA86C7600D788E0 /* Playlist */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		C489EB021BA86A0300D788E0 /* Playlists */ = {
+			isa = PBXGroup;
+			children = (
+				C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */,
+				C489EB001BA869FA00D788E0 /* EPPlaylistsTableView.swift */,
+			);
+			name = Playlists;
+			sourceTree = "<group>";
+		};
+		C489EB031BA86A0900D788E0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		C489EB041BA86A1100D788E0 /* Downloaded */ = {
+			isa = PBXGroup;
+			children = (
+				C489EAF41BA8658900D788E0 /* EPDownloadedViewController.swift */,
+			);
+			name = Downloaded;
+			sourceTree = "<group>";
+		};
+		C489EB051BA86A1700D788E0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		C489EB0A1BA86C7600D788E0 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */,
+				C489EB061BA86A5F00D788E0 /* EPPlaylistTableView.swift */,
+			);
+			name = Playlist;
+			sourceTree = "<group>";
+		};
+		C489EB0B1BA9861100D788E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */,
+				C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */,
+				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C489EB0E1BAAFF2A00D788E0 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +253,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C489EAE21BA83D1D00D788E0 /* Build configuration list for PBXNativeTarget "EyePatchPlayer" */;
 			buildPhases = (
+				513C307F0C1F4AB12F67F725 /* Check Pods Manifest.lock */,
 				C489EABD1BA83D1D00D788E0 /* Sources */,
 				C489EABE1BA83D1D00D788E0 /* Frameworks */,
 				C489EABF1BA83D1D00D788E0 /* Resources */,
+				D8A742F8DF703BEA96072129 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,6 +297,11 @@
 				TargetAttributes = {
 					C489EAC01BA83D1D00D788E0 = {
 						CreatedOnToolsVersion = 6.4;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					C489EAD71BA83D1D00D788E0 = {
 						CreatedOnToolsVersion = 6.4;
@@ -210,14 +348,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		513C307F0C1F4AB12F67F725 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D8A742F8DF703BEA96072129 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C489EABD1BA83D1D00D788E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C489EACB1BA83D1D00D788E0 /* SecondViewController.swift in Sources */,
+				C489EB011BA869FA00D788E0 /* EPPlaylistsTableView.swift in Sources */,
+				C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */,
+				C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */,
+				C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */,
+				C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */,
+				C489EB071BA86A5F00D788E0 /* EPPlaylistTableView.swift in Sources */,
+				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
+				C489EAF11BA84F6E00D788E0 /* EPTabBarControllerViewController.swift in Sources */,
+				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
+				C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
-				C489EAC91BA83D1D00D788E0 /* FirstViewController.swift in Sources */,
+				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
+				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
+				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,19 +524,24 @@
 		};
 		C489EAE31BA83D1D00D788E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EyePatchPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/andr3y/repos/EyePatchPlayer/EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		C489EAE41BA83D1D00D788E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EyePatchPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -413,6 +600,7 @@
 				C489EAE41BA83D1D00D788E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C489EAE51BA83D1D00D788E0 /* Build configuration list for PBXNativeTarget "EyePatchPlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +609,7 @@
 				C489EAE71BA83D1D00D788E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
