@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        VKSdk.forceLogout()
 //        println("logged out")
+        EPCache.performStartChecks()
         
         return true
     }

@@ -55,10 +55,10 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     
     func updateUIForNewTrack(){
         self.currentTimeLabel.text = "00:00"
-        self.maxTimeLabel.text = timeInSecondsToString(EPMusicPlayer.sharedInstance.activeSong.duration)
+        self.maxTimeLabel.text = timeInSecondsToString(EPMusicPlayer.sharedInstance.activeTrack.duration)
         
-        self.artistLabel.text = EPMusicPlayer.sharedInstance.activeSong.artist;
-        self.titleLabel.text = EPMusicPlayer.sharedInstance.activeSong.title
+        self.artistLabel.text = EPMusicPlayer.sharedInstance.activeTrack.artist;
+        self.titleLabel.text = EPMusicPlayer.sharedInstance.activeTrack.title
         
         println("updateUIForNewTrack - complete")
     }

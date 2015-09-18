@@ -31,35 +31,41 @@ class EPMusicPlayer: NSObject {
 
     //progress update frequency
     let updateProgressFrequency = 1.0
-    
+    var updateProgressTimer: NSTimer?
     //player
-    var audioPlayer = AVPlayer()
+    var audioStream: FSAudioStream?
 
     //playlist & current song
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
-    var activeSong: EPTrack = EPTrack() {
+    var activeTrack: EPTrack = EPTrack() {
         didSet {
             //check if song is cached
-            if (activeSong.isCached){
+            if (activeTrack.isCached){
                 
             } else {
-                self.audioPlayer = AVPlayer(URL: activeSong.URL)
+                self.audioStream = nil
                 
-                setupSession()
-                setupObservers()
+                setupStream()
                 
+                self.audioStream!.playFromURL(activeTrack.URL)
                 self.delegate?.playbackTrackUpdate()
+                
+                if ((self.updateProgressTimer) != nil) {
+                    self.updateProgressTimer?.invalidate()
+                }
+                
+                updateProgressTimer = NSTimer.scheduledTimerWithTimeInterval(updateProgressFrequency, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+                
             }
         }
         
         willSet {
             println("setting new active song on a player")
             
-            if (activeSong.ID != 0 && activeSong.ID != newValue.ID) {
+            if (activeTrack.ID != 0 && activeTrack.ID != newValue.ID) {
                 
                 println("willSet: removing observers, cleaning")
-                removeObservers()
-                self.audioPlayer.pause()
+                
                 self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
                 
             } else {
@@ -68,60 +74,34 @@ class EPMusicPlayer: NSObject {
         }
     }
     
+    func setupStream() {
+        self.audioStream = FSAudioStream()
+        self.audioStream?.configuration.maxDiskCacheSize = Int32(EPCache.maxDiskCacheSize())
+        self.audioStream?.configuration.cacheDirectory = EPCache.cacheDirectory()
+        self.audioStream?.configuration.cacheEnabled = EPCache.cacheEnabled()
+        
+    }
+    
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
-        if (track.ID != self.activeSong.ID){
-            self.activeSong = track
+        if (track.ID != self.activeTrack.ID){
+            self.activeTrack = track
         }
         
         self.playlist = playlist
     }
     
-    //KVO setup
-    func setupObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidReachEnd:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.audioPlayer.currentItem)
-        
-        self.audioPlayer.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
-        //        self.audioPlayer.addObserver(self, forKeyPath: "loadedTimeRanges", options:NSKeyValueObservingOptions.Initial | NSKeyValueObservingOptions.New, context:nil)
-        
-        NSTimer.scheduledTimerWithTimeInterval(self.updateProgressFrequency, target: self, selector: "updateProgress:", userInfo: nil, repeats: true)
-        println("observers setup complete")
-    }
     
-    //KVO removal
-    func removeObservers() {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-        self.audioPlayer.removeObserver(self, forKeyPath: "status")
-        println("observers removed")
-    }
-    
-    //KVO serving
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if (object as! NSObject == self.audioPlayer && keyPath == "status") {
-            switch audioPlayer.status {
-            case AVPlayerStatus.Failed:
-                println("failed playback")
-            case AVPlayerStatus.ReadyToPlay:
-                println("ready to play")
-                self.audioPlayer.play()
-                self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
-            default:
-                println("AVPlayer Unknown Status")
-            }
-        }
-    }
     
     //togglePlayPause
     func togglePlayPause() {
-        println("togglePlayPause\nrate: \(self.audioPlayer.rate)")
-        if (self.audioPlayer.rate > 0 && (self.audioPlayer.error == nil)) {
-            //is playing
+        println("togglePlayPause")
+        if (self.audioStream!.isPlaying()) {
             println("pausing")
-            self.audioPlayer.pause()
+            self.audioStream!.pause()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
         } else {
-            //is not playing
             println("playing")
-            self.audioPlayer.play()
+            self.audioStream!.pause()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
     }
@@ -134,48 +114,48 @@ class EPMusicPlayer: NSObject {
     //backward
     
     //updating playback progress as well as download progress
-    func updateProgress(userInfo:NSObject) {
-        let timeInSeconds = CMTimeGetSeconds(self.audioPlayer.currentTime())
+    func updateProgress() {
+        let timeInSeconds = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
+        println("timeInSeconds: \(timeInSeconds)")
+        self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), downloadedTime: Int(availableDuration()))
         
-        self.delegate?.playbackProgressUpdate(Int(Double((timeInSeconds))), downloadedTime: Int(availableDuration()))
+        println("contentLength:        \(self.audioStream?.contentLength)")
+        println("defaultContentLength: \(self.audioStream?.defaultContentLength)")
+        println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
+        println("cached:               \(self.audioStream?.cached)")
+        
+        if self.audioStream?.cached == true {
+            self.audioStream?.outputFile = NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self.activeTrack))
+        }
     }
     
     func availableDuration() -> NSTimeInterval {
-        let loadedTimeRanges = self.audioPlayer.currentItem.loadedTimeRanges
-        let result: NSTimeInterval = 0
-        
-        if let timeRange = loadedTimeRanges.first?.CMTimeRangeValue {
-            let startSeconds = CMTimeGetSeconds(timeRange.start)
-            let durationSeconds = CMTimeGetSeconds(timeRange.duration)
-            let result = startSeconds + durationSeconds
-        }
-        
-        return result
+        return 0
     }
     
-    func setupSession() {
-        
-        //to enable playing in background
-        
-        let audioSession = AVAudioSession.sharedInstance()
-        var setCategoryError:NSError?
-        
-        var success = audioSession.setCategory(AVAudioSessionCategoryPlayback, error: &setCategoryError)
-        
-        if (!success) {
-            println("error")
-            //handle error
-        }
-        
-        var activationError:NSError?
-        
-        success = audioSession.setActive(true, error: &activationError)
-        
-        if (!success) {
-            println("error")
-        }
-
-    }
+//    func setupSession() {
+//        
+//        //to enable playing in background
+//        
+//        let audioSession = AVAudioSession.sharedInstance()
+//        var setCategoryError:NSError?
+//        
+//        var success = audioSession.setCategory(AVAudioSessionCategoryPlayback, error: &setCategoryError)
+//        
+//        if (!success) {
+//            println("error")
+//            //handle error
+//        }
+//        
+//        var activationError:NSError?
+//        
+//        success = audioSession.setActive(true, error: &activationError)
+//        
+//        if (!success) {
+//            println("error")
+//        }
+//
+//    }
     
     func playerItemDidReachEnd(notification: NSNotification) {
         println("song finished playing")

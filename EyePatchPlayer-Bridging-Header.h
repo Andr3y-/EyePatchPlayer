@@ -9,6 +9,8 @@
 #ifndef EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 #define EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 
+#import "FSAudioStream.h"
+
 #import <VKSdk.h>
 
 #endif
