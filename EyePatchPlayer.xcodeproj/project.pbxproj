@@ -25,6 +25,7 @@
 		C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */; };
 		C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */; };
 		C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */; };
+		C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3C1BAC190800C950AA /* EPCache.swift */; };
 		D65DF57A0AB10DE1DEEF265C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3206828384CD05A837AA9BE3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistViewController.swift; sourceTree = "<group>"; };
 		C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerViewController.swift; sourceTree = "<group>"; };
 		C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayer.swift; sourceTree = "<group>"; };
+		C4E60D3C1BAC190800C950AA /* EPCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */,
+				C4E60D3C1BAC190800C950AA /* EPCache.swift */,
 				C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */,
 				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
 			);
@@ -391,6 +394,7 @@
 				C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */,
 				C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */,
 				C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */,
+				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
 				C489EB071BA86A5F00D788E0 /* EPPlaylistTableView.swift in Sources */,
 				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
 				C489EAF11BA84F6E00D788E0 /* EPTabBarControllerViewController.swift in Sources */,
