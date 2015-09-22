@@ -2,22 +2,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 TODO:
 
 - EPMusicPlayerDelegate as a separate class for code clarity
@@ -44,6 +28,8 @@ TODO:
 - Global Search
 
 - Friends Lists
+
+- UI Improvements
 
 TOFIX:
 
