@@ -10,18 +10,6 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-extension Array {
-    func find(includedElement: T -> Bool) -> Int? {
-        for (idx, element) in enumerate(self) {
-            if includedElement(element) {
-                return idx
-            }
-        }
-        return nil
-    }
-}
-
-
 enum PlaybackStatus {
     case Play
     case Pause
@@ -47,20 +35,18 @@ class EPMusicPlayer: NSObject {
     var updateProgressTimer: NSTimer?
     //player
     var audioStream: FSAudioStream?
-
+    //remote manager
+    var remoteManager: EPMusicPlayerRemoteManager!
+    
     //playlist & current song
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
+    
     var activeTrack: EPTrack = EPTrack() {
         didSet {
             //check if song is cached
             if (activeTrack.isCached){
                 
             } else {
-//                self.audioStream = nil
-                if (self.audioStream == nil) {
-                    setupStream()
-                }
-                
                 
                 self.audioStream!.playFromURL(activeTrack.URL)
                 self.VKBroadcastTrack()
@@ -91,15 +77,27 @@ class EPMusicPlayer: NSObject {
         }
     }
     
+    override init() {
+        
+        super.init()
+        
+        self.remoteManager = EPMusicPlayerRemoteManager()
+        self.setupStream()
+    }
+    
+   
+    
     func setupStream() {
         println("stream setup for a first time")
         self.audioStream = FSAudioStream()
         self.audioStream?.configuration.maxDiskCacheSize = Int32(EPCache.maxDiskCacheSize())
         self.audioStream?.configuration.cacheDirectory = EPCache.cacheDirectory()
         self.audioStream?.configuration.cacheEnabled = EPCache.cacheEnabled()
+        
         self.audioStream?.onCompletion = {
             self.playNextSong()
         }
+        
         self.audioStream?.onStateChange = { state in
             switch state {
             case .FsAudioStreamPlaying:

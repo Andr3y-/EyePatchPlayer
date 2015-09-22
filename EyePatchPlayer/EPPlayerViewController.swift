@@ -57,9 +57,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
                 println("UIEventSubtype default")
                 break;
                 
-            }
-//        }
-    
+        }
     }
     
     override func canBecomeFirstResponder() -> Bool {

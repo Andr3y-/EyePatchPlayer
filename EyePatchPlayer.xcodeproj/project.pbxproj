@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
+		C41CDBA11BB1C19B00EF6C03 /* TODOList in Resources */ = {isa = PBXBuildFile; fileRef = C41CDBA01BB1C19B00EF6C03 /* TODOList */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
 		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
@@ -65,6 +67,8 @@
 		233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3206828384CD05A837AA9BE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerRemoteManager.swift; sourceTree = "<group>"; };
+		C41CDBA01BB1C19B00EF6C03 /* TODOList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODOList; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 		C489EAC31BA83D1D00D788E0 /* EyePatchPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				C41CDBA01BB1C19B00EF6C03 /* TODOList */,
 				C4FCB3AD1BAC700E00197746 /* FreeStreamer */,
 				C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */,
 				C489EB0B1BA9861100D788E0 /* Model */,
@@ -307,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */,
+				C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */,
 				C4E60D3C1BAC190800C950AA /* EPCache.swift */,
 				C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */,
 				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
@@ -475,6 +481,7 @@
 			files = (
 				C489EACE1BA83D1D00D788E0 /* Main.storyboard in Resources */,
 				C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */,
+				C41CDBA11BB1C19B00EF6C03 /* TODOList in Resources */,
 				C489EAD01BA83D1D00D788E0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,6 +564,7 @@
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
 				C4FCB3A11BAC672E00197746 /* FSAudioStream.mm in Sources */,
+				C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */,
 				C4FCB3A61BAC672E00197746 /* FSXMLHttpRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
