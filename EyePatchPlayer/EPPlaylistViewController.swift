@@ -8,8 +8,9 @@
 
 import UIKit
 
-class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    var searchBar: UISearchBar!
     @IBOutlet weak var playlistTableView: EPPlaylistTableView!
     
     var userID: Int = 0
@@ -21,13 +22,44 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
+    var filteredSongs: NSArray!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.filteredSongs = NSMutableArray()
+        self.playlistTableView.alpha = 0
+        self.searchBar = UISearchBar(frame:CGRectMake(0, 0, 320, 44));
+        self.searchBar.delegate = self
+        self.playlistTableView.tableHeaderView = searchBar;
         log("EPPlaylistViewController, userID = \(userID)")
         
         loadData()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        println(searchText)
+        if (count(searchText)>0){
+        
+        let predicate = NSPredicate(format: "artist contains[c] %@ OR title contains[c] %@", searchText, searchText) // if you need case sensitive search avoid '[c]' in the predicate
+        let arrayCast =  self.playlist.tracks as NSArray
+        self.filteredSongs = arrayCast.filteredArrayUsingPredicate(predicate) as NSArray
+            self.playlistTableView.reloadData()
+        } else {
+            self.filteredSongs = NSArray()
+            self.playlistTableView.reloadData()
+        }
+    }
+    
+    func applyOffset(){
+        var contentOffset = self.playlistTableView.contentOffset
+        contentOffset.y += CGRectGetHeight(self.searchBar!.frame)
+        self.playlistTableView.contentOffset = contentOffset
     }
     
     func loadData() {
@@ -40,8 +72,11 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
                 self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
                 self.playlistTableView.dataSource = self
                 self.playlistTableView.delegate = self
-                
                 self.playlistTableView.reloadData()
+                self.applyOffset()
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    self.playlistTableView.alpha = 1
+                })
                 }, errorBlock: { (error) -> Void in
                     
             })
@@ -57,8 +92,12 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "CellIdentifier")
         }
-        
-        let track = self.playlist.tracks[indexPath.row]
+        let track: EPTrack
+        if (self.filteredSongs.count > 0){
+            track = self.filteredSongs[indexPath.row] as! EPTrack
+        } else {
+            track = self.playlist.tracks[indexPath.row]
+        }
         
         cell!.textLabel?.text = track.title
         cell!.detailTextLabel?.text = track.artist
@@ -67,11 +106,20 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.playlist.tracks.count
+        return count(searchBar.text) > 0 ? self.filteredSongs.count : self.playlist.tracks.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("seguePlayer", sender: self.playlist.tracks[indexPath.row])
+        
+        let selectedTrack: EPTrack!
+        
+        if (count(self.searchBar.text) > 0){
+            selectedTrack = self.filteredSongs[indexPath.row] as! EPTrack
+        } else {
+            selectedTrack = self.playlist.tracks[indexPath.row]
+        }
+
+        self.performSegueWithIdentifier("seguePlayer", sender: selectedTrack)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -83,5 +131,9 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         default:
             println("unknown segue")
         }
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        self.view.endEditing(true)
     }
 }

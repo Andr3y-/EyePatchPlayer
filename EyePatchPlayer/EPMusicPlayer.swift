@@ -112,15 +112,7 @@ class EPMusicPlayer: NSObject {
                 
                 break
             }
-//            switch state {
-//            case kFsAudioStreamPlaying:
-//                break
-//                
-//                default
-//                break
-//            }
         }
-        
     }
     
     func VKBroadcastTrack() {
@@ -262,38 +254,10 @@ class EPMusicPlayer: NSObject {
         newInfo[MPMediaItemPropertyArtist] = self.activeTrack.artist
         newInfo[MPMediaItemPropertyPlaybackDuration] = self.activeTrack.duration
         newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
-//        item.enumerateValuesForProperties(itemProperties as Set<NSObject>, usingBlock: { (property, value, stop) -> Void in
-//            println("")
-//            newInfo.setObject(value, forKey: property)
-//        })
         
         info.nowPlayingInfo = newInfo as [NSObject : AnyObject]
         
     }
-    
-//    func setupSession() {
-//        
-//        //to enable playing in background
-//        
-//        let audioSession = AVAudioSession.sharedInstance()
-//        var setCategoryError:NSError?
-//        
-//        var success = audioSession.setCategory(AVAudioSessionCategoryPlayback, error: &setCategoryError)
-//        
-//        if (!success) {
-//            println("error")
-//            //handle error
-//        }
-//        
-//        var activationError:NSError?
-//        
-//        success = audioSession.setActive(true, error: &activationError)
-//        
-//        if (!success) {
-//            println("error")
-//        }
-//
-//    }
     
     func playerItemDidReachEnd(notification: NSNotification) {
         println("song finished playing")

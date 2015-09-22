@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EPTrack: AnyObject {
+class EPTrack: NSObject {
     
     var title: String = ""
     var artist: String = ""
