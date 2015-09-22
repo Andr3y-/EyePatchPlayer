@@ -20,13 +20,50 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var maxTimeLabel: UILabel!
+    @IBOutlet weak var shuffleSwitch: UISwitch!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         EPMusicPlayer.sharedInstance.delegate = self
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
+    }
+    
+    override func remoteControlReceivedWithEvent(event: UIEvent) {
+        println("remoteControlReceivedWithEvent\(event.description)")
+        
+        switch event.subtype {
+            case UIEventSubtype.RemoteControlTogglePlayPause:
+                println("RemoteControlTogglePlayPause")
+                EPMusicPlayer.sharedInstance.togglePlayPause()
+                break;
+            case UIEventSubtype.RemoteControlPreviousTrack:
+                println("RemoteControlPreviousTrack")
+                EPMusicPlayer.sharedInstance.playPrevSong()
+                break;
+            case UIEventSubtype.RemoteControlNextTrack:
+                println("RemoteControlNextTrack")
+                EPMusicPlayer.sharedInstance.playNextSong()
+                break;
+            case UIEventSubtype.RemoteControlPause:
+                EPMusicPlayer.sharedInstance.togglePlayPause()
+                break;
+            case UIEventSubtype.RemoteControlPlay:
+                EPMusicPlayer.sharedInstance.togglePlayPause()
+            break;
+            default:
+                println("UIEventSubtype default")
+                break;
+                
+            }
+//        }
+    
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
     }
     
     //EPMusicPlayerDelegate
@@ -81,5 +118,11 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     
     @IBAction func togglePlayPause(sender: AnyObject) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
+    }
+    @IBAction func forward(sender: AnyObject) {
+        EPMusicPlayer.sharedInstance.playNextSong()
+    }
+    @IBAction func switchChangeValue(sender: UISwitch) {
+        EPMusicPlayer.sharedInstance.shuffleOn = sender.on
     }
 }

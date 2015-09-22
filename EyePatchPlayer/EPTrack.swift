@@ -12,6 +12,7 @@ class EPTrack: AnyObject {
     
     var title: String = ""
     var artist: String = ""
+    var ownerID: Int = 0
     var duration: Int = 0
     var ID: Int = 0
     var URL: NSURL = NSURL()
@@ -25,7 +26,7 @@ class EPTrack: AnyObject {
         track.title = response["title"] as! String
         track.artist = response["artist"] as! String
         track.duration = response["duration"] as! Int
-        
+        track.ownerID = response["owner_id"] as! Int
         track.ID = response["id"] as! Int
         track.URL = NSURL(string: response["url"] as! String)!
         

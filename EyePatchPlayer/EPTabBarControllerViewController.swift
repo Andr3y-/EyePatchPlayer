@@ -31,7 +31,7 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
         if (!VKSdk.isLoggedIn()){
             println("vk is not logged in")
 //            VKSdk.authorize([VK_PER_STATS, VK_PER_EMAIL,VK_PER_FRIENDS], revokeAccess: true)
-            VKSdk.authorize([VK_PER_STATS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+            VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
         }
     }
     

@@ -44,7 +44,7 @@ extern NSString* const FSAudioStreamNotificationKey_MetaData;
 /**
  * The audio stream state.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, FSAudioStreamState) {
     kFsAudioStreamRetrievingURL,
     kFsAudioStreamStopped,
     kFsAudioStreamBuffering,
@@ -58,7 +58,7 @@ typedef enum {
     kFsAudioStreamRetryingFailed,
     kFsAudioStreamPlaybackCompleted,
     kFsAudioStreamUnknownState
-} FSAudioStreamState;
+};
 
 /**
  * The audio stream errors.

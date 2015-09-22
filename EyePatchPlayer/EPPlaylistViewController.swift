@@ -34,7 +34,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         if userID != 0 {
             println("loading playlist of a user with ID: \(userID)")
             
-            let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 200, "need_user" : 0], andHttpMethod: "GET")
+            let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 2000, "need_user" : 0], andHttpMethod: "GET")
             audioRequest.executeWithResultBlock({ (response) -> Void in
                 
                 self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
