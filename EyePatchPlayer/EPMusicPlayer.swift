@@ -20,6 +20,7 @@ protocol EPMusicPlayerDelegate {
     func playbackProgressUpdate(currentTime:Int, downloadedTime:Int)
     func playbackStatusUpdate(playbackStatus:PlaybackStatus)
     func playbackTrackUpdate()
+    func trackCachedWithResult(result: Bool)
 }
 
 class EPMusicPlayer: NSObject {
@@ -37,43 +38,14 @@ class EPMusicPlayer: NSObject {
     var audioStream: FSAudioStream?
     //remote manager
     var remoteManager: EPMusicPlayerRemoteManager!
-    
+    //should cache currently played song
+    var shouldCacheCurrentSong:Bool = false
     //playlist & current song
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
     
-    var activeTrack: EPTrack = EPTrack() {
+    private(set) internal var activeTrack: EPTrack = EPTrack() {
         didSet {
-            //check if song is cached
-            if (activeTrack.isCached){
-                
-            } else {
-                
-                self.audioStream!.playFromURL(activeTrack.URL)
-                self.VKBroadcastTrack()
-                self.configureNowPlayingInfo()
-                self.delegate?.playbackTrackUpdate()
-                
-                if ((self.updateProgressTimer) != nil) {
-                    self.updateProgressTimer?.invalidate()
-                }
-                
-                updateProgressTimer = NSTimer.scheduledTimerWithTimeInterval(updateProgressFrequency, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
-                
-            }
-        }
-        
-        willSet {
-            println("setting new active song on a player")
-            
-            if (activeTrack.ID != 0 && activeTrack.ID != newValue.ID) {
-                
-                println("willSet: removing observers, cleaning")
-                
-                self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
-                
-            } else {
-                println("willSet: called for a first time or same song, no need to clean")
-            }
+           println("activeTrack didSet: \(activeTrack.artist) - \(activeTrack.title)\n\(activeTrack.URL())")
         }
     }
     
@@ -85,10 +57,71 @@ class EPMusicPlayer: NSObject {
         self.setupStream()
     }
     
-   
+    func requestCacheCurrentSong() {
+        if (self.shouldCacheCurrentSong){
+            println("already requested to cache this song")
+        } else {
+            self.shouldCacheCurrentSong = true
+        }
+    }
+    
+    func setTrack(track:EPTrack) {
+        
+        if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
+            println("cache found")
+            activeTrack = cachedTrackInstance as EPTrack
+        } else {
+            println("no cache found")
+            activeTrack = track
+        }
+        
+        if (shouldCacheCurrentSong){
+            println("track changed, but has not been cached when requested, perhaps need to add separate download queue for that")
+            shouldCacheCurrentSong = false
+        }
+        
+        self.setupStream()
+        
+        if (activeTrack.isCached) {
+            if (activeTrack.hasFileAtPath()) {
+                println("attempting to play from cache:\n\(activeTrack.URL())")
+                self.audioStream!.playFromURL(activeTrack.URL())
+            } else {
+                println("file is missing at path, cannot play")
+            }
+            
+        } else {
+            println("attempting to play from web")
+            self.audioStream!.playFromURL(activeTrack.URL())
+        }
+        
+        if EPSettings.shouldBroadcastStatus() {
+            self.VKBroadcastTrack()
+        }
+        
+        if EPSettings.shoulScrobbleWithLastFm() {
+            //scrobble with LastFm
+        }
+        //should be performed by a separate class
+        self.configureNowPlayingInfo()
+        
+        resetTimer()
+        
+        self.delegate?.playbackTrackUpdate()
+    }
+    
+    func resetTimer() {
+        if ((self.updateProgressTimer) != nil) {
+            self.updateProgressTimer?.invalidate()
+        }
+        
+        updateProgressTimer = NSTimer.scheduledTimerWithTimeInterval(updateProgressFrequency, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+
+    }
     
     func setupStream() {
         println("stream setup for a first time")
+        self.audioStream = nil
         self.audioStream = FSAudioStream()
         self.audioStream?.configuration.maxDiskCacheSize = Int32(EPCache.maxDiskCacheSize())
         self.audioStream?.configuration.cacheDirectory = EPCache.cacheDirectory()
@@ -115,19 +148,17 @@ class EPMusicPlayer: NSObject {
     
     func VKBroadcastTrack() {
         println("broadcasting track")
-        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(self.activeTrack.ownerID)_\(self.activeTrack.ID)"], andHttpMethod: "GET")
+        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(activeTrack.ownerID)_\(activeTrack.ID)"], andHttpMethod: "GET")
         broadcastRequest.executeWithResultBlock({ (response) -> Void in
             println("broadcasting track success result: \(response)")
         }, errorBlock: { (error) -> Void in
             println(error)
         })
-//        [VKRequest requestWithMethod:@"wall.get" andParameters:@{VK_API_OWNER_ID : @"-1"} andHttpMethod:@"GET"];
-
     }
     
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
-        if (track.ID != self.activeTrack.ID){
-            self.activeTrack = track
+        if (track.ID != activeTrack.ID){
+            setTrack(track)
         }
         
         self.playlist = playlist
@@ -163,7 +194,7 @@ class EPMusicPlayer: NSObject {
         println("forward called")
         var index: Int?
         for i in (0...self.playlist.tracks.count-1) {
-            if self.playlist.tracks[i] === self.activeTrack {
+            if self.playlist.tracks[i] === activeTrack {
                 index = i
                 break
             }
@@ -174,7 +205,7 @@ class EPMusicPlayer: NSObject {
                 //last item, cannot forward
                 
             } else {
-                self.activeTrack = self.playlist.tracks[indexFound+1]
+                setTrack(self.playlist.tracks[indexFound+1])
             }
         } else {
             println("index not found in a playlist")
@@ -187,7 +218,7 @@ class EPMusicPlayer: NSObject {
         var index: Int?
         
         if (self.playlist.tracks.count > 0){
-            self.activeTrack = self.playlist.tracks[Int(arc4random_uniform(UInt32(self.playlist.tracks.count)))]
+            setTrack(self.playlist.tracks[Int(arc4random_uniform(UInt32(self.playlist.tracks.count)))])
         }
     }
     
@@ -204,7 +235,7 @@ class EPMusicPlayer: NSObject {
         println("backward called")
         var index: Int?
         for i in (0...self.playlist.tracks.count-1) {
-            if self.playlist.tracks[i] === self.activeTrack {
+            if self.playlist.tracks[i] === activeTrack {
                 index = i
                 break
             }
@@ -215,7 +246,7 @@ class EPMusicPlayer: NSObject {
                 //first item, cannot backward
                 
             } else {
-                self.activeTrack = self.playlist.tracks[indexFound-1]
+                setTrack(self.playlist.tracks[indexFound-1])
             }
         } else {
             println("index not found in a playlist")
@@ -234,7 +265,19 @@ class EPMusicPlayer: NSObject {
         println("cached:               \(self.audioStream?.cached)")
         
         if self.audioStream?.cached == true {
-            self.audioStream?.outputFile = NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self.activeTrack))
+            if (self.shouldCacheCurrentSong){
+                
+                self.audioStream?.outputFile = NSURL(fileURLWithPath: EPCache.pathForTrackToSave(activeTrack))
+                if EPCache.addTrackToDownloadWithFileAtPath(activeTrack, filePath: EPCache.pathForTrackToSave(activeTrack)) {
+                    self.delegate?.trackCachedWithResult(true)
+                } else {
+                    println("")
+                    self.delegate?.trackCachedWithResult(false)
+                }
+                
+                self.shouldCacheCurrentSong = false
+            }
+            
         }
     }
     
@@ -248,9 +291,9 @@ class EPMusicPlayer: NSObject {
         
         let itemProperties:NSSet = NSSet(objects: MPMediaItemPropertyTitle, MPMediaItemPropertyArtist, MPMediaItemPropertyPlaybackDuration, MPNowPlayingInfoPropertyElapsedPlaybackTime)
         
-        newInfo[MPMediaItemPropertyTitle] = self.activeTrack.title
-        newInfo[MPMediaItemPropertyArtist] = self.activeTrack.artist
-        newInfo[MPMediaItemPropertyPlaybackDuration] = self.activeTrack.duration
+        newInfo[MPMediaItemPropertyTitle] = activeTrack.title
+        newInfo[MPMediaItemPropertyArtist] = activeTrack.artist
+        newInfo[MPMediaItemPropertyPlaybackDuration] = activeTrack.duration
         newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
         
         info.nowPlayingInfo = newInfo as [NSObject : AnyObject]

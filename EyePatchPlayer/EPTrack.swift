@@ -8,15 +8,16 @@
 
 import UIKit
 
-class EPTrack: NSObject {
+
+class EPTrack: RLMObject {
     
-    var title: String = ""
-    var artist: String = ""
-    var ownerID: Int = 0
-    var duration: Int = 0
-    var ID: Int = 0
-    var URL: NSURL = NSURL()
-    var isCached = false
+    dynamic var title: String = ""
+    dynamic var artist: String = ""
+    dynamic var ownerID: Int = 0
+    dynamic var duration: Int = 0
+    dynamic var ID: Int = 0
+    dynamic var URLString: String = ""
+    dynamic var isCached = false
     
     class func initWithResponse(response: NSDictionary) -> EPTrack {
         var track = EPTrack()
@@ -28,10 +29,35 @@ class EPTrack: NSObject {
         track.duration = response["duration"] as! Int
         track.ownerID = response["owner_id"] as! Int
         track.ID = response["id"] as! Int
-        track.URL = NSURL(string: response["url"] as! String)!
+        track.URLString = response["url"] as! String
         
 //        println("EPTrack: initWithResponse finish")
         
         return track
     }
+    
+    func hasFileAtPath() -> Bool {
+        return NSFileManager.defaultManager().fileExistsAtPath(EPCache.pathForTrackToSave(self))
+    }
+    
+    func URL() -> NSURL {
+        if (isCached){
+            return NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self))!
+        } else {
+            return NSURL(string: URLString)!
+        }
+        
+    }
+    
+//    class func initWithEPRLMTrack(RLMTrack:EPRLMTrack) -> EPTrack {
+//        var track = EPTrack()
+//        
+//        track.title = RLMTrack.title
+//        track.artist = RLMTrack.artist
+//        track.duration = RLMTrack.duration
+//        
+//        return track
+//    }
+    
+
 }

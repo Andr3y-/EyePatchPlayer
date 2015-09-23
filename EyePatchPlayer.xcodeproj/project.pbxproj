@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
 		C41CDBA11BB1C19B00EF6C03 /* TODOList in Resources */ = {isa = PBXBuildFile; fileRef = C41CDBA01BB1C19B00EF6C03 /* TODOList */; };
+		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
+		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
 		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
@@ -69,6 +71,9 @@
 		A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerRemoteManager.swift; sourceTree = "<group>"; };
 		C41CDBA01BB1C19B00EF6C03 /* TODOList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODOList; sourceTree = "<group>"; };
+		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
+		C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettings.swift; sourceTree = "<group>"; };
+		C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +175,7 @@
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */,
 				C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */,
 				C4FCB36C1BAC656700197746 /* libxml2.dylib */,
 				C4FCB36A1BAC656000197746 /* AVFoundation.framework */,
@@ -314,8 +320,10 @@
 				C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */,
 				C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */,
 				C4E60D3C1BAC190800C950AA /* EPCache.swift */,
+				C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */,
 				C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */,
 				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
+				C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -535,12 +543,14 @@
 			files = (
 				C4FCB3A01BAC672E00197746 /* FSAudioController.m in Sources */,
 				C489EB011BA869FA00D788E0 /* EPPlaylistsTableView.swift in Sources */,
+				C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */,
 				C4FCB39E1BAC672E00197746 /* input_stream.cpp in Sources */,
 				C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */,
 				C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */,
 				C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */,
 				C4FCB3A31BAC672E00197746 /* FSParsePlaylistRequest.m in Sources */,
 				C4FCB39A1BAC672E00197746 /* file_output.cpp in Sources */,
+				C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */,
 				C4FCB3981BAC672E00197746 /* audio_stream.cpp in Sources */,
 				C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */,
 				C4FCB3A21BAC672E00197746 /* FSCheckContentTypeRequest.m in Sources */,
@@ -693,6 +703,7 @@
 			baseConfigurationReference = A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -712,6 +723,7 @@
 			baseConfigurationReference = 233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

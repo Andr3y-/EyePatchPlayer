@@ -12,5 +12,6 @@
 #import "FSAudioStream.h"
 
 #import <VKSdk.h>
+#import <Realm/Realm.h>
 
 #endif

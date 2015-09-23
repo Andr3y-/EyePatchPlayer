@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Realm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>VK-ios-sdk.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>44157B0430AF44531DB6D13E1EFE480F</key>
+		<key>5E2D18899D8F2E0B3192D6BDD3FC558A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E2D18899D8F2E0B3192D6BDD3FC558A</key>
+		<key>B5403A7FC2669795BEB2EA26099B6FDD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CDAF0244F523AEBC4A5F2FD0126C2DE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  EyePatchPlayer
@@ -20,7 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        VKSdk.forceLogout()
 //        println("logged out")
         EPCache.performStartChecks()
-        
+        println("realm DB location: \(RLMRealm.defaultRealm().path)")
+        if false {
+            RLMRealm.defaultRealm().beginWriteTransaction()
+            RLMRealm.defaultRealm().deleteAllObjects()
+            RLMRealm.defaultRealm().commitWriteTransaction()
+
+        }
         return true
     }
 

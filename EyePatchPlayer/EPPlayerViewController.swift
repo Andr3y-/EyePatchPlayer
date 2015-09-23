@@ -21,6 +21,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var maxTimeLabel: UILabel!
     @IBOutlet weak var shuffleSwitch: UISwitch!
+    @IBOutlet weak var cacheButton: UIButton!
     
     
     
@@ -59,6 +60,18 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
                 
         }
     }
+    @IBAction func cacheButtonTap(sender: AnyObject) {
+        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
+        case true:
+            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+            println("removal requested")
+            break
+        default:
+            EPMusicPlayer.sharedInstance.requestCacheCurrentSong()
+            self.cacheButton.setTitle("Saving", forState: UIControlState.Normal)
+            break
+        }
+    }
     
     override func canBecomeFirstResponder() -> Bool {
         return true
@@ -88,12 +101,29 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         updateUIForNewTrack()
     }
     
+    func trackCachedWithResult(result: Bool) {
+        if result {
+            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+        } else {
+            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
+        }
+    }
+    
     func updateUIForNewTrack(){
         self.currentTimeLabel.text = "00:00"
         self.maxTimeLabel.text = timeInSecondsToString(EPMusicPlayer.sharedInstance.activeTrack.duration)
         
         self.artistLabel.text = EPMusicPlayer.sharedInstance.activeTrack.artist;
         self.titleLabel.text = EPMusicPlayer.sharedInstance.activeTrack.title
+        
+        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
+        case true:
+            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+            break
+        default:
+            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
+            break
+        }
         
         println("updateUIForNewTrack - complete")
     }
@@ -119,6 +149,9 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     }
     @IBAction func forward(sender: AnyObject) {
         EPMusicPlayer.sharedInstance.playNextSong()
+    }
+    @IBAction func backward(sender: AnyObject) {
+        EPMusicPlayer.sharedInstance.playPrevSong()
     }
     @IBAction func switchChangeValue(sender: UISwitch) {
         EPMusicPlayer.sharedInstance.shuffleOn = sender.on
