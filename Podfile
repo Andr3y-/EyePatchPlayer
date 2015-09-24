@@ -3,3 +3,4 @@
 
 pod "VK-ios-sdk"
 pod 'Realm'
+pod ‘AFNetworking’

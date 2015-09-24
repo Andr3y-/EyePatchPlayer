@@ -26,8 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().deleteAllObjects()
             RLMRealm.defaultRealm().commitWriteTransaction()
-
         }
+        AFNetworkActivityIndicatorManager.sharedManager().enabled = true
+        AFNetworkReachabilityManager.sharedManager().startMonitoring()
+        
         return true
     }
 

@@ -67,7 +67,16 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
             println("removal requested")
             break
         default:
-            EPMusicPlayer.sharedInstance.requestCacheCurrentSong()
+            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result) -> Void in
+                if result {
+                    self.trackCachedWithResult(true)
+                } else {
+                    self.trackCachedWithResult(false)
+                }
+                
+                }, progressBlock: { (progressValue) -> Void in
+//                    println("download: \(progressValue * 100) %")
+            })
             self.cacheButton.setTitle("Saving", forState: UIControlState.Normal)
             break
         }

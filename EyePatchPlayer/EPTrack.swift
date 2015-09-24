@@ -56,6 +56,20 @@ class EPTrack: RLMObject {
     
     }
     
+    override func copy() -> AnyObject {
+        var track = EPTrack()
+        
+        track.title = self.title
+        track.artist = self.artist
+        track.duration = self.duration
+        track.ownerID = self.ownerID
+        track.ID = self.ID
+        track.URLString = self.URLString
+        track.isCached = self.isCached
+        
+        return track
+    }
+    
 //    class func initWithEPRLMTrack(RLMTrack:EPRLMTrack) -> EPTrack {
 //        var track = EPTrack()
 //        

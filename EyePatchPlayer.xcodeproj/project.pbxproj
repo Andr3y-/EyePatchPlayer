@@ -11,6 +11,7 @@
 		C41CDBA11BB1C19B00EF6C03 /* TODOList in Resources */ = {isa = PBXBuildFile; fileRef = C41CDBA01BB1C19B00EF6C03 /* TODOList */; };
 		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
 		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
+		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
 		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
@@ -74,6 +75,7 @@
 		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
 		C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettings.swift; sourceTree = "<group>"; };
 		C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
+		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */,
+				C458549D1BB4004A00F596DE /* EPHTTPManager.swift */,
 				C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */,
 				C4E60D3C1BAC190800C950AA /* EPCache.swift */,
 				C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */,
@@ -563,6 +566,7 @@
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
 				C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */,
 				C4FCB39D1BAC672E00197746 /* id3_parser.cpp in Sources */,
+				C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4FCB39C1BAC672E00197746 /* http_stream.cpp in Sources */,
 				C4FCB3A41BAC672E00197746 /* FSParseRssPodcastFeedRequest.m in Sources */,

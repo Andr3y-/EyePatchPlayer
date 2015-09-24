@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EPCacheDelegate {
+    func cacheDidUpdate()
+}
+
 class EPCache: NSObject {
     
     class func addTrackToDownloadWithFileAtPath(track:EPTrack, filePath: String) -> (Bool) {
@@ -71,7 +75,7 @@ class EPCache: NSObject {
         RLMRealm.defaultRealm().commitWriteTransaction()
         
         result = true
-
+        NSNotificationCenter.defaultCenter().postNotificationName("TrackCached", object: track)
         println("added track to storage")
         
         return result
@@ -86,11 +90,16 @@ class EPCache: NSObject {
     }
     
     class func deleteTrackFromDownload(track:EPTrack) -> (Bool) {
-        var result: Bool = false
+        var result: Bool = NSFileManager.defaultManager().removeItemAtPath(pathForTrackToSave(track), error: nil)
         
-        //check if already exists,
+        if let trackRLM = trackCachedInstanceForTrack(track) {
+            RLMRealm.defaultRealm().beginWriteTransaction()
+            RLMRealm.defaultRealm().deleteObject(track)
+            RLMRealm.defaultRealm().commitWriteTransaction()
+        }
         
         return result
+        //check if already exists,
     }
     
     class func trackCachedInstanceForTrack(track:EPTrack) -> (EPTrack)? {

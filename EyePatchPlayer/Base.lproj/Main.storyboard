@@ -87,22 +87,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Downloaded / Cached" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hNN-Xh-TGN">
-                                <rect key="frame" x="123" y="279" width="355" height="42"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FaX-Tu-b8S" customClass="EPPlaylistTableView" customModule="EyePatchPlayer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="hNN-Xh-TGN" secondAttribute="centerX" id="RxY-gF-Dao"/>
-                            <constraint firstAttribute="centerY" secondItem="hNN-Xh-TGN" secondAttribute="centerY" id="TqH-Bu-kK4"/>
+                            <constraint firstItem="FaX-Tu-b8S" firstAttribute="top" secondItem="B0T-PL-f7x" secondAttribute="topMargin" id="9qD-pQ-RL8"/>
+                            <constraint firstItem="FaX-Tu-b8S" firstAttribute="leading" secondItem="B0T-PL-f7x" secondAttribute="leading" id="Clp-gO-uhg"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="FaX-Tu-b8S" secondAttribute="bottom" id="Ju4-lu-gZI"/>
+                            <constraint firstAttribute="trailing" secondItem="FaX-Tu-b8S" secondAttribute="trailing" id="Rk0-pv-akh"/>
+                            <constraint firstItem="FaX-Tu-b8S" firstAttribute="leading" secondItem="B0T-PL-f7x" secondAttribute="leadingMargin" id="cS4-6B-xgM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FaX-Tu-b8S" secondAttribute="trailing" id="mb9-wl-cyh"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cS4-6B-xgM"/>
+                                <exclude reference="mb9-wl-cyh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Downloaded" id="oPr-MR-wCu"/>
                     <connections>
+                        <outlet property="playlistTableView" destination="FaX-Tu-b8S" id="sMf-Ek-OmJ"/>
                         <segue destination="ufx-sH-IEW" kind="show" identifier="seguePlayer" id="7BS-TG-3xs"/>
                     </connections>
                 </viewController>
@@ -387,6 +395,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AR1-bm-7Z4"/>
+        <segue reference="7BS-TG-3xs"/>
     </inferredMetricsTieBreakers>
 </document>

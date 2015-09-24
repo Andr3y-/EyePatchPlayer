@@ -36,11 +36,12 @@ class EPMusicPlayer: NSObject {
     var updateProgressTimer: NSTimer?
     //player
     var audioStream: FSAudioStream?
-    var localPlayer: AVAudioPlayer?
+    var audioStreamLocal: FSAudioStream?
+//    var localPlayer: AVAudioPlayer?
     //remote manager
     var remoteManager: EPMusicPlayerRemoteManager!
-    //should cache currently played song
-    var shouldCacheCurrentSong:Bool = false
+
+    
     //playlist & current song
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
     
@@ -58,14 +59,6 @@ class EPMusicPlayer: NSObject {
         self.setupStream()
     }
     
-    func requestCacheCurrentSong() {
-        if (self.shouldCacheCurrentSong){
-            println("already requested to cache this song")
-        } else {
-            self.shouldCacheCurrentSong = true
-        }
-    }
-    
     func setTrack(track:EPTrack) {
         
         if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
@@ -76,25 +69,17 @@ class EPMusicPlayer: NSObject {
             activeTrack = track
         }
         
-        if (shouldCacheCurrentSong){
-            println("track changed, but has not been cached when requested, perhaps need to add separate download queue for that")
-            shouldCacheCurrentSong = false
-        }
-        
+//        if self.audioStream?.isPlaying() == true {
+//            println("stopping")
+//            self.audioStream?.stop()
+//        }
+//        
         self.setupStream()
         
         if (activeTrack.isCached) {
             if (activeTrack.hasFileAtPath()) {
                 println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
-                
-                println("loading into player: \(activeTrack.URL().filePathURL!)")
-                localPlayer = AVAudioPlayer(contentsOfURL: activeTrack.URL().filePathURL!, error: nil)
-                localPlayer!.prepareToPlay()
-//                localPlayer.delegate = self
-                localPlayer!.play()
-
-                
-//                self.audioStream!.playFromURL(NSURL(fileURLWithPath: EPCache.pathForTrackToSave(activeTrack)))
+                self.audioStream!.playFromURL(activeTrack.URL())
             } else {
                 println("FILE IS MISSING at path, cannot play")
             }
@@ -203,7 +188,7 @@ class EPMusicPlayer: NSObject {
         println("forward called")
         var index: Int?
         for i in (0...self.playlist.tracks.count-1) {
-            if self.playlist.tracks[i] === activeTrack {
+            if self.playlist.tracks[i].ID == activeTrack.ID {
                 index = i
                 break
             }
@@ -223,9 +208,7 @@ class EPMusicPlayer: NSObject {
     
     func forwardRandom() {
         println("forward random")
-        
-        var index: Int?
-        
+                
         if (self.playlist.tracks.count > 0){
             setTrack(self.playlist.tracks[Int(arc4random_uniform(UInt32(self.playlist.tracks.count)))])
         }
@@ -244,7 +227,7 @@ class EPMusicPlayer: NSObject {
         println("backward called")
         var index: Int?
         for i in (0...self.playlist.tracks.count-1) {
-            if self.playlist.tracks[i] === activeTrack {
+            if self.playlist.tracks[i].ID == activeTrack.ID {
                 index = i
                 break
             }
@@ -274,29 +257,6 @@ class EPMusicPlayer: NSObject {
             println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
             println("cached:               \(self.audioStream?.cached)")
             
-            if self.audioStream?.cached == true {
-                if (self.shouldCacheCurrentSong){
-                    
-                    self.audioStream?.outputFile = NSURL(fileURLWithPath: EPCache.pathForTrackToSave(activeTrack))
-                   
-                    var fileSize : UInt64
-                    var attr:NSDictionary? = NSFileManager.defaultManager().attributesOfItemAtPath(EPCache.pathForTrackToSave(activeTrack), error: nil)
-                    if let _attr = attr {
-                        fileSize = _attr.fileSize()
-                        println("file saved, size: \(fileSize)")
-                    }
-                    
-                    if EPCache.addTrackToDownloadWithFileAtPath(activeTrack, filePath: EPCache.pathForTrackToSave(activeTrack)) {
-                        self.delegate?.trackCachedWithResult(true)
-                    } else {
-                        println("")
-                        self.delegate?.trackCachedWithResult(false)
-                    }
-                    
-                    self.shouldCacheCurrentSong = false
-                }
-                
-            }
         }
         
     }
