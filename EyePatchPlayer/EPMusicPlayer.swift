@@ -36,6 +36,7 @@ class EPMusicPlayer: NSObject {
     var updateProgressTimer: NSTimer?
     //player
     var audioStream: FSAudioStream?
+    var localPlayer: AVAudioPlayer?
     //remote manager
     var remoteManager: EPMusicPlayerRemoteManager!
     //should cache currently played song
@@ -84,10 +85,18 @@ class EPMusicPlayer: NSObject {
         
         if (activeTrack.isCached) {
             if (activeTrack.hasFileAtPath()) {
-                println("attempting to play from cache:\n\(activeTrack.URL())")
-                self.audioStream!.playFromURL(activeTrack.URL())
+                println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
+                
+                println("loading into player: \(activeTrack.URL().filePathURL!)")
+                localPlayer = AVAudioPlayer(contentsOfURL: activeTrack.URL().filePathURL!, error: nil)
+                localPlayer!.prepareToPlay()
+//                localPlayer.delegate = self
+                localPlayer!.play()
+
+                
+//                self.audioStream!.playFromURL(NSURL(fileURLWithPath: EPCache.pathForTrackToSave(activeTrack)))
             } else {
-                println("file is missing at path, cannot play")
+                println("FILE IS MISSING at path, cannot play")
             }
             
         } else {
@@ -255,30 +264,41 @@ class EPMusicPlayer: NSObject {
     
     //updating playback progress as well as download progress
     func updateProgress() {
-        let timeInSeconds = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
-        println("timeInSeconds: \(timeInSeconds)")
-        self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), downloadedTime: Int(availableDuration()))
-        
-        println("contentLength:        \(self.audioStream?.contentLength)")
-        println("defaultContentLength: \(self.audioStream?.defaultContentLength)")
-        println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
-        println("cached:               \(self.audioStream?.cached)")
-        
-        if self.audioStream?.cached == true {
-            if (self.shouldCacheCurrentSong){
-                
-                self.audioStream?.outputFile = NSURL(fileURLWithPath: EPCache.pathForTrackToSave(activeTrack))
-                if EPCache.addTrackToDownloadWithFileAtPath(activeTrack, filePath: EPCache.pathForTrackToSave(activeTrack)) {
-                    self.delegate?.trackCachedWithResult(true)
-                } else {
-                    println("")
-                    self.delegate?.trackCachedWithResult(false)
+        if self.audioStream!.isPlaying() {
+            let timeInSeconds = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
+            println("timeInSeconds: \(timeInSeconds)")
+            self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), downloadedTime: Int(availableDuration()))
+            
+            println("contentLength:        \(self.audioStream?.contentLength)")
+            println("defaultContentLength: \(self.audioStream?.defaultContentLength)")
+            println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
+            println("cached:               \(self.audioStream?.cached)")
+            
+            if self.audioStream?.cached == true {
+                if (self.shouldCacheCurrentSong){
+                    
+                    self.audioStream?.outputFile = NSURL(fileURLWithPath: EPCache.pathForTrackToSave(activeTrack))
+                   
+                    var fileSize : UInt64
+                    var attr:NSDictionary? = NSFileManager.defaultManager().attributesOfItemAtPath(EPCache.pathForTrackToSave(activeTrack), error: nil)
+                    if let _attr = attr {
+                        fileSize = _attr.fileSize()
+                        println("file saved, size: \(fileSize)")
+                    }
+                    
+                    if EPCache.addTrackToDownloadWithFileAtPath(activeTrack, filePath: EPCache.pathForTrackToSave(activeTrack)) {
+                        self.delegate?.trackCachedWithResult(true)
+                    } else {
+                        println("")
+                        self.delegate?.trackCachedWithResult(false)
+                    }
+                    
+                    self.shouldCacheCurrentSong = false
                 }
                 
-                self.shouldCacheCurrentSong = false
             }
-            
         }
+        
     }
     
     func availableDuration() -> NSTimeInterval {

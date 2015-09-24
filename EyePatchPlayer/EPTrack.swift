@@ -37,7 +37,14 @@ class EPTrack: RLMObject {
     }
     
     func hasFileAtPath() -> Bool {
-        return NSFileManager.defaultManager().fileExistsAtPath(EPCache.pathForTrackToSave(self))
+        var result = NSFileManager.defaultManager().fileExistsAtPath(self.URL().path!)
+        var error: NSError?
+        if let attr:NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(self.URL().path!, error: &error) {
+            println("fileSize: \(attr.fileSize())")
+        } else {
+            println("unable to retrieve a fileSize, \(error?.description)")
+        }
+        return result
     }
     
     func URL() -> NSURL {
@@ -46,7 +53,7 @@ class EPTrack: RLMObject {
         } else {
             return NSURL(string: URLString)!
         }
-        
+    
     }
     
 //    class func initWithEPRLMTrack(RLMTrack:EPRLMTrack) -> EPTrack {

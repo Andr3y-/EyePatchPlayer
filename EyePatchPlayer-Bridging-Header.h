@@ -10,6 +10,7 @@
 #define EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 
 #import "FSAudioStream.h"
+#import "FSAudioController.h"
 
 #import <VKSdk.h>
 #import <Realm/Realm.h>
