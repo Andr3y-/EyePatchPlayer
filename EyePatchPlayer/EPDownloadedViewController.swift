@@ -69,7 +69,6 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            //delete first
             
             let track: EPTrack
             println(self.filteredSongs.count)
