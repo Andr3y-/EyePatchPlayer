@@ -101,6 +101,7 @@ class EPCache: NSObject {
     
     class func deleteTrackFromDownload(track:EPTrack) -> (Bool) {
         var result: Bool = NSFileManager.defaultManager().removeItemAtPath(pathForTrackToSave(track), error: nil)
+        var result2: Bool = NSFileManager.defaultManager().removeItemAtPath(pathForTrackArtwork(track), error: nil)
         
         if let trackRLM = trackCachedInstanceForTrack(track) {
             RLMRealm.defaultRealm().beginWriteTransaction()

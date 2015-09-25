@@ -53,22 +53,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Search" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="242" y="279" width="115" height="42"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aQF-Id-EzK" customClass="EPPlaylistTableView" customModule="EyePatchPlayer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
+                            <constraint firstAttribute="bottom" secondItem="aQF-Id-EzK" secondAttribute="bottom" id="5qP-fz-SUh"/>
+                            <constraint firstAttribute="trailing" secondItem="aQF-Id-EzK" secondAttribute="trailing" id="CmZ-CO-MAE"/>
+                            <constraint firstItem="aQF-Id-EzK" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="Kul-5v-f6d"/>
+                            <constraint firstItem="aQF-Id-EzK" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="Vgr-E9-7DZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="BaM-fa-jLp"/>
                     <connections>
+                        <outlet property="playlistTableView" destination="aQF-Id-EzK" id="Y2b-nM-hnH"/>
                         <segue destination="ufx-sH-IEW" kind="show" identifier="seguePlayer" id="2EV-3X-SHg"/>
                     </connections>
                 </viewController>
@@ -444,6 +444,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7BS-TG-3xs"/>
+        <segue reference="2EV-3X-SHg"/>
     </inferredMetricsTieBreakers>
 </document>
