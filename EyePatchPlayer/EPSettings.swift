@@ -16,4 +16,8 @@ class EPSettings: NSUserDefaults {
     class func shoulScrobbleWithLastFm() -> (Bool) {
         return true
     }
+    
+    class func shouldDownloadArtwork() -> (Bool) {
+        return true
+    }
 }

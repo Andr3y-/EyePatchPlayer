@@ -69,32 +69,25 @@ class EPMusicPlayer: NSObject {
             activeTrack = track
         }
         
-//        if self.audioStream?.isPlaying() == true {
-//            println("stopping")
-//            self.audioStream?.stop()
-//        }
-//        
         self.setupStream()
         
         if (activeTrack.isCached) {
             if (activeTrack.hasFileAtPath()) {
-                println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
+//                println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
                 self.audioStream!.playFromURL(activeTrack.URL())
             } else {
-                println("FILE IS MISSING at path, cannot play")
+//                println("FILE IS MISSING at path, cannot play")
             }
             
         } else {
-            println("attempting to play from web")
+//            println("attempting to play from web")
             self.audioStream!.playFromURL(activeTrack.URL())
         }
         
-        if EPSettings.shouldBroadcastStatus() {
-            self.VKBroadcastTrack()
-        }
+        if EPSettings.shouldBroadcastStatus() { self.VKBroadcastTrack() }
+        if EPSettings.shoulScrobbleWithLastFm() { /*scrobble with LastFm */ }
+        if EPSettings.shouldDownloadArtwork() {
         
-        if EPSettings.shoulScrobbleWithLastFm() {
-            //scrobble with LastFm
         }
         //should be performed by a separate class
         self.configureNowPlayingInfo()
@@ -277,13 +270,13 @@ class EPMusicPlayer: NSObject {
     func configureNowPlayingInfo() {
         var info = MPNowPlayingInfoCenter.defaultCenter()
         var newInfo = NSMutableDictionary()
-        
-        let itemProperties:NSSet = NSSet(objects: MPMediaItemPropertyTitle, MPMediaItemPropertyArtist, MPMediaItemPropertyPlaybackDuration, MPNowPlayingInfoPropertyElapsedPlaybackTime)
+//        let itemProperties:NSSet = NSSet(objects: MPMediaItemPropertyTitle, MPMediaItemPropertyArtist, MPMediaItemPropertyPlaybackDuration, MPNowPlayingInfoPropertyElapsedPlaybackTime)
         
         newInfo[MPMediaItemPropertyTitle] = activeTrack.title
         newInfo[MPMediaItemPropertyArtist] = activeTrack.artist
         newInfo[MPMediaItemPropertyPlaybackDuration] = activeTrack.duration
         newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
+//        newInfo[MPMediaItemPropertyArtwork]
         
         info.nowPlayingInfo = newInfo as [NSObject : AnyObject]
         

@@ -24,6 +24,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     @IBOutlet weak var cacheButton: UIButton!
     @IBOutlet weak var progressBarPlayback: UIProgressView!
     @IBOutlet weak var progressBarDownload: UIProgressView!
+    @IBOutlet weak var albumArtImageView: UIImageView!
     
     
     
@@ -126,6 +127,11 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     }
     
     func updateUIForNewTrack(){
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.albumArtImageView.alpha = 0.0
+        })
+        
+        
         self.currentTimeLabel.text = "00:00"
         self.maxTimeLabel.text = timeInSecondsToString(EPMusicPlayer.sharedInstance.activeTrack.duration)
         
@@ -144,7 +150,22 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
             self.progressBarDownload.setProgress(0, animated: false)
             break
         }
-        
+        EPHTTPManager.getAlbumCoverURL((EPMusicPlayer.sharedInstance.activeTrack), completion: { (result, url) -> Void in
+            if (result) {
+                SDWebImageManager.sharedManager().downloadImageWithURL(url, options: nil, progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
+                    if isDownloaded {
+                        self.albumArtImageView.image = downloadedImage
+                        UIView.animateWithDuration(0.2, animations: { () -> Void in
+                            self.albumArtImageView.alpha = 1.0
+                        })
+                    }
+                    
+                })
+                self.albumArtImageView.sd_setImageWithURL(url)
+            } else {
+                
+            }
+        })
         println("updateUIForNewTrack - complete")
     }
     

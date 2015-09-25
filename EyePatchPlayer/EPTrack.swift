@@ -18,6 +18,7 @@ class EPTrack: RLMObject {
     dynamic var ID: Int = 0
     dynamic var URLString: String = ""
     dynamic var isCached = false
+    dynamic var artworkImage:UIImage?
     
     class func initWithResponse(response: NSDictionary) -> EPTrack {
         var track = EPTrack()

@@ -13,7 +13,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import <VKSdk.h>
 #import <Realm/Realm.h>
-
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/SDWebImageManager.h>
 #import "AFNetworkActivityIndicatorManager.h"
 
 #endif

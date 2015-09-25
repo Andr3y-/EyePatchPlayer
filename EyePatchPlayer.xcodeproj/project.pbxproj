@@ -212,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				C41CDBA01BB1C19B00EF6C03 /* TODOList */,
-				C4FCB3AD1BAC700E00197746 /* FreeStreamer */,
 				C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */,
 				C489EB0B1BA9861100D788E0 /* Model */,
 				C489EAF91BA865B200D788E0 /* UI */,
@@ -228,6 +227,7 @@
 		C489EAC41BA83D1D00D788E0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C4FCB3AD1BAC700E00197746 /* FreeStreamer */,
 				C4FCB3701BAC65A300197746 /* Libraries */,
 				C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */,
 				C489EAC51BA83D1D00D788E0 /* Info.plist */,
