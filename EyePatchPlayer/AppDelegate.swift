@@ -14,14 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
 //        VKSdk.forceLogout()
 //        println("logged out")
         EPCache.performStartChecks()
-        println("realm DB location: \(RLMRealm.defaultRealm().path)")
+        println("realm DB location: \(RLMRealm.defaultRealm().path)" )
         if false {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().deleteAllObjects()
