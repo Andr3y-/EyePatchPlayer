@@ -22,6 +22,8 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     @IBOutlet weak var maxTimeLabel: UILabel!
     @IBOutlet weak var shuffleSwitch: UISwitch!
     @IBOutlet weak var cacheButton: UIButton!
+    @IBOutlet weak var progressBarPlayback: UIProgressView!
+    @IBOutlet weak var progressBarDownload: UIProgressView!
     
     
     
@@ -87,8 +89,13 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     }
     
     //EPMusicPlayerDelegate
-    func playbackProgressUpdate(currentTime: Int, downloadedTime: Int) {
+    func playbackProgressUpdate(currentTime: Int, bufferedPercent: Double) {
         self.currentTimeLabel.text = timeInSecondsToString(currentTime)
+        let playbackPercent = Float(currentTime) / Float(EPMusicPlayer.sharedInstance.activeTrack.duration)
+        self.progressBarPlayback.setProgress(playbackPercent, animated: false)
+        if (!EPMusicPlayer.sharedInstance.activeTrack.isCached) {
+            self.progressBarDownload.setProgress(Float(bufferedPercent), animated: false)
+        }
     }
     
     func playbackStatusUpdate(playbackStatus: PlaybackStatus) {
@@ -125,12 +132,16 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         self.artistLabel.text = EPMusicPlayer.sharedInstance.activeTrack.artist;
         self.titleLabel.text = EPMusicPlayer.sharedInstance.activeTrack.title
         
+        self.progressBarPlayback.setProgress(0, animated: false)
+        
         switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
         case true:
             self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+            self.progressBarDownload.setProgress(1, animated: false)
             break
         default:
             self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
+            self.progressBarDownload.setProgress(0, animated: false)
             break
         }
         

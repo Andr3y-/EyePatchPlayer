@@ -17,7 +17,7 @@ enum PlaybackStatus {
 }
 
 protocol EPMusicPlayerDelegate {
-    func playbackProgressUpdate(currentTime:Int, downloadedTime:Int)
+    func playbackProgressUpdate(currentTime:Int, bufferedPercent:Double)
     func playbackStatusUpdate(playbackStatus:PlaybackStatus)
     func playbackTrackUpdate()
     func trackCachedWithResult(result: Bool)
@@ -32,7 +32,7 @@ class EPMusicPlayer: NSObject {
     static let sharedInstance = EPMusicPlayer()
     var shuffleOn: Bool = true
     //progress update frequency
-    let updateProgressFrequency = 1.0
+    let updateProgressFrequency = 0.1
     var updateProgressTimer: NSTimer?
     //player
     var audioStream: FSAudioStream?
@@ -249,13 +249,22 @@ class EPMusicPlayer: NSObject {
     func updateProgress() {
         if self.audioStream!.isPlaying() {
             let timeInSeconds = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
-            println("timeInSeconds: \(timeInSeconds)")
-            self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), downloadedTime: Int(availableDuration()))
+//            println("timeInSeconds: \(timeInSeconds)")
             
-            println("contentLength:        \(self.audioStream?.contentLength)")
-            println("defaultContentLength: \(self.audioStream?.defaultContentLength)")
-            println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
-            println("cached:               \(self.audioStream?.cached)")
+            var prebufferedPercent: Double = 0.0
+            if self.audioStream?.cached == false {
+                if let contentSize = self.audioStream?.contentLength, contentDownloaded = self.audioStream?.prebufferedByteCount {
+                    prebufferedPercent = Double(contentDownloaded) / Double(contentSize)
+                }
+            } else {
+                prebufferedPercent = 1.0
+            }
+            self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), bufferedPercent: prebufferedPercent)
+            
+//            println("contentLength:        \(self.audioStream?.contentLength)")
+//            println("defaultContentLength: \(self.audioStream?.defaultContentLength)")
+//            println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
+//            println("cached:               \(self.audioStream?.cached)")
             
         }
         

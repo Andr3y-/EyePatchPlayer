@@ -215,31 +215,49 @@
                                     <action selector="cacheButtonTap:" destination="ufx-sH-IEW" eventType="touchUpInside" id="aVr-ak-rpn"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="rDx-43-fzM" userLabel="Download">
+                                <rect key="frame" x="67" y="82" width="466" height="2"/>
+                                <color key="progressTintColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fhq-Kf-8Je" userLabel="Playback">
+                                <rect key="frame" x="67" y="82" width="466" height="2"/>
+                                <color key="progressTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fhq-Kf-8Je" firstAttribute="width" secondItem="rDx-43-fzM" secondAttribute="width" id="0wM-QO-aqB"/>
                             <constraint firstItem="kfw-JN-L5G" firstAttribute="trailing" secondItem="OxQ-rE-EIi" secondAttribute="trailingMargin" id="1hR-7k-nBe"/>
                             <constraint firstAttribute="centerY" secondItem="Hw6-M1-ksL" secondAttribute="centerY" id="1qN-kW-FlF"/>
                             <constraint firstAttribute="centerX" secondItem="9FM-CR-JmR" secondAttribute="centerX" id="6CT-nE-MUi"/>
+                            <constraint firstItem="fhq-Kf-8Je" firstAttribute="leading" secondItem="0in-Jj-3da" secondAttribute="trailing" constant="8" id="7Na-mj-P59"/>
                             <constraint firstAttribute="centerX" secondItem="FhZ-nz-eje" secondAttribute="centerX" id="8nw-6e-amv"/>
+                            <constraint firstItem="rDx-43-fzM" firstAttribute="top" secondItem="fhq-Kf-8Je" secondAttribute="bottom" id="ArO-lU-s0o"/>
                             <constraint firstItem="0in-Jj-3da" firstAttribute="top" secondItem="LkB-rm-O2r" secondAttribute="bottom" constant="8" id="GXB-Mf-3gF"/>
                             <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="FhZ-nz-eje" secondAttribute="bottom" constant="8" id="Hn9-vO-0YW"/>
                             <constraint firstItem="FhZ-nz-eje" firstAttribute="leading" secondItem="kIG-1p-Bmy" secondAttribute="trailing" constant="24" id="LBf-7A-ls1"/>
+                            <constraint firstItem="fhq-Kf-8Je" firstAttribute="centerY" secondItem="0in-Jj-3da" secondAttribute="centerY" constant="0.5" id="PHp-WH-ZXx"/>
                             <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="kIG-1p-Bmy" secondAttribute="bottom" constant="8" id="QuD-Ge-2G8"/>
                             <constraint firstItem="0in-Jj-3da" firstAttribute="leading" secondItem="OxQ-rE-EIi" secondAttribute="leadingMargin" id="Rjs-9h-exk"/>
+                            <constraint firstItem="fhq-Kf-8Je" firstAttribute="centerY" secondItem="rDx-43-fzM" secondAttribute="centerY" id="Sc5-qw-FpH"/>
                             <constraint firstItem="fNv-3A-s3M" firstAttribute="leading" secondItem="FhZ-nz-eje" secondAttribute="trailing" constant="24" id="Spd-eo-cKG"/>
                             <constraint firstItem="7Y8-vq-hWD" firstAttribute="top" secondItem="LkB-rm-O2r" secondAttribute="bottom" constant="8" id="Zdl-dy-d6N"/>
                             <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="0sb-MW-Vvt" secondAttribute="bottom" constant="8" id="cpA-TI-0cc"/>
                             <constraint firstItem="7Y8-vq-hWD" firstAttribute="trailing" secondItem="OxQ-rE-EIi" secondAttribute="trailingMargin" id="fya-r8-RUo"/>
                             <constraint firstAttribute="centerX" secondItem="Hw6-M1-ksL" secondAttribute="centerX" id="g23-ac-NAr"/>
+                            <constraint firstItem="7Y8-vq-hWD" firstAttribute="leading" secondItem="fhq-Kf-8Je" secondAttribute="trailing" constant="8" id="gL8-pt-49W"/>
                             <constraint firstItem="Hw6-M1-ksL" firstAttribute="top" secondItem="9FM-CR-JmR" secondAttribute="bottom" constant="8" id="h8Y-od-LLx"/>
                             <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="fNv-3A-s3M" secondAttribute="bottom" constant="8" id="iJd-w1-TN5"/>
                             <constraint firstItem="0j3-AV-6d9" firstAttribute="top" secondItem="kfw-JN-L5G" secondAttribute="bottom" constant="8" id="oVI-Lz-9Ge"/>
                             <constraint firstItem="FhZ-nz-eje" firstAttribute="top" secondItem="Hw6-M1-ksL" secondAttribute="bottom" constant="8" id="pu9-dZ-FZM"/>
+                            <constraint firstItem="fhq-Kf-8Je" firstAttribute="centerX" secondItem="rDx-43-fzM" secondAttribute="centerX" id="rdG-Yq-cNq"/>
                             <constraint firstItem="0sb-MW-Vvt" firstAttribute="leading" secondItem="OxQ-rE-EIi" secondAttribute="leadingMargin" id="sHI-qp-u9O"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="ArO-lU-s0o"/>
                                 <exclude reference="1qN-kW-FlF"/>
                             </mask>
                         </variation>
@@ -250,6 +268,8 @@
                         <outlet property="currentTimeLabel" destination="0in-Jj-3da" id="rBT-1d-aAj"/>
                         <outlet property="maxTimeLabel" destination="7Y8-vq-hWD" id="JbK-2L-XaD"/>
                         <outlet property="playPauseButton" destination="FhZ-nz-eje" id="1df-T4-cEJ"/>
+                        <outlet property="progressBarDownload" destination="rDx-43-fzM" id="tdi-Zv-MoO"/>
+                        <outlet property="progressBarPlayback" destination="fhq-Kf-8Je" id="ayp-Qr-FG1"/>
                         <outlet property="shuffleSwitch" destination="kfw-JN-L5G" id="B8I-xy-Faa"/>
                         <outlet property="titleLabel" destination="Hw6-M1-ksL" id="9So-aX-KPI"/>
                     </connections>
