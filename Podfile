@@ -4,3 +4,4 @@
 pod "VK-ios-sdk"
 pod 'Realm'
 pod ‘AFNetworking’
+pod 'SDWebImage', '~>3.7'
