@@ -64,14 +64,24 @@ class EPCache: NSObject {
                 }
             }
         }
-        
         //create a new one now
         
         track.isCached = true
         track.URLString = newPath
-        
+        if let artworkToSave = track.artworkUIImage {
+            println("artwork downloaded, trying to add to cache too")
+            track.addArtworkImage(artworkToSave)
+
+        } else {
+            println("artwork is missing trying to download")
+            EPHTTPManager.getAlbumCoverImage(track, completion: { (result, image) -> Void in
+                if result {
+                    track.addArtworkImage(image)
+                }
+            })
+        }
         RLMRealm.defaultRealm().beginWriteTransaction()
-        RLMRealm.defaultRealm().addObject(track)
+        RLMRealm.defaultRealm().addOrUpdateObject(track)
         RLMRealm.defaultRealm().commitWriteTransaction()
         
         result = true
@@ -133,14 +143,19 @@ class EPCache: NSObject {
         }
     }
     
-    class func cacheDirectory() -> (String) {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
-        return documentsPath.stringByAppendingPathComponent("cache")
+    class func artworkDirectory() -> (String) {
+        let downloadPath = downloadDirectory()
+        return downloadPath.stringByAppendingPathComponent("artwork")
     }
     
     class func downloadDirectory() -> (String) {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
         return documentsPath.stringByAppendingPathComponent("download")
+    }
+    
+    class func cacheDirectory() -> (String) {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
+        return documentsPath.stringByAppendingPathComponent("cache")
     }
     
     class func cacheEnabled() -> (Bool) {
@@ -153,16 +168,10 @@ class EPCache: NSObject {
 
     class func performStartChecks() {
         println("EPCache perform start checks")
-        EPCache.checkDownloadDirectory()
-        EPCache.checkCacheDirectory()
-    }
-    
-    class func checkDownloadDirectory() {
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.downloadDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.downloadDirectory())
-    }
-    
-    class func checkCacheDirectory() {
+        EPCache.checkDirectoryExistsCreateIfNot(EPCache.artworkDirectory())
+        EPCache.listFilesInDirectoryWithPath(EPCache.artworkDirectory())
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.cacheDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.cacheDirectory())
     }
@@ -177,12 +186,28 @@ class EPCache: NSObject {
         }
     }
     
-    class func checkTrackFileExistsInCache(track:EPTrack) -> Bool {
-        return NSFileManager.defaultManager().fileExistsAtPath(pathForTrackToCache(track))
-    }
     
     class func checkTrackFileExistsInDownload(track:EPTrack) -> Bool {
         return NSFileManager.defaultManager().fileExistsAtPath(pathForTrackToSave(track))
+    }
+    
+    
+    class func pathForTrackToSave(track:EPTrack) -> (String) {
+        return EPCache.downloadDirectory().stringByAppendingPathComponent("\(track.ID).mp3")
+    }
+    
+    class func trackCoverImageIfExists(track:EPTrack) -> (UIImage?) {
+        if let image = UIImage(contentsOfFile: pathForTrackArtwork(track)) {
+            println("retrieving image for track \(track.artist) - \(track.title)")
+            return image
+        } else {
+            return nil
+        }
+        
+    }
+    
+    class func pathForTrackArtwork(track:EPTrack) -> (String) {
+        return EPCache.downloadDirectory().stringByAppendingPathComponent("artwork").stringByAppendingPathComponent("\(track.ID).jpg")
     }
     
     class func listFilesInDirectoryWithPath (path:String) {
@@ -195,16 +220,8 @@ class EPCache: NSObject {
         for url in enumerator.allObjects {
             
             println("\(count) : \(url)")
-
+            
             count++
         }
-    }
-    
-    class func pathForTrackToCache(track:EPTrack) -> (String) {
-        return EPCache.cacheDirectory().stringByAppendingPathComponent("\(track.ID).mp3")
-    }
-    
-    class func pathForTrackToSave(track:EPTrack) -> (String) {
-        return EPCache.downloadDirectory().stringByAppendingPathComponent("\(track.ID).mp3")
     }
 }

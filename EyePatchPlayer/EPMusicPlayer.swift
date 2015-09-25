@@ -21,6 +21,7 @@ protocol EPMusicPlayerDelegate {
     func playbackStatusUpdate(playbackStatus:PlaybackStatus)
     func playbackTrackUpdate()
     func trackCachedWithResult(result: Bool)
+    func trackRetrievedArtworkImage(image: UIImage)
 }
 
 class EPMusicPlayer: NSObject {
@@ -61,6 +62,8 @@ class EPMusicPlayer: NSObject {
     
     func setTrack(track:EPTrack) {
         
+        self.activeTrack.clearArtworkImage()
+        
         if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
             println("cache found")
             activeTrack = cachedTrackInstance as EPTrack
@@ -79,20 +82,40 @@ class EPMusicPlayer: NSObject {
 //                println("FILE IS MISSING at path, cannot play")
             }
             
+            if let trackArtwork = activeTrack.artworkImage() {
+                self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                self.configureNowPlayingInfo()
+            } else {
+                if EPSettings.shouldDownloadArtwork() {
+                    EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image) -> Void in
+                        if result {
+                            self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                            self.configureNowPlayingInfo()
+                        }
+                    })
+                }
+            }
+            
         } else {
 //            println("attempting to play from web")
+            if EPSettings.shouldDownloadArtwork() {
+                EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image) -> Void in
+                    if result {
+                        self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                        self.configureNowPlayingInfo()
+                    }
+                })
+            }
             self.audioStream!.playFromURL(activeTrack.URL())
         }
         
         if EPSettings.shouldBroadcastStatus() { self.VKBroadcastTrack() }
         if EPSettings.shoulScrobbleWithLastFm() { /*scrobble with LastFm */ }
-        if EPSettings.shouldDownloadArtwork() {
         
-        }
         //should be performed by a separate class
         self.configureNowPlayingInfo()
         
-        resetTimer()
+            resetTimer()
         
         self.delegate?.playbackTrackUpdate()
     }
@@ -276,12 +299,15 @@ class EPMusicPlayer: NSObject {
         newInfo[MPMediaItemPropertyArtist] = activeTrack.artist
         newInfo[MPMediaItemPropertyPlaybackDuration] = activeTrack.duration
         newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
-//        newInfo[MPMediaItemPropertyArtwork]
+
+        if let artworkImage = activeTrack.artworkImage() {
+            let artwork = MPMediaItemArtwork(image: artworkImage)
+            newInfo[MPMediaItemPropertyArtwork] = artwork
+        }
         
         info.nowPlayingInfo = newInfo as [NSObject : AnyObject]
-        
     }
-    
+
     func playerItemDidReachEnd(notification: NSNotification) {
         println("song finished playing")
     }

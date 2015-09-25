@@ -18,7 +18,9 @@ class EPTrack: RLMObject {
     dynamic var ID: Int = 0
     dynamic var URLString: String = ""
     dynamic var isCached = false
-    dynamic var artworkImage:UIImage?
+    private dynamic var isArtworkCached = false
+    
+    var artworkUIImage: UIImage?
     
     class func initWithResponse(response: NSDictionary) -> EPTrack {
         var track = EPTrack()
@@ -48,6 +50,46 @@ class EPTrack: RLMObject {
         return result
     }
     
+    func artworkImage() -> UIImage? {
+        
+        if (self.artworkUIImage != nil) {
+            return self.artworkUIImage
+        } else if self.isCached && self.isArtworkCached {
+            if let artworkImage = EPCache.trackCoverImageIfExists(self) {
+                self.artworkUIImage = artworkImage
+                return self.artworkUIImage
+            }
+
+        }
+        return nil
+    }
+    
+    func clearArtworkImage() {
+        println("clearArtworkImage - \(self.title)")
+        self.artworkUIImage = nil
+    }
+    
+    func addArtworkImage(image:UIImage) {
+        self.artworkUIImage = image
+        
+        if self.isCached && !self.isArtworkCached {
+            let artworkImageData = UIImageJPEGRepresentation(image, 1.0)
+            println(EPCache.pathForTrackArtwork(self))
+            if artworkImageData.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
+                println("caching artwork for cached track")
+                RLMRealm.defaultRealm().beginWriteTransaction()
+                self.isArtworkCached = true
+                RLMRealm.defaultRealm().addOrUpdateObject(self)
+                RLMRealm.defaultRealm().commitWriteTransaction()
+            } else {
+                println("failed to cache artwork")
+            }
+            
+        } else {
+
+        }
+    }
+    
     func URL() -> NSURL {
         if (isCached){
             return NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self))!
@@ -71,15 +113,11 @@ class EPTrack: RLMObject {
         return track
     }
     
-//    class func initWithEPRLMTrack(RLMTrack:EPRLMTrack) -> EPTrack {
-//        var track = EPTrack()
-//        
-//        track.title = RLMTrack.title
-//        track.artist = RLMTrack.artist
-//        track.duration = RLMTrack.duration
-//        
-//        return track
-//    }
+    override class func ignoredProperties() -> [AnyObject]? {
+        return ["artworkUIImage"]
+    }
     
-
+    override class func primaryKey() -> String {
+        return "ID"
+    }
 }

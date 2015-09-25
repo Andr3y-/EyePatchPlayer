@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        
 //        VKSdk.forceLogout()
 //        println("logged out")
         EPCache.performStartChecks()
@@ -28,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
+        
+        
         
         return true
     }

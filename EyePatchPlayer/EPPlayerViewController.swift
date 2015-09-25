@@ -70,8 +70,8 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
             println("removal requested")
             break
         default:
-            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result) -> Void in
-                if result {
+            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result, track) -> Void in
+                if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
                     self.trackCachedWithResult(true)
                 } else {
                     self.trackCachedWithResult(false)
@@ -126,11 +126,22 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         }
     }
     
-    func updateUIForNewTrack(){
+    func trackRetrievedArtworkImage(image: UIImage) {
+        println("trackRetrievedArtworkImage")
+        setArtworkImage(image)
         UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.albumArtImageView.alpha = 0.0
+            self.albumArtImageView.alpha = 1.0
         })
-        
+    }
+    
+    func updateUIForNewTrack(){
+        if EPMusicPlayer.sharedInstance.activeTrack.artworkImage() == nil {
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                self.albumArtImageView.alpha = 0.0
+            })
+        } else {
+            setArtworkImage(EPMusicPlayer.sharedInstance.activeTrack.artworkImage()!)
+        }
         
         self.currentTimeLabel.text = "00:00"
         self.maxTimeLabel.text = timeInSecondsToString(EPMusicPlayer.sharedInstance.activeTrack.duration)
@@ -150,23 +161,14 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
             self.progressBarDownload.setProgress(0, animated: false)
             break
         }
-        EPHTTPManager.getAlbumCoverURL((EPMusicPlayer.sharedInstance.activeTrack), completion: { (result, url) -> Void in
-            if (result) {
-                SDWebImageManager.sharedManager().downloadImageWithURL(url, options: nil, progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
-                    if isDownloaded {
-                        self.albumArtImageView.image = downloadedImage
-                        UIView.animateWithDuration(0.2, animations: { () -> Void in
-                            self.albumArtImageView.alpha = 1.0
-                        })
-                    }
-                    
-                })
-                self.albumArtImageView.sd_setImageWithURL(url)
-            } else {
-                
-            }
-        })
+
         println("updateUIForNewTrack - complete")
+    }
+    
+    func setArtworkImage(image:UIImage) {
+        UIView.transitionWithView(self.albumArtImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+            self.albumArtImageView.image = image
+        }, completion: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
