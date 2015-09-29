@@ -87,8 +87,8 @@ class EPMusicPlayer: NSObject {
                 self.configureNowPlayingInfo()
             } else {
                 if EPSettings.shouldDownloadArtwork() {
-                    EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image) -> Void in
-                        if result {
+                    EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image, trackID) -> Void in
+                        if result && trackID == self.activeTrack.ID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                             self.configureNowPlayingInfo()
                         }
@@ -99,8 +99,8 @@ class EPMusicPlayer: NSObject {
         } else {
 //            println("attempting to play from web")
             if EPSettings.shouldDownloadArtwork() {
-                EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image) -> Void in
-                    if result {
+                EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image, trackID) -> Void in
+                    if result == true && trackID == self.activeTrack.ID {
                         self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                         self.configureNowPlayingInfo()
                     }

@@ -74,7 +74,7 @@ class EPCache: NSObject {
 
         } else {
             println("artwork is missing trying to download")
-            EPHTTPManager.getAlbumCoverImage(track, completion: { (result, image) -> Void in
+            EPHTTPManager.getAlbumCoverImage(track, completion: { (result, image, trackID) -> Void in
                 if result {
                     track.addArtworkImage(image)
                 }

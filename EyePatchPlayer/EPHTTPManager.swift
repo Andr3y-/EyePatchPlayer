@@ -82,7 +82,7 @@ class EPHTTPManager: NSObject {
         }
     }
 
-    class func getAlbumCoverImage(track: EPTrack, completion: ((result : Bool, image:UIImage) -> Void)?) {
+    class func getAlbumCoverImage(track: EPTrack, completion: ((result : Bool, image:UIImage, trackID: Int) -> Void)?) {
         let manager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFJSONResponseSerializer()
         let parameters = "\(track.title) \(track.artist)"
@@ -93,18 +93,18 @@ class EPHTTPManager: NSObject {
                     if let resultsDict: AnyObject = searchResultsArray.firstObject {
                         if let resultsDictCast: NSDictionary = resultsDict as? NSDictionary {
                             if let URLString100x100 = resultsDictCast["artworkUrl100"] as? NSString {
-                                var url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: "600x600"))
+                                var url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString()))
                                 println(url)
                                 SDWebImageManager.sharedManager().downloadImageWithURL(url, options: nil, progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
                                     if isDownloaded {
                                         track.addArtworkImage(downloadedImage)
                                         if completion != nil {
-                                            completion! (result: true, image: downloadedImage)
+                                            completion! (result: true, image: downloadedImage, trackID: track.ID)
                                         }
                                         return
                                     } else {
                                         if completion != nil {
-                                            completion! (result: false, image: UIImage())
+                                            completion! (result: false, image: UIImage(), trackID: track.ID)
                                         }
                                     }
                                     
@@ -118,12 +118,12 @@ class EPHTTPManager: NSObject {
             }
             
             if completion != nil {
-                completion! (result: false, image: UIImage())
+                completion! (result: false, image: UIImage(),trackID: track.ID)
             }
             }) { (opeation, error) -> Void in
                 println("album art iTunes request failed")
                 if completion != nil {
-                    completion! (result: false, image: UIImage())
+                    completion! (result: false, image: UIImage(),trackID: track.ID)
                 }
         }
     }

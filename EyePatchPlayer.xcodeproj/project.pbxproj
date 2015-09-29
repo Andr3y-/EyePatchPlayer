@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41A8BA21BB98B9D00AED0E2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C41A8BA11BB98B9D00AED0E2 /* README.md */; };
 		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
-		C41CDBA11BB1C19B00EF6C03 /* TODOList in Resources */ = {isa = PBXBuildFile; fileRef = C41CDBA01BB1C19B00EF6C03 /* TODOList */; };
 		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
 		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
@@ -70,8 +70,8 @@
 		233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3206828384CD05A837AA9BE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C41A8BA11BB98B9D00AED0E2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerRemoteManager.swift; sourceTree = "<group>"; };
-		C41CDBA01BB1C19B00EF6C03 /* TODOList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODOList; sourceTree = "<group>"; };
 		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
 		C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettings.swift; sourceTree = "<group>"; };
 		C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 		C489EAC31BA83D1D00D788E0 /* EyePatchPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				C41CDBA01BB1C19B00EF6C03 /* TODOList */,
+				C41A8BA11BB98B9D00AED0E2 /* README.md */,
 				C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */,
 				C489EB0B1BA9861100D788E0 /* Model */,
 				C489EAF91BA865B200D788E0 /* UI */,
@@ -492,7 +492,6 @@
 			files = (
 				C489EACE1BA83D1D00D788E0 /* Main.storyboard in Resources */,
 				C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */,
-				C41CDBA11BB1C19B00EF6C03 /* TODOList in Resources */,
 				C489EAD01BA83D1D00D788E0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,6 +572,7 @@
 				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
 				C4FCB39F1BAC672E00197746 /* stream_configuration.cpp in Sources */,
 				C4FCB3A51BAC672E00197746 /* FSPlaylistItem.m in Sources */,
+				C41A8BA21BB98B9D00AED0E2 /* README.md in Sources */,
 				C4FCB3AC1BAC680C00197746 /* Reachability.m in Sources */,
 				C4FCB3991BAC672E00197746 /* caching_stream.cpp in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
