@@ -48,7 +48,7 @@ class EPMusicPlayer: NSObject {
     
     private(set) internal var activeTrack: EPTrack = EPTrack() {
         didSet {
-           println("activeTrack didSet: \(activeTrack.artist) - \(activeTrack.title)\n\(activeTrack.URL())")
+           print("activeTrack didSet: \(activeTrack.artist) - \(activeTrack.title)\n\(activeTrack.URL())")
         }
     }
     
@@ -65,10 +65,10 @@ class EPMusicPlayer: NSObject {
         self.activeTrack.clearArtworkImage()
         
         if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
-            println("cache found")
+            print("cache found")
             activeTrack = cachedTrackInstance as EPTrack
         } else {
-            println("no cache found")
+            print("no cache found")
             activeTrack = track
         }
         
@@ -82,7 +82,7 @@ class EPMusicPlayer: NSObject {
 //                println("FILE IS MISSING at path, cannot play")
             }
             
-            if let trackArtwork = activeTrack.artworkImage() {
+            if let _ = activeTrack.artworkImage() {
                 self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                 self.configureNowPlayingInfo()
             } else {
@@ -130,7 +130,7 @@ class EPMusicPlayer: NSObject {
     }
     
     func setupStream() {
-        println("stream setup for a first time")
+        print("stream setup for a first time")
         self.audioStream = nil
         self.audioStream = FSAudioStream()
         self.audioStream?.configuration.maxDiskCacheSize = Int32(EPCache.maxDiskCacheSize())
@@ -157,12 +157,12 @@ class EPMusicPlayer: NSObject {
     }
     
     func VKBroadcastTrack() {
-        println("broadcasting track")
+        print("broadcasting track")
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(activeTrack.ownerID)_\(activeTrack.ID)"], andHttpMethod: "GET")
         broadcastRequest.executeWithResultBlock({ (response) -> Void in
-            println("broadcasting track success result: \(response)")
+            print("broadcasting track success result: \(response)")
         }, errorBlock: { (error) -> Void in
-            println(error)
+            print(error)
         })
     }
     
@@ -178,13 +178,13 @@ class EPMusicPlayer: NSObject {
     
     //togglePlayPause
     func togglePlayPause() {
-        println("togglePlayPause")
+        print("togglePlayPause")
         if (self.audioStream!.isPlaying()) {
-            println("pausing")
+            print("pausing")
             self.audioStream!.pause()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
         } else {
-            println("playing")
+            print("playing")
             self.audioStream!.pause()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
@@ -201,7 +201,7 @@ class EPMusicPlayer: NSObject {
     }
     
     func forward() {
-        println("forward called")
+        print("forward called")
         var index: Int?
         for i in (0...self.playlist.tracks.count-1) {
             if self.playlist.tracks[i].ID == activeTrack.ID {
@@ -218,12 +218,12 @@ class EPMusicPlayer: NSObject {
                 setTrack(self.playlist.tracks[indexFound+1])
             }
         } else {
-            println("index not found in a playlist")
+            print("index not found in a playlist")
         }
     }
     
     func forwardRandom() {
-        println("forward random")
+        print("forward random")
                 
         if (self.playlist.tracks.count > 0){
             setTrack(self.playlist.tracks[Int(arc4random_uniform(UInt32(self.playlist.tracks.count)))])
@@ -240,7 +240,7 @@ class EPMusicPlayer: NSObject {
     }
     
     func backward() {
-        println("backward called")
+        print("backward called")
         var index: Int?
         for i in (0...self.playlist.tracks.count-1) {
             if self.playlist.tracks[i].ID == activeTrack.ID {
@@ -257,7 +257,7 @@ class EPMusicPlayer: NSObject {
                 setTrack(self.playlist.tracks[indexFound-1])
             }
         } else {
-            println("index not found in a playlist")
+            print("index not found in a playlist")
         }
     }
     
@@ -291,8 +291,8 @@ class EPMusicPlayer: NSObject {
     }
     
     func configureNowPlayingInfo() {
-        var info = MPNowPlayingInfoCenter.defaultCenter()
-        var newInfo = NSMutableDictionary()
+        let info = MPNowPlayingInfoCenter.defaultCenter()
+        let newInfo = NSMutableDictionary()
 //        let itemProperties:NSSet = NSSet(objects: MPMediaItemPropertyTitle, MPMediaItemPropertyArtist, MPMediaItemPropertyPlaybackDuration, MPNowPlayingInfoPropertyElapsedPlaybackTime)
         
         newInfo[MPMediaItemPropertyTitle] = activeTrack.title
@@ -305,11 +305,11 @@ class EPMusicPlayer: NSObject {
             newInfo[MPMediaItemPropertyArtwork] = artwork
         }
         
-        info.nowPlayingInfo = newInfo as [NSObject : AnyObject]
+        info.nowPlayingInfo = newInfo as? [String : AnyObject]
     }
 
     func playerItemDidReachEnd(notification: NSNotification) {
-        println("song finished playing")
+        print("song finished playing")
     }
     
 

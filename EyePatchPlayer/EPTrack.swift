@@ -23,7 +23,7 @@ class EPTrack: RLMObject {
     var artworkUIImage: UIImage?
     
     class func initWithResponse(response: NSDictionary) -> EPTrack {
-        var track = EPTrack()
+        let track = EPTrack()
         
 //        println("EPTrack: initWithResponse\n\(response)")
         
@@ -40,12 +40,14 @@ class EPTrack: RLMObject {
     }
     
     func hasFileAtPath() -> Bool {
-        var result = NSFileManager.defaultManager().fileExistsAtPath(self.URL().path!)
+        let result = NSFileManager.defaultManager().fileExistsAtPath(self.URL().path!)
         var error: NSError?
-        if let attr:NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(self.URL().path!, error: &error) {
-            println("fileSize: \(attr.fileSize())")
-        } else {
-            println("unable to retrieve a fileSize, \(error?.description)")
+        do {
+            let attr:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(self.URL().path!)
+            print("fileSize: \(attr.fileSize())")
+        } catch let error1 as NSError {
+            error = error1
+            print("unable to retrieve a fileSize, \(error?.description)")
         }
         return result
     }
@@ -65,7 +67,7 @@ class EPTrack: RLMObject {
     }
     
     func clearArtworkImage() {
-        println("clearArtworkImage - \(self.title)")
+        print("clearArtworkImage - \(self.title)")
         self.artworkUIImage = nil
     }
     
@@ -74,15 +76,15 @@ class EPTrack: RLMObject {
         
         if self.isCached && !self.isArtworkCached {
             let artworkImageData = UIImageJPEGRepresentation(image, 1.0)
-            println(EPCache.pathForTrackArtwork(self))
-            if artworkImageData.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
-                println("caching artwork for cached track")
+            print(EPCache.pathForTrackArtwork(self))
+            if artworkImageData!.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
+                print("caching artwork for cached track")
                 RLMRealm.defaultRealm().beginWriteTransaction()
                 self.isArtworkCached = true
                 RLMRealm.defaultRealm().addOrUpdateObject(self)
                 RLMRealm.defaultRealm().commitWriteTransaction()
             } else {
-                println("failed to cache artwork")
+                print("failed to cache artwork")
             }
             
         } else {
@@ -92,7 +94,7 @@ class EPTrack: RLMObject {
     
     func URL() -> NSURL {
         if (isCached){
-            return NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self))!
+            return NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self))
         } else {
             return NSURL(string: URLString)!
         }
@@ -100,7 +102,7 @@ class EPTrack: RLMObject {
     }
     
     override func copy() -> AnyObject {
-        var track = EPTrack()
+        let track = EPTrack()
         
         track.title = self.title
         track.artist = self.artist

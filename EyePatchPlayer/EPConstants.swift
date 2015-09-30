@@ -12,5 +12,5 @@ struct EPConstantsClass{
 }
 
 func log(logMessage: String, functionName: String = __FUNCTION__) {
-    println("\(functionName): \(logMessage)")
+    print("\(functionName): \(logMessage)")
 }

@@ -46,7 +46,14 @@ class EPCache: NSObject {
         if newPath != filePath {
             
             //file needs to be moved to a right folder
-            let moveResult = NSFileManager.defaultManager().moveItemAtPath(filePath, toPath: newPath, error: &error)
+            let moveResult: Bool
+            do {
+                try NSFileManager.defaultManager().moveItemAtPath(filePath, toPath: newPath)
+                moveResult = true
+            } catch let error1 as NSError {
+                error = error1
+                moveResult = false
+            }
             
             if moveResult {
                 
@@ -58,7 +65,7 @@ class EPCache: NSObject {
                 
                 if let unwrappedError = error {
                     
-                    println("addTrackToCacheWithFileAtPath\nmoving file failed, error:\n\(unwrappedError.description)")
+                    print("addTrackToCacheWithFileAtPath\nmoving file failed, error:\n\(unwrappedError.description)")
                     
                     return false
                 }
@@ -69,11 +76,11 @@ class EPCache: NSObject {
         track.isCached = true
         track.URLString = newPath
         if let artworkToSave = track.artworkUIImage {
-            println("artwork downloaded, trying to add to cache too")
+            print("artwork downloaded, trying to add to cache too")
             track.addArtworkImage(artworkToSave)
 
         } else {
-            println("artwork is missing trying to download")
+            print("artwork is missing trying to download")
             EPHTTPManager.getAlbumCoverImage(track, completion: { (result, image, trackID) -> Void in
                 if result {
                     track.addArtworkImage(image)
@@ -86,13 +93,13 @@ class EPCache: NSObject {
         
         result = true
         NSNotificationCenter.defaultCenter().postNotificationName("TrackCached", object: track)
-        println("added track to storage")
+        print("added track to storage")
         
         return result
     }
     
     class func addTrackToDownloadWithFileData(track:EPTrack, data: NSData) -> (Bool) {
-        var result: Bool = false
+        let result: Bool = false
         
         //check if already exists,
         
@@ -100,8 +107,20 @@ class EPCache: NSObject {
     }
     
     class func deleteTrackFromDownload(track:EPTrack) -> (Bool) {
-        var result: Bool = NSFileManager.defaultManager().removeItemAtPath(pathForTrackToSave(track), error: nil)
-        var result2: Bool = NSFileManager.defaultManager().removeItemAtPath(pathForTrackArtwork(track), error: nil)
+        var result: Bool
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(pathForTrackToSave(track))
+            result = true
+        } catch _ {
+            result = false
+        }
+        var result2: Bool
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(pathForTrackArtwork(track))
+            result2 = true
+        } catch _ {
+            result2 = false
+        }
         
         if let trackRLM = trackCachedInstanceForTrack(track) {
             RLMRealm.defaultRealm().beginWriteTransaction()
@@ -122,16 +141,16 @@ class EPCache: NSObject {
         } else if (existingObjects.count == 1){
             //object already cached and is contained now in existing objects
             //handle? perhaps, replace track with retrieved cached instance and return true
-            let trackRLM: RLMObjectType? = existingObjects.firstObject()
+            let trackRLM: RLMObject? = existingObjects.firstObject()
             if let track: EPTrack = trackRLM as? EPTrack {
-                println("trackCachedInstanceForTrack: \(track.artist) - \(track.title)\nlocated at: \(track.URL())")
+                print("trackCachedInstanceForTrack: \(track.artist) - \(track.title)\nlocated at: \(track.URL())")
                 return track
             } else {
                 return nil
             }
             
         } else {
-            println("non unique result")
+            print("non unique result")
             return nil
         }
     }
@@ -146,16 +165,16 @@ class EPCache: NSObject {
     
     class func artworkDirectory() -> (String) {
         let downloadPath = downloadDirectory()
-        return downloadPath.stringByAppendingPathComponent("artwork")
+        return (downloadPath as NSString).stringByAppendingPathComponent("artwork")
     }
     
     class func downloadDirectory() -> (String) {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         return documentsPath.stringByAppendingPathComponent("download")
     }
     
     class func cacheDirectory() -> (String) {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         return documentsPath.stringByAppendingPathComponent("cache")
     }
     
@@ -168,7 +187,7 @@ class EPCache: NSObject {
     }
 
     class func performStartChecks() {
-        println("EPCache perform start checks")
+        print("EPCache perform start checks")
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.downloadDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.downloadDirectory())
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.artworkDirectory())
@@ -182,8 +201,11 @@ class EPCache: NSObject {
         if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory:&isDir) {
             // exists, no action needed
         } else {
-            // file does not exist
-            NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+            do {
+                // file does not exist
+                try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+            } catch _ {
+            }
         }
     }
     
@@ -194,12 +216,12 @@ class EPCache: NSObject {
     
     
     class func pathForTrackToSave(track:EPTrack) -> (String) {
-        return EPCache.downloadDirectory().stringByAppendingPathComponent("\(track.ID).mp3")
+        return (EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("\(track.ID).mp3")
     }
     
     class func trackCoverImageIfExists(track:EPTrack) -> (UIImage?) {
         if let image = UIImage(contentsOfFile: pathForTrackArtwork(track)) {
-            println("retrieving image for track \(track.artist) - \(track.title)")
+            print("retrieving image for track \(track.artist) - \(track.title)")
             return image
         } else {
             return nil
@@ -208,11 +230,11 @@ class EPCache: NSObject {
     }
     
     class func pathForTrackArtwork(track:EPTrack) -> (String) {
-        return EPCache.downloadDirectory().stringByAppendingPathComponent("artwork").stringByAppendingPathComponent("\(track.ID).jpg")
+        return ((EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("artwork") as NSString).stringByAppendingPathComponent("\(track.ID).jpg")
     }
     
     class func listFilesInDirectoryWithPath (path:String) {
-        println("listFilesInDirectoryWithPath: \(path)")
+        print("listFilesInDirectoryWithPath: \(path)")
         let fileManager = NSFileManager.defaultManager()
         let enumerator:NSDirectoryEnumerator = fileManager.enumeratorAtPath(path)!
         var count = 1
@@ -220,7 +242,7 @@ class EPCache: NSObject {
         
         for url in enumerator.allObjects {
             
-            println("\(count) : \(url)")
+            print("\(count) : \(url)")
             
             count++
         }

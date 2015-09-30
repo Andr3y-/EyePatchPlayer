@@ -34,7 +34,7 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell? = self.playlistsTableView.dequeueReusableCellWithIdentifier("CellIdentifier") as? UITableViewCell
+        var cell: UITableViewCell? = self.playlistsTableView.dequeueReusableCellWithIdentifier("CellIdentifier")
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CellIdentifier")
@@ -57,7 +57,7 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
                     self.performSegueWithIdentifier("seguePlaylist", sender: selectedText)
 
                 default:
-                    println("unhandled selection of cell with text: \(selectedText)")
+                    print("unhandled selection of cell with text: \(selectedText)")
                     deselectRow()
             }
         }
@@ -69,17 +69,17 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
         case "seguePlaylist":
             switch sender as! String {
                 case "My":
-                    println("segueing to playlist (My)")
+                    print("segueing to playlist (My)")
                     let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
-                    destinationViewController.userID = VKSdk.getAccessToken().userId.toInt()!
+                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
                 default:
-                    println("segueing to playlist (Friend)")
+                    print("segueing to playlist (Friend)")
                     let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
-                    destinationViewController.userID = VKSdk.getAccessToken().userId.toInt()!
+                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
             }
             
         default:
-            println()
+            print("")
         }
     }
     
@@ -89,8 +89,8 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func deselectRow() {
-        if (self.playlistsTableView.indexPathForSelectedRow() != nil) {
-            self.playlistsTableView.deselectRowAtIndexPath(self.playlistsTableView.indexPathForSelectedRow()!, animated: true)
+        if (self.playlistsTableView.indexPathForSelectedRow != nil) {
+            self.playlistsTableView.deselectRowAtIndexPath(self.playlistsTableView.indexPathForSelectedRow!, animated: true)
         }
     }
 }

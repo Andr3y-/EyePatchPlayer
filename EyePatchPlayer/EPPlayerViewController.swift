@@ -35,20 +35,23 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         self.becomeFirstResponder()
     }
     
-    override func remoteControlReceivedWithEvent(event: UIEvent) {
-        println("remoteControlReceivedWithEvent\(event.description)")
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+        guard let event = event else {
+            return
+        }
+        print("remoteControlReceivedWithEvent\(event.description)")
         
         switch event.subtype {
             case UIEventSubtype.RemoteControlTogglePlayPause:
-                println("RemoteControlTogglePlayPause")
+                print("RemoteControlTogglePlayPause")
                 EPMusicPlayer.sharedInstance.togglePlayPause()
                 break;
             case UIEventSubtype.RemoteControlPreviousTrack:
-                println("RemoteControlPreviousTrack")
+                print("RemoteControlPreviousTrack")
                 EPMusicPlayer.sharedInstance.playPrevSong()
                 break;
             case UIEventSubtype.RemoteControlNextTrack:
-                println("RemoteControlNextTrack")
+                print("RemoteControlNextTrack")
                 EPMusicPlayer.sharedInstance.playNextSong()
                 break;
             case UIEventSubtype.RemoteControlPause:
@@ -58,7 +61,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
                 EPMusicPlayer.sharedInstance.togglePlayPause()
             break;
             default:
-                println("UIEventSubtype default")
+                print("UIEventSubtype default")
                 break;
                 
         }
@@ -67,7 +70,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
         case true:
             self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-            println("removal requested")
+            print("removal requested")
             break
         default:
             EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result, track) -> Void in
@@ -100,7 +103,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     }
     
     func playbackStatusUpdate(playbackStatus: PlaybackStatus) {
-        println("playerViewController: playbackStatusUpdate")
+        print("playerViewController: playbackStatusUpdate")
         switch playbackStatus {
         case PlaybackStatus.Play:
             self.playPauseButton.setTitle("Play", forState: UIControlState.Normal)
@@ -114,7 +117,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     }
     
     func playbackTrackUpdate() {
-        println("playerViewController: playbackTrackUpdate")
+        print("playerViewController: playbackTrackUpdate")
         updateUIForNewTrack()
     }
     
@@ -127,7 +130,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     }
     
     func trackRetrievedArtworkImage(image: UIImage) {
-        println("trackRetrievedArtworkImage")
+        print("trackRetrievedArtworkImage")
         setArtworkImage(image)
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.albumArtImageView.alpha = 1.0
@@ -162,7 +165,7 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
             break
         }
 
-        println("updateUIForNewTrack - complete")
+        print("updateUIForNewTrack - complete")
     }
     
     func setArtworkImage(image:UIImage) {

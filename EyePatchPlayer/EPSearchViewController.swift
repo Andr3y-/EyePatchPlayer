@@ -38,7 +38,7 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.playlistTableView.alpha = 1
             })
-            println("loadedTracks.count = \(self.playlist.tracks.count)")
+            print("loadedTracks.count = \(self.playlist.tracks.count)")
 
             }, errorBlock: { (error) -> Void in
                 
@@ -56,7 +56,7 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func handleTrackCached(notification: NSNotification) {
-        println("handleTrackCached")
+        print("handleTrackCached")
         if let track: EPTrack = notification.object as? EPTrack {
             self.playlist.tracks.append(track)
             self.playlistTableView.reloadData()
@@ -86,7 +86,7 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        println(searchText)
+        print(searchText)
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
             if searchText == self.searchBar.text{
@@ -101,7 +101,7 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier") as? UITableViewCell
+        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell?
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "CellIdentifier")
@@ -132,11 +132,11 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "seguePlayer":
-            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
+//            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
             
             EPMusicPlayer.sharedInstance.playTrackFromPlaylist(sender as! EPTrack, playlist: self.playlist)
         default:
-            println("unknown segue")
+            print("unknown segue")
         }
     }
     

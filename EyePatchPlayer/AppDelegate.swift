@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        VKSdk.forceLogout()
 //        println("logged out")
         EPCache.performStartChecks()
-        println("realm DB location: \(RLMRealm.defaultRealm().path)" )
+        print("realm DB location: \(RLMRealm.defaultRealm().path)" )
         if false {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().deleteAllObjects()
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         VKSdk.processOpenURL(url, fromApplication: sourceApplication)
         return true
     }

@@ -25,11 +25,11 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
         if (VKSdk.wakeUpSession())
         {
             //Start working
-            println("vk logged in")
+            print("vk logged in")
         }
         
         if (!VKSdk.isLoggedIn()){
-            println("vk is not logged in")
+            print("vk is not logged in")
 //            VKSdk.authorize([VK_PER_STATS, VK_PER_EMAIL,VK_PER_FRIENDS], revokeAccess: true)
             VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
         }
@@ -58,7 +58,7 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
     
     func vkSdkShouldPresentViewController(controller: UIViewController!) {
         self.presentViewController(controller, animated: true) { () -> Void in
-            println("vk finished presenting controller")
+            print("vk finished presenting controller")
         }
     }
     
@@ -69,10 +69,10 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
             initializationRequest.executeWithResultBlock({
                 (response) -> Void in
                 let JSON = response.json as! NSArray
-                println(JSON)
+                print(JSON)
                 
              }, errorBlock: { (error) -> Void in
-                println("error\(error)")
+                print("error\(error)")
              })
     
         }

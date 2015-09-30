@@ -11,7 +11,7 @@ import MediaPlayer
 
 class EPMusicPlayerRemoteManager: NSObject {
     override init(){
-        println("EPMusicPlayerRemoteManager init")
+        print("EPMusicPlayerRemoteManager init")
     }
     
     //remote controls listener
@@ -24,6 +24,6 @@ class EPMusicPlayerRemoteManager: NSObject {
     }
     
     func remoteCommandReceived(object: MPRemoteCommandEvent) {
-        println("remote command received by a player object: \(object.command)")
+        print("remote command received by a player object: \(object.command)")
     }
 }

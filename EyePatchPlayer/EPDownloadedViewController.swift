@@ -33,11 +33,11 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     func loadData() {
         let cachedTracks = EPTrack.allObjects()
         
-        println("cachedTracks.count = \(cachedTracks.count)")
+        print("cachedTracks.count = \(cachedTracks.count)")
 //        println("\(cachedTracks)")
         for trackRLM in cachedTracks {
             if let track: EPTrack = trackRLM as? EPTrack {
-                println("track: \(track.artist) - \(track.title)")
+                print("track: \(track.artist) - \(track.title)")
             }
         }
         
@@ -60,7 +60,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func handleTrackCached(notification: NSNotification) {
-        println("handleTrackCached")
+        print("handleTrackCached")
         if let track: EPTrack = notification.object as? EPTrack {
             self.playlist.tracks.append(track)
             self.playlistTableView.reloadData()
@@ -71,7 +71,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
             let track: EPTrack
-            println(self.filteredSongs.count)
+            print(self.filteredSongs.count)
             if (self.filteredSongs.count > 0){
                 track = self.filteredSongs[indexPath.row] as! EPTrack
                 if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
@@ -79,7 +79,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
                 }
                 self.playlist.removeTrack(track)
                 filterSongsInArray()
-                println(self.filteredSongs.count)
+                print(self.filteredSongs.count)
             } else {
                 
                 track = self.playlist.tracks[indexPath.row]
@@ -103,8 +103,8 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        println(searchText)
-        if (count(searchText)>0){
+        print(searchText)
+        if (searchText.characters.count>0){
             
             filterSongsInArray()
             
@@ -131,7 +131,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier") as? UITableViewCell
+        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier")
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "CellIdentifier")
@@ -150,14 +150,19 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return count(searchBar.text) > 0 ? self.filteredSongs.count : self.playlist.tracks.count
+        guard let text =  searchBar.text else {
+            return 0
+        }
+        return text.characters.count > 0 ? self.filteredSongs.count : self.playlist.tracks.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let selectedTrack: EPTrack!
-        
-        if (count(self.searchBar.text) > 0){
+        guard let text = searchBar.text else {
+            return
+        }
+        if (text.characters.count > 0){
             selectedTrack = self.filteredSongs[indexPath.row] as! EPTrack
         } else {
             selectedTrack = self.playlist.tracks[indexPath.row]
@@ -169,11 +174,11 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "seguePlayer":
-            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
+//            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
             
             EPMusicPlayer.sharedInstance.playTrackFromPlaylist(sender as! EPTrack, playlist: self.playlist)
         default:
-            println("unknown segue")
+            print("unknown segue")
         }
     }
     

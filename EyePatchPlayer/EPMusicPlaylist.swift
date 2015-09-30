@@ -13,7 +13,7 @@ class EPMusicPlaylist: NSArray {
     var trackCount: Int = 0
     
     class func initWithResponse(response: NSDictionary) -> EPMusicPlaylist{
-        var playlist: EPMusicPlaylist = EPMusicPlaylist()
+        let playlist: EPMusicPlaylist = EPMusicPlaylist()
         
         playlist.trackCount = response["count"]!.integerValue
         
@@ -27,18 +27,18 @@ class EPMusicPlaylist: NSArray {
                 playlist.tracks.append(track)
             }
         } else {
-            println("response[\"items\" is empty]")
+            print("response[\"items\" is empty]")
         }
 
         
-        println("track count total: \(playlist.trackCount)")
-        println("track count loaded: \(playlist.tracks.count)")
+        print("track count total: \(playlist.trackCount)")
+        print("track count loaded: \(playlist.tracks.count)")
         
         return playlist
     }
     
     func removeTrack(track: EPTrack) -> Bool {
-        var result = false
+        let result = false
         
         for index in 0...self.tracks.count-1 {
             if self.tracks[index].ID == track.ID {
@@ -51,7 +51,7 @@ class EPMusicPlaylist: NSArray {
     }
     
     class func initWithRLMResults(results:RLMResults) -> EPMusicPlaylist {
-        var playlist: EPMusicPlaylist = EPMusicPlaylist()
+        let playlist: EPMusicPlaylist = EPMusicPlaylist()
 
         if (results.count > 0 ) {
             for trackRLM in results {
@@ -60,12 +60,12 @@ class EPMusicPlaylist: NSArray {
                 }
             }
         } else {
-            println("results[\"items\" is empty]")
+            print("results[\"items\" is empty]")
         }
         
         
-        println("track count total: \(playlist.trackCount)")
-        println("track count loaded: \(playlist.tracks.count)")
+        print("track count total: \(playlist.trackCount)")
+        print("track count loaded: \(playlist.tracks.count)")
     
         return playlist
     }

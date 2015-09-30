@@ -16,7 +16,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     var userID: Int = 0
     {
         didSet {
-            println("userID is set to \(userID)")
+            print("userID is set to \(userID)")
         }
         
     }
@@ -43,8 +43,8 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        println(searchText)
-        if (count(searchText)>0){
+        print(searchText)
+        if (searchText.characters.count>0){
         
         let predicate = NSPredicate(format: "artist contains[c] %@ OR title contains[c] %@", searchText, searchText) // if you need case sensitive search avoid '[c]' in the predicate
         let arrayCast =  self.playlist.tracks as NSArray
@@ -64,7 +64,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     
     func loadData() {
         if userID != 0 {
-            println("loading playlist of a user with ID: \(userID)")
+            print("loading playlist of a user with ID: \(userID)")
             
             let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 2000, "need_user" : 0], andHttpMethod: "GET")
             audioRequest.executeWithResultBlock({ (response) -> Void in
@@ -87,7 +87,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier") as? UITableViewCell
+        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier")
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "CellIdentifier")
@@ -106,14 +106,19 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return count(searchBar.text) > 0 ? self.filteredSongs.count : self.playlist.tracks.count
+        guard let text = searchBar.text else {
+            return 0
+        }
+        return text.characters.count > 0 ? self.filteredSongs.count : self.playlist.tracks.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let selectedTrack: EPTrack!
-        
-        if (count(self.searchBar.text) > 0){
+        guard let text = searchBar.text else {
+            return
+        }
+        if (text.characters.count > 0){
             selectedTrack = self.filteredSongs[indexPath.row] as! EPTrack
         } else {
             selectedTrack = self.playlist.tracks[indexPath.row]
@@ -129,7 +134,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
 
             EPMusicPlayer.sharedInstance.playTrackFromPlaylist(sender as! EPTrack, playlist: self.playlist)
         default:
-            println("unknown segue")
+            print("unknown segue")
         }
     }
     

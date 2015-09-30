@@ -15,29 +15,29 @@ class EPHTTPManager: NSObject {
     var downloadingTracks = NSMutableArray()
     
     class func downloadTrack(track: EPTrack, completion: ((result : Bool, track: EPTrack) -> Void)?, progressBlock: ((progressValue: Float) -> Void)?) {
-        println("downoadTrack called")
+        print("downoadTrack called")
         
-        var trackCopy = track.copy() as! EPTrack
+        let trackCopy = track.copy() as! EPTrack
         
         for trackEnum in EPHTTPManager.sharedInstance.downloadingTracks {
             if (trackCopy.ID == trackEnum.ID) {
-                println("track is already downloading")
+                print("track is already downloading")
                 return
             }
         }
         
         EPHTTPManager.sharedInstance.downloadingTracks.addObject(track)
-        var downloadOperation = AFHTTPRequestOperationManager().GET(trackCopy.URLString, parameters: nil, success: { (operation, responseObject) -> Void in
-            println("download successful")
+        let downloadOperation = AFHTTPRequestOperationManager().GET(trackCopy.URLString, parameters: nil, success: { (operation, responseObject) -> Void in
+            print("download successful")
             
             EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
             
             var fileSize : UInt64
-            var attr:NSDictionary? = NSFileManager.defaultManager().attributesOfItemAtPath(EPCache.pathForTrackToSave(trackCopy), error: nil)
+            let attr:NSDictionary? = try? NSFileManager.defaultManager().attributesOfItemAtPath(EPCache.pathForTrackToSave(trackCopy))
             if let _attr = attr {
                 fileSize = _attr.fileSize()
                 if fileSize > 0 && EPCache.addTrackToDownloadWithFileAtPath(trackCopy, filePath: EPCache.pathForTrackToSave(trackCopy)) {
-                    println("file saved, size: \(fileSize)")
+                    print("file saved, size: \(fileSize)")
                     track.isCached = true
                     if completion != nil {
                         completion! (result: true, track: trackCopy)
@@ -57,7 +57,7 @@ class EPHTTPManager: NSObject {
             
             
         }) { (operation, responseObject) -> Void in
-            println("download unsuccessful")
+            print("download unsuccessful")
             if completion != nil {
                 completion! (result: false, track: trackCopy)
             }
@@ -76,9 +76,9 @@ class EPHTTPManager: NSObject {
         downloadOperation?.resume()
         
         if downloadOperation != nil && downloadOperation?.isPaused() == false {
-            println("download started")
+            print("download started")
         } else {
-            println("download failed to start")
+            print("download failed to start")
         }
     }
 
@@ -87,15 +87,15 @@ class EPHTTPManager: NSObject {
         manager.responseSerializer = AFJSONResponseSerializer()
         let parameters = "\(track.title) \(track.artist)"
         manager.GET("https://itunes.apple.com/search", parameters: ["term" : parameters], success: { (operation, response) -> Void in
-            println(response)
+            print(response)
             if let searchResults:AnyObject = response["results"] {
                 if let searchResultsArray: NSArray = searchResults as? NSArray {
                     if let resultsDict: AnyObject = searchResultsArray.firstObject {
                         if let resultsDictCast: NSDictionary = resultsDict as? NSDictionary {
                             if let URLString100x100 = resultsDictCast["artworkUrl100"] as? NSString {
-                                var url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString()))
-                                println(url)
-                                SDWebImageManager.sharedManager().downloadImageWithURL(url, options: nil, progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
+                                let url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString()))
+                                print(url)
+                                SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
                                     if isDownloaded {
                                         track.addArtworkImage(downloadedImage)
                                         if completion != nil {
@@ -112,16 +112,16 @@ class EPHTTPManager: NSObject {
                             }
                         }
                     } else {
-                        println("no results for album artwork")
+                        print("no results for album artwork")
                     }
                 }
             }
-            
+                        
             if completion != nil {
                 completion! (result: false, image: UIImage(),trackID: track.ID)
             }
             }) { (opeation, error) -> Void in
-                println("album art iTunes request failed")
+                print("album art iTunes request failed")
                 if completion != nil {
                     completion! (result: false, image: UIImage(),trackID: track.ID)
                 }
