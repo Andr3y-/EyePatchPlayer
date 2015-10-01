@@ -200,6 +200,6 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         EPMusicPlayer.sharedInstance.playPrevSong()
     }
     @IBAction func switchChangeValue(sender: UISwitch) {
-        EPMusicPlayer.sharedInstance.shuffleOn = sender.on
+        EPMusicPlayer.sharedInstance.playlist.shuffleOn = sender.on
     }
 }

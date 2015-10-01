@@ -16,14 +16,6 @@ enum PlaybackStatus {
     case Unknown
 }
 
-protocol EPMusicPlayerDelegate {
-    func playbackProgressUpdate(currentTime:Int, bufferedPercent:Double)
-    func playbackStatusUpdate(playbackStatus:PlaybackStatus)
-    func playbackTrackUpdate()
-    func trackCachedWithResult(result: Bool)
-    func trackRetrievedArtworkImage(image: UIImage)
-}
-
 class EPMusicPlayer: NSObject {
     
     //delegate
@@ -31,7 +23,7 @@ class EPMusicPlayer: NSObject {
     
     //singleton
     static let sharedInstance = EPMusicPlayer()
-    var shuffleOn: Bool = true
+//    var shuffleOn: Bool = true
     //progress update frequency
     let updateProgressFrequency = 0.1
     var updateProgressTimer: NSTimer?
@@ -193,73 +185,23 @@ class EPMusicPlayer: NSObject {
     
     //forward
     func playNextSong() {
-        if (self.shuffleOn){
-            self.forwardRandom()
-        } else {
-            self.forward()
+        guard let nextTrack = self.playlist.nextTrack() else {
+            //handle no previous track found
+            return
         }
+        setTrack(nextTrack)
     }
-    
-    func forward() {
-        print("forward called")
-        var index: Int?
-        for i in (0...self.playlist.tracks.count-1) {
-            if self.playlist.tracks[i].ID == activeTrack.ID {
-                index = i
-                break
-            }
-        }
-        
-        if let indexFound = index {
-            if indexFound == self.playlist.tracks.count-1 {
-                //last item, cannot forward
-                
-            } else {
-                setTrack(self.playlist.tracks[indexFound+1])
-            }
-        } else {
-            print("index not found in a playlist")
-        }
-    }
-    
-    func forwardRandom() {
-        print("forward random")
-                
-        if (self.playlist.tracks.count > 0){
-            setTrack(self.playlist.tracks[Int(arc4random_uniform(UInt32(self.playlist.tracks.count)))])
-        }
-    }
+
     
     //backward
     func playPrevSong() {
-        if (self.shuffleOn){
-            self.forwardRandom()
-        } else {
-            self.backward()
+        guard let previousTrack = self.playlist.previousTrack() else {
+            //handle no previous track found
+            return
         }
+        setTrack(previousTrack)
     }
     
-    func backward() {
-        print("backward called")
-        var index: Int?
-        for i in (0...self.playlist.tracks.count-1) {
-            if self.playlist.tracks[i].ID == activeTrack.ID {
-                index = i
-                break
-            }
-        }
-        
-        if let indexFound = index {
-            if indexFound == 0 {
-                //first item, cannot backward
-                
-            } else {
-                setTrack(self.playlist.tracks[indexFound-1])
-            }
-        } else {
-            print("index not found in a playlist")
-        }
-    }
     
     //updating playback progress as well as download progress
     func updateProgress() {

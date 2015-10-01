@@ -70,7 +70,7 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
             
             track = self.playlist.tracks[indexPath.row]
             if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                EPMusicPlayer.sharedInstance.forward()
+                EPMusicPlayer.sharedInstance.playNextSong()
             }
             self.playlist.tracks.removeAtIndex(indexPath.row)
                 

@@ -75,7 +75,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
             if (self.filteredSongs.count > 0){
                 track = self.filteredSongs[indexPath.row] as! EPTrack
                 if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                    EPMusicPlayer.sharedInstance.forward()
+                    EPMusicPlayer.sharedInstance.playNextSong()
                 }
                 self.playlist.removeTrack(track)
                 filterSongsInArray()
@@ -84,7 +84,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
                 
                 track = self.playlist.tracks[indexPath.row]
                 if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                    EPMusicPlayer.sharedInstance.forward()
+                    EPMusicPlayer.sharedInstance.playNextSong()
                 }
                 self.playlist.tracks.removeAtIndex(indexPath.row)
                 

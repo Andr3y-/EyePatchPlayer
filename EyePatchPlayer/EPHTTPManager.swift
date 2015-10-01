@@ -87,13 +87,19 @@ class EPHTTPManager: NSObject {
         manager.responseSerializer = AFJSONResponseSerializer()
         let parameters = "\(track.title) \(track.artist)"
         manager.GET("https://itunes.apple.com/search", parameters: ["term" : parameters], success: { (operation, response) -> Void in
-            print(response)
+//            print(response)
             if let searchResults:AnyObject = response["results"] {
                 if let searchResultsArray: NSArray = searchResults as? NSArray {
                     if let resultsDict: AnyObject = searchResultsArray.firstObject {
                         if let resultsDictCast: NSDictionary = resultsDict as? NSDictionary {
                             if let URLString100x100 = resultsDictCast["artworkUrl100"] as? NSString {
-                                let url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString()))
+                                guard let url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString())) else {
+                                    print("url is null")
+                                    if completion != nil {
+                                        completion! (result: false, image: UIImage(), trackID: track.ID)
+                                    }
+                                    return
+                                }
                                 print(url)
                                 SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
                                     if isDownloaded {
