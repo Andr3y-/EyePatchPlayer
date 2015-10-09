@@ -114,12 +114,12 @@ class EPCache: NSObject {
         } catch _ {
             result = false
         }
-        var result2: Bool
+//        var result2: Bool
         do {
             try NSFileManager.defaultManager().removeItemAtPath(pathForTrackArtwork(track))
-            result2 = true
+//            result2 = true
         } catch _ {
-            result2 = false
+//            result2 = false
         }
         
         if let _ = trackCachedInstanceForTrack(track) {
@@ -156,7 +156,7 @@ class EPCache: NSObject {
     }
     
     class func cacheStatusForTrack(track:EPTrack) -> (Bool) {
-        if let trackInstance = trackCachedInstanceForTrack(track) {
+        if let _ = trackCachedInstanceForTrack(track) {
             return true
         } else {
             return false
@@ -238,7 +238,6 @@ class EPCache: NSObject {
         let fileManager = NSFileManager.defaultManager()
         let enumerator:NSDirectoryEnumerator = fileManager.enumeratorAtPath(path)!
         var count = 1
-        var file: String
         
         for url in enumerator.allObjects {
             

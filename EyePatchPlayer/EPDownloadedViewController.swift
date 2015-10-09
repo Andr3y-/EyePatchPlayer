@@ -10,7 +10,7 @@ import UIKit
 
 class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    @IBOutlet weak var playlistTableView: EPPlaylistTableView!
+    @IBOutlet weak var playlistTableView: UITableView!
     
     var searchBar: UISearchBar!
     var playlist: EPMusicPlaylist = EPMusicPlaylist()

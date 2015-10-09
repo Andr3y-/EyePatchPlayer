@@ -48,7 +48,7 @@ class EPMusicPlayerRemoteManager: NSObject {
     
     func configureNowPlayingInfo(track: EPTrack?) {
         let info = MPNowPlayingInfoCenter.defaultCenter()
-        let newInfo = NSMutableDictionary()
+        var newInfo = [String : AnyObject]()
         let newTrack:EPTrack!
         
         if let _ = track {
@@ -67,6 +67,6 @@ class EPMusicPlayerRemoteManager: NSObject {
             newInfo[MPMediaItemPropertyArtwork] = artwork
         }
         
-        info.nowPlayingInfo = newInfo as? [String : AnyObject]
+        info.nowPlayingInfo = newInfo
     }
 }

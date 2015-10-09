@@ -11,7 +11,7 @@ import UIKit
 class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     var searchBar: UISearchBar!
-    @IBOutlet weak var playlistTableView: EPPlaylistTableView!
+    @IBOutlet weak var playlistTableView: UITableView!
     
     var user: EPFriend?
     var userID: Int = 0
