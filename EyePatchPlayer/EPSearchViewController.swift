@@ -87,12 +87,18 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            if searchText == self.searchBar.text{
-                self.loadData()
-            }
-            
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+//        dispatch_after(delayTime, dispatch_get_main_queue()) {
+//            if searchText == self.searchBar.text{
+//                self.loadData()
+//            }
+//            
+//        }
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if let searchText = searchBar.text where searchText.characters.count > 0 {
+            self.loadData()
         }
     }
     

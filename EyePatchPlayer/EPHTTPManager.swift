@@ -14,6 +14,20 @@ class EPHTTPManager: NSObject {
 
     var downloadingTracks = NSMutableArray()
     
+    class func VKBroadcastTrack(track: EPTrack) {
+        print("broadcasting track")
+        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
+        broadcastRequest.executeWithResultBlock({ (response) -> Void in
+            print("broadcasting track success result: \(response)")
+            }, errorBlock: { (error) -> Void in
+                print(error)
+        })
+    }
+    
+    class func scrobbleTrack(track: EPTrack) {
+        
+    }
+    
     class func downloadTrack(track: EPTrack, completion: ((result : Bool, track: EPTrack) -> Void)?, progressBlock: ((progressValue: Float) -> Void)?) {
         print("downoadTrack called")
         

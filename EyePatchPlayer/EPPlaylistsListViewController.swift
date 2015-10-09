@@ -10,13 +10,13 @@ import UIKit
 
 class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var playlistsTableView: EPPlaylistsListTableView!
+    @IBOutlet weak var playlistsTableView: UITableView!
     
     var playlists = ["My", "Friends"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        log("EPPlaylistsListViewController")
+        log("Lists Loaded")
         
         self.playlistsTableView.delegate = self
         self.playlistsTableView.dataSource = self
@@ -55,7 +55,10 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
             switch selectedText {
                 case "My":
                     self.performSegueWithIdentifier("seguePlaylist", sender: selectedText)
-
+                break
+                case "Friends":
+                    self.performSegueWithIdentifier("segueFriendList", sender: selectedText)
+                break
                 default:
                     print("unhandled selection of cell with text: \(selectedText)")
                     deselectRow()
@@ -72,14 +75,27 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
                     print("segueing to playlist (My)")
                     let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
                     destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
-                default:
-                    print("segueing to playlist (Friend)")
-                    let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
+                    break
+                
+                case "Friends":
+                    print("segueing to Friends list")
+                    let destinationViewController = segue.destinationViewController as! EPFriendListViewController
                     destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+                    break
+                
+                default:
+                    print("segueing to ...)")
+//                    let destinationViewController = segue.destinationViewController as! EPFriendListViewController
+//                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
             }
+        case "segueFriendList":
+            let destinationViewController = segue.destinationViewController as! EPFriendListViewController
+            destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+            break
             
         default:
             print("")
+            break;
         }
     }
     

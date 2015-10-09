@@ -9,10 +9,17 @@ DONE:
 - [x] Album Covers in App & on the Lock Screen
 - [x] Reworked shuffle to have a separate playlist (of ID') instead which is infinite for switching tracks
 - [x] EPMusicPlayerDelegate as a separate class for code clarity
+- [x] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
+- [x] Friends' Playlists
+- [x] Pause when headphones are disconnected, resume when headphones are connected
 
 TODO:
 
-- [ ] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
+- [ ] Display cached status for tracks 
+- [ ] Show duration in the playlist
+- [ ] Ability to Edit Track (Title/Artist) for correct spelling
+- [ ] Ability to Add Search Results into a playlist
+- [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
 - [ ] Tracks from messages
 - [ ] Download Queue
 - [ ] Move elapsed time on Remote Control to UpdateProgress Method, perhaps, implement it in a separate class for code clarity
@@ -27,7 +34,6 @@ TODO:
 -   [ ] Status broadcast
 -   [ ] Cache Policy
 - [ ] Global Search
-- [ ] Friends Lists
 - [ ] Recommendations (based on a playlist/single song)
 - [ ] Extensively Visualised Playback Statistics
 - [ ] UI Improvements

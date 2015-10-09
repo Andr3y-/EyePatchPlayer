@@ -50,6 +50,7 @@ class EPMusicPlayer: NSObject {
         
         self.remoteManager = EPMusicPlayerRemoteManager()
         self.setupStream()
+        self.observeRouteChanges()
     }
     
     func setTrack(track:EPTrack) {
@@ -76,13 +77,13 @@ class EPMusicPlayer: NSObject {
             
             if let _ = activeTrack.artworkImage() {
                 self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                self.configureNowPlayingInfo()
+                self.remoteManager.configureNowPlayingInfo(activeTrack)
             } else {
                 if EPSettings.shouldDownloadArtwork() {
                     EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image, trackID) -> Void in
                         if result && trackID == self.activeTrack.ID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                            self.configureNowPlayingInfo()
+                            self.remoteManager.configureNowPlayingInfo(self.activeTrack)
                         }
                     })
                 }
@@ -94,18 +95,18 @@ class EPMusicPlayer: NSObject {
                 EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image, trackID) -> Void in
                     if result == true && trackID == self.activeTrack.ID {
                         self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                        self.configureNowPlayingInfo()
+                        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
                     }
                 })
             }
             self.audioStream!.playFromURL(activeTrack.URL())
         }
         
-        if EPSettings.shouldBroadcastStatus() { self.VKBroadcastTrack() }
-        if EPSettings.shoulScrobbleWithLastFm() { /*scrobble with LastFm */ }
+        if EPSettings.shouldBroadcastStatus() { EPHTTPManager.VKBroadcastTrack(self.activeTrack) }
+        if EPSettings.shoulScrobbleWithLastFm() { EPHTTPManager.scrobbleTrack(self.activeTrack) }
         
         //should be performed by a separate class
-        self.configureNowPlayingInfo()
+        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
         
             resetTimer()
         
@@ -136,26 +137,16 @@ class EPMusicPlayer: NSObject {
         self.audioStream?.onStateChange = { state in
             switch state {
             case .FsAudioStreamPlaying:
-                self.configureNowPlayingInfo()
+                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
                 break
             case .FsAudioStreamPaused:
-                self.configureNowPlayingInfo()
+                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
                 break
             default:
                 
                 break
             }
         }
-    }
-    
-    func VKBroadcastTrack() {
-        print("broadcasting track")
-        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(activeTrack.ownerID)_\(activeTrack.ID)"], andHttpMethod: "GET")
-        broadcastRequest.executeWithResultBlock({ (response) -> Void in
-            print("broadcasting track success result: \(response)")
-        }, errorBlock: { (error) -> Void in
-            print(error)
-        })
     }
     
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
@@ -180,7 +171,7 @@ class EPMusicPlayer: NSObject {
             self.audioStream!.pause()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
-        self.configureNowPlayingInfo()
+        self.remoteManager.configureNowPlayingInfo(activeTrack)
     }
     
     //forward
@@ -227,32 +218,75 @@ class EPMusicPlayer: NSObject {
         }
         
     }
-    
-    func availableDuration() -> NSTimeInterval {
-        return 0
+
+    func observeRouteChanges() {
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
     }
     
-    func configureNowPlayingInfo() {
-        let info = MPNowPlayingInfoCenter.defaultCenter()
-        let newInfo = NSMutableDictionary()
-//        let itemProperties:NSSet = NSSet(objects: MPMediaItemPropertyTitle, MPMediaItemPropertyArtist, MPMediaItemPropertyPlaybackDuration, MPNowPlayingInfoPropertyElapsedPlaybackTime)
-        
-        newInfo[MPMediaItemPropertyTitle] = activeTrack.title
-        newInfo[MPMediaItemPropertyArtist] = activeTrack.artist
-        newInfo[MPMediaItemPropertyPlaybackDuration] = activeTrack.duration
-        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
+    func routeChanged(notification:NSNotification) {
+        print("routeChanged")
+        if let userDict = notification.userInfo as? Dictionary<String, AnyObject> {
+            if let newValue = userDict[AVAudioSessionRouteChangeReasonKey] as? UInt{
+                let reason = AVAudioSessionRouteChangeReason(rawValue: newValue)
+                print(reason?.rawValue)
+                switch reason! {
+                case .NewDeviceAvailable:
+                    print("NewDeviceAvailable - connected")
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if self.audioStream!.isPlaying() == false {
+                            self.togglePlayPause()
+                        }
+                    }
+                    
+                    break
+                    
+                case .OldDeviceUnavailable:
+                    print("OldDeviceUnavailable - disconnected")
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if self.audioStream!.isPlaying() == true {
+                            self.togglePlayPause()
+                        }
+                    }
+                    
+                    break
+                    
+                default:
+                    
+                    break
+                }
 
-        if let artworkImage = activeTrack.artworkImage() {
-            let artwork = MPMediaItemArtwork(image: artworkImage)
-            newInfo[MPMediaItemPropertyArtwork] = artwork
+            }
         }
-        
-        info.nowPlayingInfo = newInfo as? [String : AnyObject]
     }
-
+    
+    
     func playerItemDidReachEnd(notification: NSNotification) {
         print("song finished playing")
     }
     
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

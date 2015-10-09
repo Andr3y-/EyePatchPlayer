@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C41A8BA21BB98B9D00AED0E2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C41A8BA11BB98B9D00AED0E2 /* README.md */; };
 		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
 		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
 		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
@@ -25,12 +24,13 @@
 		C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */; };
 		C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */; };
 		C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAFE1BA8698700D788E0 /* EPTrack.swift */; };
-		C489EB011BA869FA00D788E0 /* EPPlaylistsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB001BA869FA00D788E0 /* EPPlaylistsTableView.swift */; };
 		C489EB071BA86A5F00D788E0 /* EPPlaylistTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB061BA86A5F00D788E0 /* EPPlaylistTableView.swift */; };
 		C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */; };
 		C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */; };
 		C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */; };
 		C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */; };
+		C4C61DAC1BC6B8E800501EE1 /* EPFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */; };
+		C4C61DB11BC6D58A00501EE1 /* EPFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */; };
 		C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */; };
 		C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3C1BAC190800C950AA /* EPCache.swift */; };
 		C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3661BAC655700197746 /* CFNetwork.framework */; };
@@ -96,12 +96,13 @@
 		C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsViewController.swift; sourceTree = "<group>"; };
 		C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlaylist.swift; sourceTree = "<group>"; };
 		C489EAFE1BA8698700D788E0 /* EPTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrack.swift; sourceTree = "<group>"; };
-		C489EB001BA869FA00D788E0 /* EPPlaylistsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistsTableView.swift; sourceTree = "<group>"; };
 		C489EB061BA86A5F00D788E0 /* EPPlaylistTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistTableView.swift; sourceTree = "<group>"; };
 		C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistViewController.swift; sourceTree = "<group>"; };
 		C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerViewController.swift; sourceTree = "<group>"; };
 		C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerDelegate.swift; sourceTree = "<group>"; };
 		C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleArray.swift; sourceTree = "<group>"; };
+		C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPFriendListViewController.swift; sourceTree = "<group>"; };
+		C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPFriend.swift; sourceTree = "<group>"; };
 		C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayer.swift; sourceTree = "<group>"; };
 		C4E60D3C1BAC190800C950AA /* EPCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPCache.swift; sourceTree = "<group>"; };
 		C4FCB3661BAC655700197746 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -260,7 +261,7 @@
 		C489EAF81BA865A100D788E0 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				C489EB021BA86A0300D788E0 /* Playlists */,
+				C4C61DAA1BC6B7D100501EE1 /* Lists */,
 				C489EB031BA86A0900D788E0 /* Search */,
 				C489EB041BA86A1100D788E0 /* Downloaded */,
 				C489EB051BA86A1700D788E0 /* Settings */,
@@ -274,18 +275,10 @@
 				C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */,
 				C489EAF81BA865A100D788E0 /* Tabs */,
 				C489EB0E1BAAFF2A00D788E0 /* Player */,
+				C4C61DAD1BC6B8EB00501EE1 /* FriendList */,
 				C489EB0A1BA86C7600D788E0 /* Playlist */,
 			);
 			name = UI;
-			sourceTree = "<group>";
-		};
-		C489EB021BA86A0300D788E0 /* Playlists */ = {
-			isa = PBXGroup;
-			children = (
-				C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */,
-				C489EB001BA869FA00D788E0 /* EPPlaylistsTableView.swift */,
-			);
-			name = Playlists;
 			sourceTree = "<group>";
 		};
 		C489EB031BA86A0900D788E0 /* Search */ = {
@@ -332,6 +325,7 @@
 				C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */,
 				C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */,
 				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
+				C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -351,6 +345,22 @@
 				C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C4C61DAA1BC6B7D100501EE1 /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */,
+			);
+			name = Lists;
+			sourceTree = "<group>";
+		};
+		C4C61DAD1BC6B8EB00501EE1 /* FriendList */ = {
+			isa = PBXGroup;
+			children = (
+				C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */,
+			);
+			name = FriendList;
 			sourceTree = "<group>";
 		};
 		C4FCB3701BAC65A300197746 /* Libraries */ = {
@@ -560,7 +570,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4FCB3A01BAC672E00197746 /* FSAudioController.m in Sources */,
-				C489EB011BA869FA00D788E0 /* EPPlaylistsTableView.swift in Sources */,
 				C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */,
 				C4FCB39E1BAC672E00197746 /* input_stream.cpp in Sources */,
 				C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */,
@@ -571,6 +580,7 @@
 				C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */,
 				C4FCB3981BAC672E00197746 /* audio_stream.cpp in Sources */,
 				C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */,
+				C4C61DAC1BC6B8E800501EE1 /* EPFriendListViewController.swift in Sources */,
 				C4FCB3A21BAC672E00197746 /* FSCheckContentTypeRequest.m in Sources */,
 				C4FCB39B1BAC672E00197746 /* file_stream.cpp in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
@@ -581,6 +591,7 @@
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
 				C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */,
 				C4FCB39D1BAC672E00197746 /* id3_parser.cpp in Sources */,
+				C4C61DB11BC6D58A00501EE1 /* EPFriend.swift in Sources */,
 				C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
@@ -589,7 +600,6 @@
 				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
 				C4FCB39F1BAC672E00197746 /* stream_configuration.cpp in Sources */,
 				C4FCB3A51BAC672E00197746 /* FSPlaylistItem.m in Sources */,
-				C41A8BA21BB98B9D00AED0E2 /* README.md in Sources */,
 				C4FCB3AC1BAC680C00197746 /* Reachability.m in Sources */,
 				C4FCB3991BAC672E00197746 /* caching_stream.cpp in Sources */,
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,

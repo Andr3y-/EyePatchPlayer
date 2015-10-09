@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         
-        
-        
         return true
     }
 

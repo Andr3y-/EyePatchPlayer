@@ -13,6 +13,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     var searchBar: UISearchBar!
     @IBOutlet weak var playlistTableView: EPPlaylistTableView!
     
+    var user: EPFriend?
     var userID: Int = 0
     {
         didSet {
@@ -26,6 +27,13 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if self.userID == Int(VKSdk.getAccessToken().userId)! {
+            self.navigationItem.title = "My Music"
+        } else if let user = self.user {
+            self.navigationItem.title = user.firstName + "'s Music"
+        }
+        
         self.filteredSongs = NSMutableArray()
         self.playlistTableView.alpha = 0
         self.searchBar = UISearchBar(frame:CGRectMake(0, 0, 320, 44));
@@ -130,7 +138,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
             case "seguePlayer":
-            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
+//            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
 
             EPMusicPlayer.sharedInstance.playTrackFromPlaylist(sender as! EPTrack, playlist: self.playlist)
         default:

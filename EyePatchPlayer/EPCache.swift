@@ -122,7 +122,7 @@ class EPCache: NSObject {
             result2 = false
         }
         
-        if let trackRLM = trackCachedInstanceForTrack(track) {
+        if let _ = trackCachedInstanceForTrack(track) {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().deleteObject(track)
             RLMRealm.defaultRealm().commitWriteTransaction()

@@ -11,7 +11,11 @@ import UIKit
 class EPMusicPlaylist: NSArray {
     
     var tracks: [EPTrack] = []
-    private var shuffledTracks: [EPTrack] = []
+    private lazy var shuffledTracks: [EPTrack] = {
+        print("lazily loading shuffled playlist")
+        var shuffledTracksLazy = self.tracks.shuffle()
+        return shuffledTracksLazy
+    }()
     var trackCount: Int = 0
     var shuffleOn: Bool = true
     
