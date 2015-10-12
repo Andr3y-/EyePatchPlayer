@@ -30,42 +30,10 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.shuffleSwitch.setOn(EPMusicPlayer.sharedInstance.playlist.shuffleOn, animated: false)
         self.becomeFirstResponder()
     }
-    
-//    override func remoteControlReceivedWithEvent(event: UIEvent?) {
-//        guard let event = event else {
-//            return
-//        }
-//        print("remoteControlReceivedWithEvent\(event.description)")
-//        
-//        switch event.subtype {
-//            case UIEventSubtype.RemoteControlTogglePlayPause:
-//                print("RemoteControlTogglePlayPause")
-//                EPMusicPlayer.sharedInstance.togglePlayPause()
-//                break;
-//            case UIEventSubtype.RemoteControlPreviousTrack:
-//                print("RemoteControlPreviousTrack")
-//                EPMusicPlayer.sharedInstance.playPrevSong()
-//                break;
-//            case UIEventSubtype.RemoteControlNextTrack:
-//                print("RemoteControlNextTrack")
-//                EPMusicPlayer.sharedInstance.playNextSong()
-//                break;
-//            case UIEventSubtype.RemoteControlPause:
-//                EPMusicPlayer.sharedInstance.togglePlayPause()
-//                break;
-//            case UIEventSubtype.RemoteControlPlay:
-//                EPMusicPlayer.sharedInstance.togglePlayPause()
-//            break;
-//            default:
-//                print("UIEventSubtype default")
-//                break;
-//                
-//        }
-//    }
+
     @IBAction func cacheButtonTap(sender: AnyObject) {
         switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
         case true:

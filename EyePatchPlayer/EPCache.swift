@@ -154,12 +154,23 @@ class EPCache: NSObject {
             return nil
         }
     }
+
+//    static var cacheRetrievalExecutionTime:CFAbsoluteTime = 0
     
     class func cacheStatusForTrack(track:EPTrack) -> (Bool) {
-        if let _ = trackCachedInstanceForTrack(track) {
-            return true
-        } else {
+//        let startTime = CFAbsoluteTimeGetCurrent()
+
+        let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "ID = %d", track.ID))
+        
+//        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+//        print("cacheStatusForTrack Time: \(timeElapsed)")
+        
+//        cacheRetrievalExecutionTime += timeElapsed
+//        print("cacheStatusForTrack TotalTime: \(cacheRetrievalExecutionTime)")
+        if (existingObjects.count == 0) {
             return false
+        } else {
+            return true
         }
     }
     
@@ -241,7 +252,7 @@ class EPCache: NSObject {
         
         for url in enumerator.allObjects {
             
-            print("\(count) : \(url)")
+//            print("\(count) : \(url)")
             
             count++
         }

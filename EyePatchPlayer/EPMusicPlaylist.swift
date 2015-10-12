@@ -11,6 +11,8 @@ import UIKit
 class EPMusicPlaylist: NSArray {
     
     var tracks: [EPTrack] = []
+    var delegate:EPPlaylistDelegate?
+    
     private lazy var shuffledTracks: [EPTrack] = {
         print("lazily loading shuffled playlist")
         var shuffledTracksLazy = self.tracks.shuffle()
@@ -135,8 +137,7 @@ class EPMusicPlaylist: NSArray {
         
         playlist.trackCount = response["count"]!.integerValue
         
-        
-        
+//        EPCache.cacheRetrievalExecutionTime = 0
         if let JSONArray: NSArray = response["items"] as? NSArray {
             for trackJSON in JSONArray {
                 

@@ -54,63 +54,83 @@ class EPMusicPlayer: NSObject {
     }
     
     func setTrack(track:EPTrack) {
-        
-        self.activeTrack.clearArtworkImage()
-        
-        if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
-            print("cache found")
-            activeTrack = cachedTrackInstance as EPTrack
-        } else {
-            print("no cache found")
-            activeTrack = track
+        Performance.measure("chunk 1") { (finishBlock) -> () in
+            self.activeTrack.clearArtworkImage()
+            self.playlist.delegate?.playlistDidSetTrackActive(track)
+            finishBlock()
         }
         
-        self.setupStream()
         
-        if (activeTrack.isCached) {
-            if (activeTrack.hasFileAtPath()) {
-//                println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
-                self.audioStream!.playFromURL(activeTrack.URL())
+        
+        Performance.measure("chunk 2") { (finishBlock) -> () in
+            if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
+                print("cache found")
+                self.activeTrack = cachedTrackInstance as EPTrack
             } else {
-//                println("FILE IS MISSING at path, cannot play")
+                print("no cache found")
+                self.activeTrack = track
             }
-            
-            if let _ = activeTrack.artworkImage() {
-                self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                self.remoteManager.configureNowPlayingInfo(activeTrack)
+            finishBlock()
+        }
+        
+        Performance.measure("chunk 3") { (finishBlock) -> () in
+            //this method is taking a whole second to execute
+//            self.setupStream()
+            finishBlock()
+        }
+        
+        Performance.measure("chunk 4") { (finishBlock) -> () in
+            if (self.activeTrack.isCached) {
+                if (self.activeTrack.hasFileAtPath()) {
+                    //                println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
+                    self.playFromURL(self.activeTrack.URL())
+                } else {
+                    //                println("FILE IS MISSING at path, cannot play")
+                }
+                
+                if let _ = self.activeTrack.artworkImage() {
+                    self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                    self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+                } else {
+                    if EPSettings.shouldDownloadArtwork() {
+                        EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: { (result, image, trackID) -> Void in
+                            if result && trackID == self.activeTrack.ID {
+                                self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+                            }
+                        })
+                    }
+                }
+                
             } else {
+                //            println("attempting to play from web")
                 if EPSettings.shouldDownloadArtwork() {
-                    EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image, trackID) -> Void in
-                        if result && trackID == self.activeTrack.ID {
+                    EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: { (result, image, trackID) -> Void in
+                        if result == true && trackID == self.activeTrack.ID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                             self.remoteManager.configureNowPlayingInfo(self.activeTrack)
                         }
                     })
                 }
+                self.playFromURL(self.activeTrack.URL())
             }
-            
-        } else {
-//            println("attempting to play from web")
-            if EPSettings.shouldDownloadArtwork() {
-                EPHTTPManager.getAlbumCoverImage(activeTrack, completion: { (result, image, trackID) -> Void in
-                    if result == true && trackID == self.activeTrack.ID {
-                        self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-                    }
-                })
-            }
-            self.audioStream!.playFromURL(activeTrack.URL())
+            finishBlock()
         }
         
-        if EPSettings.shouldBroadcastStatus() { EPHTTPManager.VKBroadcastTrack(self.activeTrack) }
-        if EPSettings.shoulScrobbleWithLastFm() { EPHTTPManager.scrobbleTrack(self.activeTrack) }
+        Performance.measure("chunk 5") { (finishBlock) -> () in
+            if EPSettings.shouldBroadcastStatus() { EPHTTPManager.VKBroadcastTrack(self.activeTrack) }
+            if EPSettings.shoulScrobbleWithLastFm() { EPHTTPManager.scrobbleTrack(self.activeTrack) }
+            
+            //should be performed by a separate class
+            self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+            
+            self.resetTimer()
+            
+            self.delegate?.playbackTrackUpdate()
+            finishBlock()
+        }
         
-        //should be performed by a separate class
-        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
         
-            resetTimer()
-        
-        self.delegate?.playbackTrackUpdate()
     }
     
     func resetTimer() {
@@ -121,6 +141,113 @@ class EPMusicPlayer: NSObject {
         updateProgressTimer = NSTimer.scheduledTimerWithTimeInterval(updateProgressFrequency, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
 
     }
+    
+    
+    
+    func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
+        if (track.ID != activeTrack.ID){
+            setTrack(track)
+        }
+        
+        self.playlist = playlist
+    }
+    
+    
+    
+    //togglePlayPause
+    func togglePlayPause() {
+        print("togglePlayPause")
+        if (self.isPlaying()) {
+            print("pausing")
+            self.pause()
+            self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
+        } else {
+            print("playing")
+            self.pause()
+            self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
+        }
+        self.remoteManager.configureNowPlayingInfo(activeTrack)
+    }
+    
+    //forward
+    func playNextSong() {
+        guard let nextTrack = self.playlist.nextTrack() else {
+            //handle no previous track found
+            return
+        }
+        setTrack(nextTrack)
+    }
+
+    
+    //backward
+    func playPrevSong() {
+        guard let previousTrack = self.playlist.previousTrack() else {
+            //handle no previous track found
+            return
+        }
+        setTrack(previousTrack)
+    }
+    
+    
+    
+
+    func observeRouteChanges() {
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
+    }
+    
+    func routeChanged(notification:NSNotification) {
+        print("routeChanged")
+        if let userDict = notification.userInfo as? Dictionary<String, AnyObject> {
+            if let newValue = userDict[AVAudioSessionRouteChangeReasonKey] as? UInt{
+                let reason = AVAudioSessionRouteChangeReason(rawValue: newValue)
+                print(reason?.rawValue)
+                switch reason! {
+                case .NewDeviceAvailable:
+                    print("NewDeviceAvailable - connected")
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if self.isPlaying() == false {
+                            self.togglePlayPause()
+                        }
+                    }
+                    
+                    break
+                    
+                case .OldDeviceUnavailable:
+                    print("OldDeviceUnavailable - disconnected")
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if self.isPlaying() == true {
+                            self.togglePlayPause()
+                        }
+                    }
+                    
+                    break
+                    
+                default:
+                    
+                    break
+                }
+
+            }
+        }
+    }
+    
+    
+    func playerItemDidReachEnd(notification: NSNotification) {
+        print("song finished playing")
+    }
+    
+    //updating playback progress as well as download progress
+    func updateProgress() {
+        if self.isPlaying() {
+            let timeInSeconds = self.playbackTime()
+
+            self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), bufferedPercent: self.prebufferedPercent())
+            
+        }
+    }
+    
+    //player library interface
     
     func setupStream() {
         print("stream setup for a first time")
@@ -149,123 +276,41 @@ class EPMusicPlayer: NSObject {
         }
     }
     
-    func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
-        if (track.ID != activeTrack.ID){
-            setTrack(track)
-        }
+    func prebufferedPercent() -> Double {
         
-        self.playlist = playlist
-    }
-    
-    
-    
-    //togglePlayPause
-    func togglePlayPause() {
-        print("togglePlayPause")
-        if (self.audioStream!.isPlaying()) {
-            print("pausing")
-            self.audioStream!.pause()
-            self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
+        var prebufferedPercent: Double = 0.0
+        
+        if self.audioStream?.cached == false {
+            if let contentSize = self.audioStream?.contentLength, contentDownloaded = self.audioStream?.prebufferedByteCount {
+                prebufferedPercent = Double(contentDownloaded) / Double(contentSize)
+            }
         } else {
-            print("playing")
-            self.audioStream!.pause()
-            self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
-        }
-        self.remoteManager.configureNowPlayingInfo(activeTrack)
-    }
-    
-    //forward
-    func playNextSong() {
-        guard let nextTrack = self.playlist.nextTrack() else {
-            //handle no previous track found
-            return
-        }
-        setTrack(nextTrack)
-    }
-
-    
-    //backward
-    func playPrevSong() {
-        guard let previousTrack = self.playlist.previousTrack() else {
-            //handle no previous track found
-            return
-        }
-        setTrack(previousTrack)
-    }
-    
-    
-    //updating playback progress as well as download progress
-    func updateProgress() {
-        if self.audioStream!.isPlaying() {
-            let timeInSeconds = self.audioStream!.currentTimePlayed.playbackTimeInSeconds
-//            println("timeInSeconds: \(timeInSeconds)")
-            
-            var prebufferedPercent: Double = 0.0
-            if self.audioStream?.cached == false {
-                if let contentSize = self.audioStream?.contentLength, contentDownloaded = self.audioStream?.prebufferedByteCount {
-                    prebufferedPercent = Double(contentDownloaded) / Double(contentSize)
-                }
-            } else {
-                prebufferedPercent = 1.0
-            }
-            self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), bufferedPercent: prebufferedPercent)
-            
-//            println("contentLength:        \(self.audioStream?.contentLength)")
-//            println("defaultContentLength: \(self.audioStream?.defaultContentLength)")
-//            println("prebufferedByteCount: \(self.audioStream?.prebufferedByteCount)")
-//            println("cached:               \(self.audioStream?.cached)")
-            
+            prebufferedPercent = 1.0
         }
         
-    }
-
-    func observeRouteChanges() {
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
+        return prebufferedPercent
     }
     
-    func routeChanged(notification:NSNotification) {
-        print("routeChanged")
-        if let userDict = notification.userInfo as? Dictionary<String, AnyObject> {
-            if let newValue = userDict[AVAudioSessionRouteChangeReasonKey] as? UInt{
-                let reason = AVAudioSessionRouteChangeReason(rawValue: newValue)
-                print(reason?.rawValue)
-                switch reason! {
-                case .NewDeviceAvailable:
-                    print("NewDeviceAvailable - connected")
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if self.audioStream!.isPlaying() == false {
-                            self.togglePlayPause()
-                        }
-                    }
-                    
-                    break
-                    
-                case .OldDeviceUnavailable:
-                    print("OldDeviceUnavailable - disconnected")
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if self.audioStream!.isPlaying() == true {
-                            self.togglePlayPause()
-                        }
-                    }
-                    
-                    break
-                    
-                default:
-                    
-                    break
-                }
-
-            }
-        }
+    func playbackTime() -> Float {
+        return self.audioStream!.currentTimePlayed.playbackTimeInSeconds
     }
     
     
-    func playerItemDidReachEnd(notification: NSNotification) {
-        print("song finished playing")
+    func playFromURL(url:NSURL) {
+        self.audioStream!.playFromURL(url)
     }
     
-
+    func pause() {
+        self.audioStream?.pause()
+    }
+    
+    func play() {
+        self.audioStream?.play()
+    }
+    
+    func isPlaying() -> Bool {
+        return self.audioStream!.isPlaying()
+    }
 }
 
 
