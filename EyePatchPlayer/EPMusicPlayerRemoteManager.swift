@@ -60,7 +60,7 @@ class EPMusicPlayerRemoteManager: NSObject {
         newInfo[MPMediaItemPropertyTitle] = newTrack.title
         newInfo[MPMediaItemPropertyArtist] = newTrack.artist
         newInfo[MPMediaItemPropertyPlaybackDuration] = newTrack.duration
-        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.audioStream!.currentTimePlayed.playbackTimeInSeconds
+        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
         
         if let artworkImage = newTrack.artworkImage() {
             let artwork = MPMediaItemArtwork(image: artworkImage)

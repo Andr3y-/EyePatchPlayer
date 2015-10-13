@@ -1,0 +1,1 @@
+STREAMINGKIT_OTHER_LDFLAGS = -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreFoundation" -framework "SystemConfiguration"

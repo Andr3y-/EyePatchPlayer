@@ -16,7 +16,7 @@ enum PlaybackStatus {
     case Unknown
 }
 
-class EPMusicPlayer: NSObject {
+class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     //delegate
     var delegate: EPMusicPlayerDelegate?
@@ -28,9 +28,8 @@ class EPMusicPlayer: NSObject {
     let updateProgressFrequency = 0.1
     var updateProgressTimer: NSTimer?
     //player
-    var audioStream: FSAudioStream?
-    var audioStreamLocal: FSAudioStream?
-//    var localPlayer: AVAudioPlayer?
+    var audioStreamSTK: STKAudioPlayer?
+
     //remote manager
     var remoteManager: EPMusicPlayerRemoteManager!
 
@@ -49,20 +48,14 @@ class EPMusicPlayer: NSObject {
         super.init()
         
         self.remoteManager = EPMusicPlayerRemoteManager()
-        self.setupStream()
+        self.setupStream(nil)
         self.observeRouteChanges()
     }
     
-    func setTrack(track:EPTrack) {
-        Performance.measure("chunk 1") { (finishBlock) -> () in
+    func setTrack(track:EPTrack, force:Bool) {
             self.activeTrack.clearArtworkImage()
             self.playlist.delegate?.playlistDidSetTrackActive(track)
-            finishBlock()
-        }
         
-        
-        
-        Performance.measure("chunk 2") { (finishBlock) -> () in
             if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
                 print("cache found")
                 self.activeTrack = cachedTrackInstance as EPTrack
@@ -70,22 +63,16 @@ class EPMusicPlayer: NSObject {
                 print("no cache found")
                 self.activeTrack = track
             }
-            finishBlock()
-        }
         
-        Performance.measure("chunk 3") { (finishBlock) -> () in
             //this method is taking a whole second to execute
 //            self.setupStream()
-            finishBlock()
-        }
         
-        Performance.measure("chunk 4") { (finishBlock) -> () in
             if (self.activeTrack.isCached) {
                 if (self.activeTrack.hasFileAtPath()) {
-                    //                println("HAS FILE AT PATH, attempting to play from cache:\n\(activeTrack.URL())")
+
                     self.playFromURL(self.activeTrack.URL())
                 } else {
-                    //                println("FILE IS MISSING at path, cannot play")
+
                 }
                 
                 if let _ = self.activeTrack.artworkImage() {
@@ -103,7 +90,6 @@ class EPMusicPlayer: NSObject {
                 }
                 
             } else {
-                //            println("attempting to play from web")
                 if EPSettings.shouldDownloadArtwork() {
                     EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: { (result, image, trackID) -> Void in
                         if result == true && trackID == self.activeTrack.ID {
@@ -114,21 +100,16 @@ class EPMusicPlayer: NSObject {
                 }
                 self.playFromURL(self.activeTrack.URL())
             }
-            finishBlock()
-        }
         
-        Performance.measure("chunk 5") { (finishBlock) -> () in
-            if EPSettings.shouldBroadcastStatus() { EPHTTPManager.VKBroadcastTrack(self.activeTrack) }
-            if EPSettings.shoulScrobbleWithLastFm() { EPHTTPManager.scrobbleTrack(self.activeTrack) }
-            
-            //should be performed by a separate class
-            self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-            
-            self.resetTimer()
-            
-            self.delegate?.playbackTrackUpdate()
-            finishBlock()
-        }
+        if EPSettings.shouldBroadcastStatus() { EPHTTPManager.VKBroadcastTrack(self.activeTrack) }
+        if EPSettings.shoulScrobbleWithLastFm() { EPHTTPManager.scrobbleTrack(self.activeTrack) }
+        
+        //should be performed by a separate class
+        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+        
+        self.resetTimer()
+        
+        self.delegate?.playbackTrackUpdate()
         
         
     }
@@ -146,7 +127,7 @@ class EPMusicPlayer: NSObject {
     
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
         if (track.ID != activeTrack.ID){
-            setTrack(track)
+            setTrack(track, force: false)
         }
         
         self.playlist = playlist
@@ -163,7 +144,7 @@ class EPMusicPlayer: NSObject {
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
         } else {
             print("playing")
-            self.pause()
+            self.play()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
         self.remoteManager.configureNowPlayingInfo(activeTrack)
@@ -175,7 +156,7 @@ class EPMusicPlayer: NSObject {
             //handle no previous track found
             return
         }
-        setTrack(nextTrack)
+        setTrack(nextTrack, force: false)
     }
 
     
@@ -185,7 +166,7 @@ class EPMusicPlayer: NSObject {
             //handle no previous track found
             return
         }
-        setTrack(previousTrack)
+        setTrack(previousTrack, force: false)
     }
     
     
@@ -249,41 +230,30 @@ class EPMusicPlayer: NSObject {
     
     //player library interface
     
-    func setupStream() {
+    func setupStream(options:STKAudioPlayerOptions?) {
         print("stream setup for a first time")
-        self.audioStream = nil
-        self.audioStream = FSAudioStream()
-        self.audioStream?.configuration.maxDiskCacheSize = Int32(EPCache.maxDiskCacheSize())
-        self.audioStream?.configuration.cacheDirectory = EPCache.cacheDirectory()
-        self.audioStream?.configuration.cacheEnabled = EPCache.cacheEnabled()
-        
-        self.audioStream?.onCompletion = {
-            self.playNextSong()
+        EPAudioSessionManager.initAudioSession()
+        if let options = options {
+            //with options init
+        print(options)
+//        self.audioStreamSTK = [[STKAudioPlayer alloc] initWithOptions:(STKAudioPlayerOptions){ .flushQueueOnSeek = YES, .enableVolumeMixer = NO, .equalizerBandFrequencies = {50, 100, 200, 400, 800, 1600, 2600, 16000} }];
+//        let playerOption: STKAudioPlayerOptions = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: false, equalizerBandFrequencies: (50, 100, 200, 400, 800, 1600, 2600, 16000))
+//        self.audioStreamSTK = STKAudioPlayer(options: (STKAudioPlayerOptions){.flushQueueOnSeek = true, .enableVolumeMixer = false, .equalizerBandFrequencies = {50, 100, 200, 400, 800, 1600, 2600, 16000} })
+        } else {
+            //no options init
+            self.audioStreamSTK = STKAudioPlayer()
         }
-        
-        self.audioStream?.onStateChange = { state in
-            switch state {
-            case .FsAudioStreamPlaying:
-                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-                break
-            case .FsAudioStreamPaused:
-                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-                break
-            default:
-                
-                break
-            }
-        }
+
+        self.audioStreamSTK!.meteringEnabled = true
+        self.audioStreamSTK!.volume = 1
+
     }
     
     func prebufferedPercent() -> Double {
-        
         var prebufferedPercent: Double = 0.0
         
-        if self.audioStream?.cached == false {
-            if let contentSize = self.audioStream?.contentLength, contentDownloaded = self.audioStream?.prebufferedByteCount {
-                prebufferedPercent = Double(contentDownloaded) / Double(contentSize)
-            }
+        if self.activeTrack.isCached == false {
+            prebufferedPercent = 0.0
         } else {
             prebufferedPercent = 1.0
         }
@@ -292,24 +262,110 @@ class EPMusicPlayer: NSObject {
     }
     
     func playbackTime() -> Float {
-        return self.audioStream!.currentTimePlayed.playbackTimeInSeconds
+        return Float(self.audioStreamSTK!.progress)
     }
     
     
     func playFromURL(url:NSURL) {
-        self.audioStream!.playFromURL(url)
+//        self.audioStream!.playFromURL(url)
+        self.audioStreamSTK?.playURL(url)
     }
     
     func pause() {
-        self.audioStream?.pause()
+        self.audioStreamSTK?.pause()
     }
     
     func play() {
-        self.audioStream?.play()
+        self.audioStreamSTK?.resume()
     }
     
     func isPlaying() -> Bool {
-        return self.audioStream!.isPlaying()
+        
+        switch self.audioStreamSTK!.state {
+        case STKAudioPlayerStateReady:
+            return false
+            
+        case STKAudioPlayerStateRunning:
+            return true
+            
+        case STKAudioPlayerStatePlaying:
+            return true
+            
+        case STKAudioPlayerStateBuffering:
+            return true
+            
+        case STKAudioPlayerStatePaused:
+            return false
+            
+        case STKAudioPlayerStateStopped:
+            return false
+            
+        case STKAudioPlayerStateError:
+            return false
+            
+        case STKAudioPlayerStateDisposed:
+            return false
+
+            
+        default:
+            
+            break
+        }
+        
+        return true
+    }
+    
+    //STKAudioPlayerDelegate
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, didStartPlayingQueueItemId queueItemId: NSObject!) {
+        
+    }
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject!) {
+        
+    }
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
+        
+    }
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, didFinishPlayingQueueItemId queueItemId: NSObject!, withReason stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {
+        switch stopReason {
+            
+        case STKAudioPlayerStopReasonNone:
+            print("STKAudioPlayerStopReasonNone")
+            break
+        case STKAudioPlayerStopReasonEof:
+            print("STKAudioPlayerStopReasonEof")
+            break
+        case STKAudioPlayerStopReasonUserAction:
+            print("STKAudioPlayerStopReasonUserAction")
+            break
+        case STKAudioPlayerStopReasonPendingNext:
+            print("STKAudioPlayerStopReasonPendingNext")
+            break
+        case STKAudioPlayerStopReasonDisposed:
+            print("STKAudioPlayerStopReasonDisposed")
+            break
+        case STKAudioPlayerStopReasonError:
+            print("STKAudioPlayerStopReasonError")
+            break
+        default:
+             print("STKAudioPlayerStopReasonDefault")
+            break
+        }
+    }
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, unexpectedError errorCode: STKAudioPlayerErrorCode) {
+        
+    }
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, logInfo line: String!) {
+        
+    }
+    
+    func audioPlayer(audioPlayer: STKAudioPlayer!, didCancelQueuedItems queuedItems: [AnyObject]!) {
+        
     }
 }
 

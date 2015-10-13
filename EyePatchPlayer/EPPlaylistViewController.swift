@@ -106,7 +106,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
                 self.tableView.delegate = self
                 self.tableView.reloadData()
                 
-                if EPMusicPlayer.sharedInstance.audioStream?.isPlaying() == true {
+                if EPMusicPlayer.sharedInstance.isPlaying() == true {
                     for track in self.playlist.tracks {
                         if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
                             if let index = self.playlist.tracks.indexOf(track) {
