@@ -3,7 +3,6 @@
 use_frameworks!
 pod "VK-ios-sdk"
 pod 'Realm'
-pod ‘AFNetworking’
+pod 'AFNetworking'
 pod 'SDWebImage', '~>3.7'
 pod 'StreamingKit'
-pod 'YALSideMenu'
