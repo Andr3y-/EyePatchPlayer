@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import VK_ios_sdk
+import AFNetworking
+import SDWebImage
 
 class EPHTTPManager: NSObject {
     

@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import MediaPlayer
+import StreamingKit
 
 enum PlaybackStatus {
     case Play
@@ -64,12 +64,10 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
                 self.activeTrack = track
             }
         
-            //this method is taking a whole second to execute
-//            self.setupStream()
         
             if (self.activeTrack.isCached) {
                 if (self.activeTrack.hasFileAtPath()) {
-
+                    
                     self.playFromURL(self.activeTrack.URL())
                 } else {
 
@@ -111,7 +109,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         
         self.delegate?.playbackTrackUpdate()
         
-        
     }
     
     func resetTimer() {
@@ -127,7 +124,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
         if (track.ID != activeTrack.ID){
-            setTrack(track, force: false)
+            setTrack(track, force: true)
         }
         
         self.playlist = playlist
@@ -152,26 +149,23 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     //forward
     func playNextSong() {
+        print("player: playNextSong")
         guard let nextTrack = self.playlist.nextTrack() else {
             //handle no previous track found
             return
         }
-        setTrack(nextTrack, force: false)
+        setTrack(nextTrack, force: true)
     }
 
-    
     //backward
     func playPrevSong() {
         guard let previousTrack = self.playlist.previousTrack() else {
             //handle no previous track found
             return
         }
-        setTrack(previousTrack, force: false)
+        setTrack(previousTrack, force: true)
     }
     
-    
-    
-
     func observeRouteChanges() {
         //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
@@ -213,7 +207,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
     }
     
-    
     func playerItemDidReachEnd(notification: NSNotification) {
         print("song finished playing")
     }
@@ -243,7 +236,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             //no options init
             self.audioStreamSTK = STKAudioPlayer()
         }
-
+        
+        self.audioStreamSTK!.delegate = self
         self.audioStreamSTK!.meteringEnabled = true
         self.audioStreamSTK!.volume = 1
 
@@ -318,11 +312,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     //STKAudioPlayerDelegate
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didStartPlayingQueueItemId queueItemId: NSObject!) {
-        
+        print("didStartPlayingQueueItemId: \(queueItemId)")
     }
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject!) {
-        
+        print("didFinishBufferingSourceWithQueueItemId: \(queueItemId)")
     }
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
@@ -337,6 +331,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             break
         case STKAudioPlayerStopReasonEof:
             print("STKAudioPlayerStopReasonEof")
+            self.playNextSong()
             break
         case STKAudioPlayerStopReasonUserAction:
             print("STKAudioPlayerStopReasonUserAction")

@@ -28,6 +28,7 @@ PODS:
   - SDWebImage/Core (3.7.3)
   - StreamingKit (0.1.25)
   - VK-ios-sdk (1.2.2)
+  - YALSideMenu (1.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7)
   - StreamingKit
   - VK-ios-sdk
+  - YALSideMenu
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -42,5 +44,6 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   StreamingKit: f00c054cfd0f59d88c8be7a2270e208302ce48c4
   VK-ios-sdk: f4b7df0d4e277e06d60fef6dc472be4260eeda6d
+  YALSideMenu: 87fd2d758bf0afefd034d7d1b7c87af7005a59ee
 
 COCOAPODS: 0.38.2

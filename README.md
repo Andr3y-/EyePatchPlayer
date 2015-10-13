@@ -12,11 +12,11 @@ DONE:
 - [x] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
 - [x] Friends' Playlists
 - [x] Pause when headphones are disconnected, resume when headphones are connected
+- [x] Display cached status for tracks 
+- [x] Show duration in the playlist
 
 TODO:
-
-- [ ] Display cached status for tracks 
-- [ ] Show duration in the playlist
+- [ ] 
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
 - [ ] Ability to Add Search Results into a playlist
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)

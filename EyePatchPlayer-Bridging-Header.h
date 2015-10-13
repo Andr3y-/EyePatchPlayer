@@ -9,13 +9,13 @@
 #ifndef EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 #define EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 
-#import "FSAudioStream.h"
+//#import "FSAudioStream.h"
 #import <StreamingKit/STKAudioPlayer.h>
 #import <AFNetworking/AFNetworking.h>
-#import <VKSdk.h>
+//#import <VKSdk.h>
 #import <Realm/Realm.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDWebImageManager.h>
-#import "AFNetworkActivityIndicatorManager.h"
+//#import "AFNetworkActivityIndicatorManager.h"
 
 #endif

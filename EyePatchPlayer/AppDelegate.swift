@@ -8,6 +8,8 @@
 //
 
 import UIKit
+import VK_ios_sdk
+import AFNetworking
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
