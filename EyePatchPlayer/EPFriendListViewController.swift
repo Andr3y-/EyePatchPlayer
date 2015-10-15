@@ -28,7 +28,7 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
         self.searchBar.delegate = self
         self.tableView.tableHeaderView = searchBar;
         log("EPFriendListViewController, userID = \(userID)")
-        
+        drawRightMenuButton()
         loadData()
 
         // Do any additional setup after loading the view.

@@ -23,7 +23,7 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
         self.searchBar = UISearchBar(frame:CGRectMake(0, 0, 320, 44));
         self.searchBar.delegate = self
         self.playlistTableView.tableHeaderView = searchBar;
-        // Do any additional setup after loading the view, typically from a nib.
+        drawRightMenuButton()
         subscribeForCacheNotifications()
     }
     

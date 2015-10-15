@@ -44,7 +44,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         self.searchBar.delegate = self
         self.tableView.tableHeaderView = searchBar;
         log("EPPlaylistViewController, userID = \(userID)")
-        
+        drawRightMenuButton()
         loadData()
         // Do any additional setup after loading the view.
     }

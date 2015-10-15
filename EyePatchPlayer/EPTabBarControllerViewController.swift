@@ -19,7 +19,6 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        log("")
         
         VKSdk.initializeWithDelegate(self, andAppId: "5070798")
         
@@ -31,16 +30,9 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
         
         if (!VKSdk.isLoggedIn()){
             print("vk is not logged in")
-//            VKSdk.authorize([VK_PER_STATS, VK_PER_EMAIL,VK_PER_FRIENDS], revokeAccess: true)
             VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //vkSdkDelegate
     
     func vkSdkNeedCaptchaEnter(captchaError: VKError!) {
@@ -82,16 +74,5 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
     func vkSdkIsBasicAuthorization() -> Bool {
         return true
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

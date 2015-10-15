@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RESideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,17 +42,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>01A567C7DBE94D44928AD3D27F78207E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1BB35621ABAFED707F12BF15B6E914A8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>422F44FA7381E909FB9C86F20CAA4C84</key>
+		<key>3855CDAD1C0348D1D9573DF6913BCE3B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>511DAE2113E6189B036A46434E864BFB</key>
+		<key>422F44FA7381E909FB9C86F20CAA4C84</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +72,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B3E3A60017A6AA7FE0E1F326C078BC9F</key>
+		<key>A88A67D83976996F4E1A45D71A78179D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

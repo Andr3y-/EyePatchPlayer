@@ -38,6 +38,9 @@
 		C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */; };
 		C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */; };
 		C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */; };
+		C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */; };
+		C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */; };
+		C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */; };
 		C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */; };
 		C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3C1BAC190800C950AA /* EPCache.swift */; };
 		C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3661BAC655700197746 /* CFNetwork.framework */; };
@@ -98,6 +101,9 @@
 		C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntTimeToString.swift; sourceTree = "<group>"; };
 		C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceMeasure.swift; sourceTree = "<group>"; };
 		C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistDelegate.swift; sourceTree = "<group>"; };
+		C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootViewController.swift; sourceTree = "<group>"; };
+		C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRightMenuViewController.swift; sourceTree = "<group>"; };
+		C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+RightMenuItem.swift"; sourceTree = "<group>"; };
 		C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayer.swift; sourceTree = "<group>"; };
 		C4E60D3C1BAC190800C950AA /* EPCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPCache.swift; sourceTree = "<group>"; };
 		C4FCB3661BAC655700197746 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -232,9 +238,10 @@
 		C489EAF91BA865B200D788E0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C4D80D711BCE5F0B0095E2D7 /* Menu */,
 				C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */,
 				C489EAF81BA865A100D788E0 /* Tabs */,
-				C489EB0E1BAAFF2A00D788E0 /* MainPlayer */,
+				C489EB0E1BAAFF2A00D788E0 /* Player */,
 				C4C61DAD1BC6B8EB00501EE1 /* FriendsList */,
 				C489EB0A1BA86C7600D788E0 /* TrackPlaylist */,
 			);
@@ -292,12 +299,12 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		C489EB0E1BAAFF2A00D788E0 /* MainPlayer */ = {
+		C489EB0E1BAAFF2A00D788E0 /* Player */ = {
 			isa = PBXGroup;
 			children = (
 				C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */,
 			);
-			name = MainPlayer;
+			name = Player;
 			sourceTree = "<group>";
 		};
 		C4C61D4D1BBD56DA00501EE1 /* Extensions */ = {
@@ -307,6 +314,7 @@
 				C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */,
 				C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */,
 				C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */,
+				C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -335,6 +343,15 @@
 				C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */,
 			);
 			name = TrackTableViewCell;
+			sourceTree = "<group>";
+		};
+		C4D80D711BCE5F0B0095E2D7 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */,
+				C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 		C4FCB3701BAC65A300197746 /* Libraries */ = {
@@ -504,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */,
+				C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */,
 				C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */,
 				C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */,
 				C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */,
@@ -516,6 +534,7 @@
 				C489EAF11BA84F6E00D788E0 /* EPTabBarControllerViewController.swift in Sources */,
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
 				C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */,
+				C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */,
 				C4C61DB11BC6D58A00501EE1 /* EPFriend.swift in Sources */,
 				C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
@@ -530,6 +549,7 @@
 				C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */,
 				C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */,
 				C4C61DB41BC8199500501EE1 /* EPTrackTableViewCell.swift in Sources */,
+				C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
