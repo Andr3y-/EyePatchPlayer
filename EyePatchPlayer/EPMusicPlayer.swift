@@ -321,6 +321,32 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
         
+        switch state {
+        case STKAudioPlayerStateReady:
+            
+            break
+        case STKAudioPlayerStateRunning, STKAudioPlayerStatePlaying:
+            self.delegate?.playbackStatusUpdate(.Play)
+            break
+        case STKAudioPlayerStateBuffering:
+            
+            break
+        case STKAudioPlayerStatePaused:
+            
+            break
+        case STKAudioPlayerStateStopped:
+            
+            break
+        case STKAudioPlayerStateError:
+            
+            break
+        case STKAudioPlayerStateDisposed:
+            
+            break
+        default:
+            break
+        }
+        
     }
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didFinishPlayingQueueItemId queueItemId: NSObject!, withReason stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {

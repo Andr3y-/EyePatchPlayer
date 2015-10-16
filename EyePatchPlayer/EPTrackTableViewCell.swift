@@ -17,6 +17,7 @@ class EPTrackTableViewCell: UITableViewCell {
     @IBOutlet weak var mainTapArea: UIView!
     @IBOutlet weak var secondaryTapArea: UIView!
     
+    @IBOutlet weak var constraintSelectionIndicator: NSLayoutConstraint!
     var delegate:EPTrackTableViewCellDelegate?
     
     override func awakeFromNib() {
@@ -30,8 +31,11 @@ class EPTrackTableViewCell: UITableViewCell {
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
+//        super.setSelected(selected, animated: animated)
+        constraintSelectionIndicator.constant = selected ? 0 : -4
+        UIView.animateWithDuration(0.3) { () -> Void in
+            self.contentView.layoutIfNeeded()
+        }
         // Configure the view for the selected state
     }
     func mainTap(sender: AnyObject) {

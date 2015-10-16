@@ -67,6 +67,15 @@ THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>RSPlayPauseButton is free and unencumbered software created by Raphael Schaad in 2014 and released into the public domain.
+</string>
+			<key>Title</key>
+			<string>RSPlayPauseButton</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>TABLE OF CONTENTS
 
 1. Apache License version 2.0

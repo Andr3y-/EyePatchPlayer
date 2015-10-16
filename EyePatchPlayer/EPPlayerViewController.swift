@@ -151,6 +151,11 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
         }
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        EPMusicPlayer.sharedInstance.delegate = EPPlayerWidgetView.sharedInstance
+    }
+    
     func timeInSecondsToString(timeInSeconds:Int) -> String {
         
         let minutes = (timeInSeconds % 3600 / 60) < 10 ? NSString(format: "0%d", timeInSeconds % 3600 / 60) : NSString(format: "%d", timeInSeconds % 3600 / 60)

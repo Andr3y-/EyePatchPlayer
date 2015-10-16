@@ -11,6 +11,7 @@
 		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
 		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
 		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
+		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
@@ -41,6 +42,8 @@
 		C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */; };
 		C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */; };
 		C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */; };
+		C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D7A1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift */; };
+		C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */; };
 		C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */; };
 		C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E60D3C1BAC190800C950AA /* EPCache.swift */; };
 		C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3661BAC655700197746 /* CFNetwork.framework */; };
@@ -69,6 +72,7 @@
 		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
 		C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettings.swift; sourceTree = "<group>"; };
 		C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
+		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootViewController.swift; sourceTree = "<group>"; };
 		C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRightMenuViewController.swift; sourceTree = "<group>"; };
 		C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+RightMenuItem.swift"; sourceTree = "<group>"; };
+		C4D80D7A1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerWidgetView.swift; sourceTree = "<group>"; };
+		C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootNavigationController.swift; sourceTree = "<group>"; };
 		C4E60D3A1BAB22F700C950AA /* EPMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayer.swift; sourceTree = "<group>"; };
 		C4E60D3C1BAC190800C950AA /* EPCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPCache.swift; sourceTree = "<group>"; };
 		C4FCB3661BAC655700197746 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -238,6 +244,7 @@
 		C489EAF91BA865B200D788E0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */,
 				C4D80D711BCE5F0B0095E2D7 /* Menu */,
 				C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */,
 				C489EAF81BA865A100D788E0 /* Tabs */,
@@ -303,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */,
+				C4D80D7A1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -311,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */,
+				C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */,
 				C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */,
 				C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */,
 				C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */,
@@ -540,12 +549,15 @@
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
+				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
+				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,
 				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
 				C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */,
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
+				C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */,
 				C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */,
 				C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */,
 				C4C61DB41BC8199500501EE1 /* EPTrackTableViewCell.swift in Sources */,
