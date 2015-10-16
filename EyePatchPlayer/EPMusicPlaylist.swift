@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EPMusicPlaylist: NSArray {
+class EPMusicPlaylist: AnyObject {
     
     var tracks: [EPTrack] = []
     var delegate:EPPlaylistDelegate?
@@ -18,6 +18,7 @@ class EPMusicPlaylist: NSArray {
         var shuffledTracksLazy = self.tracks.shuffle()
         return shuffledTracksLazy
     }()
+    
     var trackCount: Int = 0
     var shuffleOn: Bool = true
     

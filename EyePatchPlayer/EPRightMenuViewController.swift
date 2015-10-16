@@ -51,7 +51,7 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
             cell = UITableViewCell(style:UITableViewCellStyle.Default, reuseIdentifier:"Cell")
             cell!.backgroundColor = UIColor.clearColor()
             cell!.textLabel!.font = UIFont(name:"HelveticaNeue-Medium", size:21)
-            cell!.textLabel!.textColor = UIColor(patternImage: UIImage(named: "texture_steel_2")!)// UIColor.whiteColor()
+            cell!.textLabel!.textColor = UIColor.whiteColor()// UIColor.whiteColor()
             cell!.textLabel!.highlightedTextColor = UIColor.lightGrayColor()
             cell!.selectedBackgroundView = UIView()
         }
@@ -64,23 +64,31 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         cell?.textLabel?.layer.shadowOpacity = 0.8
         cell?.textLabel?.layer.masksToBounds = false
         cell?.textLabel?.layer.shouldRasterize = true
-//        cell?.textLabel?.backgroundColor = UIColor.redColor()
+
         if indexPath.row == selectedItemIndex {
-            self.applySelectionToCell(cell!)
-////            cell?.contentView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.applySelectionToCell(cell!)
+            }
         }
         
         return cell!
     }
 
+    func selectActiveCell() {
+        let indexPath = NSIndexPath(forRow: selectedItemIndex, inSection: 0)
+        self.applySelectionToCell(self.tableView.cellForRowAtIndexPath(indexPath)!)
+    }
+    
     func applySelectionToCell(cell:UITableViewCell) {
         let view: UIView = cell.contentView as UIView
         let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.frame = view.bounds
-        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        gradient.colors = [UIColor.clearColor().CGColor, UIColor.whiteColor().CGColor]
         gradient.startPoint = CGPointMake(0.0, 0.5)
         gradient.endPoint = CGPointMake(1.0, 0.5)
+        
         view.layer.insertSublayer(gradient, atIndex: 0)
     }
     
@@ -88,14 +96,11 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         let view: UIView = cell.contentView as UIView
         if view.layer.sublayers?.count > 0 {
             view.layer.sublayers![0].removeFromSuperlayer()
-//            for layer in view.layer.sublayers! {
-//                layer.removeFromSuperlayer()
-//            }
         }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
         if indexPath.row == selectedItemIndex {
             self.sideMenuViewController.hideMenuViewController()
@@ -103,7 +108,7 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             self.clearSelectonOnCell(self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: selectedItemIndex, inSection: indexPath.section))!)
             selectedItemIndex = indexPath.row
-            self.applySelectionToCell(self.tableView.cellForRowAtIndexPath(indexPath)!)
+            self.selectActiveCell()
         }
         
         switch indexPath.row {

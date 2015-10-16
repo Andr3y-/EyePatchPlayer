@@ -168,18 +168,8 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
             selectedTrack = self.playlist.tracks[indexPath.row]
         }
         
-        self.performSegueWithIdentifier("seguePlayer", sender: selectedTrack)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier! {
-        case "seguePlayer":
-//            let destinationViewController = segue.destinationViewController as! EPPlayerViewController
-            
-            EPMusicPlayer.sharedInstance.playTrackFromPlaylist(sender as! EPTrack, playlist: self.playlist)
-        default:
-            print("unknown segue")
-        }
+        EPMusicPlayer.sharedInstance.playTrackFromPlaylist(selectedTrack, playlist: self.playlist)
+
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {

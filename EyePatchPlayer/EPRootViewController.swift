@@ -18,13 +18,13 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     override func awakeFromNib() {
         print("RootViewController awakeFromNib")
         EPRootViewController.sharedInstance = self
-        self.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent;
+//        self.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent;
         self.contentViewShadowColor = UIColor.blackColor();
         self.contentViewShadowOffset = CGSizeMake(0, 0);
         self.contentViewShadowOpacity = 0.6;
         self.contentViewShadowRadius = 12;
         self.contentViewShadowEnabled = true;
-        self.backgroundImage = UIImage(named: "background_leather_1")
+        self.backgroundImage = UIImage(named: "background_abstract_1")
         
         self.delegate = self
         

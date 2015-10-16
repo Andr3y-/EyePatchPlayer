@@ -49,7 +49,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         
         self.remoteManager = EPMusicPlayerRemoteManager()
         self.setupStream(nil)
-        self.observeRouteChanges()
+        self.observeSessionEvents()
     }
     
     func setTrack(track:EPTrack, force:Bool) {
@@ -166,9 +166,23 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         setTrack(previousTrack, force: true)
     }
     
-    func observeRouteChanges() {
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+    func observeSessionEvents() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "interruptionEvent:", name: AVAudioSessionInterruptionNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
+    }
+    
+    func interruptionEvent(notification: NSNotification) {
+        if notification.name == AVAudioSessionInterruptionNotification {
+            if let interruptionType = notification.userInfo?[AVAudioSessionInterruptionTypeKey] {
+                
+            let interruptionTypeNumber = interruptionType as! NSNumber
+                if Int(interruptionTypeNumber) == Int(AVAudioSessionInterruptionType.Began.rawValue) {
+                    self.pause()
+                } else {
+                    self.play()
+                }
+            }
+        }
     }
     
     func routeChanged(notification:NSNotification) {
@@ -176,7 +190,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         if let userDict = notification.userInfo as? Dictionary<String, AnyObject> {
             if let newValue = userDict[AVAudioSessionRouteChangeReasonKey] as? UInt{
                 let reason = AVAudioSessionRouteChangeReason(rawValue: newValue)
-                print(reason?.rawValue)
                 switch reason! {
                 case .NewDeviceAvailable:
                     print("NewDeviceAvailable - connected")
