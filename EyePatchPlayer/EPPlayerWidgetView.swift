@@ -82,6 +82,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         swipeRecognizerLeft.direction = .Left
         self.interactionView.addGestureRecognizer(swipeRecognizerLeft)
         
+        let panGestureUp = UIPanGestureRecognizer(target: self, action: "panGesture:")
+        self.interactionView.addGestureRecognizer(panGestureUp)
+        
         //main
         
         let swipeRecognizerRightMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
@@ -91,6 +94,10 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         let swipeRecognizerLeftMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
         swipeRecognizerLeftMain.direction = .Left
         self.contentViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
+        
+        let panGestureDown = UIPanGestureRecognizer(target: self, action: "panGestureMain:")
+        self.contentViewMain.addGestureRecognizer(panGestureDown)
+        
     }
     
     override func layoutSubviews() {
@@ -129,6 +136,182 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
     
     //Interactions
+    
+    func panGesture(sender:UIPanGestureRecognizer) {
+        let window = UIApplication.sharedApplication().keyWindow!
+        let location: CGPoint = sender.locationInView(window)
+        let translation: CGPoint = sender.translationInView(sender.view)
+        //detect horizonal swipe
+        
+        let hiddenConst: CGFloat = -60.0
+        let shownConst: CGFloat = -667.0
+        
+        var newConstantForConstraint = -(window.bounds.height - location.y)
+        if newConstantForConstraint > hiddenConst {
+            newConstantForConstraint = hiddenConst
+        } else if newConstantForConstraint < shownConst {
+            newConstantForConstraint = shownConst
+        }
+        
+        if sender.state != UIGestureRecognizerState.Ended {
+            self.contentViewWidget.alpha = 1-((newConstantForConstraint-hiddenConst)*(shownConst/(shownConst-hiddenConst)) / shownConst)
+            topOffsetConstaint.constant = newConstantForConstraint
+        }
+        
+        if sender.state == UIGestureRecognizerState.Ended {
+
+            if abs(translation.x) > 3 * abs(translation.y) {
+                print("x: \(translation.x)")
+                
+                if translation.x > 0 {
+                     EPMusicPlayer.sharedInstance.playNextSong()
+                } else {
+                     EPMusicPlayer.sharedInstance.playPrevSong()
+                }
+
+                if newConstantForConstraint != -60 {
+                    self.topOffsetConstaint.constant = hiddenConst
+                    UIView.animateWithDuration(0.4, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                        //animate back down
+                        self.contentViewWidget.alpha = 1
+                        self.layoutIfNeeded()
+                        }, completion: { (result: Bool) -> Void in
+                            //finished
+                    })
+                }
+                
+                return
+            } else {
+                print("y: \(translation.y)")
+            }
+            
+            
+            var finalPoint = (sender.translationInView(window).y + sender.velocityInView(window).y * 1.0)
+            
+            if finalPoint < shownConst {
+                finalPoint = shownConst
+            } else if finalPoint > hiddenConst {
+                finalPoint = hiddenConst
+            }
+            
+            print("final y: \(finalPoint)")
+
+            let duration = min(1.0, NSTimeInterval(abs((finalPoint - newConstantForConstraint)/sender.velocityInView(window).y)))
+            print("final move dur: \(duration)")
+            
+            
+            if finalPoint < shownConst-shownConst*0.10 {
+                
+                topOffsetConstaint.constant = shownConst
+                
+                UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+
+                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+                    //animations
+                    
+                    self.contentViewWidget.alpha = 0
+                    self.layoutIfNeeded()
+                    
+                    }, completion: { (result: Bool) -> Void in
+                        //completion
+                        self.isShown = true
+                })
+                
+            } else {
+                topOffsetConstaint.constant = finalPoint
+                
+                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+                        self.contentViewWidget.alpha = 1-((finalPoint-hiddenConst)*(shownConst/(shownConst-hiddenConst)) / shownConst)
+                        self.layoutIfNeeded()
+                    }, completion: { (result: Bool) -> Void in
+                        self.topOffsetConstaint.constant = hiddenConst
+                        UIView.animateWithDuration(duration*2/3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                            //animate back down
+                            self.contentViewWidget.alpha = 1
+                            self.layoutIfNeeded()
+                            }, completion: { (result: Bool) -> Void in
+                                //finished
+                        })
+                })
+            }
+        }
+        
+        print("velocity: \(sender.velocityInView(window).y)")
+        print("newConstantForConstraint: \(newConstantForConstraint)")
+
+    }
+    
+    func panGestureMain(sender: UIPanGestureRecognizer) {
+        let window = UIApplication.sharedApplication().keyWindow!
+        let location: CGPoint = sender.translationInView(window)
+        
+        let hiddenConst: CGFloat = -60.0
+        let shownConst: CGFloat = -667.0
+        
+        var newConstantForConstraint = -(window.bounds.height - location.y)
+        if newConstantForConstraint > hiddenConst {
+            newConstantForConstraint = hiddenConst
+        } else if newConstantForConstraint < shownConst {
+            newConstantForConstraint = shownConst
+        }
+        
+        if sender.state == UIGestureRecognizerState.Ended {
+            
+            var finalPoint = (sender.translationInView(window).y + sender.velocityInView(window).y * 1.0)
+            
+            if finalPoint < shownConst {
+                finalPoint = shownConst
+            } else if finalPoint > hiddenConst {
+                finalPoint = hiddenConst
+            }
+            
+            print("final y: \(finalPoint)")
+            
+            let duration = min (1.0, NSTimeInterval(abs((finalPoint - newConstantForConstraint)/sender.velocityInView(window).y)))
+            print("final move dur: \(duration)")
+            
+            
+            if finalPoint > shownConst-shownConst*0.10 {
+                
+                topOffsetConstaint.constant = hiddenConst
+                
+                UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+                
+                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+                    //animations
+                    
+                    self.contentViewWidget.alpha = 1
+                    self.layoutIfNeeded()
+                    
+                    }, completion: { (result: Bool) -> Void in
+                        //completion
+                        self.isShown = false
+                })
+                
+            } else {
+                
+                topOffsetConstaint.constant = finalPoint
+                
+                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+                    self.contentViewWidget.alpha = 1-((finalPoint-hiddenConst)*(shownConst/(shownConst-hiddenConst)) / shownConst)
+                    self.layoutIfNeeded()
+                    }, completion: { (result: Bool) -> Void in
+                        self.topOffsetConstaint.constant = shownConst
+                        UIView.animateWithDuration(duration*2/3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                            //animate back down
+                            self.contentViewWidget.alpha = 0
+                            self.layoutIfNeeded()
+                            }, completion: { (result: Bool) -> Void in
+                                //finished
+                        })
+                })
+            }
+            
+        } else {
+            self.contentViewWidget.alpha = 1-((newConstantForConstraint-hiddenConst)*(shownConst/(shownConst-hiddenConst)) / shownConst)
+            topOffsetConstaint.constant = newConstantForConstraint
+        }
+    }
     
     func interactionTap(sender:AnyObject) {
         print("interaction: tap")
@@ -237,41 +420,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.contentViewWidget.alpha = value ? 0 : 1
         }
     }
-
-    /*func hide(animated:Bool) {
-        
-        if !isShown {
-            print("hiding cancelled, already hidden")
-            return
-        } else {
-            isShown = false
-        }
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-        
-        topOffsetConstaint.constant = -(UIApplication.sharedApplication().keyWindow?.bounds.height)!
-        UIView.animateWithDuration(animated ? 0.15 : 0) { () -> Void in
-            self.layoutIfNeeded()
-            self.contentViewWidget.alpha = 0
-        }
-    }
-    
-    func show(animated:Bool) {
-        
-        if isShown {
-            print("showing cancelled, already shown")
-            return
-        } else {
-            isShown = true
-        }
-        
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-        
-        topOffsetConstaint.constant = -self.contentViewWidget.bounds.height
-        UIView.animateWithDuration(animated ? 0.15 : 0) { () -> Void in
-            self.layoutIfNeeded()
-            self.contentViewWidget.alpha = 1
-        }
-    }*/
     
     //EPMusicPlayerDelegate
     func playbackProgressUpdate(currentTime: Int, bufferedPercent: Double) {

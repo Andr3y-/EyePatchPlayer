@@ -245,8 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */,
-				C4D80D711BCE5F0B0095E2D7 /* Menu */,
 				C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */,
+				C4D80D711BCE5F0B0095E2D7 /* Menu */,
 				C489EAF81BA865A100D788E0 /* Tabs */,
 				C489EB0E1BAAFF2A00D788E0 /* Player */,
 				C4C61DAD1BC6B8EB00501EE1 /* FriendsList */,
