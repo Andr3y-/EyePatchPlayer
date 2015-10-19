@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, EPPlaylistDelegate, EPTrackTableViewCellDelegate {
     
     @IBOutlet weak var playlistTableView: UITableView!
     
@@ -19,16 +19,24 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadCell()
+        
         self.filteredSongs = NSMutableArray()
         self.playlistTableView.alpha = 0
         self.searchBar = UISearchBar(frame:CGRectMake(0, 0, 320, 44));
         self.searchBar.delegate = self
         self.playlistTableView.tableHeaderView = searchBar;
+        self.playlistTableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
+        self.playlistTableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
         drawRightMenuButton()
         subscribeForCacheNotifications()
         loadData()
     }
 
+    func loadCell() {
+        let nibName = UINib(nibName: "EPTrackTableViewCell", bundle:nil)
+        self.playlistTableView.registerNib(nibName, forCellReuseIdentifier: "TrackCell")
+    }
     
     func loadData() {
         let cachedTracks = EPTrack.allObjects()
@@ -42,13 +50,41 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         self.playlist = EPMusicPlaylist.initWithRLMResults(cachedTracks)
+        self.playlist.delegate = self
+        
         self.playlistTableView.dataSource = self
         self.playlistTableView.delegate = self
         self.playlistTableView.reloadData()
+
+        self.highlightActiveTrack()
+
         self.applyOffset()
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.playlistTableView.alpha = 1
         })
+    }
+    
+    func highlightActiveTrack() {
+        if EPMusicPlayer.sharedInstance.isPlaying() == true {
+            if hasFilterActive() {
+                for trackObject in self.filteredSongs {
+                    if let track:EPTrack = trackObject as? EPTrack {
+                        if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                            let index = self.filteredSongs.indexOfObject(trackObject)
+                            self.playlistTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
+                        }
+                    }
+                }
+            } else {
+                for track in self.playlist.tracks {
+                    if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                        if let index = self.playlist.tracks.indexOf(track) {
+                            self.playlistTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.Middle)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func subscribeForCacheNotifications() {
@@ -90,8 +126,6 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
                 
             }
             
-            
-            
             if EPCache.deleteTrackFromDownload(track) {
                 self.playlistTableView.deleteRowsAtIndexPaths(NSArray(object: indexPath) as! [NSIndexPath], withRowAnimation: UITableViewRowAnimation.Left)
             }
@@ -107,11 +141,14 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
         if (searchText.characters.count>0){
             
             filterSongsInArray()
-            
             self.playlistTableView.reloadData()
+            highlightActiveTrack()
+
         } else {
             self.filteredSongs = NSArray()
             self.playlistTableView.reloadData()
+            highlightActiveTrack()
+
         }
     }
     
@@ -131,10 +168,10 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("CellIdentifier")
+        var cell: EPTrackTableViewCell? = self.playlistTableView.dequeueReusableCellWithIdentifier("TrackCell") as? EPTrackTableViewCell
         
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "CellIdentifier")
+            cell = EPTrackTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "TrackCell")
         }
         let track: EPTrack
         if (self.filteredSongs.count > 0){
@@ -143,8 +180,12 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
             track = self.playlist.tracks[indexPath.row]
         }
         
-        cell!.textLabel?.text = track.title
-        cell!.detailTextLabel?.text = track.artist
+        cell?.delegate = self
+        
+        cell!.setCacheStatus(track.isCached)
+        cell!.titleLabel?.text = track.title
+        cell!.artistLabel?.text = track.artist
+        cell?.durationLabel.text = track.duration.timeInSecondsToString()
         
         return cell!
     }
@@ -172,7 +213,74 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
 
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
+    }
+    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         self.view.endEditing(true)
     }
+    
+    //cells delegating
+    
+    func cellDetectedPrimaryTap(cell: EPTrackTableViewCell) {
+        let selectedTrack: EPTrack!
+        
+        //        cell.setSelected(true, animated: true)
+        if let indexPathsForSelectedRow = self.playlistTableView.indexPathForSelectedRow {
+            print("hasIndexPathForSelectedRow = 1")
+            self.playlistTableView.deselectRowAtIndexPath(indexPathsForSelectedRow, animated: true)
+        } else {
+            print("hasIndexPathForSelectedRow = 0")
+        }
+        self.playlistTableView.selectRowAtIndexPath(self.playlistTableView.indexPathForCell(cell), animated: true, scrollPosition: UITableViewScrollPosition.None)
+        if let indexPath = self.playlistTableView.indexPathForCell(cell) {
+            if self.hasFilterActive() {
+                selectedTrack = self.filteredSongs[indexPath.row] as! EPTrack
+            } else {
+                selectedTrack = self.playlist.tracks[indexPath.row]
+            }
+            EPMusicPlayer.sharedInstance.playTrackFromPlaylist(selectedTrack, playlist: self.playlist)
+        }
+    }
+    
+    func cellDetectedSecondaryTap(cell: EPTrackTableViewCell) {
+        
+    }
+    
+    //Playlist Delegate 
+    
+    //EPPlaylistDelegate
+    func playlistDidSetTrackActive(track:EPTrack) {
+        print("playlistDidSetTrackActive")
+        let index:Int?
+        if self.hasFilterActive() {
+            index = self.filteredSongs.indexOfObject(track)
+        } else {
+            index = self.playlist.tracks.indexOf(track)
+        }
+        
+        if let indexPathsForSelectedRow = self.playlistTableView.indexPathForSelectedRow {
+            print("hasIndexPathForSelectedRow = 1")
+            self.playlistTableView.deselectRowAtIndexPath(indexPathsForSelectedRow, animated: true)
+        } else {
+            print("hasIndexPathForSelectedRow = 0")
+        }
+        
+        if let index = index {
+            self.playlistTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
+        }
+    }
+    
+    // misc
+    
+    func hasFilterActive() -> Bool {
+        
+        guard let text = searchBar.text else {
+            return false
+        }
+        
+        return (text.characters.count > 0)
+    }
+    
 }

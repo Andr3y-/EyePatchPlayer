@@ -14,9 +14,14 @@ DONE:
 - [x] Pause when headphones are disconnected, resume when headphones are connected
 - [x] Display cached status for tracks 
 - [x] Show duration in the playlist
+- [x] Significant player UI improvements
+- [x] Player Widget visible across all screens of the application
+- [x] Removing remote controls from playerViewController
+- [x] Saving last played track & respective playlist
+- [x] Friends search
 
 TODO:
-- [ ] 
+
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
 - [ ] Ability to Add Search Results into a playlist
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
@@ -25,8 +30,6 @@ TODO:
 - [ ] Move elapsed time on Remote Control to UpdateProgress Method, perhaps, implement it in a separate class for code clarity
 - [ ] Play Selection / Search Results
 - [ ] Equalizer
-- [ ] Player Widget visible across all screens of the application
-- [ ] Removing remote controls from playerViewController
 - [ ] Displaying download progress
 - [ ] Last.fm scrobbling
 - [ ] Settings Page with

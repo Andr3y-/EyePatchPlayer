@@ -67,7 +67,7 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
         print(searchText)
         if (searchText.characters.count>0){
             
-            let predicate = NSPredicate(format: "artist contains[c] %@ OR title contains[c] %@", searchText, searchText) // if you need case sensitive search avoid '[c]' in the predicate
+            let predicate = NSPredicate(format: "firstName contains[c] %@ OR lastName contains[c] %@", searchText, searchText) // if you need case sensitive search avoid '[c]' in the predicate
             let arrayCast =  self.friends as NSArray
             self.filteredFriends = arrayCast.filteredArrayUsingPredicate(predicate) as! [EPFriend]
             self.tableView.reloadData()

@@ -13,7 +13,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     
     static var sharedInstance = EPPlayerWidgetView()
     
-    var isShown = true
+    var isShown = false
     
     var topOffsetConstaint: NSLayoutConstraint!
 
@@ -26,9 +26,10 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var progressBarPlayback: UIProgressView!
 
     @IBOutlet weak var interactionView: UIView!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var contentViewWidget: UIView!
     
     //mainView
+    @IBOutlet weak var contentViewMain: UIView!
     @IBOutlet weak var playerHeaderView: UIView!
     @IBOutlet weak var albumArtImageViewBig: UIImageView!
     @IBOutlet weak var progressBarPlaybackBig: UIProgressView!
@@ -48,11 +49,31 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.userInteractionEnabled = false
+        
         EPPlayerWidgetView.sharedInstance = self
         EPMusicPlayer.sharedInstance.delegate = self
+        
+        EPMusicPlayer.sharedInstance.loadDataFromCache { (result) -> Void in
+            if result {
+                UIView.animateWithDuration(0.15, animations: { () -> Void in
+                    self.userInteractionEnabled = true
+                })
+            }
+        }
+        
+        setupInteractions()
+        
+        print("EPPlayerWidgetView awakeFromNib")
+        
+    }
+    
+    func setupInteractions() {
+        //widget
         let tapRecognizer = UITapGestureRecognizer(target: self, action: "interactionTap:")
         self.interactionView.addGestureRecognizer(tapRecognizer)
-
+        
         let swipeRecognizerRight = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
         swipeRecognizerRight.direction = .Right
         self.interactionView.addGestureRecognizer(swipeRecognizerRight)
@@ -60,8 +81,16 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         let swipeRecognizerLeft = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
         swipeRecognizerLeft.direction = .Left
         self.interactionView.addGestureRecognizer(swipeRecognizerLeft)
-        print("EPPlayerWidgetView awakeFromNib")
         
+        //main
+        
+        let swipeRecognizerRightMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
+        swipeRecognizerRightMain.direction = .Right
+        self.contentViewMain.addGestureRecognizer(swipeRecognizerRightMain)
+        
+        let swipeRecognizerLeftMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
+        swipeRecognizerLeftMain.direction = .Left
+        self.contentViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
     }
     
     override func layoutSubviews() {
@@ -70,7 +99,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             playPauseButton = RSPlayPauseButton(frame: playPauseButtonPlaceholder.frame)
             playPauseButton?.addTarget(self, action: "playPauseTap:", forControlEvents: UIControlEvents.TouchUpInside)
             self.playPauseButtonPlaceholder.backgroundColor = UIColor.clearColor()
-            self.contentView.addSubview(playPauseButton!)
+            self.contentViewWidget.addSubview(playPauseButton!)
         }
         
         if playPauseButtonBig == nil {
@@ -105,17 +134,17 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         print("interaction: tap")
 //        processViews()
         if isShown {
-            self.hide(true)
+//            self.hide(true)
         } else {
-            show(true)
+            self.setPlayerShown(true, animated: true)
         }
         
     }
     @IBAction func hideButtonTap(sender: UIButton) {
         if isShown {
-            self.hide(true)
+            self.setPlayerShown(false, animated: true)
         } else {
-            show(true)
+//            show(true)
         }
     }
     
@@ -180,7 +209,37 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         EPMusicPlayer.sharedInstance.playlist.shuffleOn = sender.on
     }
     
-    func hide(animated:Bool) {
+    func setPlayerShown(value:Bool, animated: Bool) {
+        if value {
+            if isShown {
+                print("showing cancelled, already shown")
+                return
+            }
+            
+            isShown = true
+        }
+        
+        if !value {
+            if !isShown {
+                print("hiding cancelled, already hidden")
+                return
+            }
+            
+            isShown = false
+        }
+        
+        UIApplication.sharedApplication().setStatusBarStyle(value ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default, animated: true)
+        
+        topOffsetConstaint.constant = value ? -(UIApplication.sharedApplication().keyWindow?.bounds.height)! : -self.contentViewWidget.bounds.height
+
+        UIView.animateWithDuration(animated ? 0.15 : 0) { () -> Void in
+            self.layoutIfNeeded()
+            self.contentViewWidget.alpha = value ? 0 : 1
+        }
+    }
+
+    /*func hide(animated:Bool) {
+        
         if !isShown {
             print("hiding cancelled, already hidden")
             return
@@ -192,24 +251,27 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         topOffsetConstaint.constant = -(UIApplication.sharedApplication().keyWindow?.bounds.height)!
         UIView.animateWithDuration(animated ? 0.15 : 0) { () -> Void in
             self.layoutIfNeeded()
-            self.contentView.alpha = 0
+            self.contentViewWidget.alpha = 0
         }
     }
     
     func show(animated:Bool) {
+        
         if isShown {
             print("showing cancelled, already shown")
             return
         } else {
             isShown = true
         }
+        
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-        topOffsetConstaint.constant = -self.contentView.bounds.height
+        
+        topOffsetConstaint.constant = -self.contentViewWidget.bounds.height
         UIView.animateWithDuration(animated ? 0.15 : 0) { () -> Void in
             self.layoutIfNeeded()
-            self.contentView.alpha = 1
+            self.contentViewWidget.alpha = 1
         }
-    }
+    }*/
     
     //EPMusicPlayerDelegate
     func playbackProgressUpdate(currentTime: Int, bufferedPercent: Double) {
@@ -262,6 +324,8 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     
     //UI Updates
     func updateUIForNewTrack(){
+        
+        self.userInteractionEnabled = true
         
         if EPMusicPlayer.sharedInstance.activeTrack.artworkImage() == nil {
             setPlaceholderArtworkImage()

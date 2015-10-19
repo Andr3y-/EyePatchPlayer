@@ -240,6 +240,67 @@ class EPCache: NSObject {
         
     }
     
+    class func cacheStateUponTermination(track: EPTrack, playlist: EPMusicPlaylist) -> Bool {
+        
+        if playlist.tracks.count == 0 || track.ID == 0 {
+            print("cacheStateUponTermination - Fail (Empty track or playlist)")
+            return false
+        }
+        
+        if let responseJSON = playlist.responseJSON {
+            //response mode
+            //save the JSON first
+            if let responseJSONData = try? NSJSONSerialization.dataWithJSONObject(responseJSON, options: NSJSONWritingOptions(rawValue: 0)) {
+                if responseJSONData.writeToFile((cacheDirectory() as NSString).stringByAppendingPathComponent("cachedPlaylist.json"), atomically: true) {
+                    //now save the track ID for resuming next time on it
+                    NSUserDefaults.standardUserDefaults().setObject(track.ID, forKey: "LastTrackID")
+                    print("cacheStateUponTermination - OK (JSON)")
+                    return true
+                }
+            }
+            print("cacheStateUponTermination - Fail (JSON)")
+            return false
+            
+        } else {
+            //cache mode
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath((cacheDirectory() as NSString).stringByAppendingPathComponent("cachedPlaylist.json"))
+            } catch _ {
+                print("remove cached playlist throw")
+            }
+            print("cacheStateUponTermination - OK (Lib)")
+            NSUserDefaults.standardUserDefaults().setObject(track.ID, forKey: "LastTrackID")
+            
+            return true
+        }
+        
+    }
+    
+    class func cacheStateUponLaunch() -> (track: EPTrack, playlist: EPMusicPlaylist)? {
+        
+        if let responseJSONData = NSData(contentsOfFile: (cacheDirectory() as NSString).stringByAppendingPathComponent("cachedPlaylist.json")) {
+            if let responseJSON = try? NSJSONSerialization.JSONObjectWithData(responseJSONData, options: NSJSONReadingOptions(rawValue: 0)) {
+                let playlist = EPMusicPlaylist.initWithResponse(responseJSON as! NSDictionary)
+                let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as! Int
+                for track in playlist.tracks {
+                    if track.ID == lastTrackID {
+                        return (track, playlist)
+                    }
+                }
+            }
+        } else {
+            let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as! Int
+            let playlist = EPMusicPlaylist.initWithRLMResults(EPTrack.allObjects())
+            for track in playlist.tracks {
+                if track.ID == lastTrackID {
+                    return (track, playlist)
+                }
+            }
+        }
+        
+        return nil
+    }
+    
     class func pathForTrackArtwork(track:EPTrack) -> (String) {
         return ((EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("artwork") as NSString).stringByAppendingPathComponent("\(track.ID).jpg")
     }

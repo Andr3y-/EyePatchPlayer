@@ -21,12 +21,9 @@ class EPTrack: RLMObject {
     private dynamic var isArtworkCached = false
     
     var artworkUIImage: UIImage?
-//    dynamic var delegate: EPTrackDelegate?//apparently, delegate causes random EXC_BAD_ACCESS, probably with using Realm
     
     class func initWithResponse(response: NSDictionary) -> EPTrack {
         let track = EPTrack()
-        
-//        println("EPTrack: initWithResponse\n\(response)")
         
         track.title = response["title"] as! String
         track.artist = response["artist"] as! String
@@ -35,7 +32,6 @@ class EPTrack: RLMObject {
         track.ID = response["id"] as! Int
         track.URLString = response["url"] as! String
         track.isCached = EPCache.cacheStatusForTrack(track)
-//        println("EPTrack: initWithResponse finish")
         
         return track
     }

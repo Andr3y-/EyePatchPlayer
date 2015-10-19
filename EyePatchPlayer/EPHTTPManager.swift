@@ -27,6 +27,41 @@ class EPHTTPManager: NSObject {
         })
     }
     
+    class func retrievePlaylistOfUserWithID(userID: Int?, count: Int?, completion: ((result : Bool, playlist: EPMusicPlaylist?) -> Void)?) {
+        var specificUserID = 3677921
+        
+        if let userID = userID {
+             //Specified UserID exists, OK
+            specificUserID = userID
+            print("loading playlist for user with id \(userID)")
+
+        } else {
+            if let userID = VKSdk.getAccessToken().userId {
+                //VK UserID exists, OK
+                specificUserID = Int(userID)!
+                print("default playlist for logged in user with id \(userID)")
+            } else {
+
+            }
+        }
+        
+        let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID : specificUserID, VK_API_COUNT : count != nil ? count! : 2000, "need_user" : 0], andHttpMethod: "GET")
+        
+        audioRequest.executeWithResultBlock({ (response) -> Void in
+            
+            let playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
+            
+            if completion != nil {
+                completion! (result: true, playlist: playlist)
+            }
+            
+        }, errorBlock: { (error) -> Void in
+            if completion != nil {
+                completion! (result: false, playlist: nil)
+            }
+        })
+    }
+    
     class func scrobbleTrack(track: EPTrack) {
         
     }

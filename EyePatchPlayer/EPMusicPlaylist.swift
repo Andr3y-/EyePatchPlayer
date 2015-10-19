@@ -21,6 +21,7 @@ class EPMusicPlaylist: AnyObject {
     
     var trackCount: Int = 0
     var shuffleOn: Bool = true
+    var responseJSON: NSDictionary?
     
     func nextTrack() -> EPTrack? {
         let startTime = CFAbsoluteTimeGetCurrent()
@@ -136,6 +137,7 @@ class EPMusicPlaylist: AnyObject {
     class func initWithResponse(response: NSDictionary) -> EPMusicPlaylist{
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
         
+        playlist.responseJSON = response
         playlist.trackCount = response["count"]!.integerValue
         
 //        EPCache.cacheRetrievalExecutionTime = 0

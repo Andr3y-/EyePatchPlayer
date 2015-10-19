@@ -50,6 +50,34 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         self.remoteManager = EPMusicPlayerRemoteManager()
         self.setupStream(nil)
         self.observeSessionEvents()
+        
+        
+    }
+    
+    func loadDataFromCache(completion: ((result : Bool) -> Void)?) {
+
+            if let (track,playlist) = EPCache.cacheStateUponLaunch() {
+                    print("player loaded playlist + track from last session")
+                    self.playTrackFromPlaylist(track, playlist: playlist)
+                    self.pause()
+                    if completion != nil {
+                        completion!(result: true)
+                    }
+            } else {
+                //simulate failure
+                EPHTTPManager.retrievePlaylistOfUserWithID(nil, count: 5, completion: { (result, playlist) -> Void in
+                    if result {
+                        if let playlist = playlist where playlist.tracks.count > 0 {
+                            self.playTrackFromPlaylist(playlist.tracks.first!, playlist: playlist)
+                            self.pause()
+                            if completion != nil {
+                                completion!(result: true)
+                            }
+                        }
+                    }
+                })
+            }
+        
     }
     
     func setTrack(track:EPTrack, force:Bool) {
@@ -99,8 +127,22 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
                 self.playFromURL(self.activeTrack.URL())
             }
         
-        if EPSettings.shouldBroadcastStatus() { EPHTTPManager.VKBroadcastTrack(self.activeTrack) }
-        if EPSettings.shoulScrobbleWithLastFm() { EPHTTPManager.scrobbleTrack(self.activeTrack) }
+        if EPSettings.shouldBroadcastStatus() {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+                if track.ID == self.activeTrack.ID && self.isPlaying() {
+                    EPHTTPManager.VKBroadcastTrack(self.activeTrack)
+                }
+            }
+        }
+        
+        if EPSettings.shoulScrobbleWithLastFm() {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+                if track.ID == self.activeTrack.ID && self.isPlaying() {
+                    EPHTTPManager.scrobbleTrack(self.activeTrack)
+                }
+            }
+        }
         
         //should be performed by a separate class
         self.remoteManager.configureNowPlayingInfo(self.activeTrack)
