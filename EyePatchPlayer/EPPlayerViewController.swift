@@ -41,16 +41,44 @@ class EPPlayerViewController: UIViewController, EPMusicPlayerDelegate {
             print("removal requested")
             break
         default:
-            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result, track) -> Void in
-                if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                    self.trackCachedWithResult(true)
-                } else {
-                    self.trackCachedWithResult(false)
-                }
+            
+            if EPSettings.shouldAutomaticallySaveToPlaylist() {
                 
-                }, progressBlock: { (progressValue) -> Void in
-//                    println("download: \(progressValue * 100) %")
-            })
+                EPHTTPManager.VKTrackAddToPlaylist(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result, newTrack) -> Void in
+                    
+                    if let updatedTrack = newTrack where result == true {
+                        //update track ID to match the one of the playlist, only then create a copy
+                        EPMusicPlayer.sharedInstance.activeTrack.ID = updatedTrack.ID
+                    }
+                    
+                    EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result, track) -> Void in
+                        if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+                            self.trackCachedWithResult(true)
+                        } else {
+                            self.trackCachedWithResult(false)
+                        }
+                        
+                        }, progressBlock: { (progressValue) -> Void in
+                            //                    println("download: \(progressValue * 100) %")
+                    })
+                    
+                })
+            } else {
+                
+                EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: { (result, track) -> Void in
+                    if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+                        self.trackCachedWithResult(true)
+                    } else {
+                        self.trackCachedWithResult(false)
+                    }
+                    
+                    }, progressBlock: { (progressValue) -> Void in
+                        //                    println("download: \(progressValue * 100) %")
+                })
+                
+            }
+            
+            
             self.cacheButton.setTitle("Saving", forState: UIControlState.Normal)
             break
         }

@@ -19,6 +19,7 @@ DONE:
 - [x] Removing remote controls from playerViewController
 - [x] Saving last played track & respective playlist
 - [x] Friends search
+- [x] Ability to automatically save a track to your VK playlist whenever download is triggered (setting)
 
 TODO:
 

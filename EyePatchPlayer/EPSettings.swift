@@ -15,6 +15,12 @@ enum EPArtworkSize {
 }
 
 class EPSettings: NSUserDefaults {
+    
+    class func shouldAutomaticallySaveToPlaylist() -> Bool {
+        //read from NSUserDefaults()
+        return true
+    }
+
     class func shouldBroadcastStatus() -> (Bool) {
         //read from NSUserDefaults()
         return true

@@ -21,10 +21,53 @@ class EPHTTPManager: NSObject {
         print("broadcasting track")
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
         broadcastRequest.executeWithResultBlock({ (response) -> Void in
-            print("broadcasting track success result: \(response)")
+            print("broadcasting track success result: \(response.json)")
             }, errorBlock: { (error) -> Void in
                 print(error)
         })
+    }
+    
+    class func VKTrackAddToPlaylist(track: EPTrack, completion: ((result : Bool, track: EPTrack?) -> Void)?) {
+        print("adding track to playlist")
+        if let userID = VKSdk.getAccessToken().userId {
+            
+            if userID == "\(track.ownerID)" {
+                //track already in the playlist
+                print("adding track to playlist success result: track is already in the playlist")
+                if completion != nil {
+                    completion! (result: true, track: track)
+                }
+            } else {
+                //track is not in the playlist, adding it
+                let addRequest: VKRequest = VKRequest(method: "audio.add", andParameters: ["audio_id" : "\(track.ID)", "owner_id" : track.ownerID], andHttpMethod: "GET")
+                addRequest.executeWithResultBlock({ (response) -> Void in
+                    
+                    let newID = response.json as! Int
+                    
+                        print("adding track to playlist success result: \(newID)")
+                        //update track ID
+                        track.ID = newID
+                    
+                    if completion != nil {
+                        completion! (result: true, track: track)
+                    }
+                    
+                }, errorBlock: { (error) -> Void in
+                    if completion != nil {
+                        completion! (result: false, track: nil)
+                    }
+                    
+                    print(error)
+                })
+            }
+            
+        } else {
+            print("adding track to playlist success result: could not resolve VK UserID")
+
+            if completion != nil {
+                completion! (result: false, track: nil)
+            }
+        }
     }
     
     class func retrievePlaylistOfUserWithID(userID: Int?, count: Int?, completion: ((result : Bool, playlist: EPMusicPlaylist?) -> Void)?) {
@@ -68,6 +111,7 @@ class EPHTTPManager: NSObject {
     
     class func downloadTrack(track: EPTrack, completion: ((result : Bool, track: EPTrack) -> Void)?, progressBlock: ((progressValue: Float) -> Void)?) {
         print("downoadTrack called")
+        
         
         let trackCopy = track.copy() as! EPTrack
         

@@ -45,7 +45,7 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
 //        println("\(cachedTracks)")
         for trackRLM in cachedTracks {
             if let track: EPTrack = trackRLM as? EPTrack {
-                print("track: \(track.artist) - \(track.title)")
+                print("track: \(track.ID) | \(track.artist) - \(track.title)")
             }
         }
         
