@@ -20,6 +20,11 @@ DONE:
 - [x] Saving last played track & respective playlist
 - [x] Friends search
 - [x] Ability to automatically save a track to your VK playlist whenever download is triggered (setting)
+- [x] Settings Page with
+-   [x] Last.fm (once API becomes available)
+-   [x] Status broadcast
+-   [x] Cache Policy
+-   [x] Artwork Size and Presence
 
 TODO:
 
@@ -33,10 +38,7 @@ TODO:
 - [ ] Equalizer
 - [ ] Displaying download progress
 - [ ] Last.fm scrobbling
-- [ ] Settings Page with
--   [ ] Last.fm (once API becomes available)
--   [ ] Status broadcast
--   [ ] Cache Policy
+
 - [ ] Global Search
 - [ ] Recommendations (based on a playlist/single song)
 - [ ] Extensively Visualised Playback Statistics

@@ -136,7 +136,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             }
         }
         
-        if EPSettings.shoulScrobbleWithLastFm() {
+        if EPSettings.shouldScrobbleWithLastFm() {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
                 if track.ID == self.activeTrack.ID && self.isPlaying() {
                     EPHTTPManager.scrobbleTrack(self.activeTrack)

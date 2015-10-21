@@ -8,15 +8,60 @@
 
 import UIKit
 
-class EPSettingsViewController: UIViewController {
+class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loadCell()
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.allowsSelection = false
+        self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
         drawRightMenuButton()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func loadCell() {
+        let nibName = UINib(nibName: "EPSettingsTableViewCell", bundle:nil)
+        self.tableView.registerNib(nibName, forCellReuseIdentifier: "SettingCell")
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell: EPSettingsTableViewCell? = self.tableView.dequeueReusableCellWithIdentifier("SettingCell") as? EPSettingsTableViewCell
+        
+        if cell == nil {
+            cell = EPSettingsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SettingCell")
+        }
+        
+        let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
+        cell!.setContent(type, value: value, name: name)
+   
+        return cell!
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return EPSettings.currentSettingsSet().count
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
     }
 }
+
+/*
+
+shouldAutomaticallySaveToPlaylist
+shouldBroadcastStatus
+shoulScrobbleWithLastFm
+shouldDownloadArtwork
+preferredArtworkSizeEnum
+
+*/

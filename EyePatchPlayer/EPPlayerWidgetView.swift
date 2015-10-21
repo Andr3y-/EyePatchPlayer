@@ -96,7 +96,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.contentViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
         
         let panGestureDown = UIPanGestureRecognizer(target: self, action: "panGestureMain:")
-        self.contentViewMain.addGestureRecognizer(panGestureDown)
+        self.playerHeaderView.addGestureRecognizer(panGestureDown)
         
     }
     
@@ -200,7 +200,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             print("final move dur: \(duration)")
             
             
-            if finalPoint < shownConst-shownConst*0.10 {
+            if finalPoint < shownConst-shownConst*0.50 {
                 
                 topOffsetConstaint.constant = shownConst
                 
@@ -271,7 +271,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             print("final move dur: \(duration)")
             
             
-            if finalPoint > shownConst-shownConst*0.10 {
+            if finalPoint > shownConst-shownConst*0.50 {
                 
                 topOffsetConstaint.constant = hiddenConst
                 

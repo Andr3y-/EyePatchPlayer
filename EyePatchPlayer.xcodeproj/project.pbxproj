@@ -11,6 +11,8 @@
 		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
 		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
 		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
+		C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */; };
+		C4215B301BD79D8100D771F5 /* EPSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */; };
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
@@ -72,6 +74,8 @@
 		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
 		C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettings.swift; sourceTree = "<group>"; };
 		C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
+		C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,6 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */,
+				C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */,
+				C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4215B301BD79D8100D771F5 /* EPSettingsTableViewCell.xib in Resources */,
 				C489EACE1BA83D1D00D788E0 /* Main.storyboard in Resources */,
 				C4C61DB81BC82E8B00501EE1 /* Images.xcassets in Resources */,
 				C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */,
@@ -548,6 +555,7 @@
 				C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
+				C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
 				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,
