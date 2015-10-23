@@ -19,6 +19,7 @@ class EPTrack: RLMObject {
     dynamic var URLString: String = ""
     dynamic var isCached = false
     private dynamic var isArtworkCached = false
+    internal dynamic var downloadProgress: EPDownloadProgress?
     
     var artworkUIImage: UIImage?
     
@@ -113,7 +114,7 @@ class EPTrack: RLMObject {
     }
     
     override class func ignoredProperties() -> [AnyObject]? {
-        return ["artworkUIImage", "delegate"]
+        return ["artworkUIImage", "downloadProgress"]
     }
     
     override class func primaryKey() -> String {

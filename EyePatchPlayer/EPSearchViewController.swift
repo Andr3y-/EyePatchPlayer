@@ -139,8 +139,8 @@ class EPSearchViewController: UIViewController, UITableViewDelegate, UITableView
         track = self.playlist.tracks[indexPath.row]
         
         cell?.delegate = self
-        
-        cell!.setCacheStatus(track.isCached)
+        cell?.setupLayoutForTrack(track)
+//        cell!.setCacheStatus(track.isCached)
         cell!.titleLabel?.text = track.title
         cell!.artistLabel?.text = track.artist
         cell?.durationLabel.text = track.duration.timeInSecondsToString()

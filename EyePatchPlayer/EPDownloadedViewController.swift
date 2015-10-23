@@ -181,8 +181,8 @@ class EPDownloadedViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         cell?.delegate = self
-        
-        cell!.setCacheStatus(track.isCached)
+        cell?.setupLayoutForTrack(track)
+//        cell!.setCacheStatus(track.isCached)
         cell!.titleLabel?.text = track.title
         cell!.artistLabel?.text = track.artist
         cell?.durationLabel.text = track.duration.timeInSecondsToString()

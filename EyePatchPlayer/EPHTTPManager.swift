@@ -14,8 +14,31 @@ import SDWebImage
 class EPHTTPManager: NSObject {
     
     static let sharedInstance = EPHTTPManager()
-
+    
+    let tracksDownloadManager = AFHTTPRequestOperationManager()
+    let artworkDownloadManager = AFHTTPRequestOperationManager()
+    
+    var maxSimultaneousDownloads = 3
+//    var queuedTracks = NSMutableArray()
     var downloadingTracks = NSMutableArray()
+    
+    override init() {
+        super.init()
+        tracksDownloadManager.operationQueue.maxConcurrentOperationCount = 2
+        artworkDownloadManager.responseSerializer = AFJSONResponseSerializer()
+    }
+    
+    class func downloadProgressForTrack(track:EPTrack) -> EPDownloadProgress? {
+        for trackObject in EPHTTPManager.sharedInstance.downloadingTracks {
+            let trackInArray = trackObject as! EPTrack
+            if track.ID == trackInArray.ID {
+                if let downloadProgress = trackInArray.downloadProgress {
+                    return downloadProgress
+                }
+            }
+        }
+        return nil
+    }
     
     class func VKBroadcastTrack(track: EPTrack) {
         print("broadcasting track")
@@ -27,8 +50,15 @@ class EPHTTPManager: NSObject {
         })
     }
     
-    class func VKTrackAddToPlaylist(track: EPTrack, completion: ((result : Bool, track: EPTrack?) -> Void)?) {
+    class func VKTrackAddToPlaylistIfNeeded(track: EPTrack, completion: ((result : Bool, track: EPTrack?) -> Void)?) {
         print("adding track to playlist")
+        
+        if !EPSettings.shouldAutomaticallySaveToPlaylist() {
+            if completion != nil {
+                completion!(result: false, track: track)
+            }
+        }
+        
         if let userID = VKSdk.getAccessToken().userId {
             
             if userID == "\(track.ownerID)" {
@@ -69,6 +99,7 @@ class EPHTTPManager: NSObject {
             }
         }
     }
+
     
     class func retrievePlaylistOfUserWithID(userID: Int?, count: Int?, completion: ((result : Bool, playlist: EPMusicPlaylist?) -> Void)?) {
         var specificUserID = 3677921
@@ -79,13 +110,16 @@ class EPHTTPManager: NSObject {
             print("loading playlist for user with id \(userID)")
 
         } else {
-            if let userID = VKSdk.getAccessToken().userId {
-                //VK UserID exists, OK
-                specificUserID = Int(userID)!
-                print("default playlist for logged in user with id \(userID)")
-            } else {
-
+            if let token = VKSdk.getAccessToken() {
+                if let userID = token.userId {
+                    //VK UserID exists, OK
+                    specificUserID = Int(userID)!
+                    print("default playlist for logged in user with id \(userID)")
+                } else {
+                    
+                }
             }
+            
         }
         
         let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID : specificUserID, VK_API_COUNT : count != nil ? count! : 2000, "need_user" : 0], andHttpMethod: "GET")
@@ -112,77 +146,92 @@ class EPHTTPManager: NSObject {
     class func downloadTrack(track: EPTrack, completion: ((result : Bool, track: EPTrack) -> Void)?, progressBlock: ((progressValue: Float) -> Void)?) {
         print("downoadTrack called")
         
-        
-        let trackCopy = track.copy() as! EPTrack
-        
-        for trackEnum in EPHTTPManager.sharedInstance.downloadingTracks {
-            if (trackCopy.ID == trackEnum.ID) {
-                print("track is already downloading")
-                return
-            }
-        }
-        
-        EPHTTPManager.sharedInstance.downloadingTracks.addObject(track)
-        let downloadOperation = AFHTTPRequestOperationManager().GET(trackCopy.URLString, parameters: nil, success: { (operation, responseObject) -> Void in
-            print("download successful")
-            
-            EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
-            
-            var fileSize : UInt64
-            let attr:NSDictionary? = try? NSFileManager.defaultManager().attributesOfItemAtPath(EPCache.pathForTrackToSave(trackCopy))
-            if let _attr = attr {
-                fileSize = _attr.fileSize()
-                if fileSize > 0 && EPCache.addTrackToDownloadWithFileAtPath(trackCopy, filePath: EPCache.pathForTrackToSave(trackCopy)) {
-                    print("file saved, size: \(fileSize)")
-                    track.isCached = true
-                    if completion != nil {
-                        completion! (result: true, track: trackCopy)
+            EPHTTPManager.VKTrackAddToPlaylistIfNeeded(track, completion: { (result, newTrack) -> Void in
+                 //download with adding to playlist first
+                if let track = newTrack {
+                    //update track ID to match the one of the playlist, only then create a copy
+
+                    let trackCopy = track.copy() as! EPTrack
+                    
+                    for trackEnum in EPHTTPManager.sharedInstance.downloadingTracks {
+                        if (trackCopy.ID == trackEnum.ID) {
+                            print("track is already downloading")
+                            return
+                        }
                     }
-                    return
-                } else {
-                    if completion != nil {
-                        completion! (result: false, track: trackCopy)
+                    
+                    EPHTTPManager.sharedInstance.downloadingTracks.addObject(track)
+                    track.downloadProgress = EPDownloadProgress()
+                    
+                    let downloadOperation = sharedInstance.tracksDownloadManager.GET(trackCopy.URLString, parameters: nil, success: { (operation, responseObject) -> Void in
+                        print("download successful")
+                        
+                        EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
+                        track.downloadProgress?.finished = true
+                        track.downloadProgress = nil
+                        
+                        var fileSize : UInt64
+                        let attr:NSDictionary? = try? NSFileManager.defaultManager().attributesOfItemAtPath(EPCache.pathForTrackToSave(trackCopy))
+                        if let _attr = attr {
+                            fileSize = _attr.fileSize()
+                            if fileSize > 0 && EPCache.addTrackToDownloadWithFileAtPath(trackCopy, filePath: EPCache.pathForTrackToSave(trackCopy)) {
+                                print("file saved, size: \(fileSize)")
+                                track.isCached = true
+                                if completion != nil {
+                                    completion! (result: true, track: trackCopy)
+                                }
+                                return
+                            } else {
+                                if completion != nil {
+                                    completion! (result: false, track: trackCopy)
+                                }
+                            }
+                            
+                        } else {
+                            if completion != nil {
+                                completion! (result: false, track: trackCopy)
+                            }
+                        }
+                        
+                        
+                        }) { (operation, responseObject) -> Void in
+                            print("download unsuccessful")
+                            if completion != nil {
+                                completion! (result: false, track: trackCopy)
+                            }
+                            EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
+                    }
+                    downloadOperation?.outputStream = NSOutputStream(toFileAtPath: EPCache.pathForTrackToSave(trackCopy), append: false)
+                    downloadOperation?.outputStream?.open()
+                    downloadOperation?.setDownloadProgressBlock({ (written, totalWritten, totalExpected) -> Void in
+                        let progress:Float = Float(totalWritten) / Float(totalExpected)
+                        
+                        if let downloadProgress = track.downloadProgress {
+                            downloadProgress.percentComplete = progress
+                        }
+                        
+                        if progressBlock != nil {
+                            progressBlock! (progressValue: progress)
+                        }
+                        
+                        //            println("download: \(progress)%\n\(written) | \(totalWritten) | \(totalExpected)")
+                    })
+                    downloadOperation?.resume()
+                    
+                    if downloadOperation != nil && downloadOperation?.isPaused() == false {
+                        print("download started")
+                    } else {
+                        print("download failed to start")
                     }
                 }
-                
-            } else {
-                if completion != nil {
-                    completion! (result: false, track: trackCopy)
-                }
-            }
-            
-            
-        }) { (operation, responseObject) -> Void in
-            print("download unsuccessful")
-            if completion != nil {
-                completion! (result: false, track: trackCopy)
-            }
-            EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
-        }
-        downloadOperation?.outputStream = NSOutputStream(toFileAtPath: EPCache.pathForTrackToSave(trackCopy), append: false)
-        downloadOperation?.outputStream?.open()
-        downloadOperation?.setDownloadProgressBlock({ (written, totalWritten, totalExpected) -> Void in
-            let progress:Float = Float(totalWritten) / Float(totalExpected)
-            if progressBlock != nil {
-                progressBlock! (progressValue: progress)
-            }
-            
-//            println("download: \(progress)%\n\(written) | \(totalWritten) | \(totalExpected)")
-        })
-        downloadOperation?.resume()
-        
-        if downloadOperation != nil && downloadOperation?.isPaused() == false {
-            print("download started")
-        } else {
-            print("download failed to start")
-        }
+            })
     }
 
     class func getAlbumCoverImage(track: EPTrack, completion: ((result : Bool, image:UIImage, trackID: Int) -> Void)?) {
-        let manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
+        sharedInstance.artworkDownloadManager.operationQueue.cancelAllOperations()
+        
         let parameters = "\(track.title) \(track.artist)"
-        manager.GET("https://itunes.apple.com/search", parameters: ["term" : parameters], success: { (operation, response) -> Void in
+        sharedInstance.artworkDownloadManager.GET("https://itunes.apple.com/search", parameters: ["term" : parameters], success: { (operation, response) -> Void in
 //            print(response)
             if let searchResults:AnyObject = response["results"] {
                 if let searchResultsArray: NSArray = searchResults as? NSArray {
@@ -190,7 +239,7 @@ class EPHTTPManager: NSObject {
                         if let resultsDictCast: NSDictionary = resultsDict as? NSDictionary {
                             if let URLString100x100 = resultsDictCast["artworkUrl100"] as? NSString {
                                 guard let url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString())) else {
-                                    print("url is null")
+                                    print("album art iTunes request failed (url is null)")
                                     if completion != nil {
                                         completion! (result: false, image: UIImage(), trackID: track.ID)
                                     }
@@ -198,13 +247,14 @@ class EPHTTPManager: NSObject {
                                 }
                                 print(url)
                                 SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: { (downloadedImage:UIImage!, error:NSError!, cacheType:SDImageCacheType, isDownloaded:Bool, withURL:NSURL!) -> Void in
-                                    if isDownloaded {
+                                    if isDownloaded && downloadedImage != nil {
                                         track.addArtworkImage(downloadedImage)
                                         if completion != nil {
                                             completion! (result: true, image: downloadedImage, trackID: track.ID)
                                         }
                                         return
                                     } else {
+                                        print("album art iTunes request failed (no image downloaded)")
                                         if completion != nil {
                                             completion! (result: false, image: UIImage(), trackID: track.ID)
                                         }
@@ -217,13 +267,14 @@ class EPHTTPManager: NSObject {
                         print("no results for album artwork")
                     }
                 }
-            }
-                        
-            if completion != nil {
-                completion! (result: false, image: UIImage(),trackID: track.ID)
+            } else {
+                print("album art iTunes request failed (no search results received)")
+                if completion != nil {
+                    completion! (result: false, image: UIImage(),trackID: track.ID)
+                }
             }
             }) { (opeation, error) -> Void in
-                print("album art iTunes request failed")
+                print("album art iTunes request failed (request failure)")
                 if completion != nil {
                     completion! (result: false, image: UIImage(),trackID: track.ID)
                 }

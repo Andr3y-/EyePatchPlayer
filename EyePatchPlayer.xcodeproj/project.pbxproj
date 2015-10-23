@@ -15,6 +15,7 @@
 		C4215B301BD79D8100D771F5 /* EPSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */; };
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
+		C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
 		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
@@ -29,6 +30,7 @@
 		C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAFE1BA8698700D788E0 /* EPTrack.swift */; };
 		C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */; };
 		C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */; };
+		C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */; };
 		C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */; };
 		C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */; };
 		C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */; };
@@ -78,6 +80,8 @@
 		C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
+		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
+		C46ED3501BD928A100ACF9BB /* EPPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EPPlayground.playground; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 		C489EAFE1BA8698700D788E0 /* EPTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrack.swift; sourceTree = "<group>"; };
 		C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistViewController.swift; sourceTree = "<group>"; };
 		C489EB0C1BAAFF2600D788E0 /* EPPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerViewController.swift; sourceTree = "<group>"; };
+		C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPStatusIndicatorView.swift; sourceTree = "<group>"; };
 		C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrackTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAudioSessionManager.swift; sourceTree = "<group>"; };
 		C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerDelegate.swift; sourceTree = "<group>"; };
@@ -209,6 +214,7 @@
 		C489EAC41BA83D1D00D788E0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C46ED3501BD928A100ACF9BB /* EPPlayground.playground */,
 				C4C61D4D1BBD56DA00501EE1 /* Extensions */,
 				C4FCB3701BAC65A300197746 /* Libraries */,
 				C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */,
@@ -307,6 +313,7 @@
 				C489EAFC1BA8696A00D788E0 /* EPMusicPlaylist.swift */,
 				C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */,
 				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
+				C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */,
 				C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */,
 			);
 			name = Model;
@@ -356,6 +363,7 @@
 				C4C61DB21BC8199500501EE1 /* EPTrackTableViewCell.swift */,
 				C4C61DB31BC8199500501EE1 /* EPTrackTableViewCell.xib */,
 				C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */,
+				C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */,
 			);
 			name = TrackTableViewCell;
 			sourceTree = "<group>";
@@ -430,6 +438,7 @@
 				TargetAttributes = {
 					C489EAC01BA83D1D00D788E0 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 536JQ4BA38;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -561,7 +570,9 @@
 				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,
 				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
+				C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */,
 				C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */,
+				C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */,
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
@@ -628,6 +639,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -651,6 +663,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -673,6 +686,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -688,6 +702,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -698,6 +713,7 @@
 			baseConfigurationReference = A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -711,6 +727,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d6a7baf6-8eb4-4b29-a9a1-4038bbdfdac8";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/andr3y/repos/EyePatchPlayer/EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Debug;
@@ -720,6 +737,7 @@
 			baseConfigurationReference = 233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -733,6 +751,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d6a7baf6-8eb4-4b29-a9a1-4038bbdfdac8";
 			};
 			name = Release;
 		};
@@ -740,6 +759,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -749,6 +769,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyePatchPlayer.app/EyePatchPlayer";
 			};
 			name = Debug;
@@ -757,11 +778,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = EyePatchPlayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyePatchPlayer.app/EyePatchPlayer";
 			};
 			name = Release;

@@ -21,25 +21,24 @@ DONE:
 - [x] Friends search
 - [x] Ability to automatically save a track to your VK playlist whenever download is triggered (setting)
 - [x] Settings Page with
--   [x] Last.fm (once API becomes available)
--   [x] Status broadcast
--   [x] Cache Policy
--   [x] Artwork Size and Presence
+    - [x] Last.fm (once API becomes available)
+    - [x] Status broadcast
+    - [x] Cache Policy
+    - [x] Artwork Size and Presence
+- [x] Global music search
+- [x] Download Queue
 
 TODO:
 
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
 - [ ] Ability to Add Search Results into a playlist
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
-- [ ] Tracks from messages
-- [ ] Download Queue
-- [ ] Move elapsed time on Remote Control to UpdateProgress Method, perhaps, implement it in a separate class for code clarity
+- [ ] Tracks from Messages
 - [ ] Play Selection / Search Results
 - [ ] Equalizer
 - [ ] Displaying download progress
-- [ ] Last.fm scrobbling
-
-- [ ] Global Search
+- [ ] Last.fm scrobbling (API Unavailable Currently)
+- [ ] Artwork search filters (excludes specific symbols & words)
 - [ ] Recommendations (based on a playlist/single song)
 - [ ] Extensively Visualised Playback Statistics
 - [ ] UI Improvements
@@ -47,4 +46,3 @@ TODO:
 TOFIX:
 
 - [ ] Double Authentication with VK
-- [ ] Rare bug with playback time being reset to 0 while playing

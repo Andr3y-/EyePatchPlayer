@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9040"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -188,6 +189,9 @@
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                    <rect key="frame" x="152" y="31" width="99" height="21"/>
+                                                                </variation>
                                                             </label>
                                                         </subviews>
                                                         <constraints>
@@ -541,7 +545,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.95454545454545447" green="0.95454545454545447" blue="0.95454545454545447" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="hLb-xl-TUD" firstAttribute="leading" secondItem="UpJ-WU-0du" secondAttribute="leading" constant="8" id="0GT-h0-TND"/>
+                                    <constraint firstItem="hLb-xl-TUD" firstAttribute="leading" secondItem="UpJ-WU-0du" secondAttribute="leading" constant="8" id="0GT-h0-TND">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="2"/>
+                                    </constraint>
                                     <constraint firstItem="wUR-Ur-t4j" firstAttribute="leading" secondItem="ODF-XW-kZE" secondAttribute="trailing" constant="8" id="7rY-NO-Lg4"/>
                                     <constraint firstAttribute="trailing" secondItem="sAi-uy-Kbk" secondAttribute="trailing" id="9v5-5o-579"/>
                                     <constraint firstItem="wUR-Ur-t4j" firstAttribute="leading" secondItem="I8I-8t-PjH" secondAttribute="trailing" constant="8" id="C0a-Hs-Z4E"/>
@@ -549,8 +555,12 @@
                                     <constraint firstItem="sAi-uy-Kbk" firstAttribute="top" secondItem="UpJ-WU-0du" secondAttribute="top" id="CrQ-WL-w3h"/>
                                     <constraint firstItem="sAi-uy-Kbk" firstAttribute="leading" secondItem="UpJ-WU-0du" secondAttribute="leading" id="NbZ-CW-Jgs"/>
                                     <constraint firstAttribute="bottom" secondItem="wUR-Ur-t4j" secondAttribute="bottom" constant="8" id="TzY-Ja-C9z"/>
-                                    <constraint firstItem="hLb-xl-TUD" firstAttribute="top" secondItem="UpJ-WU-0du" secondAttribute="top" constant="8" id="WVK-f9-boS"/>
-                                    <constraint firstAttribute="bottom" secondItem="hLb-xl-TUD" secondAttribute="bottom" constant="8" id="ZMr-h1-uVz"/>
+                                    <constraint firstItem="hLb-xl-TUD" firstAttribute="top" secondItem="UpJ-WU-0du" secondAttribute="top" constant="8" id="WVK-f9-boS">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="2"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="hLb-xl-TUD" secondAttribute="bottom" constant="8" id="ZMr-h1-uVz">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="2"/>
+                                    </constraint>
                                     <constraint firstAttribute="bottom" secondItem="I8I-8t-PjH" secondAttribute="bottom" id="hE0-HV-cPt"/>
                                     <constraint firstAttribute="trailing" secondItem="wUR-Ur-t4j" secondAttribute="trailing" constant="8" id="ioK-xE-SLl"/>
                                     <constraint firstItem="wUR-Ur-t4j" firstAttribute="top" secondItem="UpJ-WU-0du" secondAttribute="top" constant="8" id="izP-gW-JHS"/>
@@ -771,12 +781,12 @@
                                 <exclude reference="YYm-oi-cIg"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="czl-KO-lPG"/>
                                 <exclude reference="4yO-sm-rhv"/>
                                 <exclude reference="Ob0-SX-in7"/>
                                 <exclude reference="bL3-O7-0xe"/>
                                 <exclude reference="j1S-HM-GXh"/>
                                 <exclude reference="z4Q-Rv-DKs"/>
-                                <exclude reference="czl-KO-lPG"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -784,12 +794,12 @@
                                 <include reference="YYm-oi-cIg"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="czl-KO-lPG"/>
                                 <exclude reference="4yO-sm-rhv"/>
                                 <include reference="Ob0-SX-in7"/>
                                 <exclude reference="bL3-O7-0xe"/>
                                 <include reference="j1S-HM-GXh"/>
                                 <include reference="z4Q-Rv-DKs"/>
-                                <include reference="czl-KO-lPG"/>
                             </mask>
                         </variation>
                     </view>

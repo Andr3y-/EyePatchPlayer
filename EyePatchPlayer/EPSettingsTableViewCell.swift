@@ -47,8 +47,8 @@ class EPSettingsTableViewCell: UITableViewCell {
         }
         
         if !EPSettings.enabledStatusForSettingType(type) {
-                self.userInteractionEnabled = false
-            self.contentView.backgroundColor = UIColor.lightGrayColor()
+            self.userInteractionEnabled = false
+            self.contentView.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
         }
         
     }

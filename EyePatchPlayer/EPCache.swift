@@ -289,13 +289,15 @@ class EPCache: NSObject {
                 }
             }
         } else {
-            let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as! Int
-            let playlist = EPMusicPlaylist.initWithRLMResults(EPTrack.allObjects())
-            for track in playlist.tracks {
-                if track.ID == lastTrackID {
-                    return (track, playlist)
+            if let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as? Int {
+                let playlist = EPMusicPlaylist.initWithRLMResults(EPTrack.allObjects())
+                for track in playlist.tracks {
+                    if track.ID == lastTrackID {
+                        return (track, playlist)
+                    }
                 }
             }
+            
         }
         
         return nil

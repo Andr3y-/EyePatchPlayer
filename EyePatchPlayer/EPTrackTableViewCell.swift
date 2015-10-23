@@ -13,12 +13,34 @@ class EPTrackTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var progressIndicatorView: EPStatusIndicatorView!
+                   var downloadProgress: EPDownloadProgress?
+                   var track: EPTrack!
     @IBOutlet weak var mainTapArea: UIView!
     @IBOutlet weak var secondaryTapArea: UIView!
-    
     @IBOutlet weak var constraintSelectionIndicator: NSLayoutConstraint!
     var delegate:EPTrackTableViewCellDelegate?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.progressIndicatorView.clear()
+        
+//        self.progressIndicatorView.animateRotation(false)
+//        self.progressIndicatorView.setStatusComplete(false, animated: false)
+//        self.progressIndicatorView.progress = 1
+//        if self.track {
+//            self.track.removeObserver(self, forKeyPath: "downloadProgress")
+//        }
+        
+        if downloadProgress != nil {
+            self.downloadProgress?.removeObserver(self, forKeyPath: "percentComplete")
+            self.downloadProgress?.removeObserver(self, forKeyPath: "finished")
+        }
+        
+        self.downloadProgress = nil
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,11 +67,62 @@ class EPTrackTableViewCell: UITableViewCell {
         self.delegate?.cellDetectedSecondaryTap(self)
     }
     
+    func setupDownloadProgress(downloadProgress: EPDownloadProgress) {
+        print("setupDownloadProgress")
+        
+        self.downloadProgress = downloadProgress
+        self.progressIndicatorView.progress = CGFloat(downloadProgress.percentComplete)
+        self.progressIndicatorView.animateRotation(true)
+        
+        self.downloadProgress!.addObserver(self, forKeyPath: "percentComplete", options: [.New, .Old], context: nil)
+        self.downloadProgress!.addObserver(self, forKeyPath: "finished", options: [.New, .Old], context: nil)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath == "percentComplete" {
+            
+            if let newProgress = object as? EPDownloadProgress {
+//                print("cellForTrack: \(self.titleLabel!.text) | progress update: \(newProgress)")
+                self.progressIndicatorView.progress = CGFloat(newProgress.percentComplete)
+            }
+        } else if keyPath == "finished" {
+            print("progress finished")
+            self.progressIndicatorView.animateCompletion()
+        } else  if keyPath == "downloadProgress" {
+            print("cell detected new download progress")
+            let track = object as! EPTrack
+            if let downloadProgress = track.downloadProgress {
+                self.setupDownloadProgress(downloadProgress)
+                
+            }
+        }
+    }
+    
+    func setupLayoutForTrack(track:EPTrack) {
+        
+        self.track = track
+        
+        if track.isCached {
+            //            self.statusImageView.image = UIImage(named: "icon_tick")
+            progressIndicatorView.setStatusComplete(true, animated: false)
+            
+        } else {
+            //            self.statusImageView.image = UIImage(named: "icon_cross")
+            progressIndicatorView.setStatusComplete(false, animated: false)
+        }
+        
+        self.track.addObserver(self, forKeyPath: "downloadProgress", options: [.New, .Old], context: nil)
+        
+    }
+    
     func setCacheStatus(status:Bool) {
         if status {
-            self.statusImageView.image = UIImage(named: "icon_tick")
+//            self.statusImageView.image = UIImage(named: "icon_tick")
+            progressIndicatorView.setStatusComplete(true, animated: false)
+
         } else {
-            self.statusImageView.image = UIImage(named: "icon_cross")
+//            self.statusImageView.image = UIImage(named: "icon_cross")
+            progressIndicatorView.setStatusComplete(false, animated: false)
         }
     }
 }

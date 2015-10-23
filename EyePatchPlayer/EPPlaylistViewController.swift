@@ -44,6 +44,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView.tableHeaderView = searchBar
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
+        self.tableView.allowsSelection = false
         
         log("EPPlaylistViewController, userID = \(userID)")
         drawRightMenuButton()
@@ -144,12 +145,15 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         cell?.delegate = self
-
-        cell!.setCacheStatus(track.isCached)
+        cell?.setupLayoutForTrack(track)
+//        cell!.setCacheStatus(track.isCached)
         cell!.titleLabel?.text = track.title
         cell!.artistLabel?.text = track.artist
         cell?.durationLabel.text = track.duration.timeInSecondsToString()
         
+        if let downloadProgress = EPHTTPManager.downloadProgressForTrack(track) {
+            cell!.setupDownloadProgress(downloadProgress)
+        }
         return cell!
     }
     
@@ -222,6 +226,34 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     
     func cellDetectedSecondaryTap(cell: EPTrackTableViewCell) {
         
+        let selectedTrack: EPTrack!
+        
+        self.tableView.selectRowAtIndexPath(self.tableView.indexPathForCell(cell), animated: true, scrollPosition: UITableViewScrollPosition.None)
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            if self.hasFilterActive() {
+                selectedTrack = self.filteredSongs[indexPath.row] as! EPTrack
+            } else {
+                selectedTrack = self.playlist.tracks[indexPath.row]
+            }
+            
+            if selectedTrack.isCached {
+                //handle is cached stuff to allow deletion in the future?
+                return
+            }
+            cell.progressIndicatorView.progress = 0
+            cell.progressIndicatorView.animateRotation(true)
+
+            EPHTTPManager.downloadTrack(selectedTrack, completion: { (result, track) -> Void in
+//                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+//                cell.progressIndicatorView.animateCompletion()
+                
+            }, progressBlock: { (progressValue) -> Void in
+                if let progress = selectedTrack.downloadProgress {
+                    progress.percentComplete = progressValue
+//                    cell.progressIndicatorView.progress = CGFloat(progress.percentComplete)
+                }
+            })
+        }
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {

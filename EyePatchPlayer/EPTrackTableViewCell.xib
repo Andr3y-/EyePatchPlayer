@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9040"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71L-Bg-I4x">
-                        <rect key="frame" x="245" y="13" width="42" height="18"/>
+                        <rect key="frame" x="239" y="13" width="42" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -40,50 +41,45 @@
                             <constraint firstAttribute="width" constant="4" id="fXB-de-IKV"/>
                         </constraints>
                     </view>
-                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_cross" translatesAutoresizingMaskIntoConstraints="NO" id="Hv4-ye-6z3">
-                        <rect key="frame" x="294" y="13" width="18" height="18"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQ9-Db-qXp" customClass="EPStatusIndicatorView" customModule="EyePatchPlayer" customModuleProvider="target">
+                        <rect key="frame" x="288" y="10" width="24" height="24"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="32" id="b7j-Gg-dFr"/>
-                            <constraint firstAttribute="width" constant="18" id="eUh-ew-JVE"/>
-                            <constraint firstAttribute="width" secondItem="Hv4-ye-6z3" secondAttribute="height" multiplier="1:1" id="mk5-UD-22q"/>
+                            <constraint firstAttribute="width" constant="24" id="Tjf-4A-ArQ"/>
+                            <constraint firstAttribute="width" secondItem="mQ9-Db-qXp" secondAttribute="height" multiplier="1:1" id="tXh-qQ-xFJ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="b7j-Gg-dFr"/>
-                            </mask>
-                        </variation>
-                    </imageView>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYL-Hs-LYu" userLabel="mainTapArea">
-                        <rect key="frame" x="0.0" y="0.0" width="286" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="44"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-e0-CfH" userLabel="secondaryTapArea">
-                        <rect key="frame" x="286" y="0.0" width="34" height="44"/>
+                        <rect key="frame" x="280" y="0.0" width="40" height="44"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="MYL-Hs-LYu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="24l-XQ-pVi"/>
-                    <constraint firstItem="Hv4-ye-6z3" firstAttribute="leading" secondItem="MYL-Hs-LYu" secondAttribute="trailing" constant="8" id="9as-uu-jVd"/>
                     <constraint firstAttribute="bottom" secondItem="xxA-aM-5f9" secondAttribute="bottom" id="9fV-Y8-U3y"/>
                     <constraint firstItem="71L-Bg-I4x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5gb-Uq-Omj" secondAttribute="trailing" constant="8" id="9ie-TN-JRp"/>
                     <constraint firstItem="xxA-aM-5f9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="J6P-3i-xKf"/>
-                    <constraint firstItem="Hv4-ye-6z3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="MZ8-3Y-jbU"/>
+                    <constraint firstItem="mQ9-Db-qXp" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Mp8-wI-375"/>
                     <constraint firstItem="5gb-Uq-Omj" firstAttribute="top" secondItem="2u2-I5-Wck" secondAttribute="bottom" id="OOP-9K-2gR"/>
                     <constraint firstAttribute="bottom" secondItem="9Tl-e0-CfH" secondAttribute="bottom" id="PD3-LM-7hn"/>
                     <constraint firstItem="xxA-aM-5f9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-4" id="SQS-de-LB6"/>
+                    <constraint firstItem="mQ9-Db-qXp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="T6a-Yi-ahx"/>
                     <constraint firstItem="9Tl-e0-CfH" firstAttribute="leading" secondItem="MYL-Hs-LYu" secondAttribute="trailing" id="ZAv-bW-P98"/>
-                    <constraint firstAttribute="trailing" secondItem="Hv4-ye-6z3" secondAttribute="trailing" constant="8" id="bOM-m6-ubu"/>
+                    <constraint firstItem="mQ9-Db-qXp" firstAttribute="leading" secondItem="71L-Bg-I4x" secondAttribute="trailing" constant="8" id="anx-tm-uA9"/>
                     <constraint firstAttribute="bottom" secondItem="MYL-Hs-LYu" secondAttribute="bottom" id="dKZ-1g-XlW"/>
                     <constraint firstItem="MYL-Hs-LYu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gqA-cW-nkG"/>
                     <constraint firstAttribute="trailing" secondItem="9Tl-e0-CfH" secondAttribute="trailing" id="hPl-3k-D97"/>
-                    <constraint firstItem="Hv4-ye-6z3" firstAttribute="leading" secondItem="71L-Bg-I4x" secondAttribute="trailing" constant="8" id="hQ5-RU-hTL"/>
                     <constraint firstItem="5gb-Uq-Omj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="jHj-Nn-KAx"/>
                     <constraint firstItem="71L-Bg-I4x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2u2-I5-Wck" secondAttribute="trailing" constant="8" id="nRQ-eK-1cb"/>
                     <constraint firstItem="2u2-I5-Wck" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="sb1-1E-UOR"/>
                     <constraint firstItem="9Tl-e0-CfH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tQN-Ht-3sg"/>
+                    <constraint firstItem="mQ9-Db-qXp" firstAttribute="leading" secondItem="MYL-Hs-LYu" secondAttribute="trailing" constant="8" id="u9f-Xz-k3z"/>
                     <constraint firstItem="71L-Bg-I4x" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vOr-DM-TVd"/>
                     <constraint firstItem="2u2-I5-Wck" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="yec-xf-bgg"/>
                 </constraints>
@@ -93,14 +89,11 @@
                 <outlet property="constraintSelectionIndicator" destination="SQS-de-LB6" id="Jpk-2t-afS"/>
                 <outlet property="durationLabel" destination="71L-Bg-I4x" id="P7j-tB-bZp"/>
                 <outlet property="mainTapArea" destination="MYL-Hs-LYu" id="nPA-rb-gif"/>
+                <outlet property="progressIndicatorView" destination="mQ9-Db-qXp" id="gbr-uS-8Vk"/>
                 <outlet property="secondaryTapArea" destination="9Tl-e0-CfH" id="ejH-Rg-54Y"/>
-                <outlet property="statusImageView" destination="Hv4-ye-6z3" id="u6J-ob-c76"/>
                 <outlet property="titleLabel" destination="2u2-I5-Wck" id="4Au-q1-KAA"/>
             </connections>
             <point key="canvasLocation" x="267" y="566"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="icon_cross" width="32" height="32"/>
-    </resources>
 </document>
