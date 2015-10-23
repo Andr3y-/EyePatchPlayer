@@ -21,7 +21,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
             print("userID is set to \(userID)")
         }
     }
-    
+    var recommendedMode = false
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
     var filteredSongs: NSArray!
     
@@ -48,7 +48,13 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         
         log("EPPlaylistViewController, userID = \(userID)")
         drawRightMenuButton()
-        loadData()
+        if recommendedMode {
+            loadDataRecommended()
+            self.navigationItem.title = "Recommended"
+        } else {
+            loadData()
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -78,6 +84,32 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         var contentOffset = self.tableView.contentOffset
         contentOffset.y += CGRectGetHeight(self.searchBar!.frame)
         self.tableView.contentOffset = contentOffset
+    }
+    
+    
+    func loadDataRecommended() {
+        if userID != 0 {
+            print("loading playlist of a user with ID: \(userID)")
+            
+            let audioRequest: VKRequest = VKRequest(method: "audio.getRecommendations", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 100, "shuffle" : 1], andHttpMethod: "GET")
+            audioRequest.executeWithResultBlock({ (response) -> Void in
+                
+                self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
+                self.playlist.delegate = self
+                self.tableView.dataSource = self
+                self.tableView.delegate = self
+                self.tableView.reloadData()
+                
+                self.highlightActiveTrack()
+                
+                self.applyOffset()
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    self.tableView.alpha = 1
+                })
+                }, errorBlock: { (error) -> Void in
+                    
+            })
+        }
     }
     
     func loadData() {

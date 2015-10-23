@@ -13,7 +13,7 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
 
     @IBOutlet weak var playlistsTableView: UITableView!
     
-    var playlists = ["My", "Friends"]
+    var playlists = ["My", "Friends", "Recommended"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +44,14 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return playlists.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell: UITableViewCell = self.playlistsTableView.cellForRowAtIndexPath(indexPath)!
         if let selectedText = selectedCell.textLabel?.text {
             switch selectedText {
-                case "My":
+                case "My", "Recommended":
                     self.performSegueWithIdentifier("seguePlaylist", sender: selectedText)
                 break
                 case "Friends":
@@ -74,7 +74,12 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
                     let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
                     destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
                     break
-                
+                case "Recommended":
+                    print("segueing to playlist (My)")
+                    let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
+                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+                    destinationViewController.recommendedMode = true
+                break
                 case "Friends":
                     print("segueing to Friends list")
                     let destinationViewController = segue.destinationViewController as! EPFriendListViewController
