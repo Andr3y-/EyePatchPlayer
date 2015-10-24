@@ -27,6 +27,7 @@ DONE:
     - [x] Artwork Size and Presence
 - [x] Global music search
 - [x] Download Queue
+- [x] Recommendations (based on a playlist/single song)
 
 TODO:
 
@@ -39,7 +40,6 @@ TODO:
 - [ ] Displaying download progress
 - [ ] Last.fm scrobbling (API Unavailable Currently)
 - [ ] Artwork search filters (excludes specific symbols & words)
-- [ ] Recommendations (based on a playlist/single song)
 - [ ] Extensively Visualised Playback Statistics
 - [ ] UI Improvements
 

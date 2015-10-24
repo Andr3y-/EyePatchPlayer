@@ -727,7 +727,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6a7baf6-8eb4-4b29-a9a1-4038bbdfdac8";
+				PROVISIONING_PROFILE = "9ed0342d-9afe-43a1-afc7-caf1594ffe08";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/andr3y/repos/EyePatchPlayer/EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Debug;
@@ -749,9 +749,11 @@
 				INFOPLIST_FILE = EyePatchPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6a7baf6-8eb4-4b29-a9a1-4038bbdfdac8";
+				PROVISIONING_PROFILE = "9ed0342d-9afe-43a1-afc7-caf1594ffe08";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/andr3y/repos/EyePatchPlayer/EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Release;
 		};

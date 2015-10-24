@@ -29,9 +29,10 @@ class EPTrackTableViewCell: UITableViewCell {
 //        self.progressIndicatorView.animateRotation(false)
 //        self.progressIndicatorView.setStatusComplete(false, animated: false)
 //        self.progressIndicatorView.progress = 1
-//        if self.track {
-//            self.track.removeObserver(self, forKeyPath: "downloadProgress")
-//        }
+        
+        if (self.track != nil) {
+            self.track.removeObserver(self, forKeyPath: "downloadProgress")
+        }
         
         if downloadProgress != nil {
             self.downloadProgress?.removeObserver(self, forKeyPath: "percentComplete")

@@ -5,6 +5,7 @@
 //  Created by Andr3y on 15/10/2015.
 //  Copyright © 2015 Apppli. All rights reserved.
 //
+import UIKit
 
 extension UIView {
     func applyEqualSizeConstraints(toView: UIView, includeTop: Bool) {
