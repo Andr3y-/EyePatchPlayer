@@ -45,6 +45,7 @@ class EPTrackTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = UITableViewCellSelectionStyle.None
         let primaryTapper = UITapGestureRecognizer(target: self, action: "mainTap:")
         self.mainTapArea.addGestureRecognizer(primaryTapper)
         
@@ -55,11 +56,13 @@ class EPTrackTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)
+        print("cell selected: \(selected)")
         constraintSelectionIndicator.constant = selected ? 0 : -4
-        UIView.animateWithDuration(0.3) { () -> Void in
-            self.contentView.layoutIfNeeded()
+        if animated {
+            UIView.animateWithDuration(0.3) { () -> Void in
+                self.contentView.layoutIfNeeded()
+            }
         }
-        // Configure the view for the selected state
     }
     func mainTap(sender: AnyObject) {
         self.delegate?.cellDetectedPrimaryTap(self)

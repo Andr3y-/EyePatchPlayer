@@ -44,7 +44,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView.tableHeaderView = searchBar
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
-        self.tableView.allowsSelection = false
+//        self.tableView.allowsSelection = false
         
         log("EPPlaylistViewController, userID = \(userID)")
         drawRightMenuButton()
@@ -244,15 +244,18 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             print("hasIndexPathForSelectedRow = 0")
         }
+        
         self.tableView.selectRowAtIndexPath(self.tableView.indexPathForCell(cell), animated: true, scrollPosition: UITableViewScrollPosition.None)
+        
         if let indexPath = self.tableView.indexPathForCell(cell) {
+            
             if self.hasFilterActive() {
                 selectedTrack = self.filteredSongs[indexPath.row] as! EPTrack
             } else {
                 selectedTrack = self.playlist.tracks[indexPath.row]
             }
+            
             EPMusicPlayer.sharedInstance.playTrackFromPlaylist(selectedTrack, playlist: self.playlist)
-//            self.performSegueWithIdentifier("seguePlayer", sender: selectedTrack)
         }
     }
     
