@@ -34,6 +34,8 @@ TODO:
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
 - [ ] Ability to Add Search Results into a playlist
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
+- [ ] Playlists
+- [ ] Seek
 - [ ] Tracks from Messages
 - [ ] Play Selection / Search Results
 - [ ] Equalizer
@@ -42,6 +44,7 @@ TODO:
 - [ ] Artwork search filters (excludes specific symbols & words)
 - [ ] Extensively Visualised Playback Statistics
 - [ ] UI Improvements
+    - [ ] Loading Indicators
 
 TOFIX:
 
