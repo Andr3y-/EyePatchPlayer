@@ -90,7 +90,7 @@ class EPHTTPManager: NSObject {
                 print("messagesArray none")
             }
             
-            if tracksArray.count == requiredCount {
+            if tracksArray.count >= requiredCount {
                 print("enough tracks parsed: \(tracksArray.count)")
                 if finalCompletion != nil {
                     finalCompletion!(tracks: tracksArray)
