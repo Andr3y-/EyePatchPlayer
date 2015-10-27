@@ -9,7 +9,7 @@
 import UIKit
 import RESideMenu
 import VK_ios_sdk
-
+import Crashlytics
 
 class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     
@@ -95,11 +95,22 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
         {
             //Start working
             print("vk logged in")
+            
+            if let token = VKSdk.getAccessToken(), let  _ = token.userId {
+                print("VK token & userID exist")
+            } else {
+                print("VK token & userID are missing, performing re-authorisation")
+                VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+            }
+            
+            Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
+            Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
         }
         
         if (!VKSdk.isLoggedIn()){
             print("vk is not logged in")
             VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+
         }
     }
     
@@ -111,10 +122,14 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     
     func vkSdkTokenHasExpired(expiredToken: VKAccessToken!) {
         log("")
+        VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
     }
     
     func vkSdkUserDeniedAccess(authorizationError: VKError!) {
         log("")
+        if !VKSdk.hasPermissions([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO]) {
+            VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+        }
     }
     
     func vkSdkShouldPresentViewController(controller: UIViewController!) {
@@ -126,15 +141,13 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     func vkSdkReceivedNewToken(newToken: VKAccessToken!) {
         log("")
         if (VKSdk.isLoggedIn()){
-            let initializationRequest: VKRequest = VKApi.users().get(["fields" : "photo_200"])
-            initializationRequest.executeWithResultBlock({
-                (response) -> Void in
-                let JSON = response.json as! NSArray
-                print(JSON)
-                
-                }, errorBlock: { (error) -> Void in
-                    print("error\(error)")
-            })
+            Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
+            Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
+
+            
+            if VKSdk.hasPermissions([VK_PER_MESSAGES]) {
+                NSNotificationCenter.defaultCenter().postNotificationName("VK_AUTHORISED_MESSAGES", object: nil)
+            }
             
         }
     }

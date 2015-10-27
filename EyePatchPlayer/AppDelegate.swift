@@ -10,6 +10,8 @@
 import UIKit
 import VK_ios_sdk
 import AFNetworking
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             RLMRealm.defaultRealm().deleteAllObjects()
             RLMRealm.defaultRealm().commitWriteTransaction()
         }
+        
+        Fabric.with([Crashlytics.self])
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         

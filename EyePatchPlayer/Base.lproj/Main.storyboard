@@ -619,7 +619,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbr-th-fqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2352" y="360"/>
+            <point key="canvasLocation" x="789" y="1042.5"/>
         </scene>
         <!--Lists-->
         <scene sceneID="hNz-n2-bh7">
@@ -651,6 +651,7 @@
                         <outlet property="playlistsTableView" destination="UFP-5N-bA2" id="3X7-oJ-fic"/>
                         <segue destination="Vzn-pY-gG7" kind="show" identifier="seguePlaylist" id="HbV-JP-ZLU"/>
                         <segue destination="v3r-1Z-BCn" kind="show" identifier="segueFriendList" id="bc5-K6-Jzg"/>
+                        <segue destination="oSH-oe-2C1" kind="show" identifier="segueMessages" id="rOV-wk-SNb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -847,7 +848,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pO9-cW-7Nc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2352" y="-320"/>
+            <point key="canvasLocation" x="3534" y="-578.25"/>
         </scene>
         <!--Right Menu View Controller-->
         <scene sceneID="G2k-2O-uuJ">
@@ -941,6 +942,63 @@
             </objects>
             <point key="canvasLocation" x="2352" y="-1010"/>
         </scene>
+        <!--Messages-->
+        <scene sceneID="zPY-3v-6vr">
+            <objects>
+                <viewController title="Messages" id="oSH-oe-2C1" customClass="EPMessagesViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SEe-6D-PQF"/>
+                        <viewControllerLayoutGuide type="bottom" id="qnQ-sg-T78"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EQ2-wY-Pb9">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TSP-YE-3dW">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TSP-YE-3dW" firstAttribute="top" secondItem="SEe-6D-PQF" secondAttribute="bottom" id="8JM-87-tTU"/>
+                            <constraint firstItem="qnQ-sg-T78" firstAttribute="top" secondItem="TSP-YE-3dW" secondAttribute="bottom" id="9JK-jJ-iut"/>
+                            <constraint firstAttribute="trailing" secondItem="TSP-YE-3dW" secondAttribute="trailing" id="BAt-r2-wND"/>
+                            <constraint firstItem="TSP-YE-3dW" firstAttribute="leading" secondItem="EQ2-wY-Pb9" secondAttribute="leading" id="TBL-K1-2c2"/>
+                            <constraint firstItem="TSP-YE-3dW" firstAttribute="top" secondItem="EQ2-wY-Pb9" secondAttribute="top" id="qac-Sm-Oso"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="TSP-YE-3dW"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="8JM-87-tTU"/>
+                                <exclude reference="BAt-r2-wND"/>
+                                <exclude reference="TBL-K1-2c2"/>
+                                <exclude reference="qac-Sm-Oso"/>
+                                <exclude reference="9JK-jJ-iut"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="TSP-YE-3dW"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="8JM-87-tTU"/>
+                                <include reference="BAt-r2-wND"/>
+                                <include reference="TBL-K1-2c2"/>
+                                <exclude reference="qac-Sm-Oso"/>
+                                <include reference="9JK-jJ-iut"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="TSP-YE-3dW" id="VIL-hV-P6C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nsk-LJ-6sn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2352" y="-320.25"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background_abstract_1" width="540" height="960"/>
@@ -948,6 +1006,6 @@
         <image name="icon_cover_placeholder_1" width="76" height="76"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Zcv-nt-qiL"/>
+        <segue reference="HbV-JP-ZLU"/>
     </inferredMetricsTieBreakers>
 </document>

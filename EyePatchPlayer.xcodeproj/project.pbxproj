@@ -15,6 +15,7 @@
 		C4215B301BD79D8100D771F5 /* EPSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */; };
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
+		C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468474E1BDE9C070066F616 /* EPMessage.swift */; };
 		C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
@@ -22,7 +23,6 @@
 		C489EACE1BA83D1D00D788E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C489EACC1BA83D1D00D788E0 /* Main.storyboard */; };
 		C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C489EAD11BA83D1D00D788E0 /* LaunchScreen.xib */; };
 		C489EADF1BA83D1D00D788E0 /* EyePatchPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EADE1BA83D1D00D788E0 /* EyePatchPlayerTests.swift */; };
-		C489EAF11BA84F6E00D788E0 /* EPTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */; };
 		C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF21BA8506600D788E0 /* EPConstants.swift */; };
 		C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF41BA8658900D788E0 /* EPDownloadedViewController.swift */; };
 		C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */; };
@@ -43,6 +43,8 @@
 		C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */; };
 		C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */; };
 		C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */; };
+		C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */; };
+		C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */; };
 		C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */; };
 		C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */; };
 		C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */; };
@@ -80,6 +82,7 @@
 		C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
+		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
 		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
 		C46ED3501BD928A100ACF9BB /* EPPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EPPlayground.playground; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +96,6 @@
 		C489EADD1BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EADE1BA83D1D00D788E0 /* EyePatchPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyePatchPlayerTests.swift; sourceTree = "<group>"; };
 		C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EyePatchPlayer-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTabBarControllerViewController.swift; sourceTree = "<group>"; };
 		C489EAF21BA8506600D788E0 /* EPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPConstants.swift; sourceTree = "<group>"; };
 		C489EAF41BA8658900D788E0 /* EPDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadedViewController.swift; sourceTree = "<group>"; };
 		C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,8 @@
 		C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntTimeToString.swift; sourceTree = "<group>"; };
 		C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceMeasure.swift; sourceTree = "<group>"; };
 		C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistDelegate.swift; sourceTree = "<group>"; };
+		C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessagesViewController.swift; sourceTree = "<group>"; };
+		C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Refresh.swift"; sourceTree = "<group>"; };
 		C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootViewController.swift; sourceTree = "<group>"; };
 		C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRightMenuViewController.swift; sourceTree = "<group>"; };
 		C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+RightMenuItem.swift"; sourceTree = "<group>"; };
@@ -240,25 +244,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C489EAF81BA865A100D788E0 /* Tabs */ = {
-			isa = PBXGroup;
-			children = (
-				C4C61DAA1BC6B7D100501EE1 /* Lists */,
-				C489EB031BA86A0900D788E0 /* Search */,
-				C489EB041BA86A1100D788E0 /* Downloaded */,
-				C489EB051BA86A1700D788E0 /* Settings */,
-			);
-			name = Tabs;
-			sourceTree = "<group>";
-		};
 		C489EAF91BA865B200D788E0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */,
-				C489EAF01BA84F6E00D788E0 /* EPTabBarControllerViewController.swift */,
 				C4D80D711BCE5F0B0095E2D7 /* Menu */,
-				C489EAF81BA865A100D788E0 /* Tabs */,
+				C4C61DAA1BC6B7D100501EE1 /* Lists */,
+				C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */,
+				C489EB031BA86A0900D788E0 /* Search */,
+				C489EB041BA86A1100D788E0 /* Downloaded */,
+				C489EB051BA86A1700D788E0 /* Settings */,
 				C489EB0E1BAAFF2A00D788E0 /* Player */,
+				C4D5C00F1BDF90B2009F7710 /* Messages */,
 				C4C61DAD1BC6B8EB00501EE1 /* FriendsList */,
 				C489EB0A1BA86C7600D788E0 /* TrackPlaylist */,
 			);
@@ -315,6 +312,7 @@
 				C489EAFE1BA8698700D788E0 /* EPTrack.swift */,
 				C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */,
 				C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */,
+				C468474E1BDE9C070066F616 /* EPMessage.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -337,6 +335,7 @@
 				C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */,
 				C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */,
 				C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */,
+				C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -344,7 +343,6 @@
 		C4C61DAA1BC6B7D100501EE1 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
-				C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */,
 			);
 			name = Lists;
 			sourceTree = "<group>";
@@ -366,6 +364,14 @@
 				C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */,
 			);
 			name = TrackTableViewCell;
+			sourceTree = "<group>";
+		};
+		C4D5C00F1BDF90B2009F7710 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */,
+			);
+			name = Messages;
 			sourceTree = "<group>";
 		};
 		C4D80D711BCE5F0B0095E2D7 /* Menu */ = {
@@ -397,6 +403,7 @@
 				C489EABF1BA83D1D00D788E0 /* Resources */,
 				D8A742F8DF703BEA96072129 /* Copy Pods Resources */,
 				A7E7954EFEDC83B8F9D76B9B /* Embed Pods Frameworks */,
+				C4D5C00C1BDF897D009F7710 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -523,6 +530,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C4D5C00C1BDF897D009F7710 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 3573f7e7df513dc16bb29fbd7591c75bbf3df5aa c8d346255a3f8791ba242e2b102a162c9af7d54b5e278a62a6ecec0358aa4d78";
+		};
 		D8A742F8DF703BEA96072129 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,8 +575,8 @@
 				C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */,
 				C4C61DAC1BC6B8E800501EE1 /* EPFriendListViewController.swift in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
+				C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */,
 				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
-				C489EAF11BA84F6E00D788E0 /* EPTabBarControllerViewController.swift in Sources */,
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
 				C489EB0D1BAAFF2600D788E0 /* EPPlayerViewController.swift in Sources */,
 				C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */,
@@ -576,11 +596,13 @@
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
+				C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */,
 				C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */,
 				C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */,
 				C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */,
 				C4C61DB41BC8199500501EE1 /* EPTrackTableViewCell.swift in Sources */,
 				C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */,
+				C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

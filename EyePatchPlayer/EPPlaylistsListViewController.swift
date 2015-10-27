@@ -13,7 +13,7 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
 
     @IBOutlet weak var playlistsTableView: UITableView!
     
-    var playlists = ["My", "Friends", "Recommended"]
+    var playlists = ["My", "Friends", "Recommended", "Messages"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,12 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell: UITableViewCell = self.playlistsTableView.cellForRowAtIndexPath(indexPath)!
+        
+        guard let token = VKSdk.getAccessToken(), let  _ = token.userId else {
+            print("unable to segue due to no user permissions (userID cannot be obtained)")
+            return
+        }
+        
         if let selectedText = selectedCell.textLabel?.text {
             switch selectedText {
                 case "My", "Recommended":
@@ -56,6 +62,8 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
                 break
                 case "Friends":
                     self.performSegueWithIdentifier("segueFriendList", sender: selectedText)
+                case "Messages":
+                    self.performSegueWithIdentifier("segueMessages", sender: selectedText)
                 break
                 default:
                     print("unhandled selection of cell with text: \(selectedText)")
@@ -66,34 +74,41 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        guard let userID = Int(VKSdk.getAccessToken().userId) else {
+            print("unable to segue due to no user permissions (userID cannot be obtained)")
+            return
+        }
+        
         switch segue.identifier! {
         case "seguePlaylist":
             switch sender as! String {
                 case "My":
                     print("segueing to playlist (My)")
                     let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
-                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+                    destinationViewController.userID = userID
                     break
                 case "Recommended":
                     print("segueing to playlist (My)")
                     let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
-                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+                    destinationViewController.userID = userID
                     destinationViewController.recommendedMode = true
                 break
                 case "Friends":
                     print("segueing to Friends list")
                     let destinationViewController = segue.destinationViewController as! EPFriendListViewController
-                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+                    destinationViewController.userID = userID
                     break
-                
+                case "Messages":
+                    print("segueing to Messages list")
+                    let destinationViewController = segue.destinationViewController as! EPMessagesViewController
+                break
                 default:
                     print("segueing to ...)")
-//                    let destinationViewController = segue.destinationViewController as! EPFriendListViewController
-//                    destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+
             }
         case "segueFriendList":
             let destinationViewController = segue.destinationViewController as! EPFriendListViewController
-            destinationViewController.userID = Int(VKSdk.getAccessToken().userId)!
+            destinationViewController.userID = userID
             break
             
         default:

@@ -55,8 +55,6 @@ class EPTrackTableViewCell: UITableViewCell {
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-        print("cell selected: \(selected)")
         constraintSelectionIndicator.constant = selected ? 0 : -4
         if animated {
             UIView.animateWithDuration(0.3) { () -> Void in

@@ -19,13 +19,21 @@ class EPTabBarControllerViewController: UITabBarController, VKSdkDelegate {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("TAB BAR LOADED WHEN IT SHOULD NOT")
         VKSdk.initializeWithDelegate(self, andAppId: "5070798")
         
         if (VKSdk.wakeUpSession())
         {
             //Start working
             print("vk logged in")
+            
+            if let token = VKSdk.getAccessToken(), let  _ = token.userId {
+                print("VK token & userID exist")
+            } else {
+                print("VK token & userID are missing, performing re-authorisation")
+                VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+            }
+            
         }
         
         if (!VKSdk.isLoggedIn()){

@@ -40,6 +40,104 @@ class EPHTTPManager: NSObject {
         return nil
     }
     
+    class func VKGetLastAudiosFromMessages(count: Int, intermediateResultBlock: ((track: EPTrack)->Void)?, completion: ((result : Bool, tracks: [EPTrack]?) -> Void)?) {
+        if let _ = VKSdk.getAccessToken().userId {
+            print("VKGetLastAudiosFromMessages request")
+
+            let messagesPerRequestCount = 200
+            var currentOffset = 0
+            var tracksArray = [EPTrack]()
+
+            EPHTTPManager.VKGETAudiosFromMessagesWithCountOffset(count, messagesPerRequestCount: messagesPerRequestCount, offset: currentOffset, tracksArray: tracksArray, intermediateCompletion: intermediateResultBlock, finalCompletion: { (tracks) -> Void in
+                    print("tracks parsed: \(tracks.count)")
+                if completion != nil {
+                    completion! (result: count == tracks.count, tracks: tracks)
+                }
+            })
+
+            
+            /*
+            let addRequest: VKRequest = VKRequest(method: "messages.get", andParameters: ["count" : "\(messagesPerRequestCount)", "offset" : "\(currentOffset)"], andHttpMethod: "GET")
+            addRequest.executeWithResultBlock({ (response) -> Void in
+                if let messagesArray = (response.json as! NSDictionary)["items"] as? [NSDictionary] {
+                    for messageJSON in messagesArray {
+                        let message = EPMessage(response: messageJSON)
+                        if let messageAttachments = message.attachments {
+                            for attachment in messageAttachments {
+                                if attachment.type == AttachmentType.Audio {
+                                    tracksArray.append(attachment.object as! EPTrack)
+                                    if intermediateResultBlock != nil {
+                                        intermediateResultBlock! (track: attachment.object as! EPTrack)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    print("messagesArray none")
+                }
+
+                }, errorBlock: { (error) -> Void in
+                    if completion != nil {
+                        completion! (result: false, tracks: nil)
+                    }
+                    
+                    print(error)
+            })*/
+            
+            
+        } else {
+            print("VKGetLastAudiosFromMessages: could not resolve VK UserID")
+            
+            if completion != nil {
+                completion! (result: false, tracks: nil)
+            }
+        }
+    }
+    
+    private class func VKGETAudiosFromMessagesWithCountOffset(requiredCount: Int, messagesPerRequestCount: Int, offset: Int, var tracksArray: [EPTrack], intermediateCompletion:((track: EPTrack)->Void)?, finalCompletion:((tracks: [EPTrack])->Void)?) {
+        print("VKGETAudiosFromMessagesWithCount: \(requiredCount) Offset: \(offset) CurrentTracksCount: \(tracksArray.count)")
+        
+        let addRequest: VKRequest = VKRequest(method: "messages.get", andParameters: ["count" : "\(messagesPerRequestCount)", "offset" : "\(offset)"], andHttpMethod: "GET")
+        addRequest.executeWithResultBlock({ (response) -> Void in
+            if let messagesArray = (response.json as! NSDictionary)["items"] as? [NSDictionary] {
+                for messageJSON in messagesArray {
+                    let message = EPMessage(response: messageJSON)
+                    if let messageAttachments = message.attachments {
+                        for attachment in messageAttachments {
+                            if attachment.type == AttachmentType.Audio {
+                                if let track = attachment.object as? EPTrack {
+                                    
+                                    tracksArray.append(track)
+                                    print("track parsed")
+                                    if intermediateCompletion != nil {
+                                        intermediateCompletion! (track: track)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("messagesArray none")
+            }
+            
+            if tracksArray.count == requiredCount {
+                print("enough tracks parsed: \(tracksArray.count)")
+                if finalCompletion != nil {
+                    finalCompletion!(tracks: tracksArray)
+                }
+                return
+            } else {
+                EPHTTPManager.VKGETAudiosFromMessagesWithCountOffset(requiredCount, messagesPerRequestCount: messagesPerRequestCount, offset: offset + messagesPerRequestCount, tracksArray: tracksArray, intermediateCompletion: intermediateCompletion, finalCompletion:  finalCompletion)
+            }
+            
+            }, errorBlock: { (error) -> Void in
+                
+                print(error)
+        })
+    }
+    
     class func VKBroadcastTrack(track: EPTrack) {
         print("broadcasting track")
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")

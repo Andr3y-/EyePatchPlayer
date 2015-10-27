@@ -37,6 +37,7 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             cell = EPSettingsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SettingCell")
         }
         
+        
         let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
         cell!.setContent(type, value: value, name: name)
    

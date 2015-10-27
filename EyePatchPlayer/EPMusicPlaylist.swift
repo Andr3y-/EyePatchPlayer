@@ -160,6 +160,12 @@ class EPMusicPlaylist: AnyObject {
         return playlist
     }
 
+    func addTrack(track: EPTrack) {
+        self.tracks.append(track)
+        self.shuffledTracks = self.tracks.shuffle()
+        self.trackCount = self.tracks.count
+    }
+    
     class func initWithRLMResults(results:RLMResults) -> EPMusicPlaylist {
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
 
