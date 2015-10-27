@@ -32,7 +32,7 @@ class EPMessagesViewController: UIViewController, UITableViewDelegate, UITableVi
         
 //        self.tableView.tableHeaderView = searchBar
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
-//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
         self.setupRefresh()
 
         //        self.tableView.allowsSelection = false

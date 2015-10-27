@@ -45,47 +45,15 @@ class EPHTTPManager: NSObject {
             print("VKGetLastAudiosFromMessages request")
 
             let messagesPerRequestCount = 200
-            var currentOffset = 0
-            var tracksArray = [EPTrack]()
+            let currentOffset = 0
 
-            EPHTTPManager.VKGETAudiosFromMessagesWithCountOffset(count, messagesPerRequestCount: messagesPerRequestCount, offset: currentOffset, tracksArray: tracksArray, intermediateCompletion: intermediateResultBlock, finalCompletion: { (tracks) -> Void in
+            EPHTTPManager.VKGETAudiosFromMessagesWithCountOffset(count, messagesPerRequestCount: messagesPerRequestCount, offset: currentOffset, tracksArray: [EPTrack](), intermediateCompletion: intermediateResultBlock, finalCompletion: { (tracks) -> Void in
                     print("tracks parsed: \(tracks.count)")
                 if completion != nil {
                     completion! (result: count == tracks.count, tracks: tracks)
                 }
             })
 
-            
-            /*
-            let addRequest: VKRequest = VKRequest(method: "messages.get", andParameters: ["count" : "\(messagesPerRequestCount)", "offset" : "\(currentOffset)"], andHttpMethod: "GET")
-            addRequest.executeWithResultBlock({ (response) -> Void in
-                if let messagesArray = (response.json as! NSDictionary)["items"] as? [NSDictionary] {
-                    for messageJSON in messagesArray {
-                        let message = EPMessage(response: messageJSON)
-                        if let messageAttachments = message.attachments {
-                            for attachment in messageAttachments {
-                                if attachment.type == AttachmentType.Audio {
-                                    tracksArray.append(attachment.object as! EPTrack)
-                                    if intermediateResultBlock != nil {
-                                        intermediateResultBlock! (track: attachment.object as! EPTrack)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    print("messagesArray none")
-                }
-
-                }, errorBlock: { (error) -> Void in
-                    if completion != nil {
-                        completion! (result: false, tracks: nil)
-                    }
-                    
-                    print(error)
-            })*/
-            
-            
         } else {
             print("VKGetLastAudiosFromMessages: could not resolve VK UserID")
             

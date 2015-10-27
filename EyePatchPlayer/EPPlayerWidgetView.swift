@@ -43,13 +43,19 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var shuffleSwitch: UISwitch!
     @IBOutlet weak var cacheButton: UIButton!
     
+    @IBOutlet weak var trackDataContainerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var controlsViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var controlsView: UIView!
     @IBOutlet weak var backgroundAlbumArtImageView: UIImageView!
     @IBOutlet weak var vibrancyContentView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        if UIScreen.mainScreen().bounds.height == 480 {
+            //iPhone 4
+            self.trackDataContainerConstraint.constant = -20
+            self.controlsViewConstraint.constant = -20
+        }
         self.userInteractionEnabled = false
         
         EPPlayerWidgetView.sharedInstance = self

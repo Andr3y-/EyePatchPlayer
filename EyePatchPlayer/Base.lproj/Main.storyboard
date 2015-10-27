@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cz5-rH-trn" userLabel="MainView">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cz5-rH-trn" userLabel="MainView">
                                 <rect key="frame" x="0.0" y="60" width="600" height="540"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_abstract_1" translatesAutoresizingMaskIntoConstraints="NO" id="5Aj-yL-qkJ">
@@ -315,6 +315,11 @@
                                                                 <exclude reference="tSL-Q7-5bb"/>
                                                             </mask>
                                                         </variation>
+                                                        <variation key="widthClass=compact">
+                                                            <mask key="constraints">
+                                                                <exclude reference="mYB-gf-mKd"/>
+                                                            </mask>
+                                                        </variation>
                                                         <variation key="heightClass=regular-widthClass=compact">
                                                             <mask key="subviews">
                                                                 <include reference="gZp-Q1-Dnc"/>
@@ -600,6 +605,7 @@
                             <outlet property="contentViewMain" destination="Cz5-rH-trn" id="vL1-fl-Fj7"/>
                             <outlet property="contentViewWidget" destination="UpJ-WU-0du" id="Iqo-fA-E6D"/>
                             <outlet property="controlsView" destination="qLS-bc-g06" id="IvK-iB-UQr"/>
+                            <outlet property="controlsViewConstraint" destination="mYB-gf-mKd" id="wGq-uP-EDW"/>
                             <outlet property="interactionView" destination="I8I-8t-PjH" id="Xgn-l2-m5M"/>
                             <outlet property="leftPlaybackTimeLabel" destination="rML-Ll-LkQ" id="CgE-SS-nqM"/>
                             <outlet property="playPauseButtonPlaceholder" destination="wUR-Ur-t4j" id="rre-0H-I3a"/>
@@ -611,6 +617,7 @@
                             <outlet property="shuffleSwitch" destination="4Qh-N3-1vi" id="cFU-sR-BPq"/>
                             <outlet property="titleLabel" destination="WuN-Ht-5CA" id="U3t-xu-wfm"/>
                             <outlet property="titleLabelBig" destination="yYs-1g-CPh" id="5Eq-ic-asU"/>
+                            <outlet property="trackDataContainerConstraint" destination="WR5-bu-ncP" id="SIT-QX-leJ"/>
                             <outlet property="vibrancyContentView" destination="Fgb-kF-qTk" id="1lC-Yh-6W6"/>
                         </connections>
                     </view>
@@ -945,12 +952,13 @@
         <!--Messages-->
         <scene sceneID="zPY-3v-6vr">
             <objects>
-                <viewController title="Messages" id="oSH-oe-2C1" customClass="EPMessagesViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Messages" automaticallyAdjustsScrollViewInsets="NO" id="oSH-oe-2C1" customClass="EPMessagesViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SEe-6D-PQF"/>
                         <viewControllerLayoutGuide type="bottom" id="qnQ-sg-T78"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EQ2-wY-Pb9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TSP-YE-3dW">
@@ -971,11 +979,11 @@
                                 <exclude reference="TSP-YE-3dW"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="9JK-jJ-iut"/>
                                 <exclude reference="8JM-87-tTU"/>
                                 <exclude reference="BAt-r2-wND"/>
                                 <exclude reference="TBL-K1-2c2"/>
                                 <exclude reference="qac-Sm-Oso"/>
-                                <exclude reference="9JK-jJ-iut"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -983,11 +991,11 @@
                                 <include reference="TSP-YE-3dW"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="9JK-jJ-iut"/>
                                 <include reference="8JM-87-tTU"/>
                                 <include reference="BAt-r2-wND"/>
                                 <include reference="TBL-K1-2c2"/>
                                 <exclude reference="qac-Sm-Oso"/>
-                                <include reference="9JK-jJ-iut"/>
                             </mask>
                         </variation>
                     </view>
