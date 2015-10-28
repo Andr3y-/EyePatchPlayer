@@ -28,6 +28,8 @@ DONE:
 - [x] Global music search
 - [x] Download Queue
 - [x] Recommendations (based on a playlist/single song)
+- [x] Tracks from Messages
+- [x] Displaying download progress
 
 TODO:
 
@@ -36,10 +38,8 @@ TODO:
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
 - [ ] Playlists
 - [ ] Seek
-- [ ] Tracks from Messages
 - [ ] Play Selection / Search Results
 - [ ] Equalizer
-- [ ] Displaying download progress
 - [ ] Last.fm scrobbling (API Unavailable Currently)
 - [ ] Artwork search filters (excludes specific symbols & words)
 - [ ] Extensively Visualised Playback Statistics

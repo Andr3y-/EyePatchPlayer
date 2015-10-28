@@ -50,7 +50,7 @@ class EPHTTPManager: NSObject {
             EPHTTPManager.VKGETAudiosFromMessagesWithCountOffset(count, messagesPerRequestCount: messagesPerRequestCount, offset: currentOffset, tracksArray: [EPTrack](), intermediateCompletion: intermediateResultBlock, finalCompletion: { (tracks) -> Void in
                     print("tracks parsed: \(tracks.count)")
                 if completion != nil {
-                    completion! (result: count == tracks.count, tracks: tracks)
+                    completion! (result: count >= tracks.count, tracks: tracks)
                 }
             })
 
@@ -262,6 +262,9 @@ class EPHTTPManager: NSObject {
                         
                         }) { (operation, responseObject) -> Void in
                             print("download unsuccessful")
+                            EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
+                            track.downloadProgress?.finished = false
+                            track.downloadProgress = nil
                             if completion != nil {
                                 completion! (result: false, track: trackCopy)
                             }

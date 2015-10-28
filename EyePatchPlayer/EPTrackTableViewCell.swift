@@ -72,6 +72,11 @@ class EPTrackTableViewCell: UITableViewCell {
     func setupDownloadProgress(downloadProgress: EPDownloadProgress) {
         print("setupDownloadProgress")
         
+        if self.downloadProgress != nil {
+            self.downloadProgress?.removeObserver(self, forKeyPath: "percentComplete")
+            self.downloadProgress?.removeObserver(self, forKeyPath: "finished")
+        }
+        
         self.downloadProgress = downloadProgress
         self.progressIndicatorView.progress = CGFloat(downloadProgress.percentComplete)
         self.progressIndicatorView.animateRotation(true)
@@ -88,8 +93,17 @@ class EPTrackTableViewCell: UITableViewCell {
                 self.progressIndicatorView.progress = CGFloat(newProgress.percentComplete)
             }
         } else if keyPath == "finished" {
-            print("progress finished")
-            self.progressIndicatorView.animateCompletion()
+            
+            if let newProgress = object as? EPDownloadProgress {
+                print("progress finished: \(newProgress.finished)")
+                if newProgress.finished {
+                    self.progressIndicatorView.animateCompletion()
+                } else {
+                    self.progressIndicatorView.clear()
+                    self.progressIndicatorView.setStatusComplete(false, animated: false)
+                }
+            }
+            
         } else  if keyPath == "downloadProgress" {
             print("cell detected new download progress")
             let track = object as! EPTrack

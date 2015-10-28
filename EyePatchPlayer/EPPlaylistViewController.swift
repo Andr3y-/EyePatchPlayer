@@ -45,7 +45,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
 //        self.tableView.allowsSelection = false
-        
+
         log("EPPlaylistViewController, userID = \(userID)")
         drawRightMenuButton()
         if recommendedMode {
@@ -54,8 +54,6 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             loadData()
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     func loadCell() {
@@ -178,7 +176,6 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         
         cell?.delegate = self
         cell?.setupLayoutForTrack(track)
-//        cell!.setCacheStatus(track.isCached)
         cell!.titleLabel?.text = track.title
         cell!.artistLabel?.text = track.artist
         cell?.durationLabel.text = track.duration.timeInSecondsToString()
@@ -209,7 +206,6 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
         return (text.characters.count > 0)
     }
     
-    
     //EPPlaylistDelegate
     func playlistDidSetTrackActive(track:EPTrack) {
         print("playlistDidSetTrackActive")
@@ -235,6 +231,7 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
     //EPTrackTableViewCellDelegate
     
     func cellDetectedPrimaryTap(cell: EPTrackTableViewCell) {
+        print("cellDetectedPrimaryTap")
         let selectedTrack: EPTrack!
 
 //        cell.setSelected(true, animated: true)
@@ -279,13 +276,10 @@ class EPPlaylistViewController: UIViewController, UITableViewDataSource, UITable
             cell.progressIndicatorView.animateRotation(true)
 
             EPHTTPManager.downloadTrack(selectedTrack, completion: { (result, track) -> Void in
-//                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-//                cell.progressIndicatorView.animateCompletion()
                 
             }, progressBlock: { (progressValue) -> Void in
                 if let progress = selectedTrack.downloadProgress {
                     progress.percentComplete = progressValue
-//                    cell.progressIndicatorView.progress = CGFloat(progress.percentComplete)
                 }
             })
         }
