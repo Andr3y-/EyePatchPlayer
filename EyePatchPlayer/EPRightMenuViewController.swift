@@ -136,5 +136,4 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
             break
         }
     }
-
 }

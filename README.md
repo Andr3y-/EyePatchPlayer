@@ -25,11 +25,13 @@ DONE:
     - [x] Status broadcast
     - [x] Cache Policy
     - [x] Artwork Size and Presence
+    - [x] Shake to Shuffle
 - [x] Global music search
 - [x] Download Queue
 - [x] Recommendations (based on a playlist/single song)
 - [x] Tracks from Messages
 - [x] Displaying download progress
+- [x] Shake to Shuffle Playlist
 
 TODO:
 
@@ -48,4 +50,5 @@ TODO:
 
 TOFIX:
 
+- [ ] First Responder (i.e. shake functionality) is Lost when Side Menu is Opened and then Closed
 - [ ] Double Authentication with VK

@@ -425,8 +425,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             break
         case STKAudioPlayerStopReasonError:
             print("STKAudioPlayerStopReasonError")
-            break
-        default:
+            break        default:
              print("STKAudioPlayerStopReasonDefault")
             break
         }

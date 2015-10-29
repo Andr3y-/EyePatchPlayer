@@ -631,7 +631,7 @@
         <!--Lists-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="ListsVC" title="Lists" id="9pv-A4-QxB" customClass="EPPlaylistsListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListsVC" title="Lists" automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="EPPlaylistsListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -641,7 +641,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UFP-5N-bA2">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -649,9 +649,15 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="UFP-5N-bA2" secondAttribute="bottom" id="2yY-cP-zjl"/>
                             <constraint firstAttribute="trailing" secondItem="UFP-5N-bA2" secondAttribute="trailing" id="Hg0-cQ-hjj"/>
+                            <constraint firstItem="UFP-5N-bA2" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="RXP-lA-g1X"/>
                             <constraint firstItem="UFP-5N-bA2" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="XlN-rk-Zgw"/>
                             <constraint firstItem="UFP-5N-bA2" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="ZGk-yj-a6c"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ZGk-yj-a6c"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Lists" id="JFS-mv-1CP"/>
                     <connections>
@@ -659,6 +665,7 @@
                         <segue destination="Vzn-pY-gG7" kind="show" identifier="seguePlaylist" id="HbV-JP-ZLU"/>
                         <segue destination="v3r-1Z-BCn" kind="show" identifier="segueFriendList" id="bc5-K6-Jzg"/>
                         <segue destination="oSH-oe-2C1" kind="show" identifier="segueMessages" id="rOV-wk-SNb"/>
+                        <segue destination="cD3-YQ-UXV" kind="show" identifier="segueRecommended" id="Xcu-lI-ZkN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -678,7 +685,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aQF-Id-EzK">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -687,8 +694,14 @@
                             <constraint firstAttribute="bottom" secondItem="aQF-Id-EzK" secondAttribute="bottom" id="5qP-fz-SUh"/>
                             <constraint firstAttribute="trailing" secondItem="aQF-Id-EzK" secondAttribute="trailing" id="CmZ-CO-MAE"/>
                             <constraint firstItem="aQF-Id-EzK" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="Kul-5v-f6d"/>
+                            <constraint firstItem="aQF-Id-EzK" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="Pv5-Db-y5k"/>
                             <constraint firstItem="aQF-Id-EzK" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="Vgr-E9-7DZ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Vgr-E9-7DZ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Search" id="BaM-fa-jLp">
@@ -700,12 +713,12 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="playlistTableView" destination="aQF-Id-EzK" id="Y2b-nM-hnH"/>
+                        <outlet property="tableView" destination="aQF-Id-EzK" id="3gH-gk-JSS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="360"/>
+            <point key="canvasLocation" x="1562" y="613"/>
         </scene>
         <!--Downloaded-->
         <scene sceneID="Sms-SF-CHa">
@@ -720,7 +733,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FaX-Tu-b8S">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -730,30 +743,25 @@
                             <constraint firstItem="FaX-Tu-b8S" firstAttribute="leading" secondItem="B0T-PL-f7x" secondAttribute="leading" id="Clp-gO-uhg"/>
                             <constraint firstAttribute="bottomMargin" secondItem="FaX-Tu-b8S" secondAttribute="bottom" id="Ju4-lu-gZI"/>
                             <constraint firstAttribute="trailing" secondItem="FaX-Tu-b8S" secondAttribute="trailing" id="Rk0-pv-akh"/>
+                            <constraint firstItem="FaX-Tu-b8S" firstAttribute="top" secondItem="Lv7-KR-gcV" secondAttribute="bottom" id="YZt-qd-zZY"/>
                             <constraint firstItem="FaX-Tu-b8S" firstAttribute="leading" secondItem="B0T-PL-f7x" secondAttribute="leadingMargin" id="cS4-6B-xgM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FaX-Tu-b8S" secondAttribute="trailing" id="mb9-wl-cyh"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="9qD-pQ-RL8"/>
                                 <exclude reference="cS4-6B-xgM"/>
                                 <exclude reference="mb9-wl-cyh"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Downloaded" id="oPr-MR-wCu">
-                        <barButtonItem key="rightBarButtonItem" title="Menu" id="XME-aF-MJN">
-                            <connections>
-                                <action selector="presentRightMenuViewController:" destination="ojo-P8-Ptg" id="AdI-W6-HGV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
-                        <outlet property="playlistTableView" destination="FaX-Tu-b8S" id="sMf-Ek-OmJ"/>
+                        <outlet property="tableView" destination="FaX-Tu-b8S" id="VW9-nJ-8Do"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LCd-ux-2kY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="1043"/>
+            <point key="canvasLocation" x="1562" y="1522"/>
         </scene>
         <!--Settings-->
         <scene sceneID="6NU-ze-xko">
@@ -822,7 +830,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeT-kL-i1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="1704"/>
+            <point key="canvasLocation" x="1562" y="2419"/>
         </scene>
         <!--Playlist View Controller-->
         <scene sceneID="XDc-dI-Ma6">
@@ -837,17 +845,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gtl-K3-9nz">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gtl-K3-9nz" firstAttribute="top" secondItem="E8s-2w-4Lq" secondAttribute="top" id="4on-IZ-PMb"/>
+                            <constraint firstItem="gtl-K3-9nz" firstAttribute="top" secondItem="X4d-ek-03S" secondAttribute="bottom" id="Bb9-HL-12s"/>
                             <constraint firstItem="gtl-K3-9nz" firstAttribute="leading" secondItem="E8s-2w-4Lq" secondAttribute="leading" id="UYv-MK-CgL"/>
                             <constraint firstAttribute="trailing" secondItem="gtl-K3-9nz" secondAttribute="trailing" id="sNS-aA-x8o"/>
                             <constraint firstAttribute="bottom" secondItem="gtl-K3-9nz" secondAttribute="bottom" id="vDX-DU-1XA"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4on-IZ-PMb"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="gtl-K3-9nz" id="bCm-PI-ubc"/>
@@ -855,7 +869,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pO9-cW-7Nc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3534" y="-578.25"/>
+            <point key="canvasLocation" x="3534" y="-579"/>
         </scene>
         <!--Right Menu View Controller-->
         <scene sceneID="G2k-2O-uuJ">
@@ -906,9 +920,9 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="tr1-qc-ZHg"/>
-                        <segue destination="8rJ-Kc-sve" kind="show" id="ECz-24-i31"/>
-                        <segue destination="ojo-P8-Ptg" kind="show" id="oYc-xx-BqE"/>
-                        <segue destination="IMw-tn-L1E" kind="show" id="xDV-Y5-fBC"/>
+                        <segue destination="8rJ-Kc-sve" kind="show" identifier="relationalSegue" id="ECz-24-i31"/>
+                        <segue destination="ojo-P8-Ptg" kind="show" identifier="relationalSegue" id="oYc-xx-BqE"/>
+                        <segue destination="IMw-tn-L1E" kind="show" identifier="relationalSegue" id="xDV-Y5-fBC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XD5-MJ-7e4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -928,17 +942,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ohd-N0-eQL">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ohd-N0-eQL" firstAttribute="top" secondItem="1xZ-s0-RgU" secondAttribute="bottom" id="5dm-BT-9GP"/>
                             <constraint firstAttribute="trailing" secondItem="ohd-N0-eQL" secondAttribute="trailing" id="6Hj-eI-6Kw"/>
                             <constraint firstAttribute="bottom" secondItem="ohd-N0-eQL" secondAttribute="bottom" id="dqs-TI-J7H"/>
                             <constraint firstItem="ohd-N0-eQL" firstAttribute="top" secondItem="cJJ-R5-Cth" secondAttribute="top" id="iaf-38-lhG"/>
                             <constraint firstItem="ohd-N0-eQL" firstAttribute="leading" secondItem="cJJ-R5-Cth" secondAttribute="leading" id="uxG-ba-iuZ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="iaf-38-lhG"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="ohd-N0-eQL" id="jBD-gv-NyD"/>
@@ -1007,6 +1027,39 @@
             </objects>
             <point key="canvasLocation" x="2352" y="-320.25"/>
         </scene>
+        <!--Recommended Playlist View Controller-->
+        <scene sceneID="R2W-aZ-yGR">
+            <objects>
+                <viewController id="cD3-YQ-UXV" customClass="EPRecommendedPlaylistViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3xg-8v-H4M"/>
+                        <viewControllerLayoutGuide type="bottom" id="xaw-pg-DV2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hkE-Wf-yay">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aZU-DA-Q8D">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xaw-pg-DV2" firstAttribute="top" secondItem="aZU-DA-Q8D" secondAttribute="bottom" id="7aj-hI-0K7"/>
+                            <constraint firstItem="aZU-DA-Q8D" firstAttribute="leading" secondItem="hkE-Wf-yay" secondAttribute="leading" id="AQU-3R-wGC"/>
+                            <constraint firstItem="aZU-DA-Q8D" firstAttribute="top" secondItem="3xg-8v-H4M" secondAttribute="bottom" id="WEt-ts-rR6"/>
+                            <constraint firstAttribute="trailing" secondItem="aZU-DA-Q8D" secondAttribute="trailing" id="iqk-XP-cww"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="aZU-DA-Q8D" id="cht-CV-5Mf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0TR-YH-j1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2348" y="361"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background_abstract_1" width="540" height="960"/>
@@ -1014,6 +1067,6 @@
         <image name="icon_cover_placeholder_1" width="76" height="76"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HbV-JP-ZLU"/>
+        <segue reference="Zcv-nt-qiL"/>
     </inferredMetricsTieBreakers>
 </document>

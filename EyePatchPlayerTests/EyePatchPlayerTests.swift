@@ -87,7 +87,7 @@ class EyePatchPlayerTests: XCTestCase {
         let expectation = self.expectationWithDescription("testMessagesParsing Expectation")
         
         var parsedTracks = [EPTrack]()
-        var parsedTracksFinal = [EPTrack]()
+//        var parsedTracksFinal = [EPTrack]()
         
         EPHTTPManager.VKGetLastAudiosFromMessages(10, intermediateResultBlock: { (track) -> Void in
             print(track.ID)

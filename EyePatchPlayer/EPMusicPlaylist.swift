@@ -10,45 +10,47 @@ import UIKit
 //import Realm
 
 class EPMusicPlaylist: AnyObject {
+
+    var tracks: [EPTrack] {
+        get {
+            return shuffleOn ? shuffledTracks : originalTracks
+        }
+    }
     
-    var tracks: [EPTrack] = []
     var delegate:EPPlaylistDelegate?
     
-    private lazy var shuffledTracks: [EPTrack] = {
+    private var originalTracks:[EPTrack] = []
+    
+    lazy var shuffledTracks: [EPTrack] = {
         print("lazily loading shuffled playlist")
-        var shuffledTracksLazy = self.tracks.shuffle()
+        var shuffledTracksLazy = self.originalTracks.shuffle()
         return shuffledTracksLazy
     }()
     
     var trackCount: Int = 0
-    var shuffleOn: Bool = true
+    var shuffleOn: Bool = false
     var responseJSON: NSDictionary?
+    
+    //MARK: Playlist control interface
     
     func nextTrack() -> EPTrack? {
         let startTime = CFAbsoluteTimeGetCurrent()
 
         print("nextTrack")
         var index: Int?
-        var tracksArray: [EPTrack]
         
-        if shuffleOn {
-            tracksArray = self.shuffledTracks
-        } else {
-            tracksArray = self.tracks
-        }
-        
-        for i in (0...tracksArray.count-1) {
-            if tracksArray[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+        for i in (0...tracks.count-1) {
+            if tracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
                 index = i
                 break
             }
         }
         
         if let indexFound = index {
-            if indexFound == tracksArray.count-1 {
+            if indexFound == tracks.count-1 {
                 if shuffleOn {
                     //last item, shuffle is on, playing first item from shuffled array
-                    return tracksArray[0]
+                    return tracks[0]
                 } else {
                     //last item, cannot forward
                     print("index is max in a playlist, cannot get next track")
@@ -58,7 +60,7 @@ class EPMusicPlaylist: AnyObject {
             } else {
                 let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
                 print("\(previousTrack):: Time: \(timeElapsed)")
-                return tracksArray[indexFound+1]
+                return tracks[indexFound+1]
             }
         } else {
             print("index not found in a playlist")
@@ -72,16 +74,9 @@ class EPMusicPlaylist: AnyObject {
 
         print("previousTrack")
         var index: Int?
-        var tracksArray: [EPTrack]
         
-        if shuffleOn {
-            tracksArray = self.shuffledTracks
-        } else {
-            tracksArray = self.tracks
-        }
-        
-        for i in (0...tracksArray.count-1) {
-            if tracksArray[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+        for i in (0...tracks.count-1) {
+            if tracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
                 index = i
                 break
             }
@@ -92,7 +87,7 @@ class EPMusicPlaylist: AnyObject {
                 
                 if shuffleOn {
                     //last item, shuffle is on, playing last item from shuffled array
-                    return tracksArray[tracksArray.count-1]
+                    return tracks[tracks.count-1]
                 } else {
                     //last item, cannot backward
                     print("index is 0 in a playlist, cannot get previous track")
@@ -102,7 +97,7 @@ class EPMusicPlaylist: AnyObject {
             } else {
                 let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
                 print("\(previousTrack):: Time: \(timeElapsed)")
-                return tracksArray[indexFound-1]
+                return tracks[indexFound-1]
             }
         } else {
             print("index not found in a playlist")
@@ -111,59 +106,67 @@ class EPMusicPlaylist: AnyObject {
         return nil
     }
     
+    func reshuffle() {
+        self.shuffledTracks = self.originalTracks.shuffle()
+    }
+    
+    //MARK: Playlist Editing
+    
     func removeTrack(track: EPTrack) -> Bool {
+        
         var resultLinear = false
         var resultShuffled = false
         
-        for index in 0...self.tracks.count-1 {
-            
-            if self.tracks[index].ID == track.ID {
-                self.tracks.removeAtIndex(index)
+        for index in 0...self.originalTracks.count-1 {
+            if self.originalTracks[index].ID == track.ID {
+                self.originalTracks.removeAtIndex(index)
                 resultLinear = true
+                break
             }
-            
+        }
+        
+        for index in 0...self.shuffledTracks.count-1 {
             if self.shuffledTracks[index].ID == track.ID {
                 self.shuffledTracks.removeAtIndex(index)
                 resultShuffled = true
+                break
             }
-            
         }
         
         return resultLinear && resultShuffled
     }
     
+    func addTrack(track: EPTrack) {
+        self.originalTracks.append(track)
+        self.shuffledTracks = self.originalTracks.shuffle()
+        self.trackCount = self.originalTracks.count
+    }
     
-//MARK: Init methods
-    
+    //MARK: Init methods
+
     class func initWithResponse(response: NSDictionary) -> EPMusicPlaylist{
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
         
         playlist.responseJSON = response
         playlist.trackCount = response["count"]!.integerValue
         
-//        EPCache.cacheRetrievalExecutionTime = 0
+        //        EPCache.cacheRetrievalExecutionTime = 0
         if let JSONArray: NSArray = response["items"] as? NSArray {
             for trackJSON in JSONArray {
                 
                 let track:EPTrack = EPTrack.initWithResponse(trackJSON as! NSDictionary)
-                playlist.tracks.append(track)
+                playlist.originalTracks.append(track)
             }
         } else {
             print("response[\"items\" is empty]")
         }
         
-        playlist.shuffledTracks = playlist.tracks.shuffle()
+        playlist.shuffledTracks = playlist.originalTracks.shuffle()
         
         print("track count total: \(playlist.trackCount)")
-        print("track count loaded: \(playlist.tracks.count)")
+        print("track count loaded: \(playlist.originalTracks.count)")
         
         return playlist
-    }
-
-    func addTrack(track: EPTrack) {
-        self.tracks.append(track)
-        self.shuffledTracks = self.tracks.shuffle()
-        self.trackCount = self.tracks.count
     }
     
     class func initWithRLMResults(results:RLMResults) -> EPMusicPlaylist {
@@ -172,16 +175,15 @@ class EPMusicPlaylist: AnyObject {
         if (results.count > 0 ) {
             for trackRLM in results {
                 if let track: EPTrack = trackRLM as? EPTrack {
-                    playlist.tracks.append(track)
+                    playlist.originalTracks.append(track)
                 }
             }
         } else {
             print("results[\"items\" is empty]")
         }
         
-        
         print("track count total: \(playlist.trackCount)")
-        print("track count loaded: \(playlist.tracks.count)")
+        print("track count loaded: \(playlist.originalTracks.count)")
     
         return playlist
     }

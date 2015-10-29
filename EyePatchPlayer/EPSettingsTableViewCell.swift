@@ -26,7 +26,7 @@ class EPSettingsTableViewCell: UITableViewCell {
         
         switch type {
             
-        case .DownloadArtwork, .ScrobbleWithLastFm, .BroadcastStatus, .SaveToPlaylist:
+        case .DownloadArtwork, .ScrobbleWithLastFm, .BroadcastStatus, .SaveToPlaylist, .ShakeToShuffle:
             
             self.secondaryButton.hidden = true
             self.valueSwitch.hidden = false

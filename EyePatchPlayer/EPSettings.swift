@@ -20,6 +20,7 @@ enum EPSettingType: Int {
     case ScrobbleWithLastFm = 2
     case DownloadArtwork = 3
     case ArtworkSize = 4
+    case ShakeToShuffle = 5
 }
 
 class EPSettings: NSUserDefaults {
@@ -30,7 +31,8 @@ class EPSettings: NSUserDefaults {
             (.BroadcastStatus, shouldBroadcastStatus(), "VK status broadcast"),
             (.ScrobbleWithLastFm, shouldScrobbleWithLastFm(), "Scrobble with Last.fm"),
             (.DownloadArtwork, shouldDownloadArtwork(), "Download artwork"),
-            (.ArtworkSize, preferredArtworkSizeEnum(), "Artwork size")
+            (.ArtworkSize, preferredArtworkSizeEnum(), "Artwork size"),
+            (.ShakeToShuffle, shouldDetectShakeToShuffle(), "Shake to Shuffle")
         ]
     }
     
@@ -71,6 +73,19 @@ class EPSettings: NSUserDefaults {
             
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "BroadcastStatus")
             shouldBroadcastStatusValue = specificValue
+            return (specificValue)
+            
+        case .ShakeToShuffle:
+            
+            let specificValue: Bool!
+            if value != nil {
+                specificValue = value! as! Bool
+            } else {
+                specificValue = !shouldDetectShakeToShuffle()
+            }
+            
+            NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "ShakeToShuffle")
+            shouldDetectShakeToShuffleValue = specificValue
             return (specificValue)
             
         case .ScrobbleWithLastFm:
@@ -147,6 +162,24 @@ class EPSettings: NSUserDefaults {
                 NSUserDefaults.standardUserDefaults().setObject(true, forKey: "BroadcastStatus")
                 shouldBroadcastStatusValue = true
                 return shouldBroadcastStatusValue!
+            }
+        }
+    }
+    
+    static var shouldDetectShakeToShuffleValue: Bool?
+    class func shouldDetectShakeToShuffle() -> (Bool) {
+        //read from NSUserDefaults()
+        if let value = shouldDetectShakeToShuffleValue {
+            return value
+        } else {
+            
+            if let value = NSUserDefaults.standardUserDefaults().objectForKey("ShakeToShuffle") as? Bool {
+                shouldDetectShakeToShuffleValue = value
+                return shouldDetectShakeToShuffleValue!
+            } else {
+                NSUserDefaults.standardUserDefaults().setObject(true, forKey: "ShakeToShuffle")
+                shouldDetectShakeToShuffleValue = true
+                return shouldDetectShakeToShuffleValue!
             }
         }
     }

@@ -57,8 +57,11 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
         
         if let selectedText = selectedCell.textLabel?.text {
             switch selectedText {
-                case "My", "Recommended":
+                case "My":
                     self.performSegueWithIdentifier("seguePlaylist", sender: selectedText)
+                break
+                case "Recommended":
+                    self.performSegueWithIdentifier("segueRecommended", sender: selectedText)
                 break
                 case "Friends":
                     self.performSegueWithIdentifier("segueFriendList", sender: selectedText)
@@ -89,9 +92,9 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
                     break
                 case "Recommended":
                     print("segueing to playlist (My)")
-                    let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
-                    destinationViewController.userID = userID
-                    destinationViewController.recommendedMode = true
+//                    let destinationViewController = segue.destinationViewController as! EPRecommendedPlaylistViewController
+//                    destinationViewController.userID = userID
+//                    destinationViewController.recommendedMode = true
                 break
                 case "Friends":
                     print("segueing to Friends list")
@@ -100,7 +103,7 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
                     break
                 case "Messages":
                     print("segueing to Messages list")
-                    let destinationViewController = segue.destinationViewController as! EPMessagesViewController
+//                    let destinationViewController = segue.destinationViewController as! EPMessagesViewController
                 break
                 default:
                     print("segueing to ...)")

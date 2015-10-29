@@ -313,7 +313,7 @@ class EPCache: NSObject {
         let enumerator:NSDirectoryEnumerator = fileManager.enumeratorAtPath(path)!
         var count = 1
         
-        for url in enumerator.allObjects {
+        for _ in enumerator.allObjects {
             
 //            print("\(count) : \(url)")
             
