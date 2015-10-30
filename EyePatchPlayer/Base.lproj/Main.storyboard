@@ -932,7 +932,7 @@
         <!--Friends-->
         <scene sceneID="agy-QO-wPT">
             <objects>
-                <viewController title="Friends" id="v3r-1Z-BCn" customClass="EPFriendListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Friends" automaticallyAdjustsScrollViewInsets="NO" id="v3r-1Z-BCn" customClass="EPFriendListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1xZ-s0-RgU"/>
                         <viewControllerLayoutGuide type="bottom" id="XHW-lG-yuS"/>

@@ -31,6 +31,10 @@
 		C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */; };
 		C49E41891BE289E00012C0DD /* EPPlaylistAbstractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E41881BE289E00012C0DD /* EPPlaylistAbstractViewController.swift */; };
 		C49E418C1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E418B1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift */; };
+		C49E41921BE3AECE0012C0DD /* ProximaNova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E418F1BE3AECE0012C0DD /* ProximaNova-Bold.ttf */; };
+		C49E41931BE3AECE0012C0DD /* ProximaNova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */; };
+		C49E41941BE3AECE0012C0DD /* ProximaNova-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */; };
+		C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */; };
 		C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */; };
 		C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */; };
 		C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */; };
@@ -105,6 +109,10 @@
 		C489EB081BA86C4C00D788E0 /* EPPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistViewController.swift; sourceTree = "<group>"; };
 		C49E41881BE289E00012C0DD /* EPPlaylistAbstractViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistAbstractViewController.swift; sourceTree = "<group>"; };
 		C49E418B1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRecommendedPlaylistViewController.swift; sourceTree = "<group>"; };
+		C49E418F1BE3AECE0012C0DD /* ProximaNova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.ttf"; sourceTree = "<group>"; };
+		C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.ttf"; sourceTree = "<group>"; };
+		C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.ttf"; sourceTree = "<group>"; };
+		C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+DefaultTintColor.swift"; sourceTree = "<group>"; };
 		C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPStatusIndicatorView.swift; sourceTree = "<group>"; };
 		C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrackTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAudioSessionManager.swift; sourceTree = "<group>"; };
@@ -220,6 +228,7 @@
 		C489EAC41BA83D1D00D788E0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C49E41951BE3AED10012C0DD /* Fonts */,
 				C46ED3501BD928A100ACF9BB /* EPPlayground.playground */,
 				C4C61D4D1BBD56DA00501EE1 /* Extensions */,
 				C4FCB3701BAC65A300197746 /* Libraries */,
@@ -352,10 +361,21 @@
 			name = "Messages Playlist";
 			sourceTree = "<group>";
 		};
+		C49E41951BE3AED10012C0DD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C49E418F1BE3AECE0012C0DD /* ProximaNova-Bold.ttf */,
+				C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */,
+				C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		C4C61D4D1BBD56DA00501EE1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */,
+				C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */,
 				C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */,
 				C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */,
 				C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */,
@@ -504,7 +524,10 @@
 				C4215B301BD79D8100D771F5 /* EPSettingsTableViewCell.xib in Resources */,
 				C489EACE1BA83D1D00D788E0 /* Main.storyboard in Resources */,
 				C4C61DB81BC82E8B00501EE1 /* Images.xcassets in Resources */,
+				C49E41931BE3AECE0012C0DD /* ProximaNova-Regular.ttf in Resources */,
+				C49E41941BE3AECE0012C0DD /* ProximaNova-Semibold.ttf in Resources */,
 				C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */,
+				C49E41921BE3AECE0012C0DD /* ProximaNova-Bold.ttf in Resources */,
 				C4C61DB51BC8199500501EE1 /* EPTrackTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -604,6 +627,7 @@
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
 				C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */,
+				C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
 				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,

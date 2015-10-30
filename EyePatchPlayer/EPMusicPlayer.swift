@@ -165,11 +165,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
+        self.playlist = playlist
+        
         if (track.ID != activeTrack.ID){
             setTrack(track, force: true)
         }
-        
-        self.playlist = playlist
     }
     
     

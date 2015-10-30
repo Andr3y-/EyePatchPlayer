@@ -24,10 +24,10 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
         self.contentViewShadowOpacity = 0.6;
         self.contentViewShadowRadius = 12;
         self.contentViewShadowEnabled = true;
-        self.backgroundImage = UIImage(named: "background_abstract_1")
-        
+        self.backgroundImage = UIImage(named: "background_ep_gradient")
+        self.scaleBackgroundImageView = false
         self.delegate = self
-        
+
         self.contentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController")
         self.rightMenuViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RightMenuViewController")
         
@@ -85,6 +85,7 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     }
     func sideMenu(sideMenu: RESideMenu!, didHideMenuViewController menuViewController: UIViewController!) {
         print("didHideMenuViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName("MenuDidHide", object: nil)
     }
     
     //VKSDKDelegate
@@ -142,12 +143,10 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
         if (VKSdk.isLoggedIn()){
             Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
             Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
-
             
             if VKSdk.hasPermissions([VK_PER_MESSAGES]) {
                 NSNotificationCenter.defaultCenter().postNotificationName("VK_AUTHORISED_MESSAGES", object: nil)
             }
-            
         }
     }
     

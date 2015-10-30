@@ -32,6 +32,7 @@ DONE:
 - [x] Tracks from Messages
 - [x] Displaying download progress
 - [x] Shake to Shuffle Playlist
+- [x] Play Filtered Selection
 
 TODO:
 
@@ -50,5 +51,4 @@ TODO:
 
 TOFIX:
 
-- [ ] First Responder (i.e. shake functionality) is Lost when Side Menu is Opened and then Closed
 - [ ] Double Authentication with VK

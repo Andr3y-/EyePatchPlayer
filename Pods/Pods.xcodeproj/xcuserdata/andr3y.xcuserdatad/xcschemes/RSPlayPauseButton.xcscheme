@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "30AC103E2D6BD2B9BD20C191"
+               BlueprintIdentifier = "3EE36C25E7492856C4413F6B"
                BuildableName = "RSPlayPauseButton.framework"
                BlueprintName = "RSPlayPauseButton"
                ReferencedContainer = "container:Pods.xcodeproj">

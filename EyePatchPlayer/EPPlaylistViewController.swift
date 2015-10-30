@@ -32,17 +32,7 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController{
             audioRequest.executeWithResultBlock({ (response) -> Void in
                 
                 self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
-                self.playlist.delegate = self
-                self.tableView.dataSource = self
-                self.tableView.delegate = self
-                self.tableView.reloadData()
-                
-                self.highlightActiveTrack(true, animated: false)
-                
-                self.applyOffset()
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
-                    self.tableView.alpha = 1
-                })
+                self.dataReady()
                 }, errorBlock: { (error) -> Void in
                     print("unable to retrieve a playlist")
             })

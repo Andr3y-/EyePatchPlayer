@@ -53,6 +53,7 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods/AFNetworking.framework'
+  install_framework 'Pods/DGActivityIndicatorView.framework'
   install_framework 'Pods/RESideMenu.framework'
   install_framework 'Pods/RSPlayPauseButton.framework'
   install_framework 'Pods/Realm.framework'
@@ -62,6 +63,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods/AFNetworking.framework'
+  install_framework 'Pods/DGActivityIndicatorView.framework'
   install_framework 'Pods/RESideMenu.framework'
   install_framework 'Pods/RSPlayPauseButton.framework'
   install_framework 'Pods/Realm.framework'

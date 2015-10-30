@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import Realm
 
 class EPMusicPlaylist: AnyObject {
 
@@ -28,7 +27,12 @@ class EPMusicPlaylist: AnyObject {
     }()
     
     var trackCount: Int = 0
-    var shuffleOn: Bool = false
+    var shuffleOn: Bool = false {
+        didSet {
+            print("playlistShuffle changed")
+            self.delegate?.playlistDidChangeOrder()
+        }
+    }
     var responseJSON: NSDictionary?
     
     //MARK: Playlist control interface
@@ -108,6 +112,7 @@ class EPMusicPlaylist: AnyObject {
     
     func reshuffle() {
         self.shuffledTracks = self.originalTracks.shuffle()
+        self.shuffleOn = true
     }
     
     //MARK: Playlist Editing
@@ -143,7 +148,32 @@ class EPMusicPlaylist: AnyObject {
     }
     
     //MARK: Init methods
+    init () {
+        
+    }
+    
+    init(tracks: [EPTrack]) {
+        self.originalTracks = tracks
+        self.trackCount = self.originalTracks.count
+    }
+    
+    class func initWithResponseArray(response: NSArray) -> EPMusicPlaylist {
+        let playlist: EPMusicPlaylist = EPMusicPlaylist()
+        
+        for trackJSON in response {
+            let track:EPTrack = EPTrack.initWithResponse(trackJSON as! NSDictionary)
+            playlist.originalTracks.append(track)
+        }
+        
+        playlist.shuffledTracks = playlist.originalTracks.shuffle()
+        
+        print("track count total: \(playlist.trackCount)")
+        print("track count loaded: \(playlist.originalTracks.count)")
+        
+        return playlist
 
+    }
+    
     class func initWithResponse(response: NSDictionary) -> EPMusicPlaylist{
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
         

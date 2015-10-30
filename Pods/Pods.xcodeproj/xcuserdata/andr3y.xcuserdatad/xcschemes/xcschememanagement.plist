@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DGActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,17 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4F5131F04F5AEA392D70894A2159610E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>862F37258B8CB6BD53B97E10BFC8BFD3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>93C22FC64B5B55EE837177EDF7AF3519</key>
+		<key>86E050AFBA8F6FDF8976CEBC97B807A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8C42AFEB08C9D31DE616A0BCC71DAD6E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>9A722450FE010132AFE9B2D2BA894AF0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A526C32FC6BAABAB3802A01E422F1C7F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

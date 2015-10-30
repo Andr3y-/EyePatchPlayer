@@ -86,13 +86,13 @@ class EPStatusIndicatorView: UIView {
         circlePathLayer.lineWidth = circleLineWidth
         circlePathLayer.anchorPoint = CGPointMake(0.5, 0.5)
         circlePathLayer.fillColor = UIColor.clearColor().CGColor
-        circlePathLayer.strokeColor = UIColor.blueColor().CGColor
+        circlePathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
         
         layer.addSublayer(circlePathLayer)
     }
     
     func setupTick() {
-        tickPathLayer.strokeColor = UIColor.blueColor().CGColor
+        tickPathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
         tickPathLayer.lineWidth = tickLineWidth
         tickPathLayer.fillColor = UIColor.clearColor().CGColor
         
@@ -100,7 +100,7 @@ class EPStatusIndicatorView: UIView {
     }
     
     func setupPlus() {
-        plusPathLayer.strokeColor = UIColor.blueColor().CGColor
+        plusPathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
         plusPathLayer.lineWidth = plusLineWidth
         plusPathLayer.fillColor = UIColor.clearColor().CGColor
         
@@ -187,13 +187,26 @@ class EPStatusIndicatorView: UIView {
                 let animation = CABasicAnimation(keyPath: "strokeEnd")
                 animation.fromValue = !value ? 1 : 0
                 animation.toValue = value ? 1 : 0
-                animation.duration = 1.25
+                animation.duration = 1.00
                 animation.repeatCount = 1
                 animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 animation.fillMode = kCAFillModeForwards
                 animation.removedOnCompletion = false
                 
                 self.tickPathLayer.addAnimation(animation, forKey: "stroke")
+                
+                let animationScale = CABasicAnimation(keyPath: "transform.scale")
+                animationScale.fromValue = NSValue(CATransform3D:CATransform3DIdentity)
+                animationScale.toValue = NSValue(CATransform3D:CATransform3DMakeScale(1.15, 1.15, 1.0))
+                animationScale.duration = 0.4
+                animationScale.beginTime = CACurrentMediaTime()+0.3
+                animationScale.autoreverses = true
+                animationScale.fillMode = kCAFillModeForwards
+                animationScale.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                animationScale.removedOnCompletion = true
+                
+                self.circlePathLayer.addAnimation(animationScale, forKey: "scale")
+    
                 
             } else {
                 

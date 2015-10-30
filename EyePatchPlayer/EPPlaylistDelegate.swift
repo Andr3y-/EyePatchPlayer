@@ -8,4 +8,5 @@
 
 protocol EPPlaylistDelegate {
     func playlistDidSetTrackActive(track:EPTrack)
+    func playlistDidChangeOrder()
 }

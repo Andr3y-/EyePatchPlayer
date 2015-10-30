@@ -28,7 +28,24 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
         tableView.bounces = false;
         
-        self.view.addSubview(tableView)
+        // Blur Effect
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = UIScreen.mainScreen().bounds
+        view.addSubview(blurEffectView)
+        
+        // Vibrancy Effect
+        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        vibrancyEffectView.frame = UIScreen.mainScreen().bounds
+        
+        // Add tableView to the vibrancy view
+        vibrancyEffectView.contentView.addSubview(tableView)
+        
+        // Add the vibrancy view to the blur view
+        blurEffectView.contentView.addSubview(vibrancyEffectView)
+        
+//        self.view.addSubview(tableView)
         // Do any additional setup after loading the view.
     }
     
@@ -60,10 +77,11 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         cell?.textLabel?.textAlignment = NSTextAlignment.Left
         cell?.textLabel?.shadowColor = UIColor.blackColor()
         cell?.textLabel?.shadowOffset = CGSizeMake(0.0, 0.0)
-        cell?.textLabel?.layer.shadowRadius = 8.0
-        cell?.textLabel?.layer.shadowOpacity = 0.8
-        cell?.textLabel?.layer.masksToBounds = false
-        cell?.textLabel?.layer.shouldRasterize = true
+//        cell?.textLabel?.font = UIFont(name:"ProximaNova-Regular", size:21.0)
+//        cell?.textLabel?.layer.shadowRadius = 8.0
+//        cell?.textLabel?.layer.shadowOpacity = 0.8
+//        cell?.textLabel?.layer.masksToBounds = false
+//        cell?.textLabel?.layer.shouldRasterize = true
 
         if indexPath.row == selectedItemIndex {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))

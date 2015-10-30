@@ -41,15 +41,15 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
             let track: EPTrack
-            print(self.filteredSongs.count)
-            if (self.filteredSongs.count > 0){
-                track = self.filteredSongs[indexPath.row] as! EPTrack
+            print(self.filteredPlaylist.tracks.count)
+            if (self.filteredPlaylist.tracks.count > 0){
+                track = self.filteredPlaylist.tracks[indexPath.row]
                 if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
                     EPMusicPlayer.sharedInstance.playNextSong()
                 }
                 self.playlist.removeTrack(track)
                 filterSongsInArray()
-                print(self.filteredSongs.count)
+                print(self.filteredPlaylist.tracks.count)
             } else {
                 
                 track = self.playlist.tracks[indexPath.row]

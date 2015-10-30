@@ -8,6 +8,7 @@
 
 import UIKit
 import VK_ios_sdk
+import DGActivityIndicatorView
 
 class EPFriendListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
@@ -15,12 +16,19 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
     var userID:Int!
     var friends = [EPFriend]()
     var filteredFriends = [EPFriend]()
+    var activityIndicatorView: DGActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "Friends"
+        
+        activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView().tintColor, size: 30)
+        self.view.addSubview(activityIndicatorView)
+        //            self.view.insertSubview(activityIndicatorView, belowSubview: self.tableView)
+        activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds))
+        activityIndicatorView.startAnimating()
         
         self.filteredFriends = [EPFriend]()
         self.tableView.alpha = 0
@@ -53,9 +61,16 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
                 self.tableView.delegate = self
                 self.tableView.reloadData()
                 self.applyOffset()
+                
                 UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    //animations
                     self.tableView.alpha = 1
-                })
+                    self.activityIndicatorView.alpha = 0
+                    
+                    }) { (result: Bool) -> Void in
+                        //completion
+                        self.activityIndicatorView.stopAnimating()
+                }
 
             }
         }, errorBlock: { (error) -> Void in

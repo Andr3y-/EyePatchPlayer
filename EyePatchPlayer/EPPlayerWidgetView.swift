@@ -500,7 +500,11 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         
         self.progressBarPlayback.setProgress(0, animated: false)
         self.progressBarPlaybackBig.setProgress(0, animated: false)
-
+        
+        if EPMusicPlayer.sharedInstance.playlist.shuffleOn != self.shuffleSwitch.on {
+            self.shuffleSwitch.setOn(EPMusicPlayer.sharedInstance.playlist.shuffleOn, animated: false)
+        }
+        
         switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
         case true:
             self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
@@ -515,7 +519,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
     func setPlaceholderArtworkImage(){
         let image = UIImage(named: "icon_cover_placeholder_1")
-        let backgroundBlurredImage = UIImage(named: "background_abstract_1")
+        let backgroundBlurredImage = UIImage(named: "background_ep_gradient")
         
         UIView.transitionWithView(self.albumArtImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
             self.albumArtImageView.image = image
