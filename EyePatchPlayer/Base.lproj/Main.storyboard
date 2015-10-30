@@ -608,9 +608,11 @@
                             <outlet property="controlsViewConstraint" destination="mYB-gf-mKd" id="wGq-uP-EDW"/>
                             <outlet property="interactionView" destination="I8I-8t-PjH" id="Xgn-l2-m5M"/>
                             <outlet property="leftPlaybackTimeLabel" destination="rML-Ll-LkQ" id="CgE-SS-nqM"/>
+                            <outlet property="nextTrackButton" destination="HbX-N4-IL2" id="6CZ-P6-e2j"/>
                             <outlet property="playPauseButtonPlaceholder" destination="wUR-Ur-t4j" id="rre-0H-I3a"/>
                             <outlet property="playPauseButtonPlaceholderBig" destination="a8w-cQ-8fc" id="16Q-p6-h2S"/>
                             <outlet property="playerHeaderView" destination="S5F-Gc-INw" id="hs0-dc-Xwo"/>
+                            <outlet property="prevTrackButton" destination="wBz-Og-MOd" id="IYJ-YJ-5Xs"/>
                             <outlet property="progressBarPlayback" destination="sAi-uy-Kbk" id="aKu-0j-aqT"/>
                             <outlet property="progressBarPlaybackBig" destination="bVl-Hs-PsG" id="4Iz-EG-VK9"/>
                             <outlet property="rightPlaybackTimeLabel" destination="pbj-vj-9UF" id="YMj-65-5Ye"/>

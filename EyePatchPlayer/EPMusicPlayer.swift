@@ -16,6 +16,11 @@ enum PlaybackStatus {
     case Unknown
 }
 
+enum SeekStatus {
+    case None
+    case Forward
+    case Backward
+}
 class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     //delegate
@@ -32,8 +37,10 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     //remote manager
     var remoteManager: EPMusicPlayerRemoteManager!
-
-    
+    //seeking variable
+    var seekStatus = SeekStatus.None
+    let seekingInterval:UInt64 = 3
+    let seekingFrequency = 0.2
     //playlist & current song
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
     
@@ -364,6 +371,57 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         return true
     }
     
+    func toggleForwardSeek() {
+        if self.seekStatus == .None {
+            self.seekStatus = .Forward
+            self.seekForward()
+            return
+        }
+        
+        if self.seekStatus == .Forward {
+            self.seekStatus = .None
+        }
+    }
+    
+    func toggleBackwardSeek() {
+        if self.seekStatus == .None {
+            self.seekStatus = .Backward
+            self.seekBackward()
+            return
+        }
+        
+        if self.seekStatus == .Backward {
+            self.seekStatus = .None
+        }
+    }
+    
+    func seekForward() {
+        print("seekForward status:\(self.seekStatus)")
+        if self.seekStatus != .Forward {
+            return
+        }
+        print("+\(seekingInterval)")
+        self.audioStreamSTK?.seekToTime(min(self.audioStreamSTK!.progress+Double(seekingInterval), self.audioStreamSTK!.duration))
+        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seekingFrequency * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+            self.seekForward()
+        })
+
+    }
+    
+    func seekBackward() {
+        print("seekBackward status:\(self.seekStatus)")
+        if self.seekStatus != .Backward {
+            return
+        }
+        print("-\(seekingInterval)")
+        self.audioStreamSTK?.seekToTime(max(self.audioStreamSTK!.progress-Double(seekingInterval),0))
+        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seekingFrequency * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+            self.seekBackward()
+        })
+    }
     //STKAudioPlayerDelegate
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didStartPlayingQueueItemId queueItemId: NSObject!) {

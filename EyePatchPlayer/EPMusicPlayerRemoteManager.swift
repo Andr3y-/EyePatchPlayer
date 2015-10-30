@@ -24,6 +24,8 @@ class EPMusicPlayerRemoteManager: NSObject {
         commandCenter.pauseCommand.addTarget(self, action: "remoteCommandPause:")
         commandCenter.nextTrackCommand.addTarget(self, action: "remoteCommandNext:")
         commandCenter.previousTrackCommand.addTarget(self, action: "remoteCommandPrevious:")
+        commandCenter.seekForwardCommand.addTarget(self, action: "seekForwardCommand:")
+        commandCenter.seekBackwardCommand.addTarget(self, action: "seekBackwardCommand:")
     }
     
     func remoteCommandPlay(object: MPRemoteCommandEvent) {
@@ -68,5 +70,22 @@ class EPMusicPlayerRemoteManager: NSObject {
         }
         
         info.nowPlayingInfo = newInfo
+    }
+    
+    func updatePlaybackTime() {
+        var newInfo = [String : AnyObject]()
+        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
+        let info = MPNowPlayingInfoCenter.defaultCenter()
+        info.nowPlayingInfo = newInfo
+    }
+    
+    func seekForwardCommand(object: MPRemoteCommandEvent) {
+        print(__FUNCTION__)
+        EPMusicPlayer.sharedInstance.toggleForwardSeek()
+    }
+    
+    func seekBackwardCommand(object: MPRemoteCommandEvent) {
+        print(__FUNCTION__)
+        EPMusicPlayer.sharedInstance.toggleBackwardSeek()
     }
 }

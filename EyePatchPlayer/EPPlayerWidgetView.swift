@@ -36,6 +36,8 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var leftPlaybackTimeLabel: UILabel!
     @IBOutlet weak var rightPlaybackTimeLabel: UILabel!
     
+    @IBOutlet weak var prevTrackButton: UIButton!
+    @IBOutlet weak var nextTrackButton: UIButton!
     var playPauseButtonBig:RSPlayPauseButton?
     @IBOutlet weak var playPauseButtonPlaceholderBig: UIView!
     @IBOutlet weak var artistLabelBig: UILabel!
@@ -106,6 +108,13 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         let panGestureDown = UIPanGestureRecognizer(target: self, action: "panGestureMain:")
         self.playerHeaderView.addGestureRecognizer(panGestureDown)
         
+        let longPressRight = UILongPressGestureRecognizer(target: self, action: "seekForwardCommand:")
+        longPressRight.minimumPressDuration = 1.0
+        self.nextTrackButton.addGestureRecognizer(longPressRight)
+        let longPressLeft = UILongPressGestureRecognizer(target: self, action: "seekBackwardCommand:")
+        longPressLeft.minimumPressDuration = 1.0
+        self.prevTrackButton.addGestureRecognizer(longPressLeft)
+        
     }
     
     override func layoutSubviews() {
@@ -144,6 +153,22 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
     
     //Interactions
+    
+    func seekForwardCommand(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .Began {
+            EPMusicPlayer.sharedInstance.toggleForwardSeek()
+        } else if recognizer.state == .Ended{
+            EPMusicPlayer.sharedInstance.toggleForwardSeek()
+        }
+    }
+    
+    func seekBackwardCommand(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .Began {
+            EPMusicPlayer.sharedInstance.toggleBackwardSeek()
+        } else if recognizer.state == .Ended{
+            EPMusicPlayer.sharedInstance.toggleBackwardSeek()
+        }
+    }
     
     func panGesture(sender:UIPanGestureRecognizer) {
         let window = UIApplication.sharedApplication().keyWindow!
