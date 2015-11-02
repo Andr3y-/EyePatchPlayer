@@ -51,13 +51,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     }
     
     override init() {
-        
         super.init()
         
         self.remoteManager = EPMusicPlayerRemoteManager()
         self.setupStream(nil)
         self.observeSessionEvents()
-        
         
     }
     
@@ -275,11 +273,9 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     //updating playback progress as well as download progress
     func updateProgress() {
-        if self.isPlaying() {
+        if self.isPlaying() || self.seekStatus != .None {
             let timeInSeconds = self.playbackTime()
-
             self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), bufferedPercent: self.prebufferedPercent())
-            
         }
     }
     
@@ -403,7 +399,9 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         print("+\(seekingInterval)")
         self.audioStreamSTK?.seekToTime(min(self.audioStreamSTK!.progress+Double(seekingInterval), self.audioStreamSTK!.duration))
         self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-        
+        if !self.isPlaying() {
+            self.updateProgress()
+        }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seekingFrequency * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
             self.seekForward()
         })
@@ -418,6 +416,9 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         print("-\(seekingInterval)")
         self.audioStreamSTK?.seekToTime(max(self.audioStreamSTK!.progress-Double(seekingInterval),0))
         self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+        if !self.isPlaying() {
+            self.updateProgress()
+        }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seekingFrequency * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
             self.seekBackward()
         })

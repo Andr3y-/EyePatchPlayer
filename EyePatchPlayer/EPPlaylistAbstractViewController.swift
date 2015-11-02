@@ -66,7 +66,6 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     
     func loadData() {
 
-        
     }
     
     func dataReady() {

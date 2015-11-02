@@ -109,10 +109,10 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.playerHeaderView.addGestureRecognizer(panGestureDown)
         
         let longPressRight = UILongPressGestureRecognizer(target: self, action: "seekForwardCommand:")
-        longPressRight.minimumPressDuration = 1.0
+        longPressRight.minimumPressDuration = 0.7
         self.nextTrackButton.addGestureRecognizer(longPressRight)
         let longPressLeft = UILongPressGestureRecognizer(target: self, action: "seekBackwardCommand:")
-        longPressLeft.minimumPressDuration = 1.0
+        longPressLeft.minimumPressDuration = 0.7
         self.prevTrackButton.addGestureRecognizer(longPressLeft)
         
     }

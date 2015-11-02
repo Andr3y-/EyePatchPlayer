@@ -34,7 +34,20 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController{
                 self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
                 self.dataReady()
                 }, errorBlock: { (error) -> Void in
-                    print("unable to retrieve a playlist")
+                    print("unable to retrieve a playlist\n\(error.localizedDescription)")
+
+                    self.dataReady()
+                    
+                    let alertController = UIAlertController(title: "Error", message: "Unable to retrieve playlist\n\(error.localizedDescription)", preferredStyle: .Alert)
+                    //We add buttons to the alert controller by creating UIAlertActions:
+                    let actionOk = UIAlertAction(title: "OK",
+                        style: .Default,
+                        handler: { (action) -> Void in
+                            self.navigationController?.popViewControllerAnimated(true)
+                        }) //You can use a block here to handle a press on this button
+                    alertController.addAction(actionOk)
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
             })
         }
     }

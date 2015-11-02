@@ -8,11 +8,15 @@
 
 import UIKit
 extension UIViewController {
-    func setupRefresh() {
+    func setupRefresh(withControl:Bool) {
         if self.respondsToSelector("tableView"){
             if let tableView = self.performSelector("tableView").takeRetainedValue() as? UITableView {
                 let refreshControl = UIRefreshControl()
-                refreshControl.addTarget(self, action: "tableRefresh", forControlEvents: UIControlEvents.ValueChanged)
+                if withControl {
+                    refreshControl.addTarget(self, action: "tableRefresh", forControlEvents: UIControlEvents.ValueChanged)
+                } else {
+                    refreshControl.addTarget(self, action: "stopRefreshing", forControlEvents: UIControlEvents.ValueChanged)
+                }
                 tableView.addSubview(refreshControl)
             }
         }

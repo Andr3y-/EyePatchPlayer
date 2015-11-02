@@ -103,9 +103,26 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
                 print("VK token & userID are missing, performing re-authorisation")
                 VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
             }
+            var email = VKSdk.getAccessToken().email
+            let userID = VKSdk.getAccessToken().userId
             
-            Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
-            Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
+            if VKSdk.getAccessToken().email != nil {
+                
+            } else {
+                if let token2 = VKAccessToken(fromDefaults: "VKToken") {
+                    let email2 = token2.email
+                    if email2 != nil {
+                        email = email2
+                    } else {
+                        email = "unknown email"
+                    }
+                } else {
+                    email = "unknown email"
+                }
+            }
+            
+            Crashlytics.sharedInstance().setUserEmail("\(email)")
+            Crashlytics.sharedInstance().setUserIdentifier("VKID:\(userID)")
         }
         
         if (!VKSdk.isLoggedIn()){
@@ -143,7 +160,7 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
         if (VKSdk.isLoggedIn()){
             Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
             Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
-            
+            newToken.saveTokenToDefaults("VKToken")
             if VKSdk.hasPermissions([VK_PER_MESSAGES]) {
                 NSNotificationCenter.defaultCenter().postNotificationName("VK_AUTHORISED_MESSAGES", object: nil)
             }

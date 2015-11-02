@@ -802,6 +802,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Apppli limited (536JQ4BA38)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
@@ -815,7 +816,7 @@
 				INFOPLIST_FILE = EyePatchPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ed0342d-9afe-43a1-afc7-caf1594ffe08";

@@ -20,7 +20,7 @@ class EPMessagesViewController: EPPlaylistAbstractViewController{
     
     override func performAdditionalSetup() {
         shouldDrawSearchBar = false
-        self.setupRefresh()
+//        self.setupRefresh(false)
     }
     
     override func loadData() {
@@ -34,17 +34,22 @@ class EPMessagesViewController: EPPlaylistAbstractViewController{
         }
         print("loadData messages")
         self.playlist = EPMusicPlaylist()
-        dataReady()
-        self.startRefreshing()
+        self.playlist.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         
         EPHTTPManager.VKGetLastAudiosFromMessages(10, intermediateResultBlock: { (track) -> Void in
             print(track.ID)
             self.playlist.addTrack(track)
+            if self.playlist.trackCount == 1 {
+                self.tableView.alpha = 1
+            }
             self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.playlist.trackCount-1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
+
             self.highlightActiveTrack(false, animated: false)
         }) { (result, tracks) -> Void in
             print("finished parsing messages")
-            self.stopRefreshing()
+            self.activityIndicatorView.stopAnimating()
         }
     }
-    }
+}
