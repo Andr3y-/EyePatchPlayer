@@ -78,10 +78,12 @@ class EPTrack: RLMObject {
             print(EPCache.pathForTrackArtwork(self))
             if artworkImageData!.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
                 print("caching artwork for cached track")
+                
                 RLMRealm.defaultRealm().beginWriteTransaction()
                 self.isArtworkCached = true
                 RLMRealm.defaultRealm().addOrUpdateObject(self)
                 RLMRealm.defaultRealm().commitWriteTransaction()
+                
             } else {
                 print("failed to cache artwork")
             }

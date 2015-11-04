@@ -43,12 +43,19 @@ class EPSettingsTableViewCell: UITableViewCell {
             self.titleLabel.text = name
             self.type = type
             break
-        
+        case .EqualizerActive:
+            self.secondaryButton.hidden = false
+            self.valueSwitch.hidden = true
+            self.secondaryButton.setTitle(EPSettings.isEqualizerActive() ? "Active" : "Not Active" , forState: .Normal)
+            self.titleLabel.text = name
+            self.type = type
+            break
         }
         
         if !EPSettings.enabledStatusForSettingType(type) {
             self.userInteractionEnabled = false
-            self.contentView.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
+            self.contentView.alpha = 0.3
+
         }
         
     }
@@ -65,16 +72,28 @@ class EPSettingsTableViewCell: UITableViewCell {
     }
     
     @IBAction func secondaryButtonTap(sender: AnyObject) {
-        if let newButtonText = EPSettings.changeSetting(self.type, value: nil) as? String {
-            self.secondaryButton.setTitle(newButtonText, forState: .Normal)
+        if self.type != nil {
+            if self.type == .EqualizerActive {
+                if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
+                    self.secondaryButton.setTitle(newValue ? "Active" : "Not Active", forState: .Normal)
+                }
+            } else {
+                if let newButtonText = EPSettings.changeSetting(self.type, value: nil) as? String {
+                    self.secondaryButton.setTitle(newButtonText, forState: .Normal)
+                }
+            }
+            
         }
+        
         
         self.delegate?.secondaryButtonTapForCell(self)
     }
     
     @IBAction func valueSwitchTap(sender: AnyObject) {
-        if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
-            self.valueSwitch.setOn(newValue, animated: true)
+        if self.type != nil {
+            if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
+                self.valueSwitch.setOn(newValue, animated: true)
+            }
         }
         self.delegate?.valueSwitchTapForCell(self)
     }

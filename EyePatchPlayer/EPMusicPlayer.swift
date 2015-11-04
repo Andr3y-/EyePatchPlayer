@@ -21,6 +21,7 @@ enum SeekStatus {
     case Forward
     case Backward
 }
+
 class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     //delegate
@@ -54,7 +55,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         super.init()
         
         self.remoteManager = EPMusicPlayerRemoteManager()
-        self.setupStream(nil)
+        
+        let equalizerB:(Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32, Float32) = (50, 100, 200, 400, 800, 1600, 2600, 16000, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0 )
+        let options:STKAudioPlayerOptions = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: true, equalizerBandFrequencies:equalizerB,readBufferSize: 0, bufferSizeInSeconds: 0, secondsRequiredToStartPlaying: 0, gracePeriodAfterSeekInSeconds: 0, secondsRequiredToStartPlayingAfterBufferUnderun: 0)
+        
+        self.setupStream(options)
         self.observeSessionEvents()
         
     }
@@ -287,9 +292,22 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         if let options = options {
             //with options init
         print(options)
-//        self.audioStreamSTK = [[STKAudioPlayer alloc] initWithOptions:(STKAudioPlayerOptions){ .flushQueueOnSeek = YES, .enableVolumeMixer = NO, .equalizerBandFrequencies = {50, 100, 200, 400, 800, 1600, 2600, 16000} }];
-//        let playerOption: STKAudioPlayerOptions = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: false, equalizerBandFrequencies: (50, 100, 200, 400, 800, 1600, 2600, 16000))
-//        self.audioStreamSTK = STKAudioPlayer(options: (STKAudioPlayerOptions){.flushQueueOnSeek = true, .enableVolumeMixer = false, .equalizerBandFrequencies = {50, 100, 200, 400, 800, 1600, 2600, 16000} })
+            
+            self.audioStreamSTK = STKAudioPlayer(options: options)
+            
+            self.audioStreamSTK?.equalizerEnabled = EPSettings.isEqualizerActive()
+            
+            let EQGains = EPSettings.loadEQSettings()
+            
+            self.audioStreamSTK!.setGain(Float(EQGains[0]), forEqualizerBand: 0)
+            self.audioStreamSTK!.setGain(Float(EQGains[1]), forEqualizerBand: 1)
+            self.audioStreamSTK!.setGain(Float(EQGains[2]), forEqualizerBand: 2)
+            self.audioStreamSTK!.setGain(Float(EQGains[3]), forEqualizerBand: 3)
+            self.audioStreamSTK!.setGain(Float(EQGains[4]), forEqualizerBand: 4)
+            self.audioStreamSTK!.setGain(Float(EQGains[5]), forEqualizerBand: 5)
+            self.audioStreamSTK!.setGain(Float(EQGains[6]), forEqualizerBand: 6)
+            self.audioStreamSTK!.setGain(Float(EQGains[7]), forEqualizerBand: 7)
+
         } else {
             //no options init
             self.audioStreamSTK = STKAudioPlayer()
@@ -422,6 +440,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seekingFrequency * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
             self.seekBackward()
         })
+    }
+    
+    func applyEQSettings() {
+//        self.audioStreamSTK
+    }
+    
+    func setEqualizerEnabled(value: Bool) {
+        self.audioStreamSTK?.equalizerEnabled = value
     }
     //STKAudioPlayerDelegate
     

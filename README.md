@@ -33,6 +33,9 @@ DONE:
 - [x] Displaying download progress
 - [x] Shake to Shuffle Playlist
 - [x] Play Filtered Selection
+- [x] Seeking
+- [x] Play Selection / Search Results
+- [x] Equalizer
 
 TODO:
 
@@ -40,14 +43,12 @@ TODO:
 - [ ] Ability to Add Search Results into a playlist
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
 - [ ] Playlists
-- [ ] Seek
-- [ ] Play Selection / Search Results
-- [ ] Equalizer
 - [ ] Last.fm scrobbling (API Unavailable Currently)
 - [ ] Artwork search filters (excludes specific symbols & words)
 - [ ] Extensively Visualised Playback Statistics
 - [ ] UI Improvements
     - [ ] Loading Indicators
+- [ ] Lyrics (Dynamic / Non-dynamic musixmatch)
 
 TOFIX:
 

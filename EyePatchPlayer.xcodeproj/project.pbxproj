@@ -50,6 +50,10 @@
 		C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */; };
 		C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */; };
 		C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */; };
+		C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */; };
+		C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */; };
+		C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */; };
+		C4D6BB3E1BE907800017C1BB /* EPVATextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB3D1BE907800017C1BB /* EPVATextLayer.swift */; };
 		C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */; };
 		C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */; };
 		C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */; };
@@ -128,6 +132,10 @@
 		C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistDelegate.swift; sourceTree = "<group>"; };
 		C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessagesViewController.swift; sourceTree = "<group>"; };
 		C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Refresh.swift"; sourceTree = "<group>"; };
+		C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPEqualizerConfigurationViewController.swift; sourceTree = "<group>"; };
+		C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPVerticalBandSlider.swift; sourceTree = "<group>"; };
+		C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPBandSliderThumbLayer.swift; sourceTree = "<group>"; };
+		C4D6BB3D1BE907800017C1BB /* EPVATextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPVATextLayer.swift; sourceTree = "<group>"; };
 		C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootViewController.swift; sourceTree = "<group>"; };
 		C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRightMenuViewController.swift; sourceTree = "<group>"; };
 		C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+RightMenuItem.swift"; sourceTree = "<group>"; };
@@ -291,8 +299,8 @@
 			isa = PBXGroup;
 			children = (
 				C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */,
-				C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */,
-				C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */,
+				C4D6BB3A1BE8DF280017C1BB /* Cell */,
+				C4D6BB391BE8DF220017C1BB /* EQ */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -411,6 +419,26 @@
 				C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */,
 			);
 			name = TrackTableViewCell;
+			sourceTree = "<group>";
+		};
+		C4D6BB391BE8DF220017C1BB /* EQ */ = {
+			isa = PBXGroup;
+			children = (
+				C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */,
+				C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */,
+				C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */,
+				C4D6BB3D1BE907800017C1BB /* EPVATextLayer.swift */,
+			);
+			name = EQ;
+			sourceTree = "<group>";
+		};
+		C4D6BB3A1BE8DF280017C1BB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */,
+				C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		C4D80D711BCE5F0B0095E2D7 /* Menu */ = {
@@ -607,6 +635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D6BB3E1BE907800017C1BB /* EPVATextLayer.swift in Sources */,
 				C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */,
 				C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */,
 				C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */,
@@ -619,6 +648,7 @@
 				C49E418C1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
 				C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */,
+				C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */,
 				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
 				C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */,
@@ -627,11 +657,13 @@
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
 				C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */,
+				C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */,
 				C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
 				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,
 				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
+				C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
 				C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */,
 				C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */,

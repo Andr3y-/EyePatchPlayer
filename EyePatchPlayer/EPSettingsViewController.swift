@@ -18,7 +18,7 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.allowsSelection = false
+//        self.tableView.allowsSelection = false
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
         drawRightMenuButton()
         // Do any additional setup after loading the view, typically from a nib.
@@ -36,10 +36,16 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
         if cell == nil {
             cell = EPSettingsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SettingCell")
         }
+
+        if indexPath.row != EPSettings.currentSettingsSet().count-1 {
+            let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
+            cell!.setContent(type, value: value, name: name)
+            cell!.selectionStyle = UITableViewCellSelectionStyle.None
+        } else {
+            let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
+            cell!.setContent(type, value: value, name: name)
+        }
         
-        
-        let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
-        cell!.setContent(type, value: value, name: name)
    
         return cell!
     }
@@ -54,6 +60,13 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 44
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == EPSettings.currentSettingsSet().count-1 {//eq row
+            self.performSegueWithIdentifier("segueEqualizer", sender: nil)
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
     }
 }
 

@@ -21,6 +21,7 @@ enum EPSettingType: Int {
     case DownloadArtwork = 3
     case ArtworkSize = 4
     case ShakeToShuffle = 5
+    case EqualizerActive = 6
 }
 
 class EPSettings: NSUserDefaults {
@@ -32,7 +33,8 @@ class EPSettings: NSUserDefaults {
             (.ScrobbleWithLastFm, shouldScrobbleWithLastFm(), "Scrobble with Last.fm"),
             (.DownloadArtwork, shouldDownloadArtwork(), "Download artwork"),
             (.ArtworkSize, preferredArtworkSizeEnum(), "Artwork size"),
-            (.ShakeToShuffle, shouldDetectShakeToShuffle(), "Shake to Shuffle")
+            (.ShakeToShuffle, shouldDetectShakeToShuffle(), "Shake to Shuffle"),
+            (.EqualizerActive, isEqualizerActive(), "Equalizer")
         ]
     }
     
@@ -112,6 +114,19 @@ class EPSettings: NSUserDefaults {
             
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "DownloadArtwork")
             shouldDownloadArtworkValue = specificValue
+            return (specificValue)
+        
+        case .EqualizerActive:
+            
+            let specificValue: Bool!
+            if value != nil {
+                specificValue = value! as! Bool
+            } else {
+                specificValue = !isEqualizerActive()
+            }
+            EPMusicPlayer.sharedInstance.audioStreamSTK?.equalizerEnabled = specificValue
+            NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "EQActive")
+            isEqualizerActiveValue = specificValue
             return (specificValue)
             
         case .ArtworkSize:
@@ -238,6 +253,24 @@ class EPSettings: NSUserDefaults {
         }
     }
     
+    static var isEqualizerActiveValue: Bool?
+    class func isEqualizerActive() -> (Bool) {
+        //read from NSUserDefaults()
+        if let value = isEqualizerActiveValue {
+            return value
+        } else {
+            
+            if let value = NSUserDefaults.standardUserDefaults().objectForKey("EQActive") as? Bool {
+                isEqualizerActiveValue = value
+                return isEqualizerActiveValue!
+            } else {
+                NSUserDefaults.standardUserDefaults().setObject(true, forKey: "EQActive")
+                isEqualizerActiveValue = true
+                return isEqualizerActiveValue!
+            }
+        }
+    }
+    
     class func nextArtworkSizeEnum(current: EPArtworkSize) -> EPArtworkSize {
         switch current {
         case .Small:
@@ -261,6 +294,28 @@ class EPSettings: NSUserDefaults {
             
         case .Large:
             return "600x600"
+        }
+    }
+    
+    class func loadEQSettings() -> [Double] {
+        if let EQGains = NSUserDefaults.standardUserDefaults().objectForKey("EQGains") as? [Double] {
+            return EQGains
+        } else {
+            
+            let EQGains = [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ]
+            
+            NSUserDefaults.standardUserDefaults().setObject(EQGains, forKey: "EQGains")
+            
+            return EQGains
         }
     }
 }
