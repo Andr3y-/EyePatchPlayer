@@ -50,6 +50,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var controlsView: UIView!
     @IBOutlet weak var backgroundAlbumArtImageView: UIImageView!
     @IBOutlet weak var vibrancyContentView: UIView!
+    var extrasView: EPExtrasView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -348,9 +349,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     
     func interactionTap(sender:AnyObject) {
         print("interaction: tap")
-//        processViews()
+
         if isShown {
-//            self.hide(true)
+
         } else {
             self.setPlayerShown(true, animated: true)
         }
@@ -360,12 +361,35 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         if isShown {
             self.setPlayerShown(false, animated: true)
         } else {
-//            show(true)
+
         }
     }
     
-    func loadFullPlayerView() {
-        
+    @IBAction func moreButtonTap(sender: AnyObject) {
+        self.toggleShowMore()
+    }
+    
+    func toggleShowMore() {
+        if let extrasView = self.extrasView {
+            print("removing extras")
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                extrasView.alpha = 0
+                }, completion: { (result) -> Void in
+                    if result {
+                        extrasView.removeFromSuperview()
+                        self.extrasView = nil
+                    }
+            })
+            
+        } else {
+            print("showing extras")
+            self.extrasView = UIView.loadFromNibNamed("EPExtrasView") as? EPExtrasView
+            self.extrasView!.frame = self.albumArtImageViewBig.frame
+            self.extrasView!.translatesAutoresizingMaskIntoConstraints = true
+            self.contentViewMain.addSubview(self.extrasView!)
+            print("extras:\(self.extrasView!.frame)")
+            print("album: \(self.albumArtImageViewBig.frame)")
+        }
     }
     
     func interactionSwipe(sender:UISwipeGestureRecognizer){
@@ -538,7 +562,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
             break
         }
-        
+        self.extrasView?.updateContent()
         print("updateUIForNewTrack - complete")
     }
 

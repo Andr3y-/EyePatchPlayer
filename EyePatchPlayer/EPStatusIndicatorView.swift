@@ -82,6 +82,7 @@ class EPStatusIndicatorView: UIView {
     }
     
     func setupCircle() {
+        circlePathLayer.contentsScale = UIScreen.mainScreen().scale
         circlePathLayer.frame = bounds
         circlePathLayer.lineWidth = circleLineWidth
         circlePathLayer.anchorPoint = CGPointMake(0.5, 0.5)
@@ -92,6 +93,7 @@ class EPStatusIndicatorView: UIView {
     }
     
     func setupTick() {
+        tickPathLayer.contentsScale = UIScreen.mainScreen().scale
         tickPathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
         tickPathLayer.lineWidth = tickLineWidth
         tickPathLayer.fillColor = UIColor.clearColor().CGColor
@@ -100,6 +102,7 @@ class EPStatusIndicatorView: UIView {
     }
     
     func setupPlus() {
+        plusPathLayer.contentsScale = UIScreen.mainScreen().scale
         plusPathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
         plusPathLayer.lineWidth = plusLineWidth
         plusPathLayer.fillColor = UIColor.clearColor().CGColor

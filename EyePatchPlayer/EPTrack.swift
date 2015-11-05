@@ -19,9 +19,10 @@ class EPTrack: RLMObject {
     dynamic var ID: Int = 0
     dynamic var URLString: String = ""
     dynamic var isCached = false
+    
     private dynamic var isArtworkCached = false
     internal dynamic var downloadProgress: EPDownloadProgress?
-    
+    var lyricsID: Int?
     var artworkUIImage: UIImage?
     
     class func initWithResponse(response: NSDictionary) -> EPTrack {
@@ -34,7 +35,9 @@ class EPTrack: RLMObject {
         track.ID = response["id"] as! Int
         track.URLString = response["url"] as! String
         track.isCached = EPCache.cacheStatusForTrack(track)
-        
+        if let lyricsID = response["lyrics_id"] as? Int {
+            track.lyricsID = lyricsID
+        }
         return track
     }
     
@@ -117,7 +120,7 @@ class EPTrack: RLMObject {
     }
     
     override class func ignoredProperties() -> [AnyObject]? {
-        return ["artworkUIImage", "downloadProgress"]
+        return ["artworkUIImage", "downloadProgress", "lyricsID"]
     }
     
     override class func primaryKey() -> String {

@@ -349,4 +349,64 @@ class EPHTTPManager: NSObject {
                 }
         }
     }
+    
+    class func getLyricsForTrack(track: EPTrack, completion: ((result : Bool, lyrics:EPLyrics?) -> Void)?) {
+        
+        print("checking lyrics for track")
+        let trackDetailsRequest: VKRequest = VKRequest(method: "audio.getById", andParameters: ["audios" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
+        trackDetailsRequest.executeWithResultBlock({ (response) -> Void in
+            print(response)
+            if let responseArray = response.json as? [NSDictionary] {
+                if responseArray.count < 1 {
+                    if completion != nil {
+                        completion! (result: false, lyrics: nil)
+                    }
+                    return
+                }
+                let downloadedTrack = EPTrack.initWithResponse(responseArray.first!)
+                if let lyricsID = downloadedTrack.lyricsID {
+                    let lyricsRequest: VKRequest = VKRequest(method: "audio.getLyrics", andParameters: ["lyrics_id" : "\(lyricsID)"], andHttpMethod: "GET")
+                    lyricsRequest.executeWithResultBlock({ (response) -> Void in
+                        if let responseDictionary = response.json as? NSDictionary {
+                            let lyrics = EPLyrics(dictionary: responseDictionary)
+                            if completion != nil {
+                                completion! (result: true, lyrics: lyrics)
+                            }
+                            return
+                        }
+                        return
+                    }, errorBlock: { (error) -> Void in
+
+                    })
+                } else {
+                    if completion != nil {
+                        completion! (result: false, lyrics: nil)
+                    }
+                    return
+                }
+            } else {
+                if completion != nil {
+                    completion! (result: false, lyrics: nil)
+                }
+                return
+            }
+
+        }, errorBlock: { (error) -> Void in
+            if completion != nil {
+                completion! (result: false, lyrics: nil)
+            }
+            return
+        })
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

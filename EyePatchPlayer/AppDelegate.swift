@@ -21,19 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         application.applicationSupportsShakeToEdit = true
-//        UINavigationBar.appearance().tintColor = UIColor.blackColor()
 
         EPCache.performStartChecks()
-        print("realm DB location: \(RLMRealm.defaultRealm().path)" )
-        
-//debuggign stuff
-//        VKSdk.forceLogout()
-//        println("logged out")
-//        if false {
-//            RLMRealm.defaultRealm().beginWriteTransaction()
-//            RLMRealm.defaultRealm().deleteAllObjects()
-//            RLMRealm.defaultRealm().commitWriteTransaction()
-//        }
         
         Fabric.with([Crashlytics.self])
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
