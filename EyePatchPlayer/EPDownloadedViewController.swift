@@ -17,7 +17,12 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
 
     override func loadData() {
         let cachedTracks = EPTrack.allObjects()
-        self.playlist = EPMusicPlaylist.initWithRLMResults(cachedTracks)
+        if EPMusicPlayer.sharedInstance.playlist.source == .Local {
+            self.playlist = EPMusicPlayer.sharedInstance.playlist
+        } else {
+            self.playlist = EPMusicPlaylist.initWithRLMResults(cachedTracks)
+            self.playlist.identifier = "Library"
+        }
         dataReady()
     }
     
@@ -41,22 +46,22 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
             let track: EPTrack
-            print(self.filteredPlaylist.tracks.count)
-            if (self.filteredPlaylist.tracks.count > 0){
+            
+
+            if hasFilterActive() {
                 track = self.filteredPlaylist.tracks[indexPath.row]
                 if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
                     EPMusicPlayer.sharedInstance.playNextSong()
                 }
-                self.playlist.removeTrack(track)
+//                self.playlist.removeTrack(track)
                 filterSongsInArray()
-                print(self.filteredPlaylist.tracks.count)
             } else {
                 
                 track = self.playlist.tracks[indexPath.row]
                 if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
                     EPMusicPlayer.sharedInstance.playNextSong()
                 }
-                self.playlist.removeTrack(track)
+//                self.playlist.removeTrack(track)
                 
             }
             

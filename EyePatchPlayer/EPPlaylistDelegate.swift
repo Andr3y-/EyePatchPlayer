@@ -6,7 +6,7 @@
 //  Copyright © 2015 Apppli. All rights reserved.
 //
 
-protocol EPPlaylistDelegate {
+protocol EPPlaylistDelegate: class {
     func playlistDidSetTrackActive(track:EPTrack)
     func playlistDidChangeOrder()
 }

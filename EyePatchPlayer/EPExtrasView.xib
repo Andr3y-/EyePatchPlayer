@@ -75,6 +75,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="lyricsTextView" destination="aHu-Pv-IDq" id="aff-2V-ITH"/>
+                <outlet property="rootContentView" destination="g5r-zs-tOg" id="VB3-pO-X7B"/>
             </connections>
             <point key="canvasLocation" x="362" y="84"/>
         </view>

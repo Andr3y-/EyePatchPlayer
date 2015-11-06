@@ -18,8 +18,8 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
 
-    var playlist: EPMusicPlaylist = EPMusicPlaylist()
-    var filteredPlaylist = EPMusicPlaylist()
+    var playlist: EPMusicPlaylist!
+    var filteredPlaylist: EPMusicPlaylist!
     
     private var readyToResignFirstResponder = true
     //settings for searchbar
@@ -122,7 +122,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
             self.tableView.reloadData()
             highlightActiveTrack(true, animated: true)
         } else {
-            self.filteredPlaylist = EPMusicPlaylist()
+            self.filteredPlaylist = nil
             self.tableView.reloadData()
             highlightActiveTrack(false, animated: false)
         }
@@ -175,7 +175,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
             cell = EPTrackTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TrackCell")
         }
         let track: EPTrack
-        if (self.filteredPlaylist.tracks.count > 0){
+        if (hasFilterActive()){
             track = self.filteredPlaylist.tracks[indexPath.row]
         } else {
             track = self.playlist.tracks[indexPath.row]

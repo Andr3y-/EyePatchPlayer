@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol EPSettingsTableViewCellDelegate {
+protocol EPSettingsTableViewCellDelegate: class {
     func secondaryButtonTapForCell(cell: EPSettingsTableViewCell)
     func valueSwitchTapForCell(cell: EPSettingsTableViewCell)
 }
@@ -20,7 +20,7 @@ class EPSettingsTableViewCell: UITableViewCell {
     @IBOutlet weak var secondaryButton: UIButton!
     private var type: EPSettingType!
     
-    var delegate: EPSettingsTableViewCellDelegate?
+    weak var delegate: EPSettingsTableViewCellDelegate?
     
     func setContent(type: EPSettingType, value: Any, name: String) {
         

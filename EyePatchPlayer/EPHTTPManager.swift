@@ -107,7 +107,7 @@ class EPHTTPManager: NSObject {
     }
     
     class func VKBroadcastTrack(track: EPTrack) {
-        print("broadcasting track")
+//        print("broadcasting track")
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
         broadcastRequest.executeWithResultBlock({ (response) -> Void in
             print("broadcasting track success result: \(response.json)")
@@ -351,16 +351,17 @@ class EPHTTPManager: NSObject {
         }
     }
     
-    class func getLyricsForTrack(track: EPTrack, completion: ((result : Bool, lyrics:EPLyrics?) -> Void)?) {
+    class func getLyricsForTrack(track: EPTrack, completion: ((result : Bool, lyrics:EPLyrics?, trackID: Int) -> Void)?) {
         
         print("checking lyrics for track")
+        let trackID = track.ID
         let trackDetailsRequest: VKRequest = VKRequest(method: "audio.getById", andParameters: ["audios" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
         trackDetailsRequest.executeWithResultBlock({ (response) -> Void in
             print(response)
             if let responseArray = response.json as? [NSDictionary] {
                 if responseArray.count < 1 {
                     if completion != nil {
-                        completion! (result: false, lyrics: nil)
+                        completion! (result: false, lyrics: nil, trackID: trackID)
                     }
                     return
                 }
@@ -371,7 +372,7 @@ class EPHTTPManager: NSObject {
                         if let responseDictionary = response.json as? NSDictionary {
                             let lyrics = EPLyrics(dictionary: responseDictionary)
                             if completion != nil {
-                                completion! (result: true, lyrics: lyrics)
+                                completion! (result: true, lyrics: lyrics, trackID: trackID)
                             }
                             return
                         }
@@ -381,20 +382,20 @@ class EPHTTPManager: NSObject {
                     })
                 } else {
                     if completion != nil {
-                        completion! (result: false, lyrics: nil)
+                        completion! (result: false, lyrics: nil, trackID: trackID)
                     }
                     return
                 }
             } else {
                 if completion != nil {
-                    completion! (result: false, lyrics: nil)
+                    completion! (result: false, lyrics: nil, trackID: trackID)
                 }
                 return
             }
 
         }, errorBlock: { (error) -> Void in
             if completion != nil {
-                completion! (result: false, lyrics: nil)
+                completion! (result: false, lyrics: nil, trackID: trackID)
             }
             return
         })

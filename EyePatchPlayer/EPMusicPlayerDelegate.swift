@@ -6,7 +6,7 @@
 //  Copyright © 2015 Apppli. All rights reserved.
 //
 
-protocol EPMusicPlayerDelegate {
+protocol EPMusicPlayerDelegate: class {
     func playbackProgressUpdate(currentTime:Int, bufferedPercent:Double)
     func playbackStatusUpdate(playbackStatus:PlaybackStatus)
     func playbackTrackUpdate()

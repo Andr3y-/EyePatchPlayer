@@ -389,6 +389,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.contentViewMain.addSubview(self.extrasView!)
             print("extras:\(self.extrasView!.frame)")
             print("album: \(self.albumArtImageViewBig.frame)")
+            //FIXME: Remove later when more modes are added
+
+            self.extrasView?.updateContent(true)
         }
     }
     
@@ -562,7 +565,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
             break
         }
-        self.extrasView?.updateContent()
+        self.extrasView?.updateContent(false)
         print("updateUIForNewTrack - complete")
     }
 

@@ -19,7 +19,7 @@ class EPTrackTableViewCell: UITableViewCell {
     @IBOutlet weak var mainTapArea: UIView!
     @IBOutlet weak var secondaryTapArea: UIView!
     @IBOutlet weak var constraintSelectionIndicator: NSLayoutConstraint!
-    var delegate:EPTrackTableViewCellDelegate?
+    weak var delegate:EPTrackTableViewCellDelegate?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -62,6 +62,20 @@ class EPTrackTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    deinit {
+        if (self.track != nil) {
+            self.track.removeObserver(self, forKeyPath: "downloadProgress")
+        }
+        
+        if downloadProgress != nil {
+            self.downloadProgress?.removeObserver(self, forKeyPath: "percentComplete")
+            self.downloadProgress?.removeObserver(self, forKeyPath: "finished")
+        }
+        
+        self.downloadProgress = nil
+    }
+    
     func mainTap(sender: AnyObject) {
         self.delegate?.cellDetectedPrimaryTap(self)
     }

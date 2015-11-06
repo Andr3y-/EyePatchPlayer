@@ -6,7 +6,7 @@
 //  Copyright © 2015 Apppli. All rights reserved.
 //
 
-protocol EPTrackTableViewCellDelegate {
+protocol EPTrackTableViewCellDelegate: class {
     func cellDetectedPrimaryTap(cell:EPTrackTableViewCell)
     func cellDetectedSecondaryTap(cell:EPTrackTableViewCell)
 }

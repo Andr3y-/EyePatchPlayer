@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol EPCacheDelegate {
+protocol EPCacheDelegate: class {
     func cacheDidUpdate()
 }
 
@@ -108,6 +108,9 @@ class EPCache: NSObject {
     
     class func deleteTrackFromDownload(track:EPTrack) -> (Bool) {
         var result: Bool
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("Track.Delete", object: nil, userInfo: ["track" : track])
+        
         do {
             try NSFileManager.defaultManager().removeItemAtPath(pathForTrackToSave(track))
             result = true
@@ -281,6 +284,7 @@ class EPCache: NSObject {
         if let responseJSONData = NSData(contentsOfFile: (cacheDirectory() as NSString).stringByAppendingPathComponent("cachedPlaylist.json")) {
             if let responseJSON = try? NSJSONSerialization.JSONObjectWithData(responseJSONData, options: NSJSONReadingOptions(rawValue: 0)) {
                 let playlist = EPMusicPlaylist.initWithResponse(responseJSON as! NSDictionary)
+                playlist.identifier = "Cached Generic"
                 let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as! Int
                 for track in playlist.tracks {
                     if track.ID == lastTrackID {
@@ -291,6 +295,7 @@ class EPCache: NSObject {
         } else {
             if let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as? Int {
                 let playlist = EPMusicPlaylist.initWithRLMResults(EPTrack.allObjects())
+                playlist.identifier = "Cached Library"
                 for track in playlist.tracks {
                     if track.ID == lastTrackID {
                         return (track, playlist)

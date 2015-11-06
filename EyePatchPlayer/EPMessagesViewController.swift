@@ -35,6 +35,7 @@ class EPMessagesViewController: EPPlaylistAbstractViewController{
         print("loadData messages")
         self.playlist = EPMusicPlaylist()
         self.playlist.delegate = self
+        self.playlist.identifier = "Messages"
         self.tableView.dataSource = self
         self.tableView.delegate = self
         

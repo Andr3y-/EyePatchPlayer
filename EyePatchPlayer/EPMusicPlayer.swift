@@ -25,7 +25,7 @@ enum SeekStatus {
 class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     //delegate
-    var delegate: EPMusicPlayerDelegate?
+    weak var delegate: EPMusicPlayerDelegate?
     
     //singleton
     static let sharedInstance = EPMusicPlayer()

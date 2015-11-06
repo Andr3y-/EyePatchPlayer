@@ -25,7 +25,7 @@ class EPRecommendedPlaylistViewController: EPPlaylistAbstractViewController {
             audioRequest.executeWithResultBlock({ (response) -> Void in
 
                 self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
-                
+                self.playlist.identifier = "Recommended"
                 self.dataReady()
                 
                 }, errorBlock: { (error) -> Void in

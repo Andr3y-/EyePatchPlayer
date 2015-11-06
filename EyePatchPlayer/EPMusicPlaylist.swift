@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum PlaylistSource {
+    case Web
+    case Local
+}
+
 class EPMusicPlaylist: AnyObject {
 
     var tracks: [EPTrack] {
@@ -16,7 +21,9 @@ class EPMusicPlaylist: AnyObject {
         }
     }
     
-    var delegate:EPPlaylistDelegate?
+    weak var delegate:EPPlaylistDelegate?
+    var source = PlaylistSource.Web
+    var identifier = "Unspecified"
     
     private var originalTracks:[EPTrack] = []
     
@@ -25,7 +32,7 @@ class EPMusicPlaylist: AnyObject {
         var shuffledTracksLazy = self.originalTracks.shuffle()
         return shuffledTracksLazy
     }()
-    
+    var createdDate: NSDate!
     var trackCount: Int = 0
     var shuffleOn: Bool = false {
         didSet {
@@ -149,7 +156,13 @@ class EPMusicPlaylist: AnyObject {
     
     //MARK: Init methods
     init () {
-        
+        self.createdDate = NSDate()
+        subscribeForPlaylistNotifications()
+    }
+    
+    deinit {
+        print("playlist: \(self.identifier) deinit")
+        unsubscribeFromPlaylistNotifications()
     }
     
     init(tracks: [EPTrack]) {
@@ -201,7 +214,7 @@ class EPMusicPlaylist: AnyObject {
     
     class func initWithRLMResults(results:RLMResults) -> EPMusicPlaylist {
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
-
+        playlist.source = .Local
         if (results.count > 0 ) {
             for trackRLM in results {
                 if let track: EPTrack = trackRLM as? EPTrack {
@@ -216,5 +229,52 @@ class EPMusicPlaylist: AnyObject {
         print("track count loaded: \(playlist.originalTracks.count)")
     
         return playlist
+    }
+    
+    //MARK: Notifications
+    
+    func subscribeForPlaylistNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleTrackDelete:", name: "Track.Delete", object: nil)
+    }
+    
+    func unsubscribeFromPlaylistNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    @objc func handleTrackDelete(notification:NSNotification) {
+        print("handleTrackDelete:\nplaylist: \(self.identifier) created @ \(self.createdDate)")
+        if let userInfo = notification.userInfo as? [String : EPTrack], let track: EPTrack = userInfo["track"] {
+            switch self.source {
+            case .Web:
+                print("handleTrackDelete - web")
+                for matchingTrack in self.originalTracks {
+                    if matchingTrack.ID == track.ID {
+                        matchingTrack.isCached = false
+                    }
+                }
+                
+                for matchingTrack in self.shuffledTracks {
+                    if matchingTrack.ID == track.ID {
+                        matchingTrack.isCached = false
+                    }
+                }
+                break
+                
+            case .Local:
+                print("handleTrackDelete - local")
+                self.removeTrack(track)
+                
+//                for matchingTrack in self.shuffledTracks {
+//                    if matchingTrack.ID == track.ID {
+//                        let trackReplacementCopy = matchingTrack.copy() as! EPTrack
+//                        let index = self.shuffledTracks.indexOf(matchingTrack)
+//                        self.shuffledTracks.removeAtIndex(index!)
+//                        trackReplacementCopy.isCached = false
+//                        self.originalTracks.insert(trackReplacementCopy, atIndex: index!)
+//                    }
+//                }
+                break
+            }
+        }
     }
 }

@@ -32,6 +32,7 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController{
             audioRequest.executeWithResultBlock({ (response) -> Void in
                 
                 self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
+                self.playlist.identifier = "General List"
                 self.dataReady()
                 }, errorBlock: { (error) -> Void in
                     print("unable to retrieve a playlist\n\(error.localizedDescription)")
