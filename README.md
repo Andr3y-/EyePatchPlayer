@@ -36,6 +36,7 @@ DONE:
 - [x] Seeking
 - [x] Play Selection / Search Results
 - [x] Equalizer
+- [x] Artwork search filters (excludes specific symbols & words)
 
 TODO:
 
@@ -44,7 +45,6 @@ TODO:
 - [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
 - [ ] Playlists
 - [ ] Last.fm scrobbling (API Unavailable Currently)
-- [ ] Artwork search filters (excludes specific symbols & words)
 - [ ] Extensively Visualised Playback Statistics
 - [ ] UI Improvements
     - [ ] Loading Indicators

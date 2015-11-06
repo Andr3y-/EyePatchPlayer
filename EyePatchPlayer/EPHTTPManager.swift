@@ -299,8 +299,8 @@ class EPHTTPManager: NSObject {
     class func getAlbumCoverImage(track: EPTrack, completion: ((result : Bool, image:UIImage, trackID: Int) -> Void)?) {
         sharedInstance.artworkDownloadManager.operationQueue.cancelAllOperations()
         
-        let parameters = "\(track.title) \(track.artist)"
-        sharedInstance.artworkDownloadManager.GET("https://itunes.apple.com/search", parameters: ["term" : parameters], success: { (operation, response) -> Void in
+        let searchQuery = EPArtworkSearchQueryFilter.searchQueryForTrack(track)
+        sharedInstance.artworkDownloadManager.GET("https://itunes.apple.com/search", parameters: ["term" : searchQuery], success: { (operation, response) -> Void in
 //            print(response)
             if let searchResults:AnyObject = response["results"] {
                 if let searchResultsArray: NSArray = searchResults as? NSArray {
@@ -333,7 +333,8 @@ class EPHTTPManager: NSObject {
                             }
                         }
                     } else {
-                        print("no results for album artwork")
+                        
+                        print("no results for album artwork for query: \(searchQuery)\nfull query:\nhttps://itunes.apple.com/search?term=\(searchQuery)\noperation.request:\n\(operation.request.description)\nraw response:\n\(response)")
                     }
                 }
             } else {
