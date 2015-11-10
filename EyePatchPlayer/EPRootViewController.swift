@@ -132,18 +132,18 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     }
     
     func vkSdkNeedCaptchaEnter(captchaError: VKError!) {
-        log("")
+        print("")
         let captchaViewController: VKCaptchaViewController = VKCaptchaViewController.captchaControllerWithError(captchaError)
         captchaViewController.presentIn(self)
     }
     
     func vkSdkTokenHasExpired(expiredToken: VKAccessToken!) {
-        log("")
+        print("")
         VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
     }
     
     func vkSdkUserDeniedAccess(authorizationError: VKError!) {
-        log("")
+        print("")
         if !VKSdk.hasPermissions([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO]) {
             VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
         }
@@ -156,7 +156,7 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     }
     
     func vkSdkReceivedNewToken(newToken: VKAccessToken!) {
-        log("")
+        print("")
         if (VKSdk.isLoggedIn()){
             Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
             Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")

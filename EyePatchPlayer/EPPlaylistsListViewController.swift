@@ -17,7 +17,7 @@ class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        log("Lists Loaded")
+        print("Lists Loaded")
         
         self.playlistsTableView.delegate = self
         self.playlistsTableView.dataSource = self

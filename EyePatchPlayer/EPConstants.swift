@@ -7,11 +7,7 @@
 //
 
 import Foundation
+
 struct EPConstantsClass{
     static let VKAPPID = "5070798"
-    static let MUSICMATCH_API = "960b92b2b04f7d9ece5d41bf8691dfad"
-}
-
-func log(logMessage: String, functionName: String = __FUNCTION__) {
-    print("\(functionName): \(logMessage)")
 }
