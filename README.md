@@ -28,7 +28,7 @@ DONE:
     - [x] Shake to Shuffle
 - [x] Global music search
 - [x] Download Queue
-- [x] Recommendations (based on a playlist/single song)
+- [x] Recommendations (based on a playlist)
 - [x] Tracks from Messages
 - [x] Displaying download progress
 - [x] Shake to Shuffle Playlist
@@ -37,18 +37,17 @@ DONE:
 - [x] Play Selection / Search Results
 - [x] Equalizer
 - [x] Artwork search filters (excludes specific symbols & words)
+- [x] Lyrics (VK Sourced)
 
 TODO:
 
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
-- [ ] Ability to Add Search Results into a playlist
-- [ ] Ability to Search and Manually select a desired Album Cover (iTunes)
-- [ ] Playlists
 - [ ] Last.fm scrobbling (API Unavailable Currently)
-- [ ] Extensively Visualised Playback Statistics
-- [ ] UI Improvements
-    - [ ] Loading Indicators
-- [ ] Lyrics (Dynamic / Non-dynamic musixmatch)
+
+CONSIDER:
+
+- [ ] Playlists
+- [ ] Ability to Add Search Results into a playlist
 
 TOFIX:
 

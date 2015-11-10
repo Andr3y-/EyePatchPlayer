@@ -65,29 +65,27 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     }
     
     func loadDataFromCache(completion: ((result : Bool) -> Void)?) {
-
-            if let (track,playlist) = EPCache.cacheStateUponLaunch() {
-                    print("player loaded playlist + track from last session")
-                    self.playTrackFromPlaylist(track, playlist: playlist)
-                    self.pause()
-                    if completion != nil {
-                        completion!(result: true)
-                    }
-            } else {
-                //simulate failure
-                EPHTTPManager.retrievePlaylistOfUserWithID(nil, count: 5, completion: { (result, playlist) -> Void in
-                    if result {
-                        if let playlist = playlist where playlist.tracks.count > 0 {
-                            self.playTrackFromPlaylist(playlist.tracks.first!, playlist: playlist)
-                            self.pause()
-                            if completion != nil {
-                                completion!(result: true)
-                            }
+        if let (track,playlist) = EPCache.cacheStateUponLaunch() {
+                print("player loaded playlist + track from last session")
+                self.playTrackFromPlaylist(track, playlist: playlist)
+                self.pause()
+                if completion != nil {
+                    completion!(result: true)
+                }
+        } else {
+            //simulate failure
+            EPHTTPManager.retrievePlaylistOfUserWithID(nil, count: 5, completion: { (result, playlist) -> Void in
+                if result {
+                    if let playlist = playlist where playlist.tracks.count > 0 {
+                        self.playTrackFromPlaylist(playlist.tracks.first!, playlist: playlist)
+                        self.pause()
+                        if completion != nil {
+                            completion!(result: true)
                         }
                     }
-                })
-            }
-        
+                }
+            })
+        }
     }
     
     func setTrack(track:EPTrack, force:Bool) {
