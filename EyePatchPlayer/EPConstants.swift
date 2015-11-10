@@ -9,5 +9,5 @@
 import Foundation
 
 struct EPConstantsClass{
-    static let VKAPPID = ""
+    static let VKAPPID = "5070798"
 }
