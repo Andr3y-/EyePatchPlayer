@@ -97,7 +97,6 @@
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
 		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
-		C46ED3501BD928A100ACF9BB /* EPPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EPPlayground.playground; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -232,7 +231,6 @@
 				C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */,
 				C489EB0B1BA9861100D788E0 /* Model */,
 				C489EAF91BA865B200D788E0 /* UI */,
-				C489EAF21BA8506600D788E0 /* EPConstants.swift */,
 				C489EACC1BA83D1D00D788E0 /* Main.storyboard */,
 				C489EAD11BA83D1D00D788E0 /* LaunchScreen.xib */,
 				C4C61DB71BC82E8B00501EE1 /* Images.xcassets */,
@@ -244,8 +242,8 @@
 		C489EAC41BA83D1D00D788E0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C489EAF21BA8506600D788E0 /* EPConstants.swift */,
 				C49E41951BE3AED10012C0DD /* Fonts */,
-				C46ED3501BD928A100ACF9BB /* EPPlayground.playground */,
 				C4C61D4D1BBD56DA00501EE1 /* Extensions */,
 				C4FCB3701BAC65A300197746 /* Libraries */,
 				C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */,

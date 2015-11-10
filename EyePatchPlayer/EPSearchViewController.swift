@@ -42,9 +42,13 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
         audioRequest.executeWithResultBlock({ (response) -> Void in
             
             if !self.searchQueryEmpty() {
-                self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
+                if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0  {
+                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+                }
             } else {
-                self.playlist = EPMusicPlaylist.initWithResponseArray(response.json as! NSArray)
+                if let responseArray = response.json as? NSArray where responseArray.count != 0  {
+                    self.playlist = EPMusicPlaylist.initWithResponseArray(responseArray)
+                }
             }
             
             if let searchText = self.searchBar.text where searchText.characters.count > 0 {

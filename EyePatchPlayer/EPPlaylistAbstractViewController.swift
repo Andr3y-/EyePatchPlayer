@@ -70,12 +70,16 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     
     func dataReady() {
         print("data ready")
-        self.playlist.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.reloadData()
         
-        self.highlightActiveTrack(true, animated: true)
+        if self.playlist != nil {
+            //sometimes requests fail even in a case of success block
+            self.playlist.delegate = self
+            self.tableView.dataSource = self
+            self.tableView.delegate = self
+            self.tableView.reloadData()
+            
+            self.highlightActiveTrack(true, animated: true)
+        }
         
         if shouldDrawSearchBar && shouldHideSearchBarWhenLoaded {
             self.applyOffset()

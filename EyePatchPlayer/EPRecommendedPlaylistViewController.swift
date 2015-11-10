@@ -24,8 +24,12 @@ class EPRecommendedPlaylistViewController: EPPlaylistAbstractViewController {
             let audioRequest: VKRequest = VKRequest(method: "audio.getRecommendations", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 100, "shuffle" : 1], andHttpMethod: "GET")
             audioRequest.executeWithResultBlock({ (response) -> Void in
 
-                self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
-                self.playlist.identifier = "Recommended"
+                if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0 {
+                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+                    self.playlist.identifier = "Recommended"
+                }
+                
+                
                 self.dataReady()
                 
                 }, errorBlock: { (error) -> Void in

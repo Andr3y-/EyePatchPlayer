@@ -31,8 +31,11 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController{
             let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 2000, "need_user" : 0], andHttpMethod: "GET")
             audioRequest.executeWithResultBlock({ (response) -> Void in
                 
-                self.playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
-                self.playlist.identifier = "General List"
+                if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0 {
+                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+                    self.playlist.identifier = "General List"
+                }
+               
                 self.dataReady()
                 }, errorBlock: { (error) -> Void in
                     print("unable to retrieve a playlist\n\(error.localizedDescription)")
