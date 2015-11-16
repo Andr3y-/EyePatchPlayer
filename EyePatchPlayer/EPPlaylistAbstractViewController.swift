@@ -210,6 +210,26 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         return text.characters.count > 0 ? self.filteredPlaylist.tracks.count : self.playlist.tracks.count
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("didSelectRowAtIndexPath")
+        
+        let selectedTrack: EPTrack!
+        if self.hasFilterActive() {
+            selectedTrack = self.filteredPlaylist.tracks[indexPath.row]
+        } else {
+            selectedTrack = self.playlist.tracks[indexPath.row]
+        }
+        
+        if selectedTrack.ID != EPMusicPlayer.sharedInstance.activeTrack.ID {
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        }
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        print("didDeselectRowAtIndexPath")
+        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+    }
+    
     func hasFilterActive() -> Bool {
         
         if shouldIgnoreLocalSearch {
