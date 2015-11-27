@@ -38,11 +38,11 @@ DONE:
 - [x] Equalizer
 - [x] Artwork search filters (excludes specific symbols & words)
 - [x] Lyrics (VK Sourced)
+- [x] Last.fm scrobbling
 
 TODO:
 
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
-- [ ] Last.fm scrobbling (API Unavailable Currently)
 
 CONSIDER:
 

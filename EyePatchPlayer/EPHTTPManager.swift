@@ -10,13 +10,15 @@ import UIKit
 import VK_ios_sdk
 import AFNetworking
 import SDWebImage
+import CryptoSwift
 
 class EPHTTPManager: NSObject {
     
     static let sharedInstance = EPHTTPManager()
-    
+    private static let lastfmAPIRoot = "https://ws.audioscrobbler.com/2.0/"
     let tracksDownloadManager = AFHTTPRequestOperationManager()
     let artworkDownloadManager = AFHTTPRequestOperationManager()
+    let lastfmManager = AFHTTPRequestOperationManager()
     
     var maxSimultaneousDownloads = 3
 //    var queuedTracks = NSMutableArray()
@@ -26,6 +28,8 @@ class EPHTTPManager: NSObject {
         super.init()
         tracksDownloadManager.operationQueue.maxConcurrentOperationCount = 2
         artworkDownloadManager.responseSerializer = AFJSONResponseSerializer()
+        lastfmManager.responseSerializer = AFJSONResponseSerializer()
+        lastfmManager.operationQueue.maxConcurrentOperationCount = 3
     }
     
     class func downloadProgressForTrack(track:EPTrack) -> EPDownloadProgress? {
@@ -108,6 +112,9 @@ class EPHTTPManager: NSObject {
     
     class func VKBroadcastTrack(track: EPTrack) {
 //        print("broadcasting track")
+        if !AFNetworkReachabilityManager.sharedManager().reachable {
+            return
+        }
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio" : "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
         broadcastRequest.executeWithResultBlock({ (response) -> Void in
             print("broadcasting track success result: \(response.json)")
@@ -205,8 +212,153 @@ class EPHTTPManager: NSObject {
         })
     }
     
-    class func scrobbleTrack(track: EPTrack) {
+    class func lastfmBroadcastTrack(track: EPTrack, completion: ((result : Bool) -> Void)?) {
+        if EPSettings.lastfmMobileSession().characters.count < 1 || !AFNetworkReachabilityManager.sharedManager().reachable {
+            return
+        }
         
+        let scrobble = EPLastFMScrobble(track: track)
+        let parameters =
+        [
+            "method"   : "track.updateNowPlaying",
+            "artist"   : scrobble.artist,
+            "track"    : scrobble.track,
+            "api_key"  : EPConstantsClass.LastfmAPIKey,
+            "duration" : String(scrobble.duration),
+            "sk"       : EPSettings.lastfmMobileSession()
+        ]
+        
+        guard let URL = self.lastfmURLStringForMethod(parameters) else {
+            if completion != nil {
+                completion! (result: false)
+            }
+            return
+        }
+        
+        sharedInstance.lastfmManager.POST(URL, parameters:nil, success: { (operation, response) -> Void in
+            print("lastfm track.updateNowPlaying success")
+            if completion != nil {
+                completion! (result: true)
+            }
+            }) { (operation, error) -> Void in
+                print("lastfm track.updateNowPlaying failure")
+                print(operation.response)
+                if completion != nil {
+                    completion! (result: false)
+                }
+        }
+    }
+    
+    class func lastfmScrobbleTrack(scrobble: EPLastFMScrobble, completion: ((result : Bool) -> Void)?) {
+        let parameters =
+        [
+            "method"   : "track.scrobble",
+            "artist"   : scrobble.artist,
+            "track"    : scrobble.track,
+            "api_key"  : EPConstantsClass.LastfmAPIKey,
+            "timestamp": String(scrobble.timestamp),
+            "duration" : String(scrobble.duration),
+            "sk"       : EPSettings.lastfmMobileSession()
+        ]
+        
+        guard let URL = self.lastfmURLStringForMethod(parameters) else {
+            if completion != nil {
+                completion! (result: false)
+            }
+            return
+        }
+        
+        sharedInstance.lastfmManager.POST(URL, parameters:nil, success: { (operation, response) -> Void in
+            print("lastfm scrobbling success")
+                if completion != nil {
+                    completion! (result: true)
+                }
+            }) { (operation, error) -> Void in
+                print("lastfm scobbling failure:\n")
+                if completion != nil {
+                    completion! (result: false)
+                }
+        }
+    }
+    
+    class func lastfmAuthenticate(username: String, password: String, completion: ((result : Bool, session: String) -> Void)?) {
+        print("lastfmAuthenticate initiated")
+        let parameters =
+        [
+            "method"   : "auth.getMobileSession",
+            "username" : username,
+            "password" : password,
+            "api_key"  : EPConstantsClass.LastfmAPIKey
+
+        ]
+        
+        guard let URL = self.lastfmURLStringForMethod(parameters) else {
+            if completion != nil {
+                completion! (result: false, session: "")
+            }
+            return
+        }
+        sharedInstance.lastfmManager.POST(URL, parameters:nil, success: { (operation, response) -> Void in
+            print("lastfm auth success")
+            if let sessionObject:AnyObject = response["session"] {
+                if let sessionDictionary = sessionObject as? [String : AnyObject] {
+                    if let sessionKey = sessionDictionary["key"] as? String {
+                        if completion != nil {
+                            completion! (result: true, session: sessionKey)
+                        }
+                    }
+                }
+            }
+                
+        }) { (operation, error) -> Void in
+            print("lastfm auth failure:\n")
+            if completion != nil {
+                completion! (result: false, session: "")
+            }
+        }
+    }
+    
+    private class func lastfmURLStringForMethod(parameters: [String : String]) -> String? {
+        var URL = "\(lastfmAPIRoot)?"
+        for (key, value) in parameters {
+
+            URL.appendContentsOf(key)
+            URL.appendContentsOf("=")
+            if let clearedValue = value.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()) {
+                URL.appendContentsOf(clearedValue.stringByReplacingOccurrencesOfString("&", withString: "%26"))
+            } else {
+                return nil
+            }
+            URL.appendContentsOf("&")
+        }
+        guard let api_sig = self.lastfmMethodSignature(parameters) else {
+            return nil
+        }
+        URL.appendContentsOf("api_sig=")
+        URL.appendContentsOf(api_sig)
+        URL.appendContentsOf("&format=json")
+//        print("URL to sign: \(URL)")
+        return URL
+    }
+    
+    private class func lastfmMethodSignature(parameters: [String : String]) -> String? {
+        //sort abc...xyz
+        let parametersSorted = parameters.keys.sort()
+        var rawSignature = ""
+        //construct rawSignature step 1
+        for key in parametersSorted {
+            rawSignature.appendContentsOf(key)
+            guard let appendingValue = parameters[key] else {
+                return nil
+            }
+            rawSignature.appendContentsOf(appendingValue)
+        }
+        //construct rawSignature step 2
+        rawSignature.appendContentsOf(EPConstantsClass.LastfmSecret)
+        //construction complete, return md5
+//        print("signature: \(rawSignature)")
+//        print("md5 sign:  \(rawSignature.md5())")
+        return rawSignature.md5()
     }
     
     class func downloadTrack(track: EPTrack, completion: ((result : Bool, track: EPTrack) -> Void)?, progressBlock: ((progressValue: Float) -> Void)?) {

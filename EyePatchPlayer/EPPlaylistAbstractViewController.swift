@@ -70,24 +70,29 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     
     func dataReady() {
         print("data ready")
-        
+
         if self.playlist != nil {
             //sometimes requests fail even in a case of success block
-            self.playlist.delegate = self
+//            self.playlist.delegate = self
+            EPMusicPlayer.sharedInstance.playlist.delegate = self
             self.tableView.dataSource = self
             self.tableView.delegate = self
             self.tableView.reloadData()
             
-            self.highlightActiveTrack(true, animated: true)
+            self.highlightActiveTrack(EPMusicPlayer.sharedInstance.isPlaying(), animated: true)
         }
         
         if shouldDrawSearchBar && shouldHideSearchBarWhenLoaded {
             self.applyOffset()
         }
         
+        if self.shouldShowActivityIndicator {
+            self.activityIndicatorView.alpha = 1
+        }
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             //animations
             self.tableView.alpha = 1
+            
             if self.shouldShowActivityIndicator {
                 self.activityIndicatorView.alpha = 0
             }
@@ -96,17 +101,32 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
             //completion
                 if self.shouldShowActivityIndicator {
                     self.activityIndicatorView.stopAnimating()
+                    self.activityIndicatorView.alpha = 0
                 }
         }
     }
     
     func dataNotReady() {
+        
+        if self.activityIndicatorView.animating {
+            return
+        }
+        
         if shouldShowActivityIndicator {
             self.activityIndicatorView.startAnimating()
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            
+            if self.shouldShowActivityIndicator {
+                self.activityIndicatorView.alpha = 0
+            }
+            
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
                 //animations
                     self.activityIndicatorView.alpha = 1
-                }) { (result: Bool) -> Void in
+                })
+                { (result: Bool) -> Void in
+                    if self.shouldShowActivityIndicator {
+                        self.activityIndicatorView.alpha = 1
+                    }
             }
         }
     }
@@ -139,24 +159,22 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     }
     
     func highlightActiveTrack(scroll: Bool, animated: Bool) {
-        if EPMusicPlayer.sharedInstance.isPlaying() == true {
-            if hasFilterActive() {
-                for trackObject in self.filteredPlaylist.tracks {
-                    if let track:EPTrack = trackObject {
-                        if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
-                            if let index = self.filteredPlaylist.tracks.indexOf(trackObject) {
-                                self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
+        if hasFilterActive() {
+            for trackObject in self.filteredPlaylist.tracks {
+                if let track:EPTrack = trackObject {
+                    if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                        if let index = self.filteredPlaylist.tracks.indexOf(trackObject) {
+                            self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
 
-                            }
                         }
                     }
                 }
-            } else {
-                for track in self.playlist.tracks {
-                    if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
-                        if let index = self.playlist.tracks.indexOf(track) {
-                            self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: scroll ? UITableViewScrollPosition.Middle : UITableViewScrollPosition.None)
-                        }
+            }
+        } else {
+            for track in self.playlist.tracks {
+                if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                    if let index = self.playlist.tracks.indexOf(track) {
+                        self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: scroll ? UITableViewScrollPosition.Middle : UITableViewScrollPosition.None)
                     }
                 }
             }
@@ -255,12 +273,15 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     
     func playlistDidSetTrackActive(track:EPTrack) {
         print("playlistDidSetTrackActive")
+        
         let index:Int?
+
         if self.hasFilterActive() {
-            index = self.filteredPlaylist.tracks.indexOf(track)
+            index = self.filteredPlaylist.indexOfTrack(track)
         } else {
-            index = self.playlist.tracks.indexOf(track)
+            index = self.playlist.indexOfTrack(track)
         }
+            
         
         if let indexPathsForSelectedRow = self.tableView.indexPathForSelectedRow {
             print("hasIndexPathForSelectedRow = 1")
@@ -272,6 +293,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         if let index = index {
             self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
         }
+
     }
     
     func playlistDidChangeOrder() {
@@ -323,7 +345,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         
         let selectedTrack: EPTrack!
         
-        self.tableView.selectRowAtIndexPath(self.tableView.indexPathForCell(cell), animated: true, scrollPosition: UITableViewScrollPosition.None)
+//        self.tableView.selectRowAtIndexPath(self.tableView.indexPathForCell(cell), animated: true, scrollPosition: UITableViewScrollPosition.None)
         if let indexPath = self.tableView.indexPathForCell(cell) {
             if self.hasFilterActive() {
                 selectedTrack = self.filteredPlaylist.tracks[indexPath.row]

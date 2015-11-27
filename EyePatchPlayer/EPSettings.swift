@@ -41,7 +41,7 @@ class EPSettings: NSUserDefaults {
     class func enabledStatusForSettingType(type: EPSettingType) -> Bool {
         switch type {
         case .ScrobbleWithLastFm:
-            return false
+            return true
             
         default:
             return true
@@ -207,11 +207,18 @@ class EPSettings: NSUserDefaults {
         } else {
             
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("ScrobbleWithLastFm") as? Bool {
-                shouldScrobbleWithLastFmValue = value
-                return shouldScrobbleWithLastFmValue!
+                if lastfmMobileSession().characters.count == 0 {
+                    NSUserDefaults.standardUserDefaults().setObject(false, forKey: "ScrobbleWithLastFm")
+                    shouldScrobbleWithLastFmValue = false
+                    return shouldScrobbleWithLastFmValue!
+                } else {
+                    shouldScrobbleWithLastFmValue = value
+                    return shouldScrobbleWithLastFmValue!
+                }
+                
             } else {
-                NSUserDefaults.standardUserDefaults().setObject(true, forKey: "ScrobbleWithLastFm")
-                shouldScrobbleWithLastFmValue = true
+                NSUserDefaults.standardUserDefaults().setObject(false, forKey: "ScrobbleWithLastFm")
+                shouldScrobbleWithLastFmValue = false
                 return shouldScrobbleWithLastFmValue!
             }
         }
@@ -269,6 +276,29 @@ class EPSettings: NSUserDefaults {
                 return isEqualizerActiveValue!
             }
         }
+    }
+    
+    static var lastfmMobileSessionValue: String?
+    class func lastfmMobileSession() -> (String) {
+        //read from NSUserDefaults()
+        if let value = lastfmMobileSessionValue {
+            return value
+        } else {
+            
+            if let value = NSUserDefaults.standardUserDefaults().objectForKey("LastfmSession") as? String {
+                lastfmMobileSessionValue = value
+                return lastfmMobileSessionValue!
+            } else {
+                NSUserDefaults.standardUserDefaults().setObject("", forKey: "LastfmSession")
+                lastfmMobileSessionValue = ""
+                return lastfmMobileSessionValue!
+            }
+        }
+    }
+    
+    class func setLastfmSession(sessionString: String) {
+        NSUserDefaults.standardUserDefaults().setObject(sessionString, forKey: "LastfmSession")
+        lastfmMobileSessionValue = sessionString
     }
     
     class func nextArtworkSizeEnum(current: EPArtworkSize) -> EPArtworkSize {

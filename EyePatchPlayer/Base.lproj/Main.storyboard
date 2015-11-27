@@ -844,11 +844,177 @@
                     <connections>
                         <outlet property="tableView" destination="YYm-oi-cIg" id="qab-fR-sEW"/>
                         <segue destination="mxi-qd-RUO" kind="show" identifier="segueEqualizer" id="zND-Wt-yaE"/>
+                        <segue destination="pzF-ex-s8R" kind="show" identifier="segueLastfm" id="tQL-wX-9ex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeT-kL-i1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1562" y="2419"/>
+        </scene>
+        <!--Last.fm Settings-->
+        <scene sceneID="j02-pW-e7d">
+            <objects>
+                <viewController title="Last.fm Settings" id="pzF-ex-s8R" customClass="EPLastFMViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zfz-Cv-Pv3"/>
+                        <viewControllerLayoutGuide type="bottom" id="qbb-3E-Vku"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Pd-jw-r9L">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPH-Zr-OSi">
+                                <rect key="frame" x="61" y="341" width="279" height="118"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nkB-UI-EVQ">
+                                        <rect key="frame" x="20" y="68" width="239" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eL5-qC-ZTs">
+                                        <rect key="frame" x="20" y="20" width="239" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="eL5-qC-ZTs" firstAttribute="leading" secondItem="mPH-Zr-OSi" secondAttribute="leading" constant="20" id="3G7-eP-pT3"/>
+                                    <constraint firstItem="nkB-UI-EVQ" firstAttribute="top" secondItem="eL5-qC-ZTs" secondAttribute="bottom" constant="18" id="AiG-5l-yFU"/>
+                                    <constraint firstAttribute="trailing" secondItem="eL5-qC-ZTs" secondAttribute="trailing" constant="20" id="MRf-VF-Pv0"/>
+                                    <constraint firstAttribute="trailing" secondItem="nkB-UI-EVQ" secondAttribute="trailing" constant="20" id="OuG-69-YCG"/>
+                                    <constraint firstAttribute="bottom" secondItem="nkB-UI-EVQ" secondAttribute="bottom" constant="20" id="eG0-Zr-fbl"/>
+                                    <constraint firstItem="nkB-UI-EVQ" firstAttribute="leading" secondItem="mPH-Zr-OSi" secondAttribute="leading" constant="20" id="ioF-Uc-G0d"/>
+                                    <constraint firstItem="eL5-qC-ZTs" firstAttribute="top" secondItem="mPH-Zr-OSi" secondAttribute="top" constant="20" id="sVM-wE-h86"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3G7-eP-pT3"/>
+                                        <exclude reference="MRf-VF-Pv0"/>
+                                        <exclude reference="sVM-wE-h86"/>
+                                        <exclude reference="AiG-5l-yFU"/>
+                                        <exclude reference="OuG-69-YCG"/>
+                                        <exclude reference="eG0-Zr-fbl"/>
+                                        <exclude reference="ioF-Uc-G0d"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="3G7-eP-pT3"/>
+                                        <include reference="MRf-VF-Pv0"/>
+                                        <include reference="sVM-wE-h86"/>
+                                        <include reference="AiG-5l-yFU"/>
+                                        <include reference="OuG-69-YCG"/>
+                                        <include reference="eG0-Zr-fbl"/>
+                                        <include reference="ioF-Uc-G0d"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S3o-c5-eUx">
+                                <rect key="frame" x="90" y="598" width="220" height="70"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2R-qY-cYq">
+                                        <rect key="frame" x="20" y="20" width="180" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <state key="normal" title="Authorize Last.fm">
+                                            <color key="titleColor" red="0.80392156862745101" green="0.062745098039215685" blue="0.090196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="authorizeButtonTap:" destination="pzF-ex-s8R" eventType="touchUpInside" id="PuX-TD-HdO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="a2R-qY-cYq" firstAttribute="centerY" secondItem="S3o-c5-eUx" secondAttribute="centerY" id="42w-E3-f8q"/>
+                                    <constraint firstItem="a2R-qY-cYq" firstAttribute="centerX" secondItem="S3o-c5-eUx" secondAttribute="centerX" id="OmO-i3-wWa"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="42w-E3-f8q"/>
+                                        <exclude reference="OmO-i3-wWa"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="42w-E3-f8q"/>
+                                        <include reference="OmO-i3-wWa"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lastfm" translatesAutoresizingMaskIntoConstraints="NO" id="ujd-fJ-EMd">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="mPH-Zr-OSi" secondAttribute="trailing" constant="40" id="4N2-UG-wXE"/>
+                            <constraint firstItem="mPH-Zr-OSi" firstAttribute="leading" secondItem="9Pd-jw-r9L" secondAttribute="leadingMargin" constant="40" id="E0s-7e-SRG"/>
+                            <constraint firstItem="S3o-c5-eUx" firstAttribute="leading" secondItem="9Pd-jw-r9L" secondAttribute="leadingMargin" id="PA0-kQ-2Nt"/>
+                            <constraint firstItem="mPH-Zr-OSi" firstAttribute="top" secondItem="ujd-fJ-EMd" secondAttribute="bottom" id="aN3-EF-gTs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ujd-fJ-EMd" secondAttribute="trailing" constant="40" id="dWN-ky-2wH">
+                                <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                            </constraint>
+                            <constraint firstItem="mPH-Zr-OSi" firstAttribute="centerX" secondItem="9Pd-jw-r9L" secondAttribute="centerX" id="fZy-yr-m1t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S3o-c5-eUx" secondAttribute="trailing" id="hS5-cZ-WAA"/>
+                            <constraint firstItem="mPH-Zr-OSi" firstAttribute="centerY" secondItem="9Pd-jw-r9L" secondAttribute="centerY" id="oE0-2S-1ms"/>
+                            <constraint firstItem="S3o-c5-eUx" firstAttribute="top" secondItem="mPH-Zr-OSi" secondAttribute="bottom" id="swQ-bz-HHk"/>
+                            <constraint firstItem="ujd-fJ-EMd" firstAttribute="top" secondItem="Zfz-Cv-Pv3" secondAttribute="bottom" id="sxE-Uv-lNu"/>
+                            <constraint firstItem="ujd-fJ-EMd" firstAttribute="leading" secondItem="9Pd-jw-r9L" secondAttribute="leadingMargin" constant="40" id="uSW-my-8gm">
+                                <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                            </constraint>
+                            <constraint firstItem="qbb-3E-Vku" firstAttribute="top" secondItem="S3o-c5-eUx" secondAttribute="bottom" id="zFd-Ef-ORR">
+                                <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                            </constraint>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ujd-fJ-EMd"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="zFd-Ef-ORR"/>
+                                <exclude reference="dWN-ky-2wH"/>
+                                <exclude reference="sxE-Uv-lNu"/>
+                                <exclude reference="uSW-my-8gm"/>
+                                <exclude reference="4N2-UG-wXE"/>
+                                <exclude reference="E0s-7e-SRG"/>
+                                <exclude reference="aN3-EF-gTs"/>
+                                <exclude reference="fZy-yr-m1t"/>
+                                <exclude reference="oE0-2S-1ms"/>
+                                <exclude reference="PA0-kQ-2Nt"/>
+                                <exclude reference="hS5-cZ-WAA"/>
+                                <exclude reference="swQ-bz-HHk"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ujd-fJ-EMd"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="zFd-Ef-ORR"/>
+                                <include reference="dWN-ky-2wH"/>
+                                <include reference="sxE-Uv-lNu"/>
+                                <include reference="uSW-my-8gm"/>
+                                <include reference="4N2-UG-wXE"/>
+                                <include reference="E0s-7e-SRG"/>
+                                <include reference="aN3-EF-gTs"/>
+                                <exclude reference="fZy-yr-m1t"/>
+                                <include reference="oE0-2S-1ms"/>
+                                <include reference="PA0-kQ-2Nt"/>
+                                <include reference="hS5-cZ-WAA"/>
+                                <include reference="swQ-bz-HHk"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="authorizeButton" destination="a2R-qY-cYq" id="OYI-Dp-RWJ"/>
+                        <outlet property="passwordTextField" destination="nkB-UI-EVQ" id="Z7K-RD-xMg"/>
+                        <outlet property="usernameTextField" destination="eL5-qC-ZTs" id="2TD-Og-h9r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GUg-Zi-BHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2466" y="2112.75"/>
         </scene>
         <!--Equalizer-->
         <scene sceneID="YcM-HU-Q5B">
@@ -1069,7 +1235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tNc-z2-rYQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2352" y="2418.75"/>
+            <point key="canvasLocation" x="2466" y="2763.75"/>
         </scene>
         <!--Playlist View Controller-->
         <scene sceneID="XDc-dI-Ma6">
@@ -1304,6 +1470,7 @@
         <image name="background_abstract_1" width="540" height="960"/>
         <image name="first" width="30" height="30"/>
         <image name="icon_cover_placeholder_1" width="76" height="76"/>
+        <image name="lastfm" width="1000" height="252"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Zcv-nt-qiL"/>

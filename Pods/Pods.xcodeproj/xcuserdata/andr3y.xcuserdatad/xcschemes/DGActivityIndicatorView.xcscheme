@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A337E9D1ECBD5AA3C5048C9"
+               BlueprintIdentifier = "06E488058DB79B879F839952"
                BuildableName = "DGActivityIndicatorView.framework"
                BlueprintName = "DGActivityIndicatorView"
                ReferencedContainer = "container:Pods.xcodeproj">

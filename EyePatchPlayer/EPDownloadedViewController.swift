@@ -13,6 +13,7 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribeForCacheNotifications()
+        self.tableView.allowsSelectionDuringEditing = true
     }
 
     override func loadData() {
@@ -47,27 +48,38 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
             
             let track: EPTrack
             
-
             if hasFilterActive() {
                 track = self.filteredPlaylist.tracks[indexPath.row]
-                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                    EPMusicPlayer.sharedInstance.playNextSong()
-                }
-//                self.playlist.removeTrack(track)
+//                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+//                    EPMusicPlayer.sharedInstance.playNextSong()
+//                }
+                self.playlist.removeTrack(track)
                 filterSongsInArray()
             } else {
-                
                 track = self.playlist.tracks[indexPath.row]
-                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                    EPMusicPlayer.sharedInstance.playNextSong()
-                }
-//                self.playlist.removeTrack(track)
-                
+//                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+//                    EPMusicPlayer.sharedInstance.playNextSong()
+//                }
+                self.playlist.removeTrack(track)
             }
             
             if EPCache.deleteTrackFromDownload(track) {
                 self.tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath) as! [NSIndexPath], withRowAnimation: UITableViewRowAnimation.Left)
             }
+            
+            highlightActiveTrack(false, animated: false)
+        }
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        if let selectedIndexPaths = self.tableView.indexPathsForSelectedRows {
+            super.setEditing(editing, animated: animated)
+            
+            for indexPath in selectedIndexPaths {
+                self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+            }
+        } else {
+            super.setEditing(editing, animated: animated)
         }
     }
     

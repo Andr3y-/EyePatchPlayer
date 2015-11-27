@@ -18,7 +18,7 @@ class EPSettingsTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueSwitch: UISwitch!
     @IBOutlet weak var secondaryButton: UIButton!
-    private var type: EPSettingType!
+    var type: EPSettingType!
     
     weak var delegate: EPSettingsTableViewCellDelegate?
     
@@ -82,18 +82,28 @@ class EPSettingsTableViewCell: UITableViewCell {
                     self.secondaryButton.setTitle(newButtonText, forState: .Normal)
                 }
             }
-            
         }
-        
-        
+
         self.delegate?.secondaryButtonTapForCell(self)
     }
     
     @IBAction func valueSwitchTap(sender: AnyObject) {
         if self.type != nil {
-            if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
-                self.valueSwitch.setOn(newValue, animated: true)
+            if self.type == .ScrobbleWithLastFm {
+                if EPSettings.lastfmMobileSession().characters.count > 1 {
+                    if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
+                        self.valueSwitch.setOn(newValue, animated: true)
+                    }
+                } else {
+                    //do nothing
+                    self.valueSwitch.setOn(false, animated: true)
+                }
+            } else {
+                if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
+                    self.valueSwitch.setOn(newValue, animated: true)
+                }
             }
+            
         }
         self.delegate?.valueSwitchTapForCell(self)
     }

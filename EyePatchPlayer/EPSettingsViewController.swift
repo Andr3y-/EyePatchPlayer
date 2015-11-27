@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EPSettingsTableViewCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -45,7 +45,7 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
             cell!.setContent(type, value: value, name: name)
         }
-        
+        cell?.delegate = self
    
         return cell!
     }
@@ -63,11 +63,31 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 2 {//eq row
+            self.performSegueWithIdentifier("segueLastfm", sender: nil)
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+        
         if indexPath.row == EPSettings.currentSettingsSet().count-1 {//eq row
             self.performSegueWithIdentifier("segueEqualizer", sender: nil)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
+    
+    func valueSwitchTapForCell(cell: EPSettingsTableViewCell) {
+        if cell.type == .ScrobbleWithLastFm {
+            if EPSettings.lastfmMobileSession().characters.count > 1 {
+                //do nothing
+            } else {
+                self.performSegueWithIdentifier("segueLastfm", sender: nil)
+            }
+        }
+    }
+    
+    func secondaryButtonTapForCell(cell: EPSettingsTableViewCell) {
+        
+    }
+    
 }
 
 /*

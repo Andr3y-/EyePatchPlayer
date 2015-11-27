@@ -44,6 +44,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     let seekingFrequency = 0.2
     //playlist & current song
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
+    //scrobbling 
+    var scrobblingComplete = false
     
     private(set) internal var activeTrack: EPTrack = EPTrack() {
         didSet {
@@ -89,68 +91,66 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     }
     
     func setTrack(track:EPTrack, force:Bool) {
-            self.activeTrack.clearArtworkImage()
-            self.playlist.delegate?.playlistDidSetTrackActive(track)
+        self.activeTrack.clearArtworkImage()
+        self.playlist.delegate?.playlistDidSetTrackActive(track)
+    
+        if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
+            print("cache found")
+            self.activeTrack = cachedTrackInstance as EPTrack
+        } else {
+            print("no cache found")
+            self.activeTrack = track
+        }
         
-            if let cachedTrackInstance = EPCache.trackCachedInstanceForTrack(track) {
-                print("cache found")
-                self.activeTrack = cachedTrackInstance as EPTrack
+        if hasEmergencyTrackActive() {
+            return
+        }
+        
+        if (self.activeTrack.isCached) {
+            if (self.activeTrack.hasFileAtPath()) {
+                
+                self.playFromURL(self.activeTrack.URL())
             } else {
-                print("no cache found")
-                self.activeTrack = track
-            }
-        
-        
-            if (self.activeTrack.isCached) {
-                if (self.activeTrack.hasFileAtPath()) {
-                    
-                    self.playFromURL(self.activeTrack.URL())
-                } else {
 
-                }
-                
-                if let _ = self.activeTrack.artworkImage() {
-                    self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                    self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-                } else {
-                    if EPSettings.shouldDownloadArtwork() {
-                        EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: { (result, image, trackID) -> Void in
-                            if result && trackID == self.activeTrack.ID {
-                                self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
-                            }
-                        })
-                    }
-                }
-                
+            }
+            
+            if let _ = self.activeTrack.artworkImage() {
+                self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
             } else {
                 if EPSettings.shouldDownloadArtwork() {
                     EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: { (result, image, trackID) -> Void in
-                        if result == true && trackID == self.activeTrack.ID {
+                        if result && trackID == self.activeTrack.ID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                             self.remoteManager.configureNowPlayingInfo(self.activeTrack)
                         }
                     })
                 }
-                self.playFromURL(self.activeTrack.URL())
             }
+            
+        } else {
+            if EPSettings.shouldDownloadArtwork() {
+                EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: { (result, image, trackID) -> Void in
+                    if result == true && trackID == self.activeTrack.ID {
+                        self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
+                        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+                    }
+                })
+            }
+            self.playFromURL(self.activeTrack.URL())
+        }
         
         if EPSettings.shouldBroadcastStatus() {
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-                if track.ID == self.activeTrack.ID && self.isPlaying() {
+                if !track.invalidated && track.ID == self.activeTrack.ID && self.isPlaying() {
                     EPHTTPManager.VKBroadcastTrack(self.activeTrack)
+                    EPHTTPManager.lastfmBroadcastTrack(self.activeTrack, completion: nil)
                 }
             }
         }
         
-        if EPSettings.shouldScrobbleWithLastFm() {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-                if track.ID == self.activeTrack.ID && self.isPlaying() {
-                    EPHTTPManager.scrobbleTrack(self.activeTrack)
-                }
-            }
-        }
+        self.scrobblingComplete = false
         
         //should be performed by a separate class
         self.remoteManager.configureNowPlayingInfo(self.activeTrack)
@@ -170,8 +170,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     }
     
-    
-    
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
         self.playlist = playlist
         
@@ -180,11 +178,10 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
     }
     
-    
-    
     //togglePlayPause
     func togglePlayPause() {
         print("togglePlayPause")
+        
         if (self.isPlaying()) {
             print("pausing")
             self.pause()
@@ -194,7 +191,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             self.play()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
-        self.remoteManager.configureNowPlayingInfo(activeTrack)
+//        self.remoteManager.configureNowPlayingInfo(activeTrack)
+        self.remoteManager.updatePlaybackStatus()
     }
     
     //forward
@@ -209,6 +207,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     //backward
     func playPrevSong() {
+        
+        if playbackTime() > 3 && self.isPlaying() && self.activeTrack.duration > 10 {
+            self.audioStreamSTK?.seekToTime(0)
+            self.delegate?.playbackProgressUpdate(0, bufferedPercent: 0)
+            self.remoteManager.updatePlaybackTime()//configureNowPlayingInfo(self.activeTrack)
+            return
+        }
+        
         guard let previousTrack = self.playlist.previousTrack() else {
             //handle no previous track found
             return
@@ -278,6 +284,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     func updateProgress() {
         if self.isPlaying() || self.seekStatus != .None {
             let timeInSeconds = self.playbackTime()
+            //scrobbling logic
+            if EPSettings.shouldScrobbleWithLastFm() && !self.scrobblingComplete && Double(timeInSeconds) > Double(self.activeTrack.duration) * EPLastFMScrobbleManager.playbackPercentCompleteToScrobble {
+                EPLastFMScrobbleManager.enqueueTrackForScrobbling(self.activeTrack)
+                self.scrobblingComplete = true
+            }
             self.delegate?.playbackProgressUpdate(Int(roundf(timeInSeconds)), bufferedPercent: self.prebufferedPercent())
         }
     }
@@ -414,7 +425,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
         print("+\(seekingInterval)")
         self.audioStreamSTK?.seekToTime(min(self.audioStreamSTK!.progress+Double(seekingInterval), self.audioStreamSTK!.duration))
-        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+        self.remoteManager.updatePlaybackTime()
         if !self.isPlaying() {
             self.updateProgress()
         }
@@ -431,7 +442,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
         print("-\(seekingInterval)")
         self.audioStreamSTK?.seekToTime(max(self.audioStreamSTK!.progress-Double(seekingInterval),0))
-        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+        self.remoteManager.updatePlaybackTime()
         if !self.isPlaying() {
             self.updateProgress()
         }
@@ -451,6 +462,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didStartPlayingQueueItemId queueItemId: NSObject!) {
         print("didStartPlayingQueueItemId: \(queueItemId)")
+        self.remoteManager.updatePlaybackTime()
     }
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject!) {
@@ -492,6 +504,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             
         case STKAudioPlayerStopReasonNone:
             print("STKAudioPlayerStopReasonNone")
+//            self.playNextSong()
             break
         case STKAudioPlayerStopReasonEof:
             print("STKAudioPlayerStopReasonEof")
@@ -524,6 +537,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     
     func audioPlayer(audioPlayer: STKAudioPlayer!, didCancelQueuedItems queuedItems: [AnyObject]!) {
         
+    }
+    
+    func hasEmergencyTrackActive() -> Bool {
+        if self.activeTrack.title == "No Track Selected" || self.activeTrack.URLString == "" {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

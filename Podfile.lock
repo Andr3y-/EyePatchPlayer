@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Crashlytics (3.3.4)
+  - CryptoSwift (0.1.1)
   - DGActivityIndicatorView (2.0)
   - Fabric (1.5.5):
     - Fabric/Base (= 1.5.5)
@@ -39,6 +40,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Crashlytics
+  - CryptoSwift
   - DGActivityIndicatorView
   - Fabric
   - Realm
@@ -51,6 +53,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   Realm: bbb171b96728ea136ed5cd354dca2a3d6529923c

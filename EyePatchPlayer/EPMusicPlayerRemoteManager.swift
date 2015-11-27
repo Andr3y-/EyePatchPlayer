@@ -72,11 +72,21 @@ class EPMusicPlayerRemoteManager: NSObject {
         info.nowPlayingInfo = newInfo
     }
     
+    func updatePlaybackStatus() {
+        if var newInfo = MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo {
+            newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
+            newInfo[MPNowPlayingInfoPropertyPlaybackRate] = EPMusicPlayer.sharedInstance.isPlaying() ? 1.0 : 0.0
+            let info = MPNowPlayingInfoCenter.defaultCenter()
+            info.nowPlayingInfo = newInfo
+        }
+    }
+    
     func updatePlaybackTime() {
-        var newInfo = [String : AnyObject]()
-        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
-        let info = MPNowPlayingInfoCenter.defaultCenter()
-        info.nowPlayingInfo = newInfo
+        if var newInfo = MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo {
+            newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
+            let info = MPNowPlayingInfoCenter.defaultCenter()
+            info.nowPlayingInfo = newInfo
+        }
     }
     
     func seekForwardCommand(object: MPRemoteCommandEvent) {

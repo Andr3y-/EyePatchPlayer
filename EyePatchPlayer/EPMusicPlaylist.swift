@@ -42,6 +42,19 @@ class EPMusicPlaylist: AnyObject {
     }
     var responseJSON: NSDictionary?
     
+    //MARK: Navigation
+    
+    func indexOfTrack(track: EPTrack) -> Int? {
+        
+        for iteratedTrack in self.tracks {
+            if track.ID == iteratedTrack.ID {
+                return self.tracks.indexOf(iteratedTrack)
+            }
+        }
+            
+        return nil
+    }
+    
     //MARK: Playlist control interface
     
     func nextTrack() -> EPTrack? {
@@ -142,6 +155,34 @@ class EPMusicPlaylist: AnyObject {
                 self.shuffledTracks.removeAtIndex(index)
                 resultShuffled = true
                 break
+            }
+        }
+        
+        if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+            if let _ = nextTrack() {
+                EPMusicPlayer.sharedInstance.playNextSong()
+            } else if let _ = previousTrack() {
+                EPMusicPlayer.sharedInstance.playPrevSong()
+            } else {
+                print("cannot go next or prev, calling emergency track")
+                //handle if no tracks left to switch to
+                let emergencyTrack = EPTrack()
+                
+                if track.invalidated {
+                    emergencyTrack.title = "No Track Selected"
+                    emergencyTrack.artist = ""
+                    emergencyTrack.duration = 0
+                    emergencyTrack.URLString = ""
+                } else {
+                    emergencyTrack.title = track.title
+                    emergencyTrack.artist = track.artist
+                    emergencyTrack.artworkUIImage = track.artworkUIImage
+                    emergencyTrack.duration = track.duration
+                    emergencyTrack.URLString = ""
+                }
+                
+                let playlist = EPMusicPlaylist(tracks: [emergencyTrack])
+                EPMusicPlayer.sharedInstance.playTrackFromPlaylist(emergencyTrack, playlist: playlist)
             }
         }
         
@@ -264,15 +305,6 @@ class EPMusicPlaylist: AnyObject {
                 print("handleTrackDelete - local")
                 self.removeTrack(track)
                 
-//                for matchingTrack in self.shuffledTracks {
-//                    if matchingTrack.ID == track.ID {
-//                        let trackReplacementCopy = matchingTrack.copy() as! EPTrack
-//                        let index = self.shuffledTracks.indexOf(matchingTrack)
-//                        self.shuffledTracks.removeAtIndex(index!)
-//                        trackReplacementCopy.isCached = false
-//                        self.originalTracks.insert(trackReplacementCopy, atIndex: index!)
-//                    }
-//                }
                 break
             }
         }

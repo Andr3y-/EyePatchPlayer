@@ -10,7 +10,7 @@ import UIKit
 import VK_ios_sdk
 
 class EPSearchViewController: EPPlaylistAbstractViewController{
-
+    var lastExecutedSearchQuery = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         shouldHideSearchBarWhenLoaded = false
@@ -20,7 +20,15 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         if !self.searchQueryEmpty() {
+            
+            if lastExecutedSearchQuery == self.searchBar.text! {
+                return
+            }
+            
+            print("calling dataNotReady")
             self.dataNotReady()
+            
+            print("calling loadData")
             self.loadData()
         }
     }
@@ -31,8 +39,15 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
     
     override func loadData() {
         print("loading search results for query: \(self.searchBar.text!)")
-        let audioRequest: VKRequest!
         
+        guard let searchBarText = self.searchBar.text else {
+            return
+        }
+        
+        lastExecutedSearchQuery = searchBarText
+        
+        let audioRequest: VKRequest!
+        let searchQuery = self.searchBar.text!
         if !searchQueryEmpty() {
             audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q : self.searchBar.text!, VK_API_COUNT : 100], andHttpMethod: "GET")
         } else {
@@ -40,6 +55,10 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
         }
 
         audioRequest.executeWithResultBlock({ (response) -> Void in
+            
+            if searchQuery != self.searchBar.text! {
+                return
+            }
             
             if !self.searchQueryEmpty() {
                 if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0  {
@@ -56,7 +75,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
 //                self.tableView.reloadData()
                 self.dataReady()
             } else {
-                 self.dataReady()
+                self.dataReady()
             }
             
             print("loadedTracks.count = \(self.playlist.tracks.count)")

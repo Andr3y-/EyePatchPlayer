@@ -35,7 +35,6 @@ class EPArtworkSearchQueryFilter: NSObject {
 
             block()
 
-
         }
         return queryString
 

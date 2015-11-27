@@ -17,6 +17,9 @@
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468474E1BDE9C070066F616 /* EPMessage.swift */; };
 		C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */; };
+		C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */; };
+		C47D3F2F1C05E3AC00E8CCCC /* EPLastFMScrobble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */; };
+		C47D3F311C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F301C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPPlaylistsListViewController.swift */; };
 		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
@@ -97,6 +100,9 @@
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
 		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
+		C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMViewController.swift; sourceTree = "<group>"; };
+		C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMScrobble.swift; sourceTree = "<group>"; };
+		C47D3F301C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMScrobbleManager.swift; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -307,6 +313,7 @@
 				C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */,
 				C4D6BB3A1BE8DF280017C1BB /* Cell */,
 				C4D6BB391BE8DF220017C1BB /* EQ */,
+				C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -331,6 +338,8 @@
 				C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */,
 				C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */,
 				C458549D1BB4004A00F596DE /* EPHTTPManager.swift */,
+				C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */,
+				C47D3F301C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift */,
 				C4DA42CA1BECEF89003AA352 /* EPArtworkSearchQueryFilter.swift */,
 				C4E60D3C1BAC190800C950AA /* EPCache.swift */,
 				C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */,
@@ -680,6 +689,7 @@
 				C4DA42BD1BEBA6CD003AA352 /* EPLyrics.swift in Sources */,
 				C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */,
 				C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */,
+				C47D3F2F1C05E3AC00E8CCCC /* EPLastFMScrobble.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
 				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,
@@ -688,6 +698,8 @@
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
 				C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */,
 				C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */,
+				C47D3F311C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift in Sources */,
+				C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */,
 				C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */,
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,

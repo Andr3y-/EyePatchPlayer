@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CryptoSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DGActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,16 +77,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86E050AFBA8F6FDF8976CEBC97B807A7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8C42AFEB08C9D31DE616A0BCC71DAD6E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9666688CB41B38A9914616144C9C7A3E</key>
 		<dict>
 			<key>primary</key>
@@ -92,7 +87,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A526C32FC6BAABAB3802A01E422F1C7F</key>
+		<key>C8249DBF0CD0F02B7B9ABDDF60252D50</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D98687767A94447C70B89F84B63325A4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EDE175585A315861AD541B5E87001425</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F7959BE11B050F80A5DB9FD7F5947A52</key>
 		<dict>
 			<key>primary</key>
 			<true/>
