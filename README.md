@@ -5,6 +5,7 @@
 
 <img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2029.PNG" width="300">
 <img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2033.PNG" width="300">
+
 DONE:
 
 - [x] Cache for Offline Playback
