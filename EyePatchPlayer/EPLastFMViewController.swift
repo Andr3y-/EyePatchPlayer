@@ -37,10 +37,9 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func authorizeButtonTap(sender: AnyObject) {
         
-        self.authorizeButton.userInteractionEnabled = false
-        startLoadingAnimation()
-        
         if authorized {
+            self.authorizeButton.userInteractionEnabled = false
+            startLoadingAnimation()
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.usernameTextField.superview?.alpha = 1
             })
@@ -63,7 +62,8 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
             if self.usernameTextField.text?.characters.count == 0 || self.passwordTextField.text?.characters.count == 0 {
                 return
             }
-            
+            self.authorizeButton.userInteractionEnabled = false
+            startLoadingAnimation()
             //request authorisation signature and save it
             EPHTTPManager.lastfmAuthenticate(usernameTextField.text!, password: passwordTextField.text!, completion: { (result, session) -> Void in
                 if result {

@@ -7,6 +7,7 @@
 //
 
 protocol EPPlaylistDelegate: class {
-    func playlistDidSetTrackActive(track:EPTrack)
+    func playlistDidSetTrackActive(track: EPTrack)
+
     func playlistDidChangeOrder()
 }

@@ -9,10 +9,10 @@
 import UIKit
 
 class EPLyrics: AnyObject {
-    
+
     let ID: Int!
     let body: String!
-    
+
     init(dictionary: NSDictionary) {
         self.ID = dictionary["lyrics_id"] as? Int
         self.body = dictionary["text"] as? String

@@ -9,42 +9,42 @@
 import UIKit
 
 class EPMessage: NSObject {
-    
+
     var ID: Int
     var date: Int
     var userID: Int
     var attachments: [EPMessageAttachment]?
-    
+
     init(response: NSDictionary) {
-        
+
         self.ID = response["id"] as! Int
         self.date = response["date"] as! Int
         self.userID = response["user_id"] as! Int
-        
+
         if let attachmentsArray = response["attachments"] as? [NSDictionary] {
             for attachmentJSON in attachmentsArray {
                 let attachment = EPMessageAttachment(response: attachmentJSON)
-                
+
                 if self.attachments == nil {
                     self.attachments = [EPMessageAttachment]()
                 }
-                
+
                 self.attachments!.append(attachment)
             }
         }
-        
+
         super.init()
     }
 }
 
 class EPMessageAttachment: NSObject {
-    
+
     var type: AttachmentType!
     var object: AnyObject!
-    
+
     init(response: NSDictionary) {
         let typeString = response["type"] as! String
-        
+
         switch typeString {
         case AttachmentType.Audio.rawValue:
             self.type = .Audio
@@ -66,7 +66,7 @@ class EPMessageAttachment: NSObject {
             self.type = .Unknown
             break
         }
-        
+
         super.init()
     }
 }

@@ -25,99 +25,99 @@ enum EPSettingType: Int {
 }
 
 class EPSettings: NSUserDefaults {
-    
-    class func currentSettingsSet() -> [(type: EPSettingType, value: Any, name: String)] {
+
+    class func currentSettingsSet() -> [(type:EPSettingType, value:Any, name:String)] {
         return [
-            (.SaveToPlaylist, shouldAutomaticallySaveToPlaylist(), "Save to VK playlist if cached"),
-            (.BroadcastStatus, shouldBroadcastStatus(), "VK status broadcast"),
-            (.ScrobbleWithLastFm, shouldScrobbleWithLastFm(), "Scrobble with Last.fm"),
-            (.DownloadArtwork, shouldDownloadArtwork(), "Download artwork"),
-            (.ArtworkSize, preferredArtworkSizeEnum(), "Artwork size"),
-            (.ShakeToShuffle, shouldDetectShakeToShuffle(), "Shake to Shuffle"),
-            (.EqualizerActive, isEqualizerActive(), "Equalizer")
+                (.SaveToPlaylist, shouldAutomaticallySaveToPlaylist(), "Save to VK playlist if cached"),
+                (.BroadcastStatus, shouldBroadcastStatus(), "VK status broadcast"),
+                (.ScrobbleWithLastFm, shouldScrobbleWithLastFm(), "Scrobble with Last.fm"),
+                (.DownloadArtwork, shouldDownloadArtwork(), "Download artwork"),
+                (.ArtworkSize, preferredArtworkSizeEnum(), "Artwork size"),
+                (.ShakeToShuffle, shouldDetectShakeToShuffle(), "Shake to Shuffle"),
+                (.EqualizerActive, isEqualizerActive(), "Equalizer")
         ]
     }
-    
+
     class func enabledStatusForSettingType(type: EPSettingType) -> Bool {
         switch type {
         case .ScrobbleWithLastFm:
             return true
-            
+
         default:
             return true
         }
     }
-    
+
     class func changeSetting(type: EPSettingType, value: AnyObject?) -> AnyObject {
-        
+
         switch type {
         case .SaveToPlaylist:
-            
+
             let specificValue: Bool!
             if value != nil {
                 specificValue = value! as! Bool
             } else {
                 specificValue = !shouldAutomaticallySaveToPlaylist()
             }
-            
+
             NSUserDefaults.standardUserDefaults().setObject(specificValue, forKey: "SaveToPlaylist")
             shouldAutomaticallySaveToPlaylistValue = specificValue
             return shouldAutomaticallySaveToPlaylistValue!
-            
+
         case .BroadcastStatus:
-            
+
             let specificValue: Bool!
             if value != nil {
                 specificValue = value! as! Bool
             } else {
                 specificValue = !shouldBroadcastStatus()
             }
-            
+
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "BroadcastStatus")
             shouldBroadcastStatusValue = specificValue
             return (specificValue)
-            
+
         case .ShakeToShuffle:
-            
+
             let specificValue: Bool!
             if value != nil {
                 specificValue = value! as! Bool
             } else {
                 specificValue = !shouldDetectShakeToShuffle()
             }
-            
+
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "ShakeToShuffle")
             shouldDetectShakeToShuffleValue = specificValue
             return (specificValue)
-            
+
         case .ScrobbleWithLastFm:
-            
+
             let specificValue: Bool!
             if value != nil {
                 specificValue = value! as! Bool
             } else {
                 specificValue = !shouldScrobbleWithLastFm()
             }
-            
+
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "ScrobbleWithLastFm")
             shouldScrobbleWithLastFmValue = specificValue
             return (specificValue)
-            
+
         case .DownloadArtwork:
-            
+
             let specificValue: Bool!
             if value != nil {
                 specificValue = value! as! Bool
             } else {
                 specificValue = !shouldDownloadArtwork()
             }
-            
+
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "DownloadArtwork")
             shouldDownloadArtworkValue = specificValue
             return (specificValue)
-        
+
         case .EqualizerActive:
-            
+
             let specificValue: Bool!
             if value != nil {
                 specificValue = value! as! Bool
@@ -128,30 +128,30 @@ class EPSettings: NSUserDefaults {
             NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "EQActive")
             isEqualizerActiveValue = specificValue
             return (specificValue)
-            
+
         case .ArtworkSize:
-            
+
             let specificValue: EPArtworkSize!
             if value != nil {
                 specificValue = value! as! EPArtworkSize
             } else {
                 specificValue = nextArtworkSizeEnum(preferredArtworkSizeEnum())
             }
-            
+
             let value = specificValue
             NSUserDefaults.standardUserDefaults().setObject(value.rawValue, forKey: "ArtworkSize")
             preferredArtworkSizeEnumValue = value
             return preferredArtworkSizeString()
         }
     }
-    
+
     static var shouldAutomaticallySaveToPlaylistValue: Bool?
     class func shouldAutomaticallySaveToPlaylist() -> Bool {
         //read from NSUserDefaults()
         if let value = shouldAutomaticallySaveToPlaylistValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("SaveToPlaylist") as? Bool {
                 shouldAutomaticallySaveToPlaylistValue = value
                 return shouldAutomaticallySaveToPlaylistValue!
@@ -169,7 +169,7 @@ class EPSettings: NSUserDefaults {
         if let value = shouldBroadcastStatusValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("BroadcastStatus") as? Bool {
                 shouldBroadcastStatusValue = value
                 return shouldBroadcastStatusValue!
@@ -180,14 +180,14 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     static var shouldDetectShakeToShuffleValue: Bool?
     class func shouldDetectShakeToShuffle() -> (Bool) {
         //read from NSUserDefaults()
         if let value = shouldDetectShakeToShuffleValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("ShakeToShuffle") as? Bool {
                 shouldDetectShakeToShuffleValue = value
                 return shouldDetectShakeToShuffleValue!
@@ -198,14 +198,14 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     static var shouldScrobbleWithLastFmValue: Bool?
     class func shouldScrobbleWithLastFm() -> (Bool) {
         //read from NSUserDefaults()
         if let value = shouldScrobbleWithLastFmValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("ScrobbleWithLastFm") as? Bool {
                 if lastfmMobileSession().characters.count == 0 {
                     NSUserDefaults.standardUserDefaults().setObject(false, forKey: "ScrobbleWithLastFm")
@@ -215,7 +215,7 @@ class EPSettings: NSUserDefaults {
                     shouldScrobbleWithLastFmValue = value
                     return shouldScrobbleWithLastFmValue!
                 }
-                
+
             } else {
                 NSUserDefaults.standardUserDefaults().setObject(false, forKey: "ScrobbleWithLastFm")
                 shouldScrobbleWithLastFmValue = false
@@ -223,14 +223,14 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     static var shouldDownloadArtworkValue: Bool?
     class func shouldDownloadArtwork() -> (Bool) {
         //read from NSUserDefaults()
         if let value = shouldDownloadArtworkValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("DownloadArtwork") as? Bool {
                 shouldDownloadArtworkValue = value
                 return shouldDownloadArtworkValue!
@@ -241,14 +241,14 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     static var preferredArtworkSizeEnumValue: EPArtworkSize?
     private class func preferredArtworkSizeEnum() -> EPArtworkSize {
         //read from NSUserDefaults()
         if let value = preferredArtworkSizeEnumValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("ArtworkSize") as? EPArtworkSize.RawValue {
                 preferredArtworkSizeEnumValue = EPArtworkSize(rawValue: value)
                 return preferredArtworkSizeEnumValue!
@@ -259,14 +259,14 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     static var isEqualizerActiveValue: Bool?
     class func isEqualizerActive() -> (Bool) {
         //read from NSUserDefaults()
         if let value = isEqualizerActiveValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("EQActive") as? Bool {
                 isEqualizerActiveValue = value
                 return isEqualizerActiveValue!
@@ -277,14 +277,14 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     static var lastfmMobileSessionValue: String?
     class func lastfmMobileSession() -> (String) {
         //read from NSUserDefaults()
         if let value = lastfmMobileSessionValue {
             return value
         } else {
-            
+
             if let value = NSUserDefaults.standardUserDefaults().objectForKey("LastfmSession") as? String {
                 lastfmMobileSessionValue = value
                 return lastfmMobileSessionValue!
@@ -295,12 +295,12 @@ class EPSettings: NSUserDefaults {
             }
         }
     }
-    
+
     class func setLastfmSession(sessionString: String) {
         NSUserDefaults.standardUserDefaults().setObject(sessionString, forKey: "LastfmSession")
         lastfmMobileSessionValue = sessionString
     }
-    
+
     class func nextArtworkSizeEnum(current: EPArtworkSize) -> EPArtworkSize {
         switch current {
         case .Small:
@@ -311,40 +311,40 @@ class EPSettings: NSUserDefaults {
             return .Small
         }
     }
-    
+
     //misc
     class func preferredArtworkSizeString() -> String {
-        
+
         switch EPSettings.preferredArtworkSizeEnum() {
         case .Small:
             return "200x200"
-            
+
         case .Medium:
             return "400x400"
-            
+
         case .Large:
             return "600x600"
         }
     }
-    
+
     class func loadEQSettings() -> [Double] {
         if let EQGains = NSUserDefaults.standardUserDefaults().objectForKey("EQGains") as? [Double] {
             return EQGains
         } else {
-            
+
             let EQGains = [
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
             ]
-            
+
             NSUserDefaults.standardUserDefaults().setObject(EQGains, forKey: "EQGains")
-            
+
             return EQGains
         }
     }

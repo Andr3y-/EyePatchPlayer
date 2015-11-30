@@ -91,4 +91,8 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
         //handle delete
     }
 
+    deinit {
+        self.tableView.editing = false
+    }
+
 }

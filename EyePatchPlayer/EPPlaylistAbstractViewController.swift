@@ -73,7 +73,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
 
         if self.playlist != nil {
             //sometimes requests fail even in a case of success block
-//            self.playlist.delegate = self
+            self.playlist.delegate = self
             EPMusicPlayer.sharedInstance.playlist.delegate = self
             self.tableView.dataSource = self
             self.tableView.delegate = self

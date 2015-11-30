@@ -7,11 +7,9 @@
 //
 
 import UIKit
-//import Realm
-
 
 class EPTrack: RLMObject {
-    
+
     dynamic var title: String = ""
     dynamic var artist: String = ""
     dynamic var ownerID: Int = 0
@@ -19,15 +17,15 @@ class EPTrack: RLMObject {
     dynamic var ID: Int = 0
     dynamic var URLString: String = ""
     dynamic var isCached = false
-    
+
     private dynamic var isArtworkCached = false
     internal dynamic var downloadProgress: EPDownloadProgress?
     var lyricsID: Int?
     var artworkUIImage: UIImage?
-    
+
     class func initWithResponse(response: NSDictionary) -> EPTrack {
         let track = EPTrack()
-        
+
         track.title = response["title"] as! String
         track.artist = response["artist"] as! String
         track.duration = response["duration"] as! Int
@@ -40,12 +38,12 @@ class EPTrack: RLMObject {
         }
         return track
     }
-    
+
     func hasFileAtPath() -> Bool {
         let result = NSFileManager.defaultManager().fileExistsAtPath(self.URL().path!)
         var error: NSError?
         do {
-            let attr:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(self.URL().path!)
+            let attr: NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(self.URL().path!)
             print("fileSize: \(attr.fileSize())")
         } catch let error1 as NSError {
             error = error1
@@ -53,9 +51,9 @@ class EPTrack: RLMObject {
         }
         return result
     }
-    
+
     func artworkImage() -> UIImage? {
-        
+
         if (self.artworkUIImage != nil) {
             return self.artworkUIImage
         } else if self.isCached && self.isArtworkCached {
@@ -67,47 +65,47 @@ class EPTrack: RLMObject {
         }
         return nil
     }
-    
+
     func clearArtworkImage() {
         print("clearArtworkImage - \(self.title)")
         self.artworkUIImage = nil
     }
-    
-    func addArtworkImage(image:UIImage) {
+
+    func addArtworkImage(image: UIImage) {
         self.artworkUIImage = image
-        
+
         if self.isCached && !self.isArtworkCached {
             let artworkImageData = UIImageJPEGRepresentation(image, 1.0)
             print(EPCache.pathForTrackArtwork(self))
             if artworkImageData!.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
                 print("caching artwork for cached track")
-                
+
                 RLMRealm.defaultRealm().beginWriteTransaction()
                 self.isArtworkCached = true
                 RLMRealm.defaultRealm().addOrUpdateObject(self)
                 RLMRealm.defaultRealm().commitWriteTransaction()
-                
+
             } else {
                 print("failed to cache artwork")
             }
-            
+
         } else {
 
         }
     }
-    
+
     func URL() -> NSURL {
-        if (isCached){
+        if (isCached) {
             return NSURL(fileURLWithPath: EPCache.pathForTrackToSave(self))
         } else {
             return NSURL(string: URLString)!
         }
-    
+
     }
-    
+
     override func copy() -> AnyObject {
         let track = EPTrack()
-        
+
         track.title = self.title
         track.artist = self.artist
         track.duration = self.duration
@@ -115,14 +113,14 @@ class EPTrack: RLMObject {
         track.ID = self.ID
         track.URLString = self.URLString
         track.isCached = self.isCached
-        
+
         return track
     }
-    
+
     override class func ignoredProperties() -> [AnyObject]? {
         return ["artworkUIImage", "downloadProgress", "lyricsID"]
     }
-    
+
     override class func primaryKey() -> String {
         return "ID"
     }

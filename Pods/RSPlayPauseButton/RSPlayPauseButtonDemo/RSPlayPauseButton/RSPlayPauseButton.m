@@ -12,7 +12,7 @@
 static const CGFloat kSideSize = 42.0;
 static const CGFloat kScale = 1.0;
 static const CGFloat kBorderSize = kSideSize * kScale;
-static const CGFloat kBorderWidth = 3.0 * kScale;
+static const CGFloat kBorderWidth = 2.0 * kScale;
 static const CGFloat kSize = kBorderSize + kBorderWidth; // The total size is the border size + 2x half the border width.
 static const CGFloat kPauseLineWidth = 4.0 * kScale;
 static const CGFloat kPauseLineHeight = 15.0 * kScale;
