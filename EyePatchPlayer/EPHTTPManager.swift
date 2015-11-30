@@ -286,11 +286,21 @@ class EPHTTPManager: NSObject {
                 completion!(result: true)
             }
         }) {
-            (operation, error) -> Void in
-            print("lastfm scobbling failure:\n")
+            (operation, error: NSError) -> Void in
+            if let data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? NSData {
+                if let errorResponse = String(data: data, encoding: NSUTF8StringEncoding) {
+                    print("lastfm scrobbling failure:\ncode:\(error.code)\nresponse:\(errorResponse)")
+                    if completion != nil {
+                        completion!(result: false)
+                    }
+                    return
+                }
+            }
+            print("lastfm scrobbling failure:\ncode:\(error.code)\nresponse: no data")
             if completion != nil {
                 completion!(result: false)
             }
+            return
         }
     }
 
@@ -325,8 +335,8 @@ class EPHTTPManager: NSObject {
             }
 
         }) {
-            (operation, error) -> Void in
-            print("lastfm auth failure:\n")
+            (operation, error: NSError) -> Void in
+            print("lastfm auth failure:\ncode:\(error.code)")
             if completion != nil {
                 completion!(result: false, session: "")
             }

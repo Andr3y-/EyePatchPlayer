@@ -403,14 +403,20 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         } else {
             print("showing extras")
             self.extrasView = UIView.loadFromNibNamed("EPExtrasView") as? EPExtrasView
-            self.extrasView!.frame = self.albumArtImageViewBig.frame
-            self.extrasView!.translatesAutoresizingMaskIntoConstraints = true
-            self.contentViewMain.addSubview(self.extrasView!)
-            print("extras:\(self.extrasView!.frame)")
+
+            guard let extrasView = self.extrasView else {
+                print("extras view is not loaded")
+                return
+            }
+
+            extrasView.frame = self.albumArtImageViewBig.frame
+            extrasView.translatesAutoresizingMaskIntoConstraints = true
+            self.contentViewMain.addSubview(extrasView)
+            print("extras:\(extrasView.frame)")
             print("album: \(self.albumArtImageViewBig.frame)")
             //FIXME: Remove later when more modes are added
 
-            self.extrasView?.updateContent(true)
+            extrasView.updateContent(true)
         }
     }
 
@@ -509,7 +515,11 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         let playbackPercent = Float(currentTime) / Float(EPMusicPlayer.sharedInstance.activeTrack.duration)
 
         self.leftPlaybackTimeLabel.text = currentTime.timeInSecondsToString()
-        self.rightPlaybackTimeLabel.text = (EPMusicPlayer.sharedInstance.activeTrack.duration - currentTime).timeInSecondsToString()
+        var remainingPlaybackTime = (EPMusicPlayer.sharedInstance.activeTrack.duration - currentTime)
+        if remainingPlaybackTime < 0 {
+            remainingPlaybackTime = 0
+        }
+        self.rightPlaybackTimeLabel.text = remainingPlaybackTime.timeInSecondsToString()
 
         self.progressBarPlayback.setProgress(playbackPercent, animated: false)
         self.progressBarPlaybackBig.setProgress(playbackPercent, animated: false)

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6130580BD157E3F34DEA3C44 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC98F3C40624CFA580E61ED /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		ABC3576F53D7ED506EA8526A /* EPExtrasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC356CF6C1CE277BA5570A6 /* EPExtrasView.xib */; };
+		ABC35DDC0BE80A5AA8029241 /* EPPlayerWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */; };
+		ABC35EAB3EC35909D99953E7 /* EPExtrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC35CAED7CC7B9D835DE04F /* EPExtrasView.swift */; };
 		C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */; };
 		C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */; };
 		C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */; };
@@ -38,8 +41,6 @@
 		C49E41931BE3AECE0012C0DD /* ProximaNova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */; };
 		C49E41941BE3AECE0012C0DD /* ProximaNova-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */; };
 		C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */; };
-		C4B4D91C1BEB904900CB674C /* EPExtrasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4B4D91B1BEB904900CB674C /* EPExtrasView.xib */; };
-		C4B4D91E1BEB906000CB674C /* EPExtrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B4D91D1BEB906000CB674C /* EPExtrasView.swift */; };
 		C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */; };
 		C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */; };
 		C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */; };
@@ -62,7 +63,6 @@
 		C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */; };
 		C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */; };
 		C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */; };
-		C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D7A1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift */; };
 		C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */; };
 		C4DA42BD1BEBA6CD003AA352 /* EPLyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA42BC1BEBA6CD003AA352 /* EPLyrics.swift */; };
 		C4DA42CB1BECEF89003AA352 /* EPArtworkSearchQueryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA42CA1BECEF89003AA352 /* EPArtworkSearchQueryFilter.swift */; };
@@ -89,6 +89,9 @@
 		0BC98F3C40624CFA580E61ED /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		ABC356CF6C1CE277BA5570A6 /* EPExtrasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EPExtrasView.xib; sourceTree = "<group>"; };
+		ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerWidgetView.swift; sourceTree = "<group>"; };
+		ABC35CAED7CC7B9D835DE04F /* EPExtrasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPExtrasView.swift; sourceTree = "<group>"; };
 		C41A8BA11BB98B9D00AED0E2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerRemoteManager.swift; sourceTree = "<group>"; };
 		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
@@ -126,8 +129,6 @@
 		C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.ttf"; sourceTree = "<group>"; };
 		C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.ttf"; sourceTree = "<group>"; };
 		C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+DefaultTintColor.swift"; sourceTree = "<group>"; };
-		C4B4D91B1BEB904900CB674C /* EPExtrasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPExtrasView.xib; sourceTree = "<group>"; };
-		C4B4D91D1BEB906000CB674C /* EPExtrasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPExtrasView.swift; sourceTree = "<group>"; };
 		C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPStatusIndicatorView.swift; sourceTree = "<group>"; };
 		C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrackTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAudioSessionManager.swift; sourceTree = "<group>"; };
@@ -150,7 +151,6 @@
 		C4D80D721BCE5F2F0095E2D7 /* EPRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootViewController.swift; sourceTree = "<group>"; };
 		C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRightMenuViewController.swift; sourceTree = "<group>"; };
 		C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+RightMenuItem.swift"; sourceTree = "<group>"; };
-		C4D80D7A1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerWidgetView.swift; sourceTree = "<group>"; };
 		C4D80D7C1BCFCC670095E2D7 /* EPRootNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRootNavigationController.swift; sourceTree = "<group>"; };
 		C4DA42BC1BEBA6CD003AA352 /* EPLyrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLyrics.swift; sourceTree = "<group>"; };
 		C4DA42CA1BECEF89003AA352 /* EPArtworkSearchQueryFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPArtworkSearchQueryFilter.swift; sourceTree = "<group>"; };
@@ -208,6 +208,24 @@
 				0BC98F3C40624CFA580E61ED /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ABC3561153145A3211073BB6 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				ABC35CAED7CC7B9D835DE04F /* EPExtrasView.swift */,
+				ABC356CF6C1CE277BA5570A6 /* EPExtrasView.xib */,
+			);
+			name = Extras;
+			sourceTree = "<group>";
+		};
+		ABC3583354735CF18F3D9BC1 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */,
+				ABC3561153145A3211073BB6 /* Extras */,
+			);
+			name = Player;
 			sourceTree = "<group>";
 		};
 		C489EAB81BA83D1D00D788E0 = {
@@ -284,7 +302,6 @@
 				C489EB031BA86A0900D788E0 /* Search */,
 				C489EB041BA86A1100D788E0 /* Downloaded */,
 				C489EB051BA86A1700D788E0 /* Settings */,
-				C489EB0E1BAAFF2A00D788E0 /* Player */,
 				C4C61DAD1BC6B8EB00501EE1 /* FriendsList */,
 				C489EB0A1BA86C7600D788E0 /* TrackPlaylist */,
 			);
@@ -354,15 +371,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		C489EB0E1BAAFF2A00D788E0 /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				C4D80D7A1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift */,
-				C4DA42BE1BEBAD5B003AA352 /* Extras */,
-			);
-			name = Player;
-			sourceTree = "<group>";
-		};
 		C49E418A1BE289E90012C0DD /* My Music Playlist */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */,
+				ABC3583354735CF18F3D9BC1 /* Player */,
 			);
 			name = FriendsList;
 			sourceTree = "<group>";
@@ -466,15 +475,6 @@
 				C4D80D741BCE61BA0095E2D7 /* EPRightMenuViewController.swift */,
 			);
 			name = Menu;
-			sourceTree = "<group>";
-		};
-		C4DA42BE1BEBAD5B003AA352 /* Extras */ = {
-			isa = PBXGroup;
-			children = (
-				C4B4D91D1BEB906000CB674C /* EPExtrasView.swift */,
-				C4B4D91B1BEB904900CB674C /* EPExtrasView.xib */,
-			);
-			name = Extras;
 			sourceTree = "<group>";
 		};
 		C4FCB3701BAC65A300197746 /* Libraries */ = {
@@ -584,7 +584,7 @@
 				C489EAD31BA83D1D00D788E0 /* LaunchScreen.xib in Resources */,
 				C49E41921BE3AECE0012C0DD /* ProximaNova-Bold.ttf in Resources */,
 				C4C61DB51BC8199500501EE1 /* EPTrackTableViewCell.xib in Resources */,
-				C4B4D91C1BEB904900CB674C /* EPExtrasView.xib in Resources */,
+				ABC3576F53D7ED506EA8526A /* EPExtrasView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +692,6 @@
 				C47D3F2F1C05E3AC00E8CCCC /* EPLastFMScrobble.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
-				C4D80D7B1BCFC15C0095E2D7 /* EPPlayerWidgetView.swift in Sources */,
 				C489EAC91BA83D1D00D788E0 /* EPPlaylistsListViewController.swift in Sources */,
 				C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
@@ -712,7 +711,8 @@
 				C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */,
 				C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */,
 				C49E41891BE289E00012C0DD /* EPPlaylistAbstractViewController.swift in Sources */,
-				C4B4D91E1BEB906000CB674C /* EPExtrasView.swift in Sources */,
+				ABC35DDC0BE80A5AA8029241 /* EPPlayerWidgetView.swift in Sources */,
+				ABC35EAB3EC35909D99953E7 /* EPExtrasView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
