@@ -9,7 +9,7 @@
 import UIKit
 
 class EPDownloadedViewController: EPPlaylistAbstractViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribeForCacheNotifications()
@@ -26,15 +26,15 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
         }
         dataReady()
     }
-    
+
     func subscribeForCacheNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(
-            self,
-            selector: "handleTrackCached:",
-            name: "TrackCached",
-            object: nil)
+        self,
+                selector: "handleTrackCached:",
+                name: "TrackCached",
+                object: nil)
     }
-    
+
     func handleTrackCached(notification: NSNotification) {
         print("handleTrackCached")
         if let track: EPTrack = notification.object as? EPTrack {
@@ -42,12 +42,12 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
             self.tableView.reloadData()
         }
     }
-    
+
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            
+
             let track: EPTrack
-            
+
             if hasFilterActive() {
                 track = self.filteredPlaylist.tracks[indexPath.row]
 //                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
@@ -62,19 +62,19 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
 //                }
                 self.playlist.removeTrack(track)
             }
-            
+
             if EPCache.deleteTrackFromDownload(track) {
                 self.tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath) as! [NSIndexPath], withRowAnimation: UITableViewRowAnimation.Left)
             }
-            
+
             highlightActiveTrack(false, animated: false)
         }
     }
-    
+
     override func setEditing(editing: Bool, animated: Bool) {
         if let selectedIndexPaths = self.tableView.indexPathsForSelectedRows {
             super.setEditing(editing, animated: animated)
-            
+
             for indexPath in selectedIndexPaths {
                 self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
             }
@@ -82,11 +82,11 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
             super.setEditing(editing, animated: animated)
         }
     }
-    
+
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
-    
+
     override func cellDetectedSecondaryTap(cell: EPTrackTableViewCell) {
         //handle delete
     }

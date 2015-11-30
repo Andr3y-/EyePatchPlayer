@@ -21,19 +21,21 @@ class EPRecommendedPlaylistViewController: EPPlaylistAbstractViewController {
         if let userID = VKSdk.getAccessToken().userId {
             print("loading playlist of a user with ID: \(userID)")
 
-            let audioRequest: VKRequest = VKRequest(method: "audio.getRecommendations", andParameters: [VK_API_OWNER_ID : userID, VK_API_COUNT : 100, "shuffle" : 1], andHttpMethod: "GET")
-            audioRequest.executeWithResultBlock({ (response) -> Void in
+            let audioRequest: VKRequest = VKRequest(method: "audio.getRecommendations", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: 100, "shuffle": 1], andHttpMethod: "GET")
+            audioRequest.executeWithResultBlock({
+                (response) -> Void in
 
                 if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0 {
                     self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
                     self.playlist.identifier = "Recommended"
                 }
-                
-                
+
+
                 self.dataReady()
-                
-                }, errorBlock: { (error) -> Void in
-                    
+
+            }, errorBlock: {
+                (error) -> Void in
+
             })
         }
     }

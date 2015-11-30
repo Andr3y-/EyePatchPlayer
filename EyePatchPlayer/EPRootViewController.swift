@@ -12,7 +12,7 @@ import VK_ios_sdk
 import Crashlytics
 
 class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
-    
+
     static var sharedInstance = EPRootViewController()
 
     override func awakeFromNib() {
@@ -30,22 +30,22 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
 
         self.contentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController")
         self.rightMenuViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RightMenuViewController")
-        
+
         self.performMenuSetup()
     }
-    
+
     func performMenuSetup() {
         self.scaleContentView = false
         self.parallaxEnabled = true
         self.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent
-        self.contentViewInPortraitOffsetCenterX = +(UIScreen.mainScreen().bounds.width/2+50)
+        self.contentViewInPortraitOffsetCenterX = +(UIScreen.mainScreen().bounds.width / 2 + 50)
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 //        self.performWidgetSetup()
     }
-    
+
     func performWidgetSetup() {
         print("performWidgetSetup")
         if let widgetViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PlayerWidget") {
@@ -53,61 +53,61 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
             let widgetView = widgetViewController.view as! EPPlayerWidgetView
             widgetView.translatesAutoresizingMaskIntoConstraints = false
             let keyWindow = UIApplication.sharedApplication().delegate?.window
-            
+
             keyWindow?!.insertSubview(widgetView, atIndex: 0)
-            
+
             let bottomConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: widgetView.superview, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
             widgetView.superview?.addConstraint(bottomConstraint)
-            
+
             let widthConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: widgetView.superview, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0)
             widgetView.superview?.addConstraint(widthConstraint)
-            
+
             let heightConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 0, constant: 60)
             widgetView.addConstraint(heightConstraint)
 
             widgetView.setNeedsLayout()
             widgetView.layoutIfNeeded()
-            
+
             widgetView.backgroundColor = UIColor.redColor()
         }
     }
-    
+
     func sideMenu(sideMenu: RESideMenu!, willShowMenuViewController menuViewController: UIViewController!) {
         print("willShowMenuViewController")
     }
-    
+
     func sideMenu(sideMenu: RESideMenu!, didShowMenuViewController menuViewController: UIViewController!) {
         print("didShowMenuViewController")
     }
-    
+
     func sideMenu(sideMenu: RESideMenu!, willHideMenuViewController menuViewController: UIViewController!) {
         print("willHideMenuViewController")
     }
+
     func sideMenu(sideMenu: RESideMenu!, didHideMenuViewController menuViewController: UIViewController!) {
         print("didHideMenuViewController")
         NSNotificationCenter.defaultCenter().postNotificationName("MenuDidHide", object: nil)
     }
-    
+
     //VKSDKDelegate
-    override func viewDidAppear(animated: Bool)  {
+    override func viewDidAppear(animated: Bool) {
         VKSdk.initializeWithDelegate(self, andAppId: EPConstantsClass.VKAPPID)
-        
-        if (VKSdk.wakeUpSession())
-        {
+
+        if (VKSdk.wakeUpSession()) {
             //Start working
             print("vk logged in")
-            
-            if let token = VKSdk.getAccessToken(), let  _ = token.userId {
+
+            if let token = VKSdk.getAccessToken(), let _ = token.userId {
                 print("VK token & userID exist")
             } else {
                 print("VK token & userID are missing, performing re-authorisation")
-                VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+                VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL, VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
             }
             var email = VKSdk.getAccessToken().email
             let userID = VKSdk.getAccessToken().userId
-            
+
             if VKSdk.getAccessToken().email != nil {
-                
+
             } else {
                 if let token2 = VKAccessToken(fromDefaults: "VKToken") {
                     let email2 = token2.email
@@ -120,44 +120,45 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
                     email = "unknown email"
                 }
             }
-            
+
             Crashlytics.sharedInstance().setUserEmail("\(email)")
             Crashlytics.sharedInstance().setUserIdentifier("VKID:\(userID)")
         }
-        
-        if (!VKSdk.isLoggedIn()){
+
+        if (!VKSdk.isLoggedIn()) {
             print("vk is not logged in")
-            VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+            VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL, VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
         }
     }
-    
+
     func vkSdkNeedCaptchaEnter(captchaError: VKError!) {
         print("")
         let captchaViewController: VKCaptchaViewController = VKCaptchaViewController.captchaControllerWithError(captchaError)
         captchaViewController.presentIn(self)
     }
-    
+
     func vkSdkTokenHasExpired(expiredToken: VKAccessToken!) {
         print("")
-        VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+        VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL, VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
     }
-    
+
     func vkSdkUserDeniedAccess(authorizationError: VKError!) {
         print("")
-        if !VKSdk.hasPermissions([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO]) {
-            VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL,VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+        if !VKSdk.hasPermissions([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL, VK_PER_FRIENDS, VK_PER_AUDIO]) {
+            VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL, VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
         }
     }
-    
+
     func vkSdkShouldPresentViewController(controller: UIViewController!) {
-        self.presentViewController(controller, animated: true) { () -> Void in
+        self.presentViewController(controller, animated: true) {
+            () -> Void in
             print("vk finished presenting controller")
         }
     }
-    
+
     func vkSdkReceivedNewToken(newToken: VKAccessToken!) {
         print("")
-        if (VKSdk.isLoggedIn()){
+        if (VKSdk.isLoggedIn()) {
             Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
             Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
             newToken.saveTokenToDefaults("VKToken")
@@ -166,7 +167,7 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
             }
         }
     }
-    
+
     func vkSdkIsBasicAuthorization() -> Bool {
         return true
     }

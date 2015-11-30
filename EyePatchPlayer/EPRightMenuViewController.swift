@@ -10,15 +10,15 @@ import UIKit
 
 class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var tableView:UITableView!
-    var selectedItemIndex:Int = 0
-    let tableEntryStrings = ["Lists","Search","Library","Settings"]
+    var tableView: UITableView!
+    var selectedItemIndex: Int = 0
+    let tableEntryStrings = ["Lists", "Search", "Library", "Settings"]
     override func viewDidLoad() {
         print("Menu: viewDidLoad")
         super.viewDidLoad()
-        tableView = UITableView(frame:CGRectMake(self.view.frame.size.width/1.5, (self.view.frame.size.height - 54 * CGFloat(tableEntryStrings.count)) / 2.0, self.view.frame.size.width/1.5, 54 * CGFloat(tableEntryStrings.count)))
+        tableView = UITableView(frame: CGRectMake(self.view.frame.size.width / 1.5, (self.view.frame.size.height - 54 * CGFloat(tableEntryStrings.count)) / 2.0, self.view.frame.size.width / 1.5, 54 * CGFloat(tableEntryStrings.count)))
 
-        tableView.autoresizingMask =  [.FlexibleRightMargin, .FlexibleLeftMargin, .FlexibleBottomMargin, .FlexibleTopMargin]
+        tableView.autoresizingMask = [.FlexibleRightMargin, .FlexibleLeftMargin, .FlexibleBottomMargin, .FlexibleTopMargin]
 
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -27,47 +27,47 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.backgroundView = nil;
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
         tableView.bounces = false;
-        
+
         // Blur Effect
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = UIScreen.mainScreen().bounds
         view.addSubview(blurEffectView)
-        
+
         // Vibrancy Effect
         let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
         let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
         vibrancyEffectView.frame = UIScreen.mainScreen().bounds
-        
+
         // Add tableView to the vibrancy view
         vibrancyEffectView.contentView.addSubview(tableView)
-        
+
         // Add the vibrancy view to the blur view
         blurEffectView.contentView.addSubview(vibrancyEffectView)
-        
+
 //        self.view.addSubview(tableView)
         // Do any additional setup after loading the view.
     }
-    
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 54
     }
-    
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableEntryStrings.count
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("Cell")
-        
+
         if cell == nil {
-            cell = UITableViewCell(style:UITableViewCellStyle.Default, reuseIdentifier:"Cell")
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
             cell!.backgroundColor = UIColor.clearColor()
-            cell!.textLabel!.font = UIFont(name:"HelveticaNeue-Medium", size:21)
+            cell!.textLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 21)
             cell!.textLabel!.textColor = UIColor.whiteColor()// UIColor.whiteColor()
             cell!.textLabel!.highlightedTextColor = UIColor.lightGrayColor()
             cell!.selectedBackgroundView = UIView()
@@ -89,7 +89,7 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
                 self.applySelectionToCell(cell!)
             }
         }
-        
+
         return cell!
     }
 
@@ -97,29 +97,29 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         let indexPath = NSIndexPath(forRow: selectedItemIndex, inSection: 0)
         self.applySelectionToCell(self.tableView.cellForRowAtIndexPath(indexPath)!)
     }
-    
-    func applySelectionToCell(cell:UITableViewCell) {
+
+    func applySelectionToCell(cell: UITableViewCell) {
         let view: UIView = cell.contentView as UIView
         let gradient: CAGradientLayer = CAGradientLayer()
-        
+
         gradient.frame = view.bounds
         gradient.colors = [UIColor.clearColor().CGColor, UIColor.whiteColor().CGColor]
         gradient.startPoint = CGPointMake(0.0, 0.5)
         gradient.endPoint = CGPointMake(1.0, 0.5)
-        
+
         view.layer.insertSublayer(gradient, atIndex: 0)
     }
-    
-    func clearSelectonOnCell(cell:UITableViewCell) {
+
+    func clearSelectonOnCell(cell: UITableViewCell) {
         let view: UIView = cell.contentView as UIView
         if view.layer.sublayers?.count > 0 {
             view.layer.sublayers![0].removeFromSuperlayer()
         }
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        
+
         if indexPath.row == selectedItemIndex {
             self.sideMenuViewController.hideMenuViewController()
             return
@@ -128,29 +128,29 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
             selectedItemIndex = indexPath.row
             self.selectActiveCell()
         }
-        
+
         switch indexPath.row {
         case 0:
             self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("ListsVC"))!), animated: true)
             self.sideMenuViewController.hideMenuViewController()
             break
-            
+
         case 1:
             self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("SearchVC"))!), animated: true)
             self.sideMenuViewController.hideMenuViewController()
             break
-            
+
         case 2:
             self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("LibraryVC"))!), animated: true)
             self.sideMenuViewController.hideMenuViewController()
             break
-            
+
         case 3:
             self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("SettingsVC"))!), animated: true)
             self.sideMenuViewController.hideMenuViewController()
             break
         default:
-            
+
             break
         }
     }

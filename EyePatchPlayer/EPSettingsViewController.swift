@@ -9,35 +9,35 @@
 import UIKit
 
 class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EPSettingsTableViewCellDelegate {
-    
+
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadCell()
-        
+
         self.tableView.dataSource = self
         self.tableView.delegate = self
 //        self.tableView.allowsSelection = false
-        self.tableView.tableFooterView = UIView(frame: CGRectMake(0,0,1,1))
+        self.tableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
         drawRightMenuButton()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
+
     func loadCell() {
-        let nibName = UINib(nibName: "EPSettingsTableViewCell", bundle:nil)
+        let nibName = UINib(nibName: "EPSettingsTableViewCell", bundle: nil)
         self.tableView.registerNib(nibName, forCellReuseIdentifier: "SettingCell")
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+
         var cell: EPSettingsTableViewCell? = self.tableView.dequeueReusableCellWithIdentifier("SettingCell") as? EPSettingsTableViewCell
-        
+
         if cell == nil {
             cell = EPSettingsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SettingCell")
         }
 
-        if indexPath.row != EPSettings.currentSettingsSet().count-1 {
+        if indexPath.row != EPSettings.currentSettingsSet().count - 1 {
             let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
             cell!.setContent(type, value: value, name: name)
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
@@ -46,34 +46,36 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             cell!.setContent(type, value: value, name: name)
         }
         cell?.delegate = self
-   
+
         return cell!
     }
-    
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return EPSettings.currentSettingsSet().count
     }
-    
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 44
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 2 {//eq row
+        if indexPath.row == 2 {
+            //eq row
             self.performSegueWithIdentifier("segueLastfm", sender: nil)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
-        
-        if indexPath.row == EPSettings.currentSettingsSet().count-1 {//eq row
+
+        if indexPath.row == EPSettings.currentSettingsSet().count - 1 {
+            //eq row
             self.performSegueWithIdentifier("segueEqualizer", sender: nil)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
-    
+
     func valueSwitchTapForCell(cell: EPSettingsTableViewCell) {
         if cell.type == .ScrobbleWithLastFm {
             if EPSettings.lastfmMobileSession().characters.count > 1 {
@@ -83,11 +85,11 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
+
     func secondaryButtonTapForCell(cell: EPSettingsTableViewCell) {
-        
+
     }
-    
+
 }
 
 /*

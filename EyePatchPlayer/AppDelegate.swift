@@ -1,4 +1,3 @@
-
 //
 //  AppDelegate.swift
 //  EyePatchPlayer
@@ -19,41 +18,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         performMigrationIfNeeded()
-        
+
         EPCache.performStartChecks()
         Fabric.with([Crashlytics.self])
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
-        
+
         application.applicationSupportsShakeToEdit = true
-        
+
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
             EPLastFMScrobbleManager.scrobbleFullQueue()
         })
-        
+
         return true
     }
-    
+
     func performMigrationIfNeeded() {
-        
+
         //schema version 2 introduced with EPLastFMScrobble object
         let config = RLMRealmConfiguration.defaultConfiguration()
         config.schemaVersion = 2
-        config.migrationBlock = {(migration: RLMMigration, oldSchemaVersion: UInt64) in
+        config.migrationBlock = {
+            (migration: RLMMigration, oldSchemaVersion: UInt64) in
             if oldSchemaVersion < 2 {
 
             }
-            
+
         }
         RLMRealmConfiguration.setDefaultConfiguration(config)
         RLMRealm.defaultRealm()
-        
+
     }
-    
+
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         print("applicationDidBecomeActive")
-        
+
 
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }

@@ -9,7 +9,7 @@
 import UIKit
 import VK_ios_sdk
 
-class EPSearchViewController: EPPlaylistAbstractViewController{
+class EPSearchViewController: EPPlaylistAbstractViewController {
     var lastExecutedSearchQuery = ""
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,59 +17,60 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
         shouldIgnoreLocalSearch = true
         self.tableView.alpha = 1
     }
-    
+
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         if !self.searchQueryEmpty() {
-            
+
             if lastExecutedSearchQuery == self.searchBar.text! {
                 return
             }
-            
+
             print("calling dataNotReady")
             self.dataNotReady()
-            
+
             print("calling loadData")
             self.loadData()
         }
     }
-    
+
     override func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
+
     }
-    
+
     override func loadData() {
         print("loading search results for query: \(self.searchBar.text!)")
-        
+
         guard let searchBarText = self.searchBar.text else {
             return
         }
-        
+
         lastExecutedSearchQuery = searchBarText
-        
+
         let audioRequest: VKRequest!
         let searchQuery = self.searchBar.text!
         if !searchQueryEmpty() {
-            audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q : self.searchBar.text!, VK_API_COUNT : 100], andHttpMethod: "GET")
+            audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q: self.searchBar.text!, VK_API_COUNT: 100], andHttpMethod: "GET")
         } else {
-            audioRequest = VKRequest(method: "audio.getPopular", andParameters: ["only_eng" : 1, VK_API_COUNT : 100], andHttpMethod: "GET")
+            audioRequest = VKRequest(method: "audio.getPopular", andParameters: ["only_eng": 1, VK_API_COUNT: 100], andHttpMethod: "GET")
         }
 
-        audioRequest.executeWithResultBlock({ (response) -> Void in
-            
+        audioRequest.executeWithResultBlock({
+            (response) -> Void in
+
             if searchQuery != self.searchBar.text! {
                 return
             }
-            
+
             if !self.searchQueryEmpty() {
-                if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0  {
+                if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0 {
                     self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
                 }
             } else {
-                if let responseArray = response.json as? NSArray where responseArray.count != 0  {
+                if let responseArray = response.json as? NSArray where responseArray.count != 0 {
                     self.playlist = EPMusicPlaylist.initWithResponseArray(responseArray)
                 }
             }
-            
+
             if let searchText = self.searchBar.text where searchText.characters.count > 0 {
                 print("reloading table")
 //                self.tableView.reloadData()
@@ -77,14 +78,15 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
             } else {
                 self.dataReady()
             }
-            
+
             print("loadedTracks.count = \(self.playlist.tracks.count)")
 
-            }, errorBlock: { (error) -> Void in
-                
+        }, errorBlock: {
+            (error) -> Void in
+
         })
     }
-    
+
     func searchQueryEmpty() -> Bool {
         if let searchText = searchBar.text where searchText.characters.count > 0 {
             return false
@@ -92,7 +94,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController{
             return true
         }
     }
-    
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.playlist.tracks.count
     }
