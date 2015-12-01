@@ -13,11 +13,10 @@
 DONE:
 
 - [x] Cache for Offline Playback
-- [x] VK Status Broadcast
-- [x] Streaming from Web
-- [x] Fully functional player with playback control, shuffle and playlists
-- [x] Remote playback control from iOS (lock and bottom pan menu)
-- [x] Album Covers in App & on the Lock Screen
+- [x] VK Status Broadcast & Last.fm Now Playing updating
+- [x] Online Music Streaming
+- [x] Toggle Shuffle & Shake to Shuffle
+- [x] Remote playback control from iOS (lock and bottom pan menu), Album Covers in App & on the Lock Screen
 - [x] Reworked shuffle to have a separate playlist (of ID') instead which is infinite for switching tracks
 - [x] EPMusicPlayerDelegate as a separate class for code clarity
 - [x] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
@@ -29,20 +28,18 @@ DONE:
 - [x] Player Widget visible across all screens of the application
 - [x] Removing remote controls from playerViewController
 - [x] Saving last played track & respective playlist
-- [x] Friends search
 - [x] Ability to automatically save a track to your VK playlist whenever download is triggered (setting)
 - [x] Settings Page with
-    - [x] Last.fm (once API becomes available)
+    - [x] Last.fm
     - [x] Status broadcast
     - [x] Cache Policy
     - [x] Artwork Size and Presence
     - [x] Shake to Shuffle
 - [x] Global music search
-- [x] Download Queue
+- [x] Download Queue (Max 2 concurrently)
 - [x] Recommendations (based on a playlist)
 - [x] Tracks from Messages
 - [x] Displaying download progress
-- [x] Shake to Shuffle Playlist
 - [x] Play Filtered Selection
 - [x] Seeking
 - [x] Play Selection / Search Results
