@@ -9,7 +9,7 @@
 import UIKit
 import VK_ios_sdk
 
-class EPPlaylistsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var playlistsTableView: UITableView!
 

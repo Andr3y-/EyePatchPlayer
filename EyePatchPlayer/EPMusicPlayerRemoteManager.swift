@@ -49,27 +49,29 @@ class EPMusicPlayerRemoteManager: NSObject {
     }
 
     func configureNowPlayingInfo(track: EPTrack?) {
+        
         let info = MPNowPlayingInfoCenter.defaultCenter()
         var newInfo = [String: AnyObject]()
         let newTrack: EPTrack!
-
+        
         if let _ = track {
             newTrack = track!
         } else {
             newTrack = EPMusicPlayer.sharedInstance.activeTrack
         }
-
+        
         newInfo[MPMediaItemPropertyTitle] = newTrack.title
         newInfo[MPMediaItemPropertyArtist] = newTrack.artist
         newInfo[MPMediaItemPropertyPlaybackDuration] = newTrack.duration
         newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
-
+        
         if let artworkImage = newTrack.artworkImage() {
             let artwork = MPMediaItemArtwork(image: artworkImage)
             newInfo[MPMediaItemPropertyArtwork] = artwork
         }
-
+        
         info.nowPlayingInfo = newInfo
+
     }
 
     func updatePlaybackStatus() {

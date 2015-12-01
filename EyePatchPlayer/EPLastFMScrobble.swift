@@ -40,7 +40,6 @@ class EPLastFMScrobble: RLMObject {
     init(track: EPTrack) {
 
         self.timestamp = Int(NSDate().timeIntervalSince1970 - EPLastFMScrobbleManager.playbackPercentCompleteToScrobble * Double(track.duration))
-//        let trackTitle:String!
 
         if let startRange = track.title.rangeOfString("["), let endRange = track.title.rangeOfString("]") {
             self.track = track.title.stringByReplacingCharactersInRange(Range<String.Index>(start: startRange.startIndex, end: endRange.endIndex), withString: "")
@@ -49,17 +48,7 @@ class EPLastFMScrobble: RLMObject {
         }
 
         self.artist = track.artist//.stringByReplacingOccurrencesOfString("&", withString: "&amp;")
-//        if let clearedTrackTitle = trackTitle.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) {
-//            self.track = clearedTrackTitle
-//        } else {
-//            self.track = trackTitle
-//        }
 
-//        if let clearedTrackArtist = track.artist.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) {
-//            self.artist = clearedTrackArtist
-//        } else {
-//            self.artist = track.artist
-//        }
 
         self.duration = track.duration
 

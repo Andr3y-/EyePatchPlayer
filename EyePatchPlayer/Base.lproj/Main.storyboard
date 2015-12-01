@@ -654,7 +654,7 @@
         <!--Lists-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="ListsVC" title="Lists" automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="EPPlaylistsListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListsVC" title="Lists" automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="EPListsViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -1473,6 +1473,6 @@
         <image name="lastfm" width="1000" height="252"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Zcv-nt-qiL"/>
+        <segue reference="HbV-JP-ZLU"/>
     </inferredMetricsTieBreakers>
 </document>

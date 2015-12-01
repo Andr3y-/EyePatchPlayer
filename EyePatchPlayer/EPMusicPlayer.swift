@@ -29,7 +29,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     //singleton
     static let sharedInstance = EPMusicPlayer()
-//    var shuffleOn: Bool = true
     //progress update frequency
     let updateProgressFrequency = 0.1
     var updateProgressTimer: NSTimer?
@@ -62,10 +61,42 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         let options: STKAudioPlayerOptions = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: true, equalizerBandFrequencies: equalizerB, readBufferSize: 0, bufferSizeInSeconds: 0, secondsRequiredToStartPlaying: 0, gracePeriodAfterSeekInSeconds: 0, secondsRequiredToStartPlayingAfterBufferUnderun: 0)
 
         self.setupStream(options)
-        self.observeSessionEvents()
-
+        EPSystemEnvironmentChangeManager.sharedInstance
     }
 
+    func setupStream(options: STKAudioPlayerOptions?) {
+        print("stream setup for a first time")
+        EPAudioSessionManager.initAudioSession()
+        if let options = options {
+            //with options init
+            print(options)
+            
+            self.audioStreamSTK = STKAudioPlayer(options: options)
+            
+            self.audioStreamSTK?.equalizerEnabled = EPSettings.isEqualizerActive()
+            
+            let EQGains = EPSettings.loadEQSettings()
+            
+            self.audioStreamSTK!.setGain(Float(EQGains[0]), forEqualizerBand: 0)
+            self.audioStreamSTK!.setGain(Float(EQGains[1]), forEqualizerBand: 1)
+            self.audioStreamSTK!.setGain(Float(EQGains[2]), forEqualizerBand: 2)
+            self.audioStreamSTK!.setGain(Float(EQGains[3]), forEqualizerBand: 3)
+            self.audioStreamSTK!.setGain(Float(EQGains[4]), forEqualizerBand: 4)
+            self.audioStreamSTK!.setGain(Float(EQGains[5]), forEqualizerBand: 5)
+            self.audioStreamSTK!.setGain(Float(EQGains[6]), forEqualizerBand: 6)
+            self.audioStreamSTK!.setGain(Float(EQGains[7]), forEqualizerBand: 7)
+            
+        } else {
+            //no options init
+            self.audioStreamSTK = STKAudioPlayer()
+        }
+        
+        self.audioStreamSTK!.delegate = self
+        self.audioStreamSTK!.meteringEnabled = true
+        self.audioStreamSTK!.volume = 1
+        
+    }
+    
     func loadDataFromCache(completion: ((result:Bool) -> Void)?) {
         if let (track, playlist) = EPCache.cacheStateUponLaunch() {
             print("player loaded playlist + track from last session")
@@ -75,7 +106,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
                 completion!(result: true)
             }
         } else {
-            //simulate failure
             EPHTTPManager.retrievePlaylistOfUserWithID(nil, count: 5, completion: {
                 (result, playlist) -> Void in
                 if result {
@@ -91,6 +121,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
     }
 
+    //main method for setting track to be played
+    
     func setTrack(track: EPTrack, force: Bool) {
         self.activeTrack.clearArtworkImage()
         self.playlist.delegate?.playlistDidSetTrackActive(track)
@@ -144,7 +176,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
 
         if EPSettings.shouldBroadcastStatus() {
-
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
                 if !track.invalidated && track.ID == self.activeTrack.ID && self.isPlaying() {
                     EPHTTPManager.VKBroadcastTrack(self.activeTrack)
@@ -194,7 +225,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             self.play()
             self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
-//        self.remoteManager.configureNowPlayingInfo(activeTrack)
+
         self.remoteManager.updatePlaybackStatus()
     }
 
@@ -225,63 +256,9 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         setTrack(previousTrack, force: true)
     }
 
-    func observeSessionEvents() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "interruptionEvent:", name: AVAudioSessionInterruptionNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
-    }
-
-    func interruptionEvent(notification: NSNotification) {
-        if notification.name == AVAudioSessionInterruptionNotification {
-            if let interruptionType = notification.userInfo?[AVAudioSessionInterruptionTypeKey] {
-
-                let interruptionTypeNumber = interruptionType as! NSNumber
-                if Int(interruptionTypeNumber) == Int(AVAudioSessionInterruptionType.Began.rawValue) {
-                    self.pause()
-                } else {
-                    self.play()
-                }
-            }
-        }
-    }
-
-    func routeChanged(notification: NSNotification) {
-        print("routeChanged")
-        if let userDict = notification.userInfo as? Dictionary<String, AnyObject> {
-            if let newValue = userDict[AVAudioSessionRouteChangeReasonKey] as? UInt {
-                let reason = AVAudioSessionRouteChangeReason(rawValue: newValue)
-                switch reason! {
-                case .NewDeviceAvailable:
-                    print("NewDeviceAvailable - connected")
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if self.isPlaying() == false {
-                            self.togglePlayPause()
-                        }
-                    }
-
-                    break
-
-                case .OldDeviceUnavailable:
-                    print("OldDeviceUnavailable - disconnected")
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if self.isPlaying() == true {
-                            self.togglePlayPause()
-                        }
-                    }
-
-                    break
-
-                default:
-
-                    break
-                }
-
-            }
-        }
-    }
-
-    func playerItemDidReachEnd(notification: NSNotification) {
-        print("song finished playing")
-    }
+//    func playerItemDidReachEnd(notification: NSNotification) {
+//        print("song finished playing")
+//    }
 
     //updating playback progress as well as download progress
     func updateProgress() {
@@ -298,38 +275,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     //player library interface
 
-    func setupStream(options: STKAudioPlayerOptions?) {
-        print("stream setup for a first time")
-        EPAudioSessionManager.initAudioSession()
-        if let options = options {
-            //with options init
-            print(options)
-
-            self.audioStreamSTK = STKAudioPlayer(options: options)
-
-            self.audioStreamSTK?.equalizerEnabled = EPSettings.isEqualizerActive()
-
-            let EQGains = EPSettings.loadEQSettings()
-
-            self.audioStreamSTK!.setGain(Float(EQGains[0]), forEqualizerBand: 0)
-            self.audioStreamSTK!.setGain(Float(EQGains[1]), forEqualizerBand: 1)
-            self.audioStreamSTK!.setGain(Float(EQGains[2]), forEqualizerBand: 2)
-            self.audioStreamSTK!.setGain(Float(EQGains[3]), forEqualizerBand: 3)
-            self.audioStreamSTK!.setGain(Float(EQGains[4]), forEqualizerBand: 4)
-            self.audioStreamSTK!.setGain(Float(EQGains[5]), forEqualizerBand: 5)
-            self.audioStreamSTK!.setGain(Float(EQGains[6]), forEqualizerBand: 6)
-            self.audioStreamSTK!.setGain(Float(EQGains[7]), forEqualizerBand: 7)
-
-        } else {
-            //no options init
-            self.audioStreamSTK = STKAudioPlayer()
-        }
-
-        self.audioStreamSTK!.delegate = self
-        self.audioStreamSTK!.meteringEnabled = true
-        self.audioStreamSTK!.volume = 1
-
-    }
+   
 
     func prebufferedPercent() -> Double {
         var prebufferedPercent: Double = 0.0
@@ -421,7 +367,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
     }
 
-    func seekForward() {
+    private func seekForward() {
         print("seekForward status:\(self.seekStatus)")
         if self.seekStatus != .Forward {
             return
@@ -438,7 +384,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     }
 
-    func seekBackward() {
+    private func seekBackward() {
         print("seekBackward status:\(self.seekStatus)")
         if self.seekStatus != .Backward {
             return
@@ -454,15 +400,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         })
     }
 
-    func applyEQSettings() {
-//        self.audioStreamSTK
-    }
-
     func setEqualizerEnabled(value: Bool) {
         self.audioStreamSTK?.equalizerEnabled = value
     }
+    
     //STKAudioPlayerDelegate
-
     func audioPlayer(audioPlayer: STKAudioPlayer!, didStartPlayingQueueItemId queueItemId: NSObject!) {
         print("didStartPlayingQueueItemId: \(queueItemId)")
         self.remoteManager.updatePlaybackTime()

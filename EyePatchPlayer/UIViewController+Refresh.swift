@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 extension UIViewController {
     func setupRefresh(withControl:Bool) {
         if self.respondsToSelector("tableView"){
