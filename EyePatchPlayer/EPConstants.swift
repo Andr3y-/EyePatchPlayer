@@ -9,7 +9,7 @@
 import Foundation
 
 struct EPConstantsClass{
-    static let VKAPPID = "5070798"
-    static let LastfmAPIKey = "e0f77b7ccf49aad3aa10d16bb432a5ed"
-    static let LastfmSecret = "93ec99df32f162bcf58985fb975d6014"
+    static let VKAPPID = ""
+    static let LastfmAPIKey = ""
+    static let LastfmSecret = ""
 }
