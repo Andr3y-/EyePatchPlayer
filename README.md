@@ -1,7 +1,8 @@
 # EyePatchPlayer
-
-<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2027.PNG" width="300">
-<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2028.PNG" width="300">
+<p align="center">
+<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2027.PNG" width="300">
+<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2028.PNG" width="300">
+</p>
 
 <img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2033.PNG" width="300">
 <img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2029.PNG" width="300">
