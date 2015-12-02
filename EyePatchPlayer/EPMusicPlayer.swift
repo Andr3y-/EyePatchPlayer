@@ -134,6 +134,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             print("no cache found")
             self.activeTrack = track
         }
+        
+        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
 
         if hasEmergencyTrackActive() {
             return
@@ -149,14 +151,16 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
             if let _ = self.activeTrack.artworkImage() {
                 self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+//artwork should be already set
+//                self.remoteManager.addTrackCoverToNowPlaying(self.activeTrack)
+
             } else {
                 if EPSettings.shouldDownloadArtwork() {
                     EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: {
                         (result, image, trackID) -> Void in
                         if result && trackID == self.activeTrack.ID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                            self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+                            self.remoteManager.addTrackCoverToNowPlaying(self.activeTrack)
                         }
                     })
                 }
@@ -168,7 +172,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
                     (result, image, trackID) -> Void in
                     if result == true && trackID == self.activeTrack.ID {
                         self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
-                        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
+                        self.remoteManager.addTrackCoverToNowPlaying(self.activeTrack)
                     }
                 })
             }
@@ -187,7 +191,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         self.scrobblingComplete = false
 
         //should be performed by a separate class
-        self.remoteManager.configureNowPlayingInfo(self.activeTrack)
 
         self.resetTimer()
 
