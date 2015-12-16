@@ -313,13 +313,13 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
-		C42A43101C0DF61A005890F6 /* View */ = {
+		C42A43101C0DF61A005890F6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				C489EACC1BA83D1D00D788E0 /* Main.storyboard */,
 				C489EAD11BA83D1D00D788E0 /* LaunchScreen.xib */,
 			);
-			name = View;
+			name = UI;
 			sourceTree = "<group>";
 		};
 		C42A43111C0DF642005890F6 /* Root Controller */ = {
@@ -358,7 +358,7 @@
 				C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */,
 				C489EB0B1BA9861100D788E0 /* Model */,
 				C489EAF91BA865B200D788E0 /* Controllers */,
-				C42A43101C0DF61A005890F6 /* View */,
+				C42A43101C0DF61A005890F6 /* UI */,
 				C4C61DB71BC82E8B00501EE1 /* Images.xcassets */,
 				C489EAC41BA83D1D00D788E0 /* Supporting Files */,
 			);

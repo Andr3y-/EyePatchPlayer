@@ -449,7 +449,12 @@ class EPHTTPManager: NSObject {
                         completion!(result: false, track: trackCopy)
                     }
                     EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
-                }
+                } as AFHTTPRequestOperation?
+
+                downloadOperation?.setShouldExecuteAsBackgroundTaskWithExpirationHandler({ () -> Void in
+                    print("track download expired in background: \(trackCopy.artist) - \(trackCopy.title)")
+                })
+                
                 downloadOperation?.outputStream = NSOutputStream(toFileAtPath: EPCache.pathForTrackToSave(trackCopy), append: false)
                 downloadOperation?.outputStream?.open()
                 downloadOperation?.setDownloadProgressBlock({

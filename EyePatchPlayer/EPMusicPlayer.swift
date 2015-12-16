@@ -120,10 +120,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             })
         }
     }
-
+    
     //main method for setting track to be played
     
     func setTrack(track: EPTrack, force: Bool) {
+
         self.activeTrack.clearArtworkImage()
         self.playlist.delegate?.playlistDidSetTrackActive(track)
 
