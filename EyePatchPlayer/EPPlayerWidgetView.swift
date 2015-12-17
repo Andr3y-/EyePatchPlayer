@@ -42,9 +42,10 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var playPauseButtonPlaceholderBig: UIView!
     @IBOutlet weak var artistLabelBig: UILabel!
     @IBOutlet weak var titleLabelBig: UILabel!
-    @IBOutlet weak var shuffleSwitch: UISwitch!
+//    @IBOutlet weak var shuffleSwitch: UISwitch!
     @IBOutlet weak var cacheButton: UIButton!
 
+    @IBOutlet weak var shuffleButtonView: EPShuffleButton!
     @IBOutlet weak var trackDataContainerConstraint: NSLayoutConstraint!
     @IBOutlet weak var controlsViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var controlsView: UIView!
@@ -75,7 +76,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 })
             }
         }
-
+        self.shuffleButtonView.tintColor = UIColor.whiteColor()
         setupInteractions()
 
         print("EPPlayerWidgetView awakeFromNib")
@@ -141,7 +142,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     func processViews() {
-        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleSwitch, cacheButton] {
+        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, cacheButton] {
             if view.superview! != self.vibrancyContentView {
 
                 let oldFrame = view.frame
@@ -464,6 +465,12 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
     }
 
+    @IBAction func shuffleTap(sender: AnyObject) {
+//        print("shuffle tap")
+        self.shuffleButtonView.setOn(!self.shuffleButtonView.isOn, animated: true)
+        EPMusicPlayer.sharedInstance.playlist.shuffleOn = self.shuffleButtonView.isOn
+    }
+    
     func playPauseTap(button: RSPlayPauseButton) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
     }
@@ -474,10 +481,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
     @IBAction func prevTrackTap(sender: AnyObject) {
         EPMusicPlayer.sharedInstance.playPrevSong()
-    }
-
-    @IBAction func shuffleSwitchValueChanged(sender: UISwitch) {
-        EPMusicPlayer.sharedInstance.playlist.shuffleOn = sender.on
     }
 
     func setPlayerShown(value: Bool, animated: Bool) {
@@ -587,8 +590,8 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.progressBarPlayback.setProgress(0, animated: false)
         self.progressBarPlaybackBig.setProgress(0, animated: false)
 
-        if EPMusicPlayer.sharedInstance.playlist.shuffleOn != self.shuffleSwitch.on {
-            self.shuffleSwitch.setOn(EPMusicPlayer.sharedInstance.playlist.shuffleOn, animated: false)
+        if EPMusicPlayer.sharedInstance.playlist.shuffleOn != self.shuffleButtonView.isOn {
+            self.self.shuffleButtonView.setOn((EPMusicPlayer.sharedInstance.playlist.shuffleOn), animated: true)
         }
 
         switch EPMusicPlayer.sharedInstance.activeTrack.isCached {

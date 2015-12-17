@@ -22,8 +22,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.playlistsTableView.delegate = self
         self.playlistsTableView.dataSource = self
         self.playlistsTableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
-        self.playlistsTableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
-
+        
         drawRightMenuButton()
         // Do any additional setup after loading the view, typically from a nib.
     }

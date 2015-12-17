@@ -54,7 +54,6 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         }
 
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
         drawRightMenuButton()
         loadData()
     }
@@ -348,7 +347,6 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
 
         let selectedTrack: EPTrack!
 
-//        self.tableView.selectRowAtIndexPath(self.tableView.indexPathForCell(cell), animated: true, scrollPosition: UITableViewScrollPosition.None)
         if let indexPath = self.tableView.indexPathForCell(cell) {
             if self.hasFilterActive() {
                 selectedTrack = self.filteredPlaylist.tracks[indexPath.row]
@@ -412,7 +410,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     }
 
     func handleShake() {
-        EPPlayerWidgetView.sharedInstance.shuffleSwitch.setOn(true, animated: true)
+        EPPlayerWidgetView.sharedInstance.shuffleButtonView.setOn(true, animated: true)
         if self.hasFilterActive() {
             self.filteredPlaylist.reshuffle()
         } else {

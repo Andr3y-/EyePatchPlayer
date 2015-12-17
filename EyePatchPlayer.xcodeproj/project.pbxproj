@@ -20,6 +20,7 @@
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468474E1BDE9C070066F616 /* EPMessage.swift */; };
+		C46AA8E91C2220910012FF3E /* EPShuffleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */; };
 		C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */; };
 		C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */; };
 		C47D3F2F1C05E3AC00E8CCCC /* EPLastFMScrobble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */; };
@@ -104,6 +105,7 @@
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
+		C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPShuffleButton.swift; sourceTree = "<group>"; };
 		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
 		C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMViewController.swift; sourceTree = "<group>"; };
 		C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMScrobble.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */,
+				C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */,
 				ABC3561153145A3211073BB6 /* Extras */,
 			);
 			name = Player;
@@ -776,6 +779,7 @@
 				C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
+				C46AA8E91C2220910012FF3E /* EPShuffleButton.swift in Sources */,
 				C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */,
 				C4DA42BD1BEBA6CD003AA352 /* EPLyrics.swift in Sources */,
 				C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */,

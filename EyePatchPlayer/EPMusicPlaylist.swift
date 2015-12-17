@@ -30,12 +30,36 @@ class EPMusicPlaylist: AnyObject {
     lazy var shuffledTracks: [EPTrack] = {
         print("lazily loading shuffled playlist")
         var shuffledTracksLazy = self.originalTracks.shuffle()
+        
+        var index: Int?
+        for i in (0 ... shuffledTracksLazy.count - 1) {
+            if shuffledTracksLazy[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                index = i
+                break
+            }
+        }
+        
+        if let index = index {
+            let track = shuffledTracksLazy[0]
+            shuffledTracksLazy[0] = shuffledTracksLazy[index]
+            shuffledTracksLazy[index] = track
+        }
+        
         return shuffledTracksLazy
     }()
     var createdDate: NSDate!
     var trackCount: Int = 0
     var shuffleOn: Bool = false {
         didSet {
+            //shuffle is the same as it was before
+            if oldValue == shuffleOn {
+                
+            } else {
+                //shuffle is different and is now on
+                if shuffleOn {
+                    self.reshuffle()
+                }
+            }
             print("playlistShuffle changed")
             self.delegate?.playlistDidChangeOrder()
         }
@@ -132,9 +156,26 @@ class EPMusicPlaylist: AnyObject {
 
     func reshuffle() {
         self.shuffledTracks = self.originalTracks.shuffle()
+        moveActiveTrackToZeroIndex()
         self.shuffleOn = true
     }
 
+    func moveActiveTrackToZeroIndex() {
+        var index: Int?
+        for i in (0 ... shuffledTracks.count - 1) {
+            if shuffledTracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                index = i
+                break
+            }
+        }
+        
+        if let index = index {
+            let track = shuffledTracks[0]
+            shuffledTracks[0] = shuffledTracks[index]
+            shuffledTracks[index] = track
+        }
+    }
+    
     //MARK: Playlist Editing
 
     func removeTrack(track: EPTrack) -> Bool {
@@ -220,7 +261,7 @@ class EPMusicPlaylist: AnyObject {
         }
 
         playlist.shuffledTracks = playlist.originalTracks.shuffle()
-
+        
         print("track count total: \(playlist.trackCount)")
         print("track count loaded: \(playlist.originalTracks.count)")
 
@@ -246,7 +287,7 @@ class EPMusicPlaylist: AnyObject {
         }
 
         playlist.shuffledTracks = playlist.originalTracks.shuffle()
-
+        
         print("track count total: \(playlist.trackCount)")
         print("track count loaded: \(playlist.originalTracks.count)")
 
