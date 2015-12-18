@@ -18,10 +18,11 @@ enum EPSettingType: Int {
     case SaveToPlaylist = 0
     case BroadcastStatus = 1
     case ScrobbleWithLastFm = 2
-    case DownloadArtwork = 3
-    case ArtworkSize = 4
-    case ShakeToShuffle = 5
-    case EqualizerActive = 6
+    case ReverseSwipeDirection = 3
+    case DownloadArtwork = 4
+    case ArtworkSize = 5
+    case ShakeToShuffle = 6
+    case EqualizerActive = 7
 }
 
 class EPSettings: NSUserDefaults {
@@ -31,6 +32,7 @@ class EPSettings: NSUserDefaults {
                 (.SaveToPlaylist, shouldAutomaticallySaveToPlaylist(), "Save to VK playlist if cached"),
                 (.BroadcastStatus, shouldBroadcastStatus(), "VK status broadcast"),
                 (.ScrobbleWithLastFm, shouldScrobbleWithLastFm(), "Scrobble with Last.fm"),
+                (.ReverseSwipeDirection, isSwipeReverseEnabled(), "Reverse L/R Swipe Direction"),
                 (.DownloadArtwork, shouldDownloadArtwork(), "Download artwork"),
                 (.ArtworkSize, preferredArtworkSizeEnum(), "Artwork size"),
                 (.ShakeToShuffle, shouldDetectShakeToShuffle(), "Shake to Shuffle"),
@@ -103,6 +105,19 @@ class EPSettings: NSUserDefaults {
             shouldScrobbleWithLastFmValue = specificValue
             return (specificValue)
 
+        case .ReverseSwipeDirection:
+            
+            let specificValue: Bool!
+            if value != nil {
+                specificValue = value! as! Bool
+            } else {
+                specificValue = !isSwipeReverseEnabled()
+            }
+            
+            NSUserDefaults.standardUserDefaults().setBool(specificValue, forKey: "SwipeReverseEnabled")
+            isSwipeReverseEnabledValue = specificValue
+            return (specificValue)
+            
         case .DownloadArtwork:
 
             let specificValue: Bool!
@@ -224,6 +239,24 @@ class EPSettings: NSUserDefaults {
         }
     }
 
+    static var isSwipeReverseEnabledValue: Bool?
+    class func isSwipeReverseEnabled() -> (Bool) {
+        //read from NSUserDefaults()
+        if let value = isSwipeReverseEnabledValue {
+            return value
+        } else {
+            
+            if let value = NSUserDefaults.standardUserDefaults().objectForKey("SwipeReverseEnabled") as? Bool {
+                isSwipeReverseEnabledValue = value
+                return isSwipeReverseEnabledValue!
+            } else {
+                NSUserDefaults.standardUserDefaults().setObject(false, forKey: "SwipeReverseEnabled")
+                isSwipeReverseEnabledValue = false
+                return isSwipeReverseEnabledValue!
+            }
+        }
+    }
+    
     static var shouldDownloadArtworkValue: Bool?
     class func shouldDownloadArtwork() -> (Bool) {
         //read from NSUserDefaults()

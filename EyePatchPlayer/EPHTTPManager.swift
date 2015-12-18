@@ -26,7 +26,7 @@ class EPHTTPManager: NSObject {
 
     override init() {
         super.init()
-        tracksDownloadManager.operationQueue.maxConcurrentOperationCount = 2
+        tracksDownloadManager.operationQueue.maxConcurrentOperationCount = 1
         artworkDownloadManager.responseSerializer = AFJSONResponseSerializer()
         lastfmManager.responseSerializer = AFJSONResponseSerializer()
         lastfmManager.operationQueue.maxConcurrentOperationCount = 3

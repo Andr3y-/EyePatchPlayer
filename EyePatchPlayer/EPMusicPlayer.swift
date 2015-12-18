@@ -404,6 +404,12 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         })
     }
 
+    func seekToProgress(progress: Float) {
+        self.audioStreamSTK?.seekToTime(Double(activeTrack.duration) * Double(progress))
+        self.remoteManager.updatePlaybackTime()
+        self.updateProgress()
+    }
+    
     func setEqualizerEnabled(value: Bool) {
         self.audioStreamSTK?.equalizerEnabled = value
     }

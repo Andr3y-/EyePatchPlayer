@@ -25,6 +25,8 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var albumArtImageView: UIImageView!
     @IBOutlet weak var progressBarPlayback: UIProgressView!
 
+    
+    @IBOutlet weak var interactionViewMain: UIView!
     @IBOutlet weak var interactionView: UIView!
     @IBOutlet weak var contentViewWidget: UIView!
 
@@ -32,7 +34,10 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var contentViewMain: UIView!
     @IBOutlet weak var playerHeaderView: UIView!
     @IBOutlet weak var albumArtImageViewBig: UIImageView!
-    @IBOutlet weak var progressBarPlaybackBig: UIProgressView!
+    
+    
+    @IBOutlet weak var progressViewPlaybackBig: EPProgressView!
+//    @IBOutlet weak var progressBarPlaybackBig: UIProgressView!
     @IBOutlet weak var leftPlaybackTimeLabel: UILabel!
     @IBOutlet weak var rightPlaybackTimeLabel: UILabel!
 
@@ -103,11 +108,11 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
         let swipeRecognizerRightMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
         swipeRecognizerRightMain.direction = .Right
-        self.contentViewMain.addGestureRecognizer(swipeRecognizerRightMain)
+        self.interactionViewMain.addGestureRecognizer(swipeRecognizerRightMain)
 
         let swipeRecognizerLeftMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
         swipeRecognizerLeftMain.direction = .Left
-        self.contentViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
+        self.interactionViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
 
         let panGestureDown = UIPanGestureRecognizer(target: self, action: "panGestureMain:")
         self.playerHeaderView.addGestureRecognizer(panGestureDown)
@@ -201,9 +206,18 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 print("x: \(translation.x)")
 
                 if translation.x > 0 {
-                    EPMusicPlayer.sharedInstance.playNextSong()
+                    if EPSettings.isSwipeReverseEnabled() {
+                        EPMusicPlayer.sharedInstance.playNextSong()
+                    } else {
+                        EPMusicPlayer.sharedInstance.playPrevSong()
+                    }
+                    
                 } else {
-                    EPMusicPlayer.sharedInstance.playPrevSong()
+                    if !EPSettings.isSwipeReverseEnabled() {
+                        EPMusicPlayer.sharedInstance.playNextSong()
+                    } else {
+                        EPMusicPlayer.sharedInstance.playPrevSong()
+                    }
                 }
 
                 if newConstantForConstraint != -60 {
@@ -423,15 +437,23 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
     func interactionSwipe(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
-        case UISwipeGestureRecognizerDirection.Right:
-            EPMusicPlayer.sharedInstance.playNextSong()
-            print("interaction: swipe right")
+        case UISwipeGestureRecognizerDirection.Left:
+            if !EPSettings.isSwipeReverseEnabled() {
+                EPMusicPlayer.sharedInstance.playNextSong()
+            } else {
+                EPMusicPlayer.sharedInstance.playPrevSong()
+            }
+            print("interaction: swipe Left")
 
             break
 
-        case UISwipeGestureRecognizerDirection.Left:
-            EPMusicPlayer.sharedInstance.playPrevSong()
-            print("interaction: swipe left")
+        case UISwipeGestureRecognizerDirection.Right:
+            if EPSettings.isSwipeReverseEnabled() {
+                EPMusicPlayer.sharedInstance.playNextSong()
+            } else {
+                EPMusicPlayer.sharedInstance.playPrevSong()
+            }
+            print("interaction: swipe Right")
 
             break
 
@@ -525,7 +547,8 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.rightPlaybackTimeLabel.text = remainingPlaybackTime.timeInSecondsToString()
 
         self.progressBarPlayback.setProgress(playbackPercent, animated: false)
-        self.progressBarPlaybackBig.setProgress(playbackPercent, animated: false)
+//        self.progressBarPlaybackBig.setProgress(playbackPercent, animated: false)
+        self.progressViewPlaybackBig.setProgress(playbackPercent, animated: false)
     }
 
     func playbackStatusUpdate(playbackStatus: PlaybackStatus) {
@@ -588,8 +611,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.titleLabelBig.text = EPMusicPlayer.sharedInstance.activeTrack.title
 
         self.progressBarPlayback.setProgress(0, animated: false)
-        self.progressBarPlaybackBig.setProgress(0, animated: false)
-
+//        self.progressBarPlaybackBig.setProgress(0, animated: false)
+        self.progressViewPlaybackBig.setProgress(0, animated: false)
+        
         if EPMusicPlayer.sharedInstance.playlist.shuffleOn != self.shuffleButtonView.isOn {
             self.self.shuffleButtonView.setOn((EPMusicPlayer.sharedInstance.playlist.shuffleOn), animated: true)
         }
@@ -643,5 +667,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             () -> Void in
             self.backgroundAlbumArtImageView.image = image
         }, completion: nil)
+    }
+    @IBAction func progressViewDidEndDragging(sender: AnyObject) {
+        print("end dragging progress")
+        EPMusicPlayer.sharedInstance.seekToProgress(self.progressViewPlaybackBig.editingProgress)
     }
 }

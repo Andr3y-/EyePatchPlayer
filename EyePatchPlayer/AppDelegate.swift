@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         performMigrationIfNeeded()
-
         EPCache.performStartChecks()
         Fabric.with([Crashlytics.self])
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
