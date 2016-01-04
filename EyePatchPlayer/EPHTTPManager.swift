@@ -199,7 +199,6 @@ class EPHTTPManager: NSObject {
 
                 }
             }
-
         }
 
         let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID: specificUserID, VK_API_COUNT: count != nil ? count! : 2000, "need_user": 0], andHttpMethod: "GET")

@@ -127,7 +127,7 @@ class EPProgressView: UIControl {
         isEditing = true
         let location = touch.locationInView(self)
         if self.bounds.contains(location) {
-            editingProgress = Float(location.x / CGRectGetWidth(frame) > 0 ? CGRectGetWidth(frame) : 1 )
+            editingProgress = Float(location.x / CGRectGetWidth(frame))
         }
         return true
     }
@@ -136,7 +136,7 @@ class EPProgressView: UIControl {
         let location = touch.locationInView(self)
         print("continue")
         
-        var newEditingProgress = Float(location.x / CGRectGetWidth(frame) > 0 ? CGRectGetWidth(frame) : 1)
+        var newEditingProgress = Float(location.x / CGRectGetWidth(frame))
         if newEditingProgress > 1 {
             newEditingProgress = 1
         } else {

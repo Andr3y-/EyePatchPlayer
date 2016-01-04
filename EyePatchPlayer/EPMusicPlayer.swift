@@ -109,7 +109,15 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             EPHTTPManager.retrievePlaylistOfUserWithID(nil, count: 5, completion: {
                 (result, playlist) -> Void in
                 if result {
-                    if let playlist = playlist where playlist.tracks.count > 0 {
+                    if let playlist = playlist, let firstTrack = playlist.tracks.first where playlist.tracks.count > 0 {
+                        self.playTrackFromPlaylist(firstTrack, playlist: playlist)
+                        self.pause()
+                        if completion != nil {
+                            completion!(result: true)
+                        }
+                    } else {
+                        //  Either no playlist or playlist is empty
+                        let playlist = EPMusicPlaylist(tracks: [EPTrack.defaultTrack()])
                         self.playTrackFromPlaylist(playlist.tracks.first!, playlist: playlist)
                         self.pause()
                         if completion != nil {
