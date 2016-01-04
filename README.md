@@ -51,6 +51,7 @@ DONE:
 TODO:
 
 - [ ] Ability to Edit Track (Title/Artist) for correct spelling
+- [ ] Repeat Button
 
 CONSIDER:
 

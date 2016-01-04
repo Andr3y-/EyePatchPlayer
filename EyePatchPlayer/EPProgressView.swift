@@ -33,13 +33,11 @@ class EPProgressView: UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        self.backgroundColor = UIColor.clearColor()
         setupLayers()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        backgroundColor = UIColor.clearColor()
         setupLayers()
     }
     
@@ -64,7 +62,7 @@ class EPProgressView: UIControl {
         trackLayer.addSublayer(progressLayer)
         
         tipLayer.frame = CGRectMake(min(CGRectGetWidth(progressLayer.frame),max(CGRectGetWidth(progressLayer.frame) - tipWidth, 0)), 0, tipWidth, lineThickness)
-//        tipLayer.masksToBounds = true
+
         let shadowRadius: CGFloat = 5.0
         tipLayer.backgroundColor = progressTintColor.CGColor
         tipLayer.shadowColor = progressTintColor.CGColor
@@ -129,7 +127,7 @@ class EPProgressView: UIControl {
         isEditing = true
         let location = touch.locationInView(self)
         if self.bounds.contains(location) {
-            editingProgress = Float(location.x / CGRectGetWidth(frame))
+            editingProgress = Float(location.x / CGRectGetWidth(frame) > 0 ? CGRectGetWidth(frame) : 1 )
         }
         return true
     }
@@ -138,7 +136,7 @@ class EPProgressView: UIControl {
         let location = touch.locationInView(self)
         print("continue")
         
-        var newEditingProgress = Float(location.x / CGRectGetWidth(frame))
+        var newEditingProgress = Float(location.x / CGRectGetWidth(frame) > 0 ? CGRectGetWidth(frame) : 1)
         if newEditingProgress > 1 {
             newEditingProgress = 1
         } else {

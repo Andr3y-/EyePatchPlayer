@@ -261,6 +261,10 @@ class EPHTTPManager: NSObject {
     }
 
     class func lastfmScrobbleTrack(scrobble: EPLastFMScrobble, completion: ((result:Bool) -> Void)?) {
+        if scrobble.invalidated {
+            return
+        }
+        
         let parameters =
         [
                 "method": "track.scrobble",
