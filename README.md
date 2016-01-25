@@ -50,11 +50,15 @@ DONE:
 
 TODO:
 
-- [ ] Ability to Edit Track (Title/Artist) for correct spelling
+- [ ] Analytics with Parse
+- [ ] Backup downloaded lists with Parse in a case things go wrong
+- [ ] Playback history with Parse
 - [ ] Repeat Button
+- [ ] Playback Control from the Headset (e.g. Apple iPhone Earbuds)
 
 CONSIDER:
 
+- [ ] Ability to Edit Track (Title/Artist) for correct spelling
 - [ ] Playlists
 
 TOFIX:

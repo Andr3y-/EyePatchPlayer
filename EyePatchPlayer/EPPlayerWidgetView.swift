@@ -547,7 +547,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.rightPlaybackTimeLabel.text = remainingPlaybackTime.timeInSecondsToString()
 
         self.progressBarPlayback.setProgress(playbackPercent, animated: false)
-//        self.progressBarPlaybackBig.setProgress(playbackPercent, animated: false)
+
         self.progressViewPlaybackBig.setProgress(playbackPercent, animated: false)
     }
 

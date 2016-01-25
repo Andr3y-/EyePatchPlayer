@@ -76,6 +76,10 @@ class EPProgressView: UIControl {
     }
     
     func setProgress(var value: Float, animated: Bool) {
+        if (value != value) {
+            print("progressView: value supplied is Nan")
+            value = 0
+        }
         if value > 1 {
             value = 1
         } else {
