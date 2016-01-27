@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         
         //  Parse
-        Parse.setApplicationId("EiNXLsL2dqGqFTfeRrEhKjI0pVwzqiiDaktKKBaN",
-            clientKey: "ivW39UauexSmxw1jkBNnzJvGGPupTRtDq2KNSp8k")
+        Parse.setApplicationId(EPConstantsClass.ParseAppID,
+            clientKey: EPConstantsClass.ParseKey)
         
         //  [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)

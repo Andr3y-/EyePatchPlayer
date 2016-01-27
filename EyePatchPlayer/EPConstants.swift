@@ -12,4 +12,6 @@ struct EPConstantsClass{
     static let VKAPPID = ""
     static let LastfmAPIKey = ""
     static let LastfmSecret = ""
+    static let ParseKey = ""
+    static let ParseAppID = ""
 }
