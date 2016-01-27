@@ -9,12 +9,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>DGActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,6 +67,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>045550FFD417B873DD16949C564D0489</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0F6ADCB4087E14A2D62CCE8C7FB57368</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1BB35621ABAFED707F12BF15B6E914A8</key>
 		<dict>
 			<key>primary</key>
@@ -67,7 +87,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3D7B06B9142453D054F453E0ED87E89C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>422F44FA7381E909FB9C86F20CAA4C84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4E41BCC87DD9D6481C00F71A6F75A214</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>772B8E146E25D88B28A010B5212D7EB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,22 +122,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8249DBF0CD0F02B7B9ABDDF60252D50</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D98687767A94447C70B89F84B63325A4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EDE175585A315861AD541B5E87001425</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F7959BE11B050F80A5DB9FD7F5947A52</key>
+		<key>CDE85E68017E0FFB6E1FE278F04DF96E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

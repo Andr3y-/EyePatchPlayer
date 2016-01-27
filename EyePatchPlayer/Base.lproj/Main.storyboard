@@ -826,10 +826,10 @@
             </objects>
             <point key="canvasLocation" x="1562" y="613"/>
         </scene>
-        <!--Downloaded-->
+        <!--Library-->
         <scene sceneID="Sms-SF-CHa">
             <objects>
-                <viewController storyboardIdentifier="LibraryVC" title="Downloaded" id="ojo-P8-Ptg" customClass="EPDownloadedViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LibraryVC" title="Library" id="ojo-P8-Ptg" customClass="EPDownloadedViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lv7-KR-gcV"/>
                         <viewControllerLayoutGuide type="bottom" id="AQu-wm-5SP"/>

@@ -29,7 +29,13 @@ class EPMusicPlaylist: AnyObject {
 
     lazy var shuffledTracks: [EPTrack] = {
         print("lazily loading shuffled playlist")
+        
         var shuffledTracksLazy = self.originalTracks.shuffle()
+        
+        if shuffledTracksLazy.count == 0 {
+            return []
+        }
+        
         
         var index: Int?
         for i in (0 ... shuffledTracksLazy.count - 1) {
@@ -47,6 +53,7 @@ class EPMusicPlaylist: AnyObject {
         
         return shuffledTracksLazy
     }()
+    
     var createdDate: NSDate!
     var trackCount: Int = 0
     var shuffleOn: Bool = false {
@@ -82,9 +89,13 @@ class EPMusicPlaylist: AnyObject {
     //MARK: Playlist control interface
 
     func nextTrack() -> EPTrack? {
-        let startTime = CFAbsoluteTimeGetCurrent()
-
+//        let startTime = CFAbsoluteTimeGetCurrent()
         print("nextTrack")
+        
+        if self.tracks.count == 0 {
+            return nil
+        }
+        
         var index: Int?
 
         for i in (0 ... tracks.count - 1) {
@@ -106,8 +117,8 @@ class EPMusicPlaylist: AnyObject {
                 }
 
             } else {
-                let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-                print("\(previousTrack):: Time: \(timeElapsed)")
+//                let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+//                print("\(previousTrack):: Time: \(timeElapsed)")
                 return tracks[indexFound + 1]
             }
         } else {
@@ -118,9 +129,14 @@ class EPMusicPlaylist: AnyObject {
     }
 
     func previousTrack() -> EPTrack? {
-        let startTime = CFAbsoluteTimeGetCurrent()
+//        let startTime = CFAbsoluteTimeGetCurrent()
 
         print("previousTrack")
+        
+        if self.tracks.count == 0 {
+            return nil
+        }
+        
         var index: Int?
 
         for i in (0 ... tracks.count - 1) {
@@ -143,8 +159,8 @@ class EPMusicPlaylist: AnyObject {
                 }
 
             } else {
-                let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-                print("\(previousTrack):: Time: \(timeElapsed)")
+//                let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+//                print("\(previousTrack):: Time: \(timeElapsed)")
                 return tracks[indexFound - 1]
             }
         } else {
@@ -183,19 +199,23 @@ class EPMusicPlaylist: AnyObject {
         var resultLinear = false
         var resultShuffled = false
 
-        for index in 0 ... self.originalTracks.count - 1 {
-            if self.originalTracks[index].ID == track.ID {
-                self.originalTracks.removeAtIndex(index)
-                resultLinear = true
-                break
+        if self.originalTracks.count > 0 {
+            for index in 0 ... self.originalTracks.count - 1 {
+                if self.originalTracks[index].ID == track.ID {
+                    self.originalTracks.removeAtIndex(index)
+                    resultLinear = true
+                    break
+                }
             }
         }
 
-        for index in 0 ... self.shuffledTracks.count - 1 {
-            if self.shuffledTracks[index].ID == track.ID {
-                self.shuffledTracks.removeAtIndex(index)
-                resultShuffled = true
-                break
+        if self.shuffledTracks.count > 0 {
+            for index in 0 ... self.shuffledTracks.count - 1 {
+                if self.shuffledTracks[index].ID == track.ID {
+                    self.shuffledTracks.removeAtIndex(index)
+                    resultShuffled = true
+                    break
+                }
             }
         }
 

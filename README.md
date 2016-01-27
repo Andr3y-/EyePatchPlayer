@@ -49,11 +49,10 @@ DONE:
 - [x] Last.fm scrobbling
 
 TODO:
-
-- [ ] Analytics with Parse
-- [ ] Backup downloaded lists with Parse in a case things go wrong
 - [ ] Playback history with Parse
 - [ ] Repeat Button
+- [ ] Analytics with Parse
+- [ ] Backup downloaded lists with Parse in a case things go wrong
 - [ ] Playback Control from the Headset (e.g. Apple iPhone Earbuds)
 
 CONSIDER:

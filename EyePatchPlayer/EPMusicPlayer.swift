@@ -188,12 +188,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             self.playFromURL(self.activeTrack.URL())
         }
 
-        if EPSettings.shouldBroadcastStatus() {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-                if !track.invalidated && track.ID == self.activeTrack.ID && self.isPlaying() {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+            if !track.invalidated && track.ID == self.activeTrack.ID && self.isPlaying() {
+                if EPSettings.shouldBroadcastStatus() {
                     EPHTTPManager.VKBroadcastTrack(self.activeTrack)
                     EPHTTPManager.lastfmBroadcastTrack(self.activeTrack, completion: nil)
                 }
+                    
+                EPInternalScrobbleManager.enqueueTrackForScrobbling(self.activeTrack)
             }
         }
 

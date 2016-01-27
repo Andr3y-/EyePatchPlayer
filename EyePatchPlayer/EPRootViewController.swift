@@ -10,6 +10,7 @@ import UIKit
 import RESideMenu
 import VK_ios_sdk
 import Crashlytics
+import Parse
 
 class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
 
@@ -120,9 +121,8 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
                     email = "unknown email"
                 }
             }
-
-            Crashlytics.sharedInstance().setUserEmail("\(email)")
-            Crashlytics.sharedInstance().setUserIdentifier("VKID:\(userID)")
+            EPUserData.setUserEmail("\(email)")
+            EPUserData.setUserVKID(userID)
         }
 
         if (!VKSdk.isLoggedIn()) {
@@ -159,8 +159,10 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     func vkSdkReceivedNewToken(newToken: VKAccessToken!) {
         print("")
         if (VKSdk.isLoggedIn()) {
-            Crashlytics.sharedInstance().setUserEmail("\(VKSdk.getAccessToken().email)")
-            Crashlytics.sharedInstance().setUserIdentifier("VKID:\(VKSdk.getAccessToken().userId)")
+            
+            EPUserData.setUserEmail(VKSdk.getAccessToken().email)
+            EPUserData.setUserVKID(VKSdk.getAccessToken().userId)
+            
             newToken.saveTokenToDefaults("VKToken")
             if VKSdk.hasPermissions([VK_PER_MESSAGES]) {
                 NSNotificationCenter.defaultCenter().postNotificationName("VK_AUTHORISED_MESSAGES", object: nil)

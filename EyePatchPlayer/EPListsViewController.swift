@@ -13,7 +13,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var playlistsTableView: UITableView!
 
-    var playlists = ["My", "Friends", "Recommended", "Messages"]
+    var playlists = ["My Music", "Friends", "Recommended", "Messages"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         if let selectedText = selectedCell.textLabel?.text {
             switch selectedText {
-            case "My":
+            case "My Music":
                 self.performSegueWithIdentifier("seguePlaylist", sender: selectedText)
                 break
             case "Recommended":
@@ -84,7 +84,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch segue.identifier! {
         case "seguePlaylist":
             switch sender as! String {
-            case "My":
+            case "My Music":
                 print("segueing to playlist (My)")
                 let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
                 destinationViewController.userID = userID

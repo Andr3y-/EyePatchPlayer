@@ -12,6 +12,8 @@ import AFNetworking
 import Fabric
 import Crashlytics
 import Realm
+import Parse
+import Bolts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,20 +21,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-
+        
+        //  Realm Migration
         performMigrationIfNeeded()
+        //  Directories (Structure)
         EPCache.performStartChecks()
+        
+        //  Fabric
         Fabric.with([Crashlytics.self])
+        
+        //  Reachability
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
-
+        
+        //  Parse
+        Parse.setApplicationId("EiNXLsL2dqGqFTfeRrEhKjI0pVwzqiiDaktKKBaN",
+            clientKey: "ivW39UauexSmxw1jkBNnzJvGGPupTRtDq2KNSp8k")
+        
+        //  [Optional] Track statistics around application opens.
+        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+        
+        //  Shake to Shuffle support
         application.applicationSupportsShakeToEdit = true
-
+        
+        //  In 5 seconds, check if any scrobbles pending
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
             EPLastFMScrobbleManager.scrobbleFullQueue()
         })
-
+        
         return true
     }
 

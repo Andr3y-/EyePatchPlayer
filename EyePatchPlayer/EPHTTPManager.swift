@@ -132,50 +132,52 @@ class EPHTTPManager: NSObject {
         print("adding track to playlist")
 
         if !EPSettings.shouldAutomaticallySaveToPlaylist() {
+            //  If not required, call completion handled immediately (exit)
             if completion != nil {
                 completion!(result: false, track: track)
             }
-        }
+        } else {
+            //  If required, add track to playlist first, then call the callback to initiate a track download
+            if let userID = VKSdk.getAccessToken().userId {
 
-        if let userID = VKSdk.getAccessToken().userId {
-
-            if userID == "\(track.ownerID)" {
-                //track already in the playlist
-                print("adding track to playlist success result: track is already in the playlist")
-                if completion != nil {
-                    completion!(result: true, track: track)
-                }
-            } else {
-                //track is not in the playlist, adding it
-                let addRequest: VKRequest = VKRequest(method: "audio.add", andParameters: ["audio_id": "\(track.ID)", "owner_id": track.ownerID], andHttpMethod: "GET")
-                addRequest.executeWithResultBlock({
-                    (response) -> Void in
-
-                    let newID = response.json as! Int
-
-                    print("adding track to playlist success result: \(newID)")
-                    //update track ID
-                    track.ID = newID
-
+                if userID == "\(track.ownerID)" {
+                    //track already in the playlist
+                    print("adding track to playlist success result: track is already in the playlist")
                     if completion != nil {
                         completion!(result: true, track: track)
                     }
+                } else {
+                    //track is not in the playlist, adding it
+                    let addRequest: VKRequest = VKRequest(method: "audio.add", andParameters: ["audio_id": "\(track.ID)", "owner_id": track.ownerID], andHttpMethod: "GET")
+                    addRequest.executeWithResultBlock({
+                        (response) -> Void in
 
-                }, errorBlock: {
-                    (error) -> Void in
-                    if completion != nil {
-                        completion!(result: false, track: nil)
-                    }
+                        let newID = response.json as! Int
 
-                    print(error)
-                })
-            }
+                        print("adding track to playlist success result: \(newID)")
+                        //update track ID
+                        track.ID = newID
 
-        } else {
-            print("adding track to playlist success result: could not resolve VK UserID")
+                        if completion != nil {
+                            completion!(result: true, track: track)
+                        }
 
-            if completion != nil {
-                completion!(result: false, track: nil)
+                    }, errorBlock: {
+                        (error) -> Void in
+                        if completion != nil {
+                            completion!(result: false, track: nil)
+                        }
+
+                        print(error)
+                    })
+                }
+
+            } else {
+                print("adding track to playlist success result: could not resolve VK UserID")
+
+                if completion != nil {
+                    completion!(result: false, track: nil)
+                }
             }
         }
     }
