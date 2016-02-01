@@ -75,11 +75,11 @@ class EPLastFMScrobbleManager: NSObject {
                     (result) -> Void in
                     if result {
                         scrobbleQueueArray.removeFirst()
-
-                        RLMRealm.defaultRealm().beginWriteTransaction()
-                        RLMRealm.defaultRealm().deleteObject(scrobble)
-                        RLMRealm.defaultRealm().commitWriteTransaction()
-
+                        if !scrobble.invalidated {
+                            RLMRealm.defaultRealm().beginWriteTransaction()
+                            RLMRealm.defaultRealm().deleteObject(scrobble)
+                            RLMRealm.defaultRealm().commitWriteTransaction()
+                        }
                         self.scrobbleQueue(scrobbleQueueArray)
                     } else {
                         print("stopping scrobbling queue, error occured")
