@@ -18,8 +18,10 @@ class EPTrack: RLMObject {
     dynamic var URLString: String = ""
     dynamic var isCached = false
 
+    //  KVO pair
     private dynamic var isArtworkCached = false
     internal dynamic var downloadProgress: EPDownloadProgress?
+    
     var lyricsID: Int?
     var artworkUIImage: UIImage?
 
@@ -79,11 +81,23 @@ class EPTrack: RLMObject {
             print(EPCache.pathForTrackArtwork(self))
             if artworkImageData!.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
                 print("caching artwork for cached track")
-
-                RLMRealm.defaultRealm().beginWriteTransaction()
-                self.isArtworkCached = true
-                RLMRealm.defaultRealm().addOrUpdateObject(self)
-                RLMRealm.defaultRealm().commitWriteTransaction()
+                
+                if self.observationInfo != nil {
+                    print("track observation info is non-nil, however addOrUpdateObject is called")
+                    if let selfCopy = self.copy() as? EPTrack {
+                        self.isArtworkCached = true
+                        selfCopy.isArtworkCached = true
+                        RLMRealm.defaultRealm().beginWriteTransaction()
+                        RLMRealm.defaultRealm().addOrUpdateObject(selfCopy)
+                        RLMRealm.defaultRealm().commitWriteTransaction()
+                    }
+                    
+                } else {
+                    RLMRealm.defaultRealm().beginWriteTransaction()
+                    self.isArtworkCached = true
+                    RLMRealm.defaultRealm().addOrUpdateObject(self)
+                    RLMRealm.defaultRealm().commitWriteTransaction()
+                }
 
             } else {
                 print("failed to cache artwork")
@@ -113,7 +127,9 @@ class EPTrack: RLMObject {
         track.ID = self.ID
         track.URLString = self.URLString
         track.isCached = self.isCached
-
+        track.lyricsID = self.lyricsID
+        track.artworkUIImage = self.artworkUIImage
+        
         return track
     }
 

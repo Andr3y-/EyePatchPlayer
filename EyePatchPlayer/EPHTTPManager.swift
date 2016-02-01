@@ -417,6 +417,7 @@ class EPHTTPManager: NSObject {
                     print("download successful")
 
                     EPHTTPManager.sharedInstance.downloadingTracks.removeObject(track)
+                    
                     track.downloadProgress?.finished = true
                     track.downloadProgress = nil
 

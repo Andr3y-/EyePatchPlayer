@@ -36,7 +36,6 @@ class EPMusicPlaylist: AnyObject {
             return []
         }
         
-        
         var index: Int?
         for i in (0 ... shuffledTracksLazy.count - 1) {
             if shuffledTracksLazy[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {

@@ -88,10 +88,20 @@ class EPCache: NSObject {
                 }
             })
         }
-        RLMRealm.defaultRealm().beginWriteTransaction()
-        RLMRealm.defaultRealm().addOrUpdateObject(track)
-        RLMRealm.defaultRealm().commitWriteTransaction()
-
+        
+        if track.observationInfo != nil {
+            print("track observation info is non-nil, however addOrUpdateObject is called")
+            if let trackCopy = track.copy() as? EPTrack {
+                RLMRealm.defaultRealm().beginWriteTransaction()
+                RLMRealm.defaultRealm().addOrUpdateObject(trackCopy)
+                RLMRealm.defaultRealm().commitWriteTransaction()
+            }
+        } else {
+            RLMRealm.defaultRealm().beginWriteTransaction()
+            RLMRealm.defaultRealm().addOrUpdateObject(track)
+            RLMRealm.defaultRealm().commitWriteTransaction()
+        }
+        
         result = true
         NSNotificationCenter.defaultCenter().postNotificationName("TrackCached", object: track)
         print("added track to storage")

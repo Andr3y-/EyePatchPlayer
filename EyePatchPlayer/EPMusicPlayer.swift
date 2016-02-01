@@ -45,7 +45,12 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     var playlist: EPMusicPlaylist = EPMusicPlaylist()
     //scrobbling 
     var scrobblingComplete = false
-
+    var repeatOn = false {
+        didSet {
+            print("player: repeat is now: \(repeatOn)")
+        }
+    }
+    
     private(set) internal var activeTrack: EPTrack = EPTrack() {
         didSet {
             print("activeTrack didSet: \(activeTrack.artist) - \(activeTrack.title)\n\(activeTrack.URL())")
@@ -270,9 +275,9 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         setTrack(previousTrack, force: true)
     }
 
-//    func playerItemDidReachEnd(notification: NSNotification) {
-//        print("song finished playing")
-//    }
+    func repeatTrack() {
+        self.setTrack(self.activeTrack, force: true)
+    }
 
     //updating playback progress as well as download progress
     func updateProgress() {
@@ -288,8 +293,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
     }
 
     //player library interface
-
-   
 
     func prebufferedPercent() -> Double {
         var prebufferedPercent: Double = 0.0
@@ -470,12 +473,22 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         case STKAudioPlayerStopReasonNone:
             print("STKAudioPlayerStopReasonNone")
             if self.playbackTime() / Float(self.activeTrack.duration) > 0.95 {
-                self.playNextSong()
+                if self.repeatOn {
+                    self.repeatTrack()
+                } else {
+                    self.playNextSong()
+                }
+                
             }
             break
         case STKAudioPlayerStopReasonEof:
             print("STKAudioPlayerStopReasonEof")
-            self.playNextSong()
+            if self.repeatOn {
+                self.repeatTrack()
+            } else {
+                self.playNextSong()
+            }
+            
             break
         case STKAudioPlayerStopReasonUserAction:
             print("STKAudioPlayerStopReasonUserAction")

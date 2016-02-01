@@ -50,6 +50,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 //    @IBOutlet weak var shuffleSwitch: UISwitch!
     @IBOutlet weak var cacheButton: UIButton!
 
+    @IBOutlet weak var repeatButtonView: EPRepeatButton!
     @IBOutlet weak var shuffleButtonView: EPShuffleButton!
     @IBOutlet weak var trackDataContainerConstraint: NSLayoutConstraint!
     @IBOutlet weak var controlsViewConstraint: NSLayoutConstraint!
@@ -81,6 +82,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 })
             }
         }
+        self.repeatButtonView.tintColor = UIColor.whiteColor()
         self.shuffleButtonView.tintColor = UIColor.whiteColor()
         setupInteractions()
 
@@ -147,7 +149,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     func processViews() {
-        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, cacheButton] {
+        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, repeatButtonView, cacheButton] {
             if view.superview! != self.vibrancyContentView {
 
                 let oldFrame = view.frame
@@ -464,27 +466,32 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     @IBAction func cacheButtonTap(sender: AnyObject) {
-        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
-        case true:
-            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-            print("removal requested")
-            break
-        default:
-            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: {
-                (result, track) -> Void in
-                if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-                    self.trackCachedWithResult(true)
-                } else {
-                    self.trackCachedWithResult(false)
-                }
+//        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
+//        case true:
+////            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+//            print("removal requested")
+//            break
+//        default:
+//            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: {
+//                (result, track) -> Void in
+//                if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+//                    self.trackCachedWithResult(true)
+//                } else {
+//                    self.trackCachedWithResult(false)
+//                }
+//
+//            }, progressBlock: {
+//                (progressValue) -> Void in
+//            })
+//
+////            self.cacheButton.setTitle("Saving", forState: UIControlState.Normal)
+//            break
+//        }
+    }
 
-            }, progressBlock: {
-                (progressValue) -> Void in
-            })
-
-            self.cacheButton.setTitle("Saving", forState: UIControlState.Normal)
-            break
-        }
+    @IBAction func repeatTap(sender: AnyObject) {
+        self.repeatButtonView.setOn(!self.repeatButtonView.isOn, animated: true)
+        EPMusicPlayer.sharedInstance.repeatOn = self.repeatButtonView.isOn
     }
 
     @IBAction func shuffleTap(sender: AnyObject) {
@@ -574,11 +581,11 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     func trackCachedWithResult(result: Bool) {
-        if result {
-            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-        } else {
-            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
-        }
+//        if result {
+//            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+//        } else {
+//            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
+//        }
     }
 
     func trackRetrievedArtworkImage(image: UIImage) {
@@ -611,21 +618,25 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.titleLabelBig.text = EPMusicPlayer.sharedInstance.activeTrack.title
 
         self.progressBarPlayback.setProgress(0, animated: false)
-//        self.progressBarPlaybackBig.setProgress(0, animated: false)
+
         self.progressViewPlaybackBig.setProgress(0, animated: false)
         
         if EPMusicPlayer.sharedInstance.playlist.shuffleOn != self.shuffleButtonView.isOn {
-            self.self.shuffleButtonView.setOn((EPMusicPlayer.sharedInstance.playlist.shuffleOn), animated: true)
+            self.shuffleButtonView.setOn((EPMusicPlayer.sharedInstance.playlist.shuffleOn), animated: true)
+        }
+        
+        if EPMusicPlayer.sharedInstance.repeatOn != self.repeatButtonView.isOn {
+            self.repeatButtonView.setOn((EPMusicPlayer.sharedInstance.repeatOn), animated: true)
         }
 
-        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
-        case true:
-            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-            break
-        default:
-            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
-            break
-        }
+//        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
+//        case true:
+//            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
+//            break
+//        default:
+//            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
+//            break
+//        }
         self.extrasView?.updateContent(false)
         print("updateUIForNewTrack - complete")
     }

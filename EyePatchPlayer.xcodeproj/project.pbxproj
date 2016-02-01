@@ -19,6 +19,7 @@
 		C42A43061C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */; };
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
+		C463B5281C5A34AD0018A708 /* EPRepeatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */; };
 		C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468474E1BDE9C070066F616 /* EPMessage.swift */; };
 		C46AA8E91C2220910012FF3E /* EPShuffleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */; };
 		C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */; };
@@ -115,6 +116,7 @@
 		C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSystemEnvironmentChangeManager.swift; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
+		C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRepeatButton.swift; sourceTree = "<group>"; };
 		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
 		C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPShuffleButton.swift; sourceTree = "<group>"; };
 		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			children = (
 				ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */,
 				C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */,
+				C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */,
 				C472ADA41C24705800A2D37C /* EPProgressView.swift */,
 				ABC3561153145A3211073BB6 /* Extras */,
 			);
@@ -839,6 +842,7 @@
 				C47D3F311C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift in Sources */,
 				C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */,
 				C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */,
+				C463B5281C5A34AD0018A708 /* EPRepeatButton.swift in Sources */,
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,

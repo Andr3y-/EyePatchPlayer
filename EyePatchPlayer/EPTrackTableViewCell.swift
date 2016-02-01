@@ -113,6 +113,9 @@ class EPTrackTableViewCell: UITableViewCell {
             if let newProgress = object as? EPDownloadProgress {
                 print("progress finished: \(newProgress.finished)")
                 if newProgress.finished {
+//                    self.downloadProgress?.removeObserver(self, forKeyPath: "percentComplete")
+//                    self.downloadProgress?.removeObserver(self, forKeyPath: "finished")
+                    
                     self.progressIndicatorView.animateCompletion()
                 } else {
                     self.progressIndicatorView.clear()

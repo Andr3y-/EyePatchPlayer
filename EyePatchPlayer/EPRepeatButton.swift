@@ -1,14 +1,14 @@
 //
-//  EPShuffleButton.swift
+//  EPRepeatButton.swift
 //  EyePatchPlayer
 //
-//  Created by Andr3y on 16/12/2015.
-//  Copyright © 2015 Apppli. All rights reserved.
+//  Created by Andr3y on 28/01/2016.
+//  Copyright © 2016 Apppli. All rights reserved.
 //
 
 import UIKit
 
-class EPShuffleButton: UIControl {
+class EPRepeatButton: UIControl {
     
     let shuffleLayer1 = CAShapeLayer()
     let shuffleLayer2 = CAShapeLayer()
@@ -19,10 +19,13 @@ class EPShuffleButton: UIControl {
     
     //constants (offsets, durations etc) primary instrument for making adjustments
     let mostHorizontalOffsetFromSide: CGFloat = 2.0 / 10
-    let midHorizontalOffsetFromSide: CGFloat = 3.0 / 10
-    let verticalOffsetFromSide: CGFloat = 3 / 10
+    let midHorizontalOffsetFromSide: CGFloat = 7 / 10
+    let mostVerticalOffsetFromSide: CGFloat = 3 / 10
+    let midVerticalOffsetFromSide: CGFloat = 5 / 10
+    let mostAlmostOffsetMultiplied: CGFloat = 1/10
     let arrowHorizontalOffsetWidthScaled: CGFloat = 0.10
     let arrowVerticalOffsetHeightScaled: CGFloat = 0.10
+    let verticalOffsetStart: CGFloat = 0.2
     let animationDuration = 0.1
     let shadowRadius: CGFloat = 2.5
     let minOpacity: Float = 0.4
@@ -32,7 +35,9 @@ class EPShuffleButton: UIControl {
     var pointTopMidLeft = CGPoint()
     var pointTopMidRight = CGPoint()
     var pointTopMostRight = CGPoint()
+    var pointTopAlmostRight = CGPoint()
     var pointBotMostLeft = CGPoint()
+    var pointBotAlmostLeft = CGPoint()
     var pointBotMidLeft = CGPoint()
     var pointBotMidRight = CGPoint()
     var pointBotMostRight = CGPoint()
@@ -52,7 +57,7 @@ class EPShuffleButton: UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         backgroundColor = UIColor.clearColor()
         setupLayer()
     }
@@ -98,17 +103,19 @@ class EPShuffleButton: UIControl {
         bezierPath.moveToPoint(pointTopMostLeft)
         bezierPath.addLineToPoint(pointTopMidLeft)
         
-        bezierPath.addCurveToPoint(pointBotMidRight,
-            controlPoint1: pointControlTop,
-            controlPoint2: pointControlBot
-        )
+        //        bezierPath.addCurveToPoint(pointBotMidRight,
+        //            controlPoint1: pointControlTop,
+        //            controlPoint2: pointControlBot
+        //        )
         
-        bezierPath.addLineToPoint(pointBotMostRight)
-
-        bezierPath.moveToPoint(pointArrowBotAbove)
-        bezierPath.addLineToPoint(pointBotMostRight)
-        bezierPath.moveToPoint(pointArrowBotBelow)
-        bezierPath.addLineToPoint(pointBotMostRight)
+        bezierPath.addQuadCurveToPoint(pointTopMidRight, controlPoint:pointControlTop)
+        
+        bezierPath.addLineToPoint(pointTopAlmostRight)
+        
+        bezierPath.moveToPoint(pointArrowTopAbove)
+        bezierPath.addLineToPoint(pointTopAlmostRight)
+        bezierPath.moveToPoint(pointArrowTopBelow)
+        bezierPath.addLineToPoint(pointTopAlmostRight)
         
         return bezierPath
     }
@@ -116,59 +123,27 @@ class EPShuffleButton: UIControl {
     func shuffleOnPath2() -> UIBezierPath {
         let bezierPath = UIBezierPath()
         
-        bezierPath.moveToPoint(pointBotMostLeft)
-        bezierPath.addLineToPoint(pointBotMidLeft)
-        
-        bezierPath.addCurveToPoint(pointTopMidRight,
-            controlPoint1: pointControlBot,
-            controlPoint2: pointControlTop
-        )
-        
-        bezierPath.addLineToPoint(pointTopMostRight)
-
-        bezierPath.moveToPoint(pointArrowTopAbove)
-        bezierPath.addLineToPoint(pointTopMostRight)
-        bezierPath.moveToPoint(pointArrowTopBelow)
-        bezierPath.addLineToPoint(pointTopMostRight)
-        
-        return bezierPath
-    }
-    
-    func shuffleOffPath1() -> UIBezierPath {
-        let bezierPath = UIBezierPath()
-        
-        bezierPath.moveToPoint(pointTopMostLeft)
-        bezierPath.addLineToPoint(pointTopMidLeft)
-        bezierPath.addLineToPoint(pointTopMidRight)
-        bezierPath.addLineToPoint(pointTopMostRight)
-
-        bezierPath.moveToPoint(pointArrowTopAbove)
-        bezierPath.addLineToPoint(pointTopMostRight)
-        bezierPath.moveToPoint(pointArrowTopBelow)
-        bezierPath.addLineToPoint(pointTopMostRight)
-        
-        return bezierPath
-    }
-    
-    func shuffleOffPath2() -> UIBezierPath {
-        let bezierPath = UIBezierPath()
-        
-        bezierPath.moveToPoint(pointBotMostLeft)
-        bezierPath.addLineToPoint(pointBotMidLeft)
+        bezierPath.moveToPoint(pointBotMostRight)
         bezierPath.addLineToPoint(pointBotMidRight)
-        bezierPath.addLineToPoint(pointBotMostRight)
+        bezierPath.addQuadCurveToPoint(pointBotMidLeft, controlPoint:pointControlBot)
+        //        bezierPath.addCurveToPoint(pointTopMidRight,
+        //            controlPoint1: pointControlBot,
+        //            controlPoint2: pointControlTop
+        //        )
+        
+        bezierPath.addLineToPoint(pointBotAlmostLeft)
         
         bezierPath.moveToPoint(pointArrowBotAbove)
-        bezierPath.addLineToPoint(pointBotMostRight)
+        bezierPath.addLineToPoint(pointBotAlmostLeft)
         bezierPath.moveToPoint(pointArrowBotBelow)
-        bezierPath.addLineToPoint(pointBotMostRight)
+        bezierPath.addLineToPoint(pointBotAlmostLeft)
         
         return bezierPath
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         self.calculatePoints()
         shuffleLayer1.frame = bounds
         shuffleLayer1.path = shuffleOnPath1().CGPath
@@ -181,7 +156,7 @@ class EPShuffleButton: UIControl {
     }
     
     func animateChange() {
-      
+        
         let shadow1 = CABasicAnimation(keyPath: "shadowOpacity")
         shadow1.fromValue = isOn ? 0.0 : 1.0
         shadow1.toValue = !isOn ? 0.0 : 1.0
@@ -229,81 +204,87 @@ class EPShuffleButton: UIControl {
         } else {
             shuffleLayer1.removeAllAnimations()
             shuffleLayer2.removeAllAnimations()
-            
-            shuffleLayer1.path = isOn ? self.shuffleOnPath1().CGPath : self.shuffleOffPath1().CGPath
-            shuffleLayer2.path = isOn ? self.shuffleOnPath2().CGPath : self.shuffleOffPath2().CGPath
         }
     }
     
     func calculatePoints() {
+        //start for top
         pointTopMostLeft = CGPoint(
             x: round(CGRectGetWidth(frame) * mostHorizontalOffsetFromSide),
-            y: round(CGRectGetHeight(frame) * verticalOffsetFromSide)
+            y: round(CGRectGetHeight(frame) * (1 - (mostVerticalOffsetFromSide + verticalOffsetStart)))
         )
         
         pointTopMidLeft = CGPoint(
-            x: round(CGRectGetWidth(frame) * midHorizontalOffsetFromSide),
-            y: round(CGRectGetHeight(frame) * verticalOffsetFromSide)
+            x: round(CGRectGetWidth(frame) * mostHorizontalOffsetFromSide),
+            y: round(CGRectGetHeight(frame) * midVerticalOffsetFromSide)
         )
         
         pointTopMidRight = CGPoint(
             x: round(CGRectGetWidth(frame) * (1 - midHorizontalOffsetFromSide)),
-            y: round(CGRectGetHeight(frame) * verticalOffsetFromSide)
+            y: round(CGRectGetHeight(frame) * mostVerticalOffsetFromSide)
         )
-        
+        //finish for top
         pointTopMostRight = CGPoint(
             x: round(CGRectGetWidth(frame) * (1 - mostHorizontalOffsetFromSide)),
-            y: round(CGRectGetHeight(frame) * verticalOffsetFromSide)
+            y: round(CGRectGetHeight(frame) * mostVerticalOffsetFromSide)
         )
-        
+        pointTopAlmostRight = CGPoint(
+            x: round(CGRectGetWidth(frame) * (1 - mostHorizontalOffsetFromSide)) - mostAlmostOffsetMultiplied * CGRectGetWidth(frame),
+            y: round(CGRectGetHeight(frame) * mostVerticalOffsetFromSide)
+        )
         pointBotMostLeft = CGPoint(
             x: round(CGRectGetWidth(frame) * mostHorizontalOffsetFromSide),
-            y: round(CGRectGetHeight(frame) * (1 - verticalOffsetFromSide))
+            y: round(CGRectGetHeight(frame) * (1 - mostVerticalOffsetFromSide))
+        )
+        //finish for bot
+        pointBotAlmostLeft = CGPoint(
+            x: round(CGRectGetWidth(frame) * mostHorizontalOffsetFromSide) + mostAlmostOffsetMultiplied * CGRectGetWidth(frame),
+            y: round(CGRectGetHeight(frame) * (1 - mostVerticalOffsetFromSide))
         )
         
         pointBotMidLeft = CGPoint(
             x: round(CGRectGetWidth(frame) * midHorizontalOffsetFromSide),
-            y: round(CGRectGetHeight(frame) * (1 - verticalOffsetFromSide))
+            y: round(CGRectGetHeight(frame) * (1 - mostVerticalOffsetFromSide))
         )
         
         pointBotMidRight = CGPoint(
-            x: round(CGRectGetWidth(frame) * (1 - midHorizontalOffsetFromSide)),
-            y: round(CGRectGetHeight(frame) * (1 - verticalOffsetFromSide))
+            x: round(CGRectGetWidth(frame) * (1 - mostHorizontalOffsetFromSide)),
+            y: round(CGRectGetHeight(frame) * (1 - midVerticalOffsetFromSide))
         )
-        
+        //start for bot
         pointBotMostRight = CGPoint(
             x: round(CGRectGetWidth(frame) * (1 - mostHorizontalOffsetFromSide)),
-            y: round(CGRectGetHeight(frame) * (1 - verticalOffsetFromSide))
+            y: round(CGRectGetHeight(frame) * (mostVerticalOffsetFromSide + verticalOffsetStart))
         )
         
         pointControlTop = CGPoint(
-            x: round((pointTopMidLeft.x+pointTopMidRight.x)/2),
-            y: round(pointTopMidLeft.y)
+            x: round(pointTopMostLeft.x),
+            y: round(pointTopMostRight.y)
         )
         
         pointControlBot = CGPoint(
-            x: round((pointBotMidLeft.x+pointBotMidRight.x)/2),
-            y: round(pointBotMidRight.y)
+            x: round(pointBotMostRight.x),
+            y: round(pointBotMostLeft.y)
         )
         
         pointArrowTopAbove = CGPoint(
-            x: round(pointTopMostRight.x - CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
-            y: round(pointTopMostRight.y - CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
+            x: round(pointTopAlmostRight.x - CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
+            y: round(pointTopAlmostRight.y - CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
         )
         
         pointArrowTopBelow = CGPoint(
-            x: round(pointTopMostRight.x - CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
-            y: round(pointTopMostRight.y + CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
+            x: round(pointTopAlmostRight.x - CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
+            y: round(pointTopAlmostRight.y + CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
         )
         
         pointArrowBotAbove = CGPoint(
-            x: round(pointBotMostRight.x - CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
-            y: round(pointBotMostRight.y - CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
+            x: round(pointBotAlmostLeft.x + CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
+            y: round(pointBotAlmostLeft.y - CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
         )
         
         pointArrowBotBelow = CGPoint(
-            x: round(pointBotMostRight.x - CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
-            y: round(pointBotMostRight.y + CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
+            x: round(pointBotAlmostLeft.x + CGRectGetWidth(frame) * arrowHorizontalOffsetWidthScaled),
+            y: round(pointBotAlmostLeft.y + CGRectGetHeight(frame) * arrowVerticalOffsetHeightScaled)
         )
     }
 }
