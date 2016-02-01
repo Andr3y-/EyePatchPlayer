@@ -176,6 +176,11 @@ class EPMusicPlaylist: AnyObject {
     }
 
     func moveActiveTrackToZeroIndex() {
+        
+        if shuffledTracks.count == 0 || originalTracks.count == 0 {
+            return
+        }
+        
         var index: Int?
         for i in (0 ... shuffledTracks.count - 1) {
             if shuffledTracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {

@@ -85,9 +85,9 @@ class EPTrack: RLMObject {
                 if self.observationInfo != nil {
                     print("track observation info is non-nil, however addOrUpdateObject is called")
                     if let selfCopy = self.copy() as? EPTrack {
-                        self.isArtworkCached = true
-                        selfCopy.isArtworkCached = true
+//                        self.isArtworkCached = true
                         RLMRealm.defaultRealm().beginWriteTransaction()
+                        selfCopy.isArtworkCached = true
                         RLMRealm.defaultRealm().addOrUpdateObject(selfCopy)
                         RLMRealm.defaultRealm().commitWriteTransaction()
                     }
