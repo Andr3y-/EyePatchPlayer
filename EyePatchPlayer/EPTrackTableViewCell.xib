@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9052" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9040"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -90,6 +91,7 @@
                 <outlet property="mainTapArea" destination="MYL-Hs-LYu" id="nPA-rb-gif"/>
                 <outlet property="progressIndicatorView" destination="mQ9-Db-qXp" id="gbr-uS-8Vk"/>
                 <outlet property="secondaryTapArea" destination="9Tl-e0-CfH" id="ejH-Rg-54Y"/>
+                <outlet property="selectionIndicatorView" destination="xxA-aM-5f9" id="YvJ-Dh-1iK"/>
                 <outlet property="titleLabel" destination="2u2-I5-Wck" id="4Au-q1-KAA"/>
             </connections>
             <point key="canvasLocation" x="267" y="566"/>

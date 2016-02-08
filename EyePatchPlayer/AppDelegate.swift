@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  EyePatchPlayer
@@ -44,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //  Shake to Shuffle support
         application.applicationSupportsShakeToEdit = true
         
+        //  NavBar appearance tint color
+        UINavigationBar.appearance().tintColor = UIView.defaultTintColor()
+
         //  In 5 seconds, check if any scrobbles pending
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
             EPLastFMScrobbleManager.scrobbleFullQueue()

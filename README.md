@@ -1,13 +1,23 @@
 # EyePatchPlayer
 
 <p align="center">
-<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2027.PNG" width="300" hspace="20">  
-<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2028.PNG" width="300" hspace="20">
+<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/1.png" width="300" hspace="20">  
+<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/2.png" width="300" hspace="20">
 </p>
 
 <p align="center">
-<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2033.PNG" width="300" hspace="20">  
-<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/IMG_2029.PNG" width="300" hspace="20">
+<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/3.png" width="300" hspace="20">  
+<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/4.png" width="300" hspace="20">
+</p>
+
+<p align="center">
+<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/5.png" width="300" hspace="20">  
+<img src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/6.png" width="300" hspace="20">
+</p>
+
+<p align="center">
+<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/7.png" width="300" hspace="20">  
+<img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/8.png" width="300" hspace="20">
 </p>
 
 DONE:
