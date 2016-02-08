@@ -33,12 +33,25 @@ WHAT'S IT ALL ABOUT:
 FEATURES IMPLEMENTED:
 
 - [x] Displaying download progress (Pure KVO Approach)
+- [x] Custom Repeat & Shuffle glow-style buttons
+- [x] Custom UIProgressView for easy seeking
 - [x] Remote playback control from iOS (lock and bottom pan menu), Album Covers in App & on the Lock Screen
 - [x] Friends' Music
-- [x] Pause when headphones disconnected, resume when headphones connected (Environment Change Manager)
+- [x] Pause when headphones disconnected or call received, resume when headphones connected or call ended (Environment Change Manager)
 - [x] Display cached status for tracks (yes/no/partial if in progress)
 - [x] Player Widget visible across all screens of the application (UIWindow approach)
 - [x] Saving last played track & respective playlist for next application launch
+- [x] VK Status Broadcast & Last.fm Now Playing updating
+- [x] Download Queue (Max 1 concurrently)
+- [x] Tracks from Messages (Last 10)
+- [x] Play Filtered Selection
+- [x] Seeking (Hold Next / Prev)
+- [x] Play Selection / Search Results
+- [x] Artwork search advanced filters (excludes specific symbols & words)
+- [x] Song Lyrics
+- [x] EPMusicPlayerRemoteManager controlling player (even when app is minimised)
+- [x] Playback history with Parse
+
 - [x] Visualised Adjustable Settings:
     - [x] Last.fm
     - [x] Status broadcast
@@ -46,19 +59,6 @@ FEATURES IMPLEMENTED:
     - [x] Artwork Size and Presence
     - [x] Shake to Shuffle
     - [x] Equalizer
-- [x] VK Status Broadcast & Last.fm Now Playing updating
-- [x] Download Queue (Max 1 concurrently)
-- [x] Tracks from Messages (Last 10)
-- [x] Play Filtered Selection
-- [x] Seeking (Hold Next/Prev)
-- [x] Play Selection / Search Results
-- [x] Artwork search advanced filters (excludes specific symbols & words)
-- [x] Song Lyrics
-- [x] Repeat & Shuffle custom buttons
-- [x] Custom UIProgressView for easy seeking
-- [x] Playback history with Parse
-- [x] EPMusicPlayerDelegate as a separate class for code clarity
-- [x] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
 
 TODO:
 
