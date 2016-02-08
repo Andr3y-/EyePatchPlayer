@@ -63,6 +63,9 @@ class EPSettingsTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.valueSwitch.tintColor = UIView.defaultTintColor()
+        self.valueSwitch.onTintColor = UIView.defaultTintColor()
+        self.secondaryButton.tintColor = UIView.defaultTintColor()
         // Initialization code
     }
 

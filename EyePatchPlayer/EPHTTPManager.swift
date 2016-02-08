@@ -254,7 +254,11 @@ class EPHTTPManager: NSObject {
         }) {
             (operation, error) -> Void in
             print("lastfm track.updateNowPlaying failure")
-            print(operation.response)
+            
+            if let operation = operation {
+                print(operation.response)
+            }
+            
             if completion != nil {
                 completion!(result: false)
             }

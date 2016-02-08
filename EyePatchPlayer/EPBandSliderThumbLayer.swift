@@ -37,7 +37,7 @@ class EPBandSliderThumbLayer: CAShapeLayer {
         self.anchorPoint = CGPointMake(0.5, 0.5)
         self.fillColor = UIColor.whiteColor().CGColor
         self.backgroundColor = UIColor.clearColor().CGColor
-        self.strokeColor = UIView().tintColor.CGColor
+        self.strokeColor = UIView.defaultTintColor().CGColor
     }
 
     required init?(coder aDecoder: NSCoder) {

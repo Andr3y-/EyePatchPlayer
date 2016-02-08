@@ -90,6 +90,8 @@ class EPTrack: RLMObject {
                         selfCopy.isArtworkCached = true
                         RLMRealm.defaultRealm().addOrUpdateObject(selfCopy)
                         RLMRealm.defaultRealm().commitWriteTransaction()
+
+                        
                     }
                     
                 } else {
@@ -132,7 +134,7 @@ class EPTrack: RLMObject {
         
         return track
     }
-
+    
     override class func ignoredProperties() -> [AnyObject]? {
         return ["artworkUIImage", "downloadProgress", "lyricsID"]
     }

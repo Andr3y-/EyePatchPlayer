@@ -37,7 +37,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     
     
     @IBOutlet weak var progressViewPlaybackBig: EPProgressView!
-//    @IBOutlet weak var progressBarPlaybackBig: UIProgressView!
+
     @IBOutlet weak var leftPlaybackTimeLabel: UILabel!
     @IBOutlet weak var rightPlaybackTimeLabel: UILabel!
 
@@ -47,8 +47,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     @IBOutlet weak var playPauseButtonPlaceholderBig: UIView!
     @IBOutlet weak var artistLabelBig: UILabel!
     @IBOutlet weak var titleLabelBig: UILabel!
-//    @IBOutlet weak var shuffleSwitch: UISwitch!
-    @IBOutlet weak var cacheButton: UIButton!
 
     @IBOutlet weak var repeatButtonView: EPRepeatButton!
     @IBOutlet weak var shuffleButtonView: EPShuffleButton!
@@ -67,7 +65,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.trackDataContainerConstraint.constant = -20
             self.controlsViewConstraint.constant = -20
         }
-
+        self.progressBarPlayback.progressTintColor = UIView.defaultTintColor()
         self.userInteractionEnabled = false
 
         EPPlayerWidgetView.sharedInstance = self
@@ -132,6 +130,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         super.layoutSubviews()
         if playPauseButton == nil {
             playPauseButton = RSPlayPauseButton(frame: playPauseButtonPlaceholder.frame)
+            playPauseButton?.tintColor = UIView.defaultTintColor()
             playPauseButton?.addTarget(self, action: "playPauseTap:", forControlEvents: UIControlEvents.TouchUpInside)
             self.playPauseButtonPlaceholder.backgroundColor = UIColor.clearColor()
             self.contentViewWidget.addSubview(playPauseButton!)
@@ -149,7 +148,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     func processViews() {
-        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, repeatButtonView, cacheButton] {
+        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, repeatButtonView] {
             if view.superview! != self.vibrancyContentView {
 
                 let oldFrame = view.frame
@@ -425,7 +424,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 print("extras view is not loaded")
                 return
             }
-
             extrasView.frame = self.albumArtImageViewBig.frame
             extrasView.translatesAutoresizingMaskIntoConstraints = true
             self.contentViewMain.addSubview(extrasView)
@@ -463,30 +461,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
             break
         }
-    }
-
-    @IBAction func cacheButtonTap(sender: AnyObject) {
-//        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
-//        case true:
-////            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-//            print("removal requested")
-//            break
-//        default:
-//            EPHTTPManager.downloadTrack(EPMusicPlayer.sharedInstance.activeTrack, completion: {
-//                (result, track) -> Void in
-//                if result && EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-//                    self.trackCachedWithResult(true)
-//                } else {
-//                    self.trackCachedWithResult(false)
-//                }
-//
-//            }, progressBlock: {
-//                (progressValue) -> Void in
-//            })
-//
-////            self.cacheButton.setTitle("Saving", forState: UIControlState.Normal)
-//            break
-//        }
     }
 
     @IBAction func repeatTap(sender: AnyObject) {
@@ -581,11 +555,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     func trackCachedWithResult(result: Bool) {
-//        if result {
-//            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-//        } else {
-//            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
-//        }
+
     }
 
     func trackRetrievedArtworkImage(image: UIImage) {

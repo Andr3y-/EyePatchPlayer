@@ -47,6 +47,7 @@ class EPStatusIndicatorView: UIView {
         }
     }
 
+
     func clear() {
         self.plusPathLayer.removeAllAnimations()
         self.tickPathLayer.removeAllAnimations()
@@ -87,15 +88,13 @@ class EPStatusIndicatorView: UIView {
         circlePathLayer.lineWidth = circleLineWidth
         circlePathLayer.anchorPoint = CGPointMake(0.5, 0.5)
         circlePathLayer.fillColor = UIColor.clearColor().CGColor
-//        circlePathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
-        circlePathLayer.strokeColor = self.tintColor.CGColor
+        circlePathLayer.strokeColor = UIView.defaultTintColor().CGColor
         layer.addSublayer(circlePathLayer)
     }
 
     func setupTick() {
         tickPathLayer.contentsScale = UIScreen.mainScreen().scale
-//        tickPathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
-        tickPathLayer.strokeColor = self.tintColor.CGColor
+        tickPathLayer.strokeColor = UIView.defaultTintColor().CGColor
         tickPathLayer.lineWidth = tickLineWidth
         tickPathLayer.fillColor = UIColor.clearColor().CGColor
 
@@ -104,8 +103,7 @@ class EPStatusIndicatorView: UIView {
 
     func setupPlus() {
         plusPathLayer.contentsScale = UIScreen.mainScreen().scale
-//        plusPathLayer.strokeColor = UIColor.defaultSystemTintColor().CGColor
-        plusPathLayer.strokeColor = self.tintColor.CGColor
+        plusPathLayer.strokeColor = UIView.defaultTintColor().CGColor
         plusPathLayer.lineWidth = plusLineWidth
         plusPathLayer.fillColor = UIColor.clearColor().CGColor
 
@@ -301,4 +299,5 @@ class EPStatusIndicatorView: UIView {
         plusPathLayer.frame = bounds
         plusPathLayer.path = plusPath().CGPath
     }
+    
 }

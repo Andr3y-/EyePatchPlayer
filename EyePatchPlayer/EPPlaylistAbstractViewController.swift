@@ -46,10 +46,11 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         }
 
         if shouldShowActivityIndicator {
-            activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView().tintColor, size: 30)
+            activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
             self.view.addSubview(activityIndicatorView)
 //            self.view.insertSubview(activityIndicatorView, belowSubview: self.tableView)
             activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds))
+//            activityIndicatorView.
             activityIndicatorView.startAnimating()
         }
 

@@ -19,6 +19,7 @@ class EPTrackTableViewCell: UITableViewCell {
     @IBOutlet weak var mainTapArea: UIView!
     @IBOutlet weak var secondaryTapArea: UIView!
     @IBOutlet weak var constraintSelectionIndicator: NSLayoutConstraint!
+    @IBOutlet weak var selectionIndicatorView: UIView!
     weak var delegate: EPTrackTableViewCellDelegate?
 
     override func prepareForReuse() {
@@ -45,6 +46,7 @@ class EPTrackTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionIndicatorView.backgroundColor = UIView.defaultTintColor()
         self.selectionStyle = UITableViewCellSelectionStyle.None
         let primaryTapper = UITapGestureRecognizer(target: self, action: "mainTap:")
         self.mainTapArea.addGestureRecognizer(primaryTapper)

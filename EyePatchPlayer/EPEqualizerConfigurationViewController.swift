@@ -10,10 +10,11 @@ import UIKit
 
 class EPEqualizerConfigurationViewController: UIViewController {
 
+    @IBOutlet weak var defaultButton: UIButton!
     @IBOutlet var verticalBandSliders: [EPVerticalBandSlider]!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.defaultButton.tintColor = UIView.defaultTintColor()
         drawRightMenuButton()
         self.navigationItem.title = "EQ"
         if let options = EPMusicPlayer.sharedInstance.audioStreamSTK?.options {

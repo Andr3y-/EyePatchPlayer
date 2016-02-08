@@ -78,7 +78,7 @@ class EPExtrasView: UIView {
 
 
         if activityIndicatorView == nil {
-            activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView().tintColor, size: 30)
+            activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
             activityIndicatorView!.tintColor = UIColor.whiteColor()
 
             self.rootContentView.addSubview(activityIndicatorView!)

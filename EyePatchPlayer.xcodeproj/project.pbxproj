@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6130580BD157E3F34DEA3C44 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC98F3C40624CFA580E61ED /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		ABC3576F53D7ED506EA8526A /* EPExtrasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC356CF6C1CE277BA5570A6 /* EPExtrasView.xib */; };
 		ABC35DDC0BE80A5AA8029241 /* EPPlayerWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */; };
 		ABC35EAB3EC35909D99953E7 /* EPExtrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC35CAED7CC7B9D835DE04F /* EPExtrasView.swift */; };
@@ -17,6 +16,7 @@
 		C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */; };
 		C4215B301BD79D8100D771F5 /* EPSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */; };
 		C42A43061C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */; };
+		C42CB3AC1C63734E00A429E6 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42CB3AB1C63734E00A429E6 /* Pods.framework */; };
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
 		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C463B5281C5A34AD0018A708 /* EPRepeatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */; };
@@ -44,7 +44,6 @@
 		C49E41921BE3AECE0012C0DD /* ProximaNova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E418F1BE3AECE0012C0DD /* ProximaNova-Bold.ttf */; };
 		C49E41931BE3AECE0012C0DD /* ProximaNova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */; };
 		C49E41941BE3AECE0012C0DD /* ProximaNova-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */; };
-		C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */; };
 		C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */; };
 		C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */; };
 		C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */; };
@@ -87,6 +86,8 @@
 		C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36A1BAC656000197746 /* AVFoundation.framework */; };
 		C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36C1BAC656700197746 /* libxml2.dylib */; };
 		C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */; };
+		C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */; };
+		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,8 +102,8 @@
 
 /* Begin PBXFileReference section */
 		0BC98F3C40624CFA580E61ED /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1F5E6FE989FDE56EE4F97B0B /* Pods-EyePatchPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyePatchPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-EyePatchPlayer/Pods-EyePatchPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		6B296360E994FA0B19D226C1 /* Pods_EyePatchPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyePatchPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABC356CF6C1CE277BA5570A6 /* EPExtrasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EPExtrasView.xib; sourceTree = "<group>"; };
 		ABC358E6E1DA392BD1CFD687 /* EPPlayerWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlayerWidgetView.swift; sourceTree = "<group>"; };
 		ABC35CAED7CC7B9D835DE04F /* EPExtrasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPExtrasView.swift; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 		C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSystemEnvironmentChangeManager.swift; sourceTree = "<group>"; };
+		C42CB3AB1C63734E00A429E6 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRepeatButton.swift; sourceTree = "<group>"; };
@@ -146,7 +148,6 @@
 		C49E418F1BE3AECE0012C0DD /* ProximaNova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.ttf"; sourceTree = "<group>"; };
 		C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.ttf"; sourceTree = "<group>"; };
 		C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.ttf"; sourceTree = "<group>"; };
-		C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+DefaultTintColor.swift"; sourceTree = "<group>"; };
 		C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPStatusIndicatorView.swift; sourceTree = "<group>"; };
 		C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrackTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAudioSessionManager.swift; sourceTree = "<group>"; };
@@ -189,6 +190,11 @@
 		C4FCB36A1BAC656000197746 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4FCB36C1BAC656700197746 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+DefaultTintColor.swift"; sourceTree = "<group>"; };
+		C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorWithHEX.swift"; sourceTree = "<group>"; };
+		D1B9D8DBB3A30A41AF4B43C1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		DCC42ACA9DACC5A7B17FAC73 /* Pods-EyePatchPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyePatchPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyePatchPlayer/Pods-EyePatchPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		FADE91D9E5AFA011EFC06B61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42CB3AC1C63734E00A429E6 /* Pods.framework in Frameworks */,
 				C4E828F21C5678E5004DFB04 /* libsqlite3.tbd in Frameworks */,
 				C4E828F01C5678DD004DFB04 /* libz.tbd in Frameworks */,
 				C4E828EE1C5678D7004DFB04 /* SystemConfiguration.framework in Frameworks */,
@@ -209,7 +216,6 @@
 				C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */,
 				C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */,
 				C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */,
-				6130580BD157E3F34DEA3C44 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,11 +229,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5778CDE021523F36B5B95232 /* Pods */ = {
+		1C9FE7AA601550C1FDBD602B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */,
-				233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */,
+				DCC42ACA9DACC5A7B17FAC73 /* Pods-EyePatchPlayer.debug.xcconfig */,
+				1F5E6FE989FDE56EE4F97B0B /* Pods-EyePatchPlayer.release.xcconfig */,
+				FADE91D9E5AFA011EFC06B61 /* Pods.debug.xcconfig */,
+				D1B9D8DBB3A30A41AF4B43C1 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -235,6 +243,7 @@
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C42CB3AB1C63734E00A429E6 /* Pods.framework */,
 				C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */,
 				C4E828EF1C5678DD004DFB04 /* libz.tbd */,
 				C4E828ED1C5678D7004DFB04 /* SystemConfiguration.framework */,
@@ -250,6 +259,7 @@
 				C4FCB3681BAC655C00197746 /* AudioToolbox.framework */,
 				C4FCB3661BAC655700197746 /* CFNetwork.framework */,
 				0BC98F3C40624CFA580E61ED /* Pods.framework */,
+				6B296360E994FA0B19D226C1 /* Pods_EyePatchPlayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -384,8 +394,8 @@
 				C489EAC31BA83D1D00D788E0 /* EyePatchPlayer */,
 				C489EADB1BA83D1D00D788E0 /* EyePatchPlayerTests */,
 				C489EAC21BA83D1D00D788E0 /* Products */,
-				5778CDE021523F36B5B95232 /* Pods */,
 				58F4D19E494145291077016A /* Frameworks */,
+				1C9FE7AA601550C1FDBD602B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -549,13 +559,14 @@
 			isa = PBXGroup;
 			children = (
 				C41CDBAA1BB2FE6D00EF6C03 /* RLMSupport.swift */,
-				C49E41961BE3C9880012C0DD /* UIColor+DefaultTintColor.swift */,
 				C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */,
+				C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */,
 				C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */,
 				C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */,
 				C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */,
 				C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */,
 				C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */,
+				C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -629,13 +640,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C489EAE21BA83D1D00D788E0 /* Build configuration list for PBXNativeTarget "EyePatchPlayer" */;
 			buildPhases = (
-				513C307F0C1F4AB12F67F725 /* Check Pods Manifest.lock */,
+				B5852C67E9FC2402EF5A5176 /* Check Pods Manifest.lock */,
 				C489EABD1BA83D1D00D788E0 /* Sources */,
 				C489EABE1BA83D1D00D788E0 /* Frameworks */,
 				C489EABF1BA83D1D00D788E0 /* Resources */,
-				D8A742F8DF703BEA96072129 /* Copy Pods Resources */,
-				A7E7954EFEDC83B8F9D76B9B /* Embed Pods Frameworks */,
 				C4D5C00C1BDF897D009F7710 /* ShellScript */,
+				B53E383E234424C7798514C7 /* Embed Pods Frameworks */,
+				0D84DB624FCBF345FD326DF1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -736,22 +747,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		513C307F0C1F4AB12F67F725 /* Check Pods Manifest.lock */ = {
+		0D84DB624FCBF345FD326DF1 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A7E7954EFEDC83B8F9D76B9B /* Embed Pods Frameworks */ = {
+		B53E383E234424C7798514C7 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -766,6 +777,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B5852C67E9FC2402EF5A5176 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		C4D5C00C1BDF897D009F7710 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -778,21 +804,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 3573f7e7df513dc16bb29fbd7591c75bbf3df5aa c8d346255a3f8791ba242e2b102a162c9af7d54b5e278a62a6ecec0358aa4d78";
-		};
-		D8A742F8DF703BEA96072129 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -816,6 +827,7 @@
 				C49E418C1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
 				C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */,
+				C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */,
 				C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */,
 				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
@@ -829,7 +841,6 @@
 				C4215B2F1BD79D8100D771F5 /* EPSettingsTableViewCell.swift in Sources */,
 				C4DA42BD1BEBA6CD003AA352 /* EPLyrics.swift in Sources */,
 				C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */,
-				C49E41971BE3C9880012C0DD /* UIColor+DefaultTintColor.swift in Sources */,
 				C47D3F2F1C05E3AC00E8CCCC /* EPLastFMScrobble.swift in Sources */,
 				C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */,
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
@@ -846,6 +857,7 @@
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
+				C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */,
 				C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */,
 				C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */,
 				C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */,
@@ -921,6 +933,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -968,6 +981,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -986,14 +1000,14 @@
 		};
 		C489EAE31BA83D1D00D788E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7A9B433B04EE394259E4DC3 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = FADE91D9E5AFA011EFC06B61 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gokul Selvaraj (7Z3ZH6KY3A)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1013,15 +1027,15 @@
 		};
 		C489EAE41BA83D1D00D788E0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 233376957A6F53AEBAB95C02 /* Pods.release.xcconfig */;
+			baseConfigurationReference = D1B9D8DBB3A30A41AF4B43C1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Apppli limited (536JQ4BA38)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

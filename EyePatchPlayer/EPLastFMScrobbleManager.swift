@@ -64,6 +64,7 @@ class EPLastFMScrobbleManager: NSObject {
         RLMRealm.defaultRealm().beginWriteTransaction()
         RLMRealm.defaultRealm().addObject(scrobble)
         RLMRealm.defaultRealm().commitWriteTransaction()
+
     }
 
     private class func scrobbleQueue(var scrobbleQueueArray: [EPLastFMScrobble]) {

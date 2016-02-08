@@ -100,6 +100,7 @@ class EPCache: NSObject {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().addOrUpdateObject(track)
             RLMRealm.defaultRealm().commitWriteTransaction()
+
         }
         
         result = true
@@ -140,6 +141,7 @@ class EPCache: NSObject {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().deleteObject(track)
             RLMRealm.defaultRealm().commitWriteTransaction()
+
         }
 
         return result
