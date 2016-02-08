@@ -20,24 +20,25 @@
 <img align="center" src="https://github.com/Andr3y-/EyePatchPlayer/raw/master-Swift-2.1/GitHub%20Images%20Folder/8.png" width="300" hspace="20">
 </p>
 
-DONE:
+WHAT'S IT ALL ABOUT:
 
+- [x] Free Online Music Streaming
 - [x] Cache for Offline Playback
-- [x] VK Status Broadcast & Last.fm Now Playing updating
-- [x] Online Music Streaming
-- [x] Toggle Shuffle & Shake to Shuffle
-- [x] Remote playback control from iOS (lock and bottom pan menu), Album Covers in App & on the Lock Screen
-- [x] Reworked shuffle to have a separate playlist (of ID') instead which is infinite for switching tracks
-- [x] EPMusicPlayerDelegate as a separate class for code clarity
-- [x] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
-- [x] Friends' Playlists (VK)
-- [x] Pause when headphones are disconnected, resume when headphones are connected (Environment Change Manager)
-- [x] Display cached status for tracks (yes/no/partial if in progress)
-- [x] Show duration in the playlist (fixed for duration > 3600 seconds)
 - [x] "Vibrancy" Design
-- [x] Player Widget visible across all screens of the application
+- [x] 12-band +/-24db Equalizer
+- [x] Recommended Music & Global Music Search
+- [x] Last.fm scrobbling
+- [x] Shake to Shuffle
+
+FEATURES IMPLEMENTED:
+
+- [x] Displaying download progress (Pure KVO Approach)
+- [x] Remote playback control from iOS (lock and bottom pan menu), Album Covers in App & on the Lock Screen
+- [x] Friends' Music
+- [x] Pause when headphones disconnected, resume when headphones connected (Environment Change Manager)
+- [x] Display cached status for tracks (yes/no/partial if in progress)
+- [x] Player Widget visible across all screens of the application (UIWindow approach)
 - [x] Saving last played track & respective playlist for next application launch
-- [x] Ability to automatically save a track to your VK playlist whenever download is triggered (setting)
 - [x] Visualised Adjustable Settings:
     - [x] Last.fm
     - [x] Status broadcast
@@ -45,25 +46,24 @@ DONE:
     - [x] Artwork Size and Presence
     - [x] Shake to Shuffle
     - [x] Equalizer
-- [x] Global Music Search
-- [x] Download Queue (Max 2 concurrently)
-- [x] Recommendations (based on a playlist)
-- [x] Tracks from Messages(Last 10 currently)
-- [x] Displaying download progress
+- [x] VK Status Broadcast & Last.fm Now Playing updating
+- [x] Download Queue (Max 1 concurrently)
+- [x] Tracks from Messages (Last 10)
 - [x] Play Filtered Selection
 - [x] Seeking (Hold Next/Prev)
 - [x] Play Selection / Search Results
-- [x] 12-band +/-24db Equalizer
 - [x] Artwork search advanced filters (excludes specific symbols & words)
-- [x] Lyrics (VK Sourced)
-- [x] Last.fm scrobbling
-- [x] Repeat Button
-- [x] Playback history with Parse (admin only)
+- [x] Song Lyrics
+- [x] Repeat & Shuffle custom buttons
+- [x] Custom UIProgressView for easy seeking
+- [x] Playback history with Parse
+- [x] EPMusicPlayerDelegate as a separate class for code clarity
+- [x] EPMusicPlayerRemoteManager controlling player (even when player VC is not visible)
 
 TODO:
 
 - [ ] Analytics with Parse
-- [ ] Backup downloaded lists with Parse in a case things go wrong
+- [ ] Backup downloaded lists
 - [ ] Playback Control from the Headset (e.g. Apple iPhone Earbuds)
 
 CONSIDER:
