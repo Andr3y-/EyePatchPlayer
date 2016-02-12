@@ -26,7 +26,7 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
         }
         dataReady()
     }
-
+    
     func subscribeForCacheNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(
         self,
@@ -39,7 +39,7 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
         print("handleTrackCached")
         if let track: EPTrack = notification.object as? EPTrack {
             self.playlist.addTrack(track)
-            self.tableView.reloadData()
+            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.playlist.trackCount - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
         }
     }
 
@@ -73,6 +73,7 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
 
     override func setEditing(editing: Bool, animated: Bool) {
         if let selectedIndexPaths = self.tableView.indexPathsForSelectedRows {
+            
             super.setEditing(editing, animated: animated)
 
             for indexPath in selectedIndexPaths {

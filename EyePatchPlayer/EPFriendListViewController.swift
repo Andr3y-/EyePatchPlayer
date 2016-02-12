@@ -173,4 +173,14 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        deselectRow()
+    }
+    
+    func deselectRow() {
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+        }
+    }
 }

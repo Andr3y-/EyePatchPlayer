@@ -120,7 +120,7 @@ class EPTrackTableViewCell: UITableViewCell {
                     
                     self.progressIndicatorView.animateCompletion()
                 } else {
-                    self.progressIndicatorView.clear()
+                    self.progressIndicatorView.animateCancellation()
                     self.progressIndicatorView.setStatusComplete(false, animated: false)
                 }
             }

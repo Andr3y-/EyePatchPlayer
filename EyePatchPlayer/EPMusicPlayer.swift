@@ -319,7 +319,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     func play() {
         self.audioStreamSTK?.resume()
-        self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         self.remoteManager.updatePlaybackStatus()
     }
 

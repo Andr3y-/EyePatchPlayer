@@ -227,19 +227,19 @@ class EPStatusIndicatorView: UIView {
 
             }
         }
-//        circlePathLayer.strokeColor = UIColor.blueColor().CGColor
 
     }
 
     func animateProgress(value: CGFloat) {
         print("rotation animation started")
+        
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = value
         animation.duration = 0.25
         animation.repeatCount = 1
         animation.fillMode = kCAFillModeForwards
         animation.removedOnCompletion = false
-
+        
         self.circlePathLayer.addAnimation(animation, forKey: "stroke")
     }
 
@@ -257,10 +257,16 @@ class EPStatusIndicatorView: UIView {
 
         setStatusComplete(true, animated: true)
         //        self.circlePathLayer.removeAllAnimations()
-
+    }
+    
+    func animateCancellation() {        
+        self.progress = 1.0
+        self.circlePathLayer.removeAnimationForKey("rotation")
+        self.plusPathLayer.removeAnimationForKey("rotation")
     }
 
     func animateRotation(value: Bool) {
+        
         //outer circle
         if (!value) {
             self.plusPathLayer.removeAllAnimations()

@@ -204,7 +204,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         } else {
             track = self.playlist.tracks[indexPath.row]
         }
-
+        
         cell?.delegate = self
         cell?.setupLayoutForTrack(track)
         cell!.titleLabel?.text = track.title
@@ -359,18 +359,34 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
                 //handle is cached stuff to allow deletion in the future?
                 return
             }
-            cell.progressIndicatorView.progress = 0
-            cell.progressIndicatorView.animateRotation(true)
+            
+            if let _ = EPHTTPTrackDownloadManager.downloadProgressForTrack(selectedTrack) {
+                //  Track is downloading
+                if EPHTTPTrackDownloadManager.cancelTrackDownload(selectedTrack) {
+                    //animate download cancelled
+                    print("download cancelled")
 
-            EPHTTPTrackDownloadManager.downloadTrack(selectedTrack, completion: {
-                (result, track) -> Void in
-
-            }, progressBlock: {
-                (progressValue) -> Void in
-                if let progress = selectedTrack.downloadProgress {
-                    progress.percentComplete = progressValue
+                    
+                } else {
+                    //download cancellation failed
+                    print("download cancellation failed")
                 }
-            })
+                
+            } else {
+                //  Track is NOT downloading
+                cell.progressIndicatorView.progress = 0
+                cell.progressIndicatorView.animateRotation(true)
+                
+                EPHTTPTrackDownloadManager.downloadTrack(selectedTrack, completion: {
+                    (result, track) -> Void in
+                    
+                    }, progressBlock: {
+                        (progressValue) -> Void in
+                        if let progress = selectedTrack.downloadProgress {
+                            progress.percentComplete = progressValue
+                        }
+                })
+            }
         }
     }
 

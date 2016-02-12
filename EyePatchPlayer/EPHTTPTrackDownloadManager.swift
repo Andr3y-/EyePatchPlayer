@@ -93,7 +93,6 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
                     }) {
                         (operation, responseObject) -> Void in
                         print("download unsuccessful")
-                        sharedInstance.downloadingTrackOperationMap.removeValueForKey(track)
                         track.downloadProgress?.finished = false
                         track.downloadProgress = nil
                         if completion != nil {
@@ -145,7 +144,11 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
         
         for (trackEnum, operation) in sharedInstance.downloadingTrackOperationMap {
             if track.ID == trackEnum.ID {
+                operation.setCompletionBlockWithSuccess(nil, failure: nil)
                 operation.cancel()
+                trackEnum.downloadProgress?.finished = false
+                trackEnum.downloadProgress = nil
+                sharedInstance.downloadingTrackOperationMap.removeValueForKey(trackEnum)
                 return true
             }
         }
