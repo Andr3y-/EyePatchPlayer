@@ -18,9 +18,13 @@
 		C42A43061C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */; };
 		C42CB3AC1C63734E00A429E6 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42CB3AB1C63734E00A429E6 /* Pods.framework */; };
 		C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */; };
-		C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458549D1BB4004A00F596DE /* EPHTTPManager.swift */; };
 		C463B5281C5A34AD0018A708 /* EPRepeatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */; };
 		C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468474E1BDE9C070066F616 /* EPMessage.swift */; };
+		C469F2F11C6CA6550070B68B /* EPDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469F2F01C6CA6550070B68B /* EPDownloadOperation.swift */; };
+		C469F2F31C6CAA5C0070B68B /* EPHTTPVKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469F2F21C6CAA5C0070B68B /* EPHTTPVKManager.swift */; };
+		C469F2F51C6CAA6E0070B68B /* EPHTTPLastFMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469F2F41C6CAA6E0070B68B /* EPHTTPLastFMManager.swift */; };
+		C469F2F91C6CAAEA0070B68B /* EPHTTPTrackMetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469F2F81C6CAAE90070B68B /* EPHTTPTrackMetadataManager.swift */; };
+		C469F2FB1C6CAB000070B68B /* EPHTTPTrackDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469F2FA1C6CAB000070B68B /* EPHTTPTrackDownloadManager.swift */; };
 		C46AA8E91C2220910012FF3E /* EPShuffleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */; };
 		C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */; };
 		C472ADA51C24705800A2D37C /* EPProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C472ADA41C24705800A2D37C /* EPProgressView.swift */; };
@@ -117,9 +121,13 @@
 		C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSystemEnvironmentChangeManager.swift; sourceTree = "<group>"; };
 		C42CB3AB1C63734E00A429E6 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
-		C458549D1BB4004A00F596DE /* EPHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPManager.swift; sourceTree = "<group>"; };
 		C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRepeatButton.swift; sourceTree = "<group>"; };
 		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
+		C469F2F01C6CA6550070B68B /* EPDownloadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadOperation.swift; sourceTree = "<group>"; };
+		C469F2F21C6CAA5C0070B68B /* EPHTTPVKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPVKManager.swift; sourceTree = "<group>"; };
+		C469F2F41C6CAA6E0070B68B /* EPHTTPLastFMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPLastFMManager.swift; sourceTree = "<group>"; };
+		C469F2F81C6CAAE90070B68B /* EPHTTPTrackMetadataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPTrackMetadataManager.swift; sourceTree = "<group>"; };
+		C469F2FA1C6CAB000070B68B /* EPHTTPTrackDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPHTTPTrackDownloadManager.swift; sourceTree = "<group>"; };
 		C46AA8E81C2220910012FF3E /* EPShuffleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPShuffleButton.swift; sourceTree = "<group>"; };
 		C46ED34E1BD8EBC300ACF9BB /* EPDownloadProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadProgress.swift; sourceTree = "<group>"; };
 		C472ADA41C24705800A2D37C /* EPProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPProgressView.swift; sourceTree = "<group>"; };
@@ -337,7 +345,11 @@
 		C42A430C1C0DF5B6005890F6 /* Web */ = {
 			isa = PBXGroup;
 			children = (
-				C458549D1BB4004A00F596DE /* EPHTTPManager.swift */,
+				C469F2FA1C6CAB000070B68B /* EPHTTPTrackDownloadManager.swift */,
+				C469F2F01C6CA6550070B68B /* EPDownloadOperation.swift */,
+				C469F2F21C6CAA5C0070B68B /* EPHTTPVKManager.swift */,
+				C469F2F41C6CAA6E0070B68B /* EPHTTPLastFMManager.swift */,
+				C469F2F81C6CAAE90070B68B /* EPHTTPTrackMetadataManager.swift */,
 				C4DA42CA1BECEF89003AA352 /* EPArtworkSearchQueryFilter.swift */,
 			);
 			name = Web;
@@ -803,7 +815,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 3573f7e7df513dc16bb29fbd7591c75bbf3df5aa c8d346255a3f8791ba242e2b102a162c9af7d54b5e278a62a6ecec0358aa4d78";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3573f7e7df513dc16bb29fbd7591c75bbf3df5aa c8d346255a3f8791ba242e2b102a162c9af7d54b5e278a62a6ecec0358aa4d78";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -818,6 +830,7 @@
 				C4D80D751BCE61BA0095E2D7 /* EPRightMenuViewController.swift in Sources */,
 				C41CDBAB1BB2FE6D00EF6C03 /* RLMSupport.swift in Sources */,
 				C4DA42CB1BECEF89003AA352 /* EPArtworkSearchQueryFilter.swift in Sources */,
+				C469F2FB1C6CAB000070B68B /* EPHTTPTrackDownloadManager.swift in Sources */,
 				C489EAFD1BA8696A00D788E0 /* EPMusicPlaylist.swift in Sources */,
 				C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */,
 				C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */,
@@ -826,6 +839,8 @@
 				C4C61DAC1BC6B8E800501EE1 /* EPFriendListViewController.swift in Sources */,
 				C49E418C1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
+				C469F2F11C6CA6550070B68B /* EPDownloadOperation.swift in Sources */,
+				C469F2F31C6CAA5C0070B68B /* EPHTTPVKManager.swift in Sources */,
 				C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */,
 				C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */,
 				C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */,
@@ -833,7 +848,6 @@
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
 				C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */,
 				C4C61DB11BC6D58A00501EE1 /* EPFriend.swift in Sources */,
-				C458549E1BB4004A00F596DE /* EPHTTPManager.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
 				C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */,
 				C46AA8E91C2220910012FF3E /* EPShuffleButton.swift in Sources */,
@@ -853,6 +867,7 @@
 				C47D3F311C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift in Sources */,
 				C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */,
 				C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */,
+				C469F2F91C6CAAEA0070B68B /* EPHTTPTrackMetadataManager.swift in Sources */,
 				C463B5281C5A34AD0018A708 /* EPRepeatButton.swift in Sources */,
 				C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */,
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
@@ -865,6 +880,7 @@
 				C4C61DB41BC8199500501EE1 /* EPTrackTableViewCell.swift in Sources */,
 				C4D80D771BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift in Sources */,
 				C468474F1BDE9C070066F616 /* EPMessage.swift in Sources */,
+				C469F2F51C6CAA6E0070B68B /* EPHTTPLastFMManager.swift in Sources */,
 				C49E41891BE289E00012C0DD /* EPPlaylistAbstractViewController.swift in Sources */,
 				ABC35DDC0BE80A5AA8029241 /* EPPlayerWidgetView.swift in Sources */,
 				C42A43061C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift in Sources */,
@@ -1005,10 +1021,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gokul Selvaraj (7Z3ZH6KY3A)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1033,10 +1046,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Apppli limited (536JQ4BA38)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

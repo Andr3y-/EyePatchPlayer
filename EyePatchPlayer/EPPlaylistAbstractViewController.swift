@@ -209,9 +209,9 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         cell?.setupLayoutForTrack(track)
         cell!.titleLabel?.text = track.title
         cell!.artistLabel?.text = track.artist
-        cell?.durationLabel.text = track.duration.timeInSecondsToString()
+        cell?.durationLabel.text = track.duration.durationString
 
-        if let downloadProgress = EPHTTPManager.downloadProgressForTrack(track) {
+        if let downloadProgress = EPHTTPTrackDownloadManager.downloadProgressForTrack(track) {
             cell!.setupDownloadProgress(downloadProgress)
         }
         return cell!
@@ -362,7 +362,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
             cell.progressIndicatorView.progress = 0
             cell.progressIndicatorView.animateRotation(true)
 
-            EPHTTPManager.downloadTrack(selectedTrack, completion: {
+            EPHTTPTrackDownloadManager.downloadTrack(selectedTrack, completion: {
                 (result, track) -> Void in
 
             }, progressBlock: {

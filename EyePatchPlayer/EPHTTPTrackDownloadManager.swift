@@ -11,27 +11,31 @@ import AFNetworking
 class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
     
     static let sharedInstance = EPHTTPTrackDownloadManager()
-    private var downloadingTracks = NSMutableArray()
-
+//    private var downloadingTracks = NSMutableArray()
+    private var operations = [AFHTTPRequestOperation]()
+    
+    private var downloadingTrackOperationMap = [EPTrack : AFHTTPRequestOperation]()
+    
     override init(baseURL url: NSURL?) {
         super.init(baseURL: url)
         self.responseSerializer = AFJSONResponseSerializer()
         self.operationQueue.maxConcurrentOperationCount = 1
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     class func downloadProgressForTrack(track: EPTrack) -> EPDownloadProgress? {
-        for trackObject in EPHTTPTrackDownloadManager.sharedInstance.downloadingTracks {
-            let trackInArray = trackObject as! EPTrack
-            if track.ID == trackInArray.ID {
-                if let downloadProgress = trackInArray.downloadProgress {
+        
+        for (trackEnum, _) in sharedInstance.downloadingTrackOperationMap {
+            if track.ID == trackEnum.ID {
+                if let downloadProgress = trackEnum.downloadProgress {
                     return downloadProgress
                 }
             }
         }
+        
         return nil
     }
     
@@ -46,22 +50,19 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
                 
                 let trackCopy = track.copy() as! EPTrack
                 
-                for trackEnum in EPHTTPTrackDownloadManager.sharedInstance.downloadingTracks {
+                for (trackEnum, _) in sharedInstance.downloadingTrackOperationMap {
                     if (trackCopy.ID == trackEnum.ID) {
                         print("track is already downloading")
                         return
                     }
                 }
-                
-                EPHTTPTrackDownloadManager.sharedInstance.downloadingTracks.addObject(track)
-                track.downloadProgress = EPDownloadProgress()
-                
-                let downloadOperation = sharedInstance.GET(trackCopy.URLString, parameters: nil, success: {
+
+                let downloadOperationObject = sharedInstance.GET(trackCopy.URLString, parameters: nil, success: {
                     (operation, responseObject) -> Void in
                     print("download successful")
                     
-                    EPHTTPTrackDownloadManager.sharedInstance.downloadingTracks.removeObject(track)
-                    
+                    sharedInstance.downloadingTrackOperationMap.removeValueForKey(track)
+
                     track.downloadProgress?.finished = true
                     track.downloadProgress = nil
                     
@@ -92,22 +93,32 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
                     }) {
                         (operation, responseObject) -> Void in
                         print("download unsuccessful")
-                        EPHTTPTrackDownloadManager.sharedInstance.downloadingTracks.removeObject(track)
+                        sharedInstance.downloadingTrackOperationMap.removeValueForKey(track)
                         track.downloadProgress?.finished = false
                         track.downloadProgress = nil
                         if completion != nil {
                             completion!(result: false, track: trackCopy)
                         }
-                        EPHTTPTrackDownloadManager.sharedInstance.downloadingTracks.removeObject(track)
+                        sharedInstance.downloadingTrackOperationMap.removeValueForKey(track)
+
                     } as AFHTTPRequestOperation?
                 
-                downloadOperation?.setShouldExecuteAsBackgroundTaskWithExpirationHandler({ () -> Void in
+                guard let downloadOperation = downloadOperationObject else {
+                    print("download operation failed to init")
+                    return
+                }
+                
+                //  Created Operation, now add it to the list
+                track.downloadProgress = EPDownloadProgress()
+                sharedInstance.downloadingTrackOperationMap[track] = downloadOperation
+                
+                downloadOperation.setShouldExecuteAsBackgroundTaskWithExpirationHandler({ () -> Void in
                     print("track download expired in background: \(trackCopy.artist) - \(trackCopy.title)")
                 })
                 
-                downloadOperation?.outputStream = NSOutputStream(toFileAtPath: EPCache.pathForTrackToSave(trackCopy), append: false)
-                downloadOperation?.outputStream?.open()
-                downloadOperation?.setDownloadProgressBlock({
+                downloadOperation.outputStream = NSOutputStream(toFileAtPath: EPCache.pathForTrackToSave(trackCopy), append: false)
+                downloadOperation.outputStream?.open()
+                downloadOperation.setDownloadProgressBlock({
                     (written, totalWritten, totalExpected) -> Void in
                     let progress: Float = Float(totalWritten) / Float(totalExpected)
                     
@@ -119,14 +130,26 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
                         progressBlock!(progressValue: progress)
                     }
                 })
-                downloadOperation?.resume()
+                downloadOperation.resume()
                 
-                if downloadOperation != nil && downloadOperation?.isPaused() == false {
+                if downloadOperation.isPaused() == false {
                     print("download started")
                 } else {
                     print("download failed to start")
                 }
             }
         })
+    }
+    
+    class func cancelTrackDownload(track:EPTrack) -> Bool {
+        
+        for (trackEnum, operation) in sharedInstance.downloadingTrackOperationMap {
+            if track.ID == trackEnum.ID {
+                operation.cancel()
+                return true
+            }
+        }
+        
+        return false
     }
 }

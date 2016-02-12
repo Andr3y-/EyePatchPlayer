@@ -39,7 +39,7 @@ class EPMessagesViewController: EPPlaylistAbstractViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
 
-        EPHTTPManager.VKGetLastAudiosFromMessages(10, intermediateResultBlock: {
+        EPHTTPVKManager.getLastAudiosFromMessages(10, intermediateResultBlock: {
             (track) -> Void in
             print(track.ID)
             self.playlist.addTrack(track)

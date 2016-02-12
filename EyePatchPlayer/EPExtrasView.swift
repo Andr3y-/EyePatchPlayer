@@ -51,7 +51,7 @@ class EPExtrasView: UIView {
 
         self.hideLyrics(true)
         self.startLoadingAnimation()
-        EPHTTPManager.getLyricsForTrack(EPMusicPlayer.sharedInstance.activeTrack) {
+        EPHTTPVKManager.getLyricsForTrack(EPMusicPlayer.sharedInstance.activeTrack) {
             (result, lyrics, trackID) -> Void in
             if trackID != EPMusicPlayer.sharedInstance.activeTrack.ID {
                 return

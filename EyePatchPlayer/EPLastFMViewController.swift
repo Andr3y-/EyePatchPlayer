@@ -67,7 +67,7 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
             self.authorizeButton.userInteractionEnabled = false
             startLoadingAnimation()
             //request authorisation signature and save it
-            EPHTTPManager.lastfmAuthenticate(usernameTextField.text!, password: passwordTextField.text!, completion: {
+            EPHTTPLastFMManager.authenticate(usernameTextField.text!, password: passwordTextField.text!, completion: {
                 (result, session) -> Void in
                 if result {
                     UIView.animateWithDuration(0.2, animations: {

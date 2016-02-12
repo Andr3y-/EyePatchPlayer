@@ -10,22 +10,20 @@ import Foundation
 
 extension Int {
 
-    func timeInSecondsToString() -> String {
+    var durationString: String {
         if self > 60 * 60 {
-
+            
             let minutes: NSString = (self % 3600 / 60) < 10 ? NSString(format: "0%d", self % 3600 / 60) : NSString(format: "%d", self % 3600 / 60)
             let seconds: NSString = (self % 3600 % 60) < 10 ? NSString(format: "0%d", self % 3600 % 60) : NSString(format: "%d", self % 3600 % 60)
             let hours: NSString = (self / 3600) < 10 ? NSString(format: "0%d", self / 3600) : NSString(format: "%d", self / 3600)
-
+            
             return NSString(format: "%@:%@:%@", hours, minutes, seconds) as String
         } else {
-
+            
             let minutes: NSString = (self % 3600 / 60) < 10 ? NSString(format: "0%d", self % 3600 / 60) : NSString(format: "%d", self % 3600 / 60)
             let seconds: NSString = (self % 3600 % 60) < 10 ? NSString(format: "0%d", self % 3600 % 60) : NSString(format: "%d", self % 3600 % 60)
-
+            
             return NSString(format: "%@:%@", minutes, seconds) as String
         }
-
     }
-
 }

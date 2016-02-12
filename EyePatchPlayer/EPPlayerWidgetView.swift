@@ -520,12 +520,12 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     func playbackProgressUpdate(currentTime: Int, bufferedPercent: Double) {
         let playbackPercent = Float(currentTime) / Float(EPMusicPlayer.sharedInstance.activeTrack.duration)
 
-        self.leftPlaybackTimeLabel.text = currentTime.timeInSecondsToString()
+        self.leftPlaybackTimeLabel.text = currentTime.durationString
         var remainingPlaybackTime = (EPMusicPlayer.sharedInstance.activeTrack.duration - currentTime)
         if remainingPlaybackTime < 0 {
             remainingPlaybackTime = 0
         }
-        self.rightPlaybackTimeLabel.text = remainingPlaybackTime.timeInSecondsToString()
+        self.rightPlaybackTimeLabel.text = remainingPlaybackTime.durationString
 
         self.progressBarPlayback.setProgress(playbackPercent, animated: false)
 
@@ -579,7 +579,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
 
         self.leftPlaybackTimeLabel.text = "00:00"
-        self.rightPlaybackTimeLabel.text = EPMusicPlayer.sharedInstance.activeTrack.duration.timeInSecondsToString()
+        self.rightPlaybackTimeLabel.text = EPMusicPlayer.sharedInstance.activeTrack.duration.durationString
 
         self.artistLabel.text = EPMusicPlayer.sharedInstance.activeTrack.artist
         self.titleLabel.text = EPMusicPlayer.sharedInstance.activeTrack.title

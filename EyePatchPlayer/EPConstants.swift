@@ -8,10 +8,21 @@
 
 import Foundation
 
-struct EPConstantsClass{
-    static let VKAPPID = ""
-    static let LastfmAPIKey = ""
-    static let LastfmSecret = ""
-    static let ParseKey = ""
-    static let ParseAppID = ""
+struct EPConstants{
+    
+    struct VK {
+        static let AppID = ""
+    }
+    
+    struct Parse {
+        static let Key = ""
+        static let AppID = ""
+    }
+    
+    struct LastFM {
+        static let APIKey = ""
+        static let Secret = ""
+        static let APIRootURL = "https://ws.audioscrobbler.com/2.0/"
+    }
+    
 }

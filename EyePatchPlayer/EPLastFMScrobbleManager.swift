@@ -19,7 +19,7 @@ class EPLastFMScrobbleManager: NSObject {
         let scrobble = EPLastFMScrobble.initWithTrack(track)
         if AFNetworkReachabilityManager.sharedManager().reachable {
             //attempt to scrobble now
-            EPHTTPManager.lastfmScrobbleTrack(scrobble, completion: {
+            EPHTTPLastFMManager.scrobbleTrack(scrobble, completion: {
                 (result) -> Void in
                 if result {
 
@@ -72,7 +72,7 @@ class EPLastFMScrobbleManager: NSObject {
         if (scrobbleQueueArray.count > 0) {
             print("scrobbleQueue: \(scrobbleQueueArray.count) items")
             if let scrobble = scrobbleQueueArray.first {
-                EPHTTPManager.lastfmScrobbleTrack(scrobble, completion: {
+                EPHTTPLastFMManager.scrobbleTrack(scrobble, completion: {
                     (result) -> Void in
                     if result {
                         scrobbleQueueArray.removeFirst()

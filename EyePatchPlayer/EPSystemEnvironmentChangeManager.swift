@@ -34,7 +34,7 @@ class EPSystemEnvironmentChangeManager: NSObject {
                 if Int(interruptionTypeNumber) == Int(AVAudioSessionInterruptionType.Began.rawValue) {
                     EPMusicPlayer.sharedInstance.pause()
                 } else {
-                    EPMusicPlayer.sharedInstance.play()
+//                    EPMusicPlayer.sharedInstance.play()
                 }
             }
         }
@@ -48,12 +48,12 @@ class EPSystemEnvironmentChangeManager: NSObject {
                 switch reason! {
                 case .NewDeviceAvailable:
                     print("NewDeviceAvailable - connected")
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if EPMusicPlayer.sharedInstance.isPlaying() == false && self.shouldResumeOnRouteChange {
-                            EPMusicPlayer.sharedInstance.togglePlayPause()
-                            self.shouldResumeOnRouteChange = false
-                        }
-                    }
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        if EPMusicPlayer.sharedInstance.isPlaying() == false && self.shouldResumeOnRouteChange {
+//                            EPMusicPlayer.sharedInstance.togglePlayPause()
+//                            self.shouldResumeOnRouteChange = false
+//                        }
+//                    }
                     
                     break
                     
@@ -62,7 +62,7 @@ class EPSystemEnvironmentChangeManager: NSObject {
                     dispatch_async(dispatch_get_main_queue()) {
                         if EPMusicPlayer.sharedInstance.isPlaying() == true {
                             self.shouldResumeOnRouteChange = true
-                            EPMusicPlayer.sharedInstance.togglePlayPause()
+                            EPMusicPlayer.sharedInstance.pause()
                         }
                     }
                     

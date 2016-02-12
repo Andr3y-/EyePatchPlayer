@@ -92,7 +92,7 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
 
     //VKSDKDelegate
     override func viewDidAppear(animated: Bool) {
-        VKSdk.initializeWithDelegate(self, andAppId: EPConstantsClass.VKAPPID)
+        VKSdk.initializeWithDelegate(self, andAppId: EPConstants.VK.AppID)
 
         if (VKSdk.wakeUpSession()) {
             //Start working

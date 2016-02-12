@@ -89,7 +89,7 @@ class EyePatchPlayerTests: XCTestCase {
         var parsedTracks = [EPTrack]()
 //        var parsedTracksFinal = [EPTrack]()
         
-        EPHTTPManager.VKGetLastAudiosFromMessages(10, intermediateResultBlock: { (track) -> Void in
+        EPHTTPVKManager.getLastAudiosFromMessages(10, intermediateResultBlock: { (track) -> Void in
             print(track.ID)
             parsedTracks.append(track)
             

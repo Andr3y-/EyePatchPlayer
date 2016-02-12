@@ -111,7 +111,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
                 completion!(result: true)
             }
         } else {
-            EPHTTPManager.retrievePlaylistOfUserWithID(nil, count: 5, completion: {
+            EPHTTPVKManager.getPlaylistOfUserWithID(nil, count: 5, completion: {
                 (result, playlist) -> Void in
                 if result {
                     if let playlist = playlist, let firstTrack = playlist.tracks.first where playlist.tracks.count > 0 {
@@ -170,7 +170,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
             } else {
                 if EPSettings.shouldDownloadArtwork() {
-                    EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: {
+                    EPHTTPTrackMetadataManager.getAlbumCoverImage(self.activeTrack, completion: {
                         (result, image, trackID) -> Void in
                         if result && trackID == self.activeTrack.ID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
@@ -182,7 +182,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
         } else {
             if EPSettings.shouldDownloadArtwork() {
-                EPHTTPManager.getAlbumCoverImage(self.activeTrack, completion: {
+                EPHTTPTrackMetadataManager.getAlbumCoverImage(self.activeTrack, completion: {
                     (result, image, trackID) -> Void in
                     if result == true && trackID == self.activeTrack.ID {
                         self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
@@ -196,8 +196,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
             if !track.invalidated && track.ID == self.activeTrack.ID && self.isPlaying() {
                 if EPSettings.shouldBroadcastStatus() {
-                    EPHTTPManager.VKBroadcastTrack(self.activeTrack)
-                    EPHTTPManager.lastfmBroadcastTrack(self.activeTrack, completion: nil)
+                    EPHTTPVKManager.broadcastTrack(self.activeTrack)
+                    EPHTTPLastFMManager.broadcastTrack(self.activeTrack, completion: nil)
                 }
                     
                 EPInternalScrobbleManager.enqueueTrackForScrobbling(self.activeTrack)
@@ -233,19 +233,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     //togglePlayPause
     func togglePlayPause() {
-        print("togglePlayPause")
 
         if (self.isPlaying()) {
             print("pausing")
             self.pause()
-            self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
         } else {
             print("playing")
             self.play()
-            self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
         }
-
-        self.remoteManager.updatePlaybackStatus()
     }
 
     //forward
@@ -318,10 +313,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     func pause() {
         self.audioStreamSTK?.pause()
+        self.delegate?.playbackStatusUpdate(PlaybackStatus.Pause)
+        self.remoteManager.updatePlaybackStatus()
     }
 
     func play() {
         self.audioStreamSTK?.resume()
+        self.delegate?.playbackStatusUpdate(PlaybackStatus.Play)
+        self.remoteManager.updatePlaybackStatus()
     }
 
     func isPlaying() -> Bool {
