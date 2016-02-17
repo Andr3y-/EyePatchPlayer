@@ -53,12 +53,14 @@ class EPSettingsTableViewCell: UITableViewCell {
             break
         }
 
+        if EPSettings.isSettingAllowedDetails(type) {
+            self.titleLabel?.textColor = UIView.defaultTintColor()
+        }
+        
         if !EPSettings.enabledStatusForSettingType(type) {
             self.userInteractionEnabled = false
             self.contentView.alpha = 0.3
-
         }
-
     }
 
     override func awakeFromNib() {
@@ -69,12 +71,11 @@ class EPSettingsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    override func prepareForReuse() {
+        self.titleLabel?.textColor = .blackColor()
+        self.secondaryButton.hidden = false
+        self.valueSwitch.hidden = false
     }
-
     @IBAction func secondaryButtonTap(sender: AnyObject) {
         if self.type != nil {
             if self.type == .EqualizerActive {

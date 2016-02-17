@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VK_ios_sdk
 
 class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EPSettingsTableViewCellDelegate {
 
@@ -18,10 +19,10 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.tableView.dataSource = self
         self.tableView.delegate = self
-//        self.tableView.allowsSelection = false
+
         self.tableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
         drawRightMenuButton()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
     func loadCell() {
@@ -37,14 +38,28 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             cell = EPSettingsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SettingCell")
         }
 
-        if indexPath.row != EPSettings.currentSettingsSet().count - 1 {
-            let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
-            cell!.setContent(type, value: value, name: name)
-            cell!.selectionStyle = UITableViewCellSelectionStyle.None
-        } else {
-            let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
-            cell!.setContent(type, value: value, name: name)
+        
+        switch indexPath.row {
+            
+            case EPSettings.currentSettingsSet().count - 1:
+                let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
+                cell!.setContent(type, value: value, name: name)
+                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            case EPSettings.currentSettingsSet().count:
+                cell!.titleLabel.text = "Log Out"
+                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+                cell!.secondaryButton.hidden = true
+                cell!.valueSwitch.hidden = true
+                cell!.titleLabel.textColor = UIView.defaultTintColor()
+
+            default:
+                let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
+                cell!.setContent(type, value: value, name: name)
+                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+            
         }
+        
         cell?.delegate = self
 
         return cell!
@@ -55,7 +70,7 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return EPSettings.currentSettingsSet().count
+        return EPSettings.currentSettingsSet().count + 1
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -63,17 +78,20 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 2 {
-            //eq row
+        
+        switch indexPath.row {
+        case 2:
             self.performSegueWithIdentifier("segueLastfm", sender: nil)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        }
-
-        if indexPath.row == EPSettings.currentSettingsSet().count - 1 {
-            //eq row
+        case EPSettings.currentSettingsSet().count - 1:
             self.performSegueWithIdentifier("segueEqualizer", sender: nil)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        case EPSettings.currentSettingsSet().count:
+            self.presentLogoutWarning()
+        default:
+            break
         }
+
     }
 
     func valueSwitchTapForCell(cell: EPSettingsTableViewCell) {
@@ -89,15 +107,30 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
     func secondaryButtonTapForCell(cell: EPSettingsTableViewCell) {
 
     }
+    
+    func presentLogoutWarning() {
+        let alertController = UIAlertController(title: "Confirm logout?", message: "All of your downloaded tracks will be deleted.", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action:UIAlertAction) -> Void in
+            print("logout cancelled")
+        }
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive) { (action:UIAlertAction) -> Void in
+            print("logout confirmed")
+            
+            EPCache.removeAllTracks()
+            EPSettings.setLastfmSession("")
+            EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: false)
+            VKSdk.forceLogout()
+            EPMusicPlayer.sharedInstance.pause()
+            NSNotificationCenter.defaultCenter().postNotificationName("LogoutComplete", object: nil)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        self.presentViewController(alertController, animated: true) { () -> Void in
+            
+        }
+    }
 
 }
-
-/*
-
-shouldAutomaticallySaveToPlaylist
-shouldBroadcastStatus
-shoulScrobbleWithLastFm
-shouldDownloadArtwork
-preferredArtworkSizeEnum
-
-*/

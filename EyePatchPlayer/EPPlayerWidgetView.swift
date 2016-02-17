@@ -83,8 +83,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.repeatButtonView.tintColor = UIColor.whiteColor()
         self.shuffleButtonView.tintColor = UIColor.whiteColor()
         setupInteractions()
-
-        print("EPPlayerWidgetView awakeFromNib")
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogout", name: "LogoutComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogin", name: "LoginComplete", object: nil)
 
     }
 
@@ -295,10 +296,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 })
             }
         }
-
-        print("velocity: \(sender.velocityInView(window).y)")
-        print("newConstantForConstraint: \(newConstantForConstraint)")
-
     }
 
     func panGestureMain(sender: UIPanGestureRecognizer) {
@@ -469,7 +466,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     @IBAction func shuffleTap(sender: AnyObject) {
-//        print("shuffle tap")
         self.shuffleButtonView.setOn(!self.shuffleButtonView.isOn, animated: true)
         EPMusicPlayer.sharedInstance.playlist.shuffleOn = self.shuffleButtonView.isOn
     }
@@ -554,10 +550,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         updateUIForNewTrack()
     }
 
-    func trackCachedWithResult(result: Bool) {
-
-    }
-
     func trackRetrievedArtworkImage(image: UIImage) {
         print("trackRetrievedArtworkImage")
         setArtworkImage(image)
@@ -599,14 +591,6 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.repeatButtonView.setOn((EPMusicPlayer.sharedInstance.repeatOn), animated: true)
         }
 
-//        switch EPMusicPlayer.sharedInstance.activeTrack.isCached {
-//        case true:
-//            self.cacheButton.setTitle("Cached", forState: UIControlState.Normal)
-//            break
-//        default:
-//            self.cacheButton.setTitle("Save", forState: UIControlState.Normal)
-//            break
-//        }
         self.extrasView?.updateContent(false)
         print("updateUIForNewTrack - complete")
     }
@@ -649,8 +633,25 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             self.backgroundAlbumArtImageView.image = image
         }, completion: nil)
     }
+    
     @IBAction func progressViewDidEndDragging(sender: AnyObject) {
         print("end dragging progress")
         EPMusicPlayer.sharedInstance.seekToProgress(self.progressViewPlaybackBig.editingProgress)
+    }
+    
+    //  Logout / Login Handlers
+    
+    func handleLogout() {
+        self.hidden = true
+        self.userInteractionEnabled = false
+    }
+    
+    func handleLogin() {
+        self.hidden = false
+        self.userInteractionEnabled = true
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

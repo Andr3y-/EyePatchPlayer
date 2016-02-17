@@ -36,7 +36,6 @@ class EPCache: NSObject {
                 return false
             }
 
-
         }
 
         //if doesn't move file from old path to new path and record a result
@@ -190,11 +189,6 @@ class EPCache: NSObject {
         }
     }
 
-    class func artworkDirectory() -> (String) {
-        let downloadPath = downloadDirectory()
-        return (downloadPath as NSString).stringByAppendingPathComponent("artwork")
-    }
-
     class func downloadDirectory() -> (String) {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         return documentsPath.stringByAppendingPathComponent("download")
@@ -217,8 +211,6 @@ class EPCache: NSObject {
         print("EPCache perform start checks")
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.downloadDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.downloadDirectory())
-        EPCache.checkDirectoryExistsCreateIfNot(EPCache.artworkDirectory())
-        EPCache.listFilesInDirectoryWithPath(EPCache.artworkDirectory())
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.cacheDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.cacheDirectory())
     }
@@ -337,5 +329,41 @@ class EPCache: NSObject {
 
             count++
         }
+    }
+    
+    class func removeAllTracks() {
+        
+        RLMRealm.defaultRealm().beginWriteTransaction()
+        RLMRealm.defaultRealm().deleteAllObjects()
+        RLMRealm.defaultRealm().commitWriteTransaction()
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        do {
+            let fileList = try fileManager.contentsOfDirectoryAtPath(self.cacheDirectory())
+            for file in fileList {
+                do {
+                    try fileManager.removeItemAtPath(file)
+                } catch let error as NSError {
+                    print("unable to delete file: \(file)\n\(error.description)")
+                }
+            }
+        } catch {
+            print("unable to load files at cache directory")
+        }
+        
+        do {
+            let fileList = try fileManager.contentsOfDirectoryAtPath(self.downloadDirectory())
+            for file in fileList {
+                do {
+                    try fileManager.removeItemAtPath(file)
+                } catch let error as NSError {
+                    print("unable to delete file: \(file)\n\(error.description)")
+                }
+            }
+        } catch {
+            print("unable to load files at download directory")
+        }
+
     }
 }

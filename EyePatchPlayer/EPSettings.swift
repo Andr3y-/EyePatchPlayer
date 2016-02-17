@@ -381,4 +381,13 @@ class EPSettings: NSUserDefaults {
             return EQGains
         }
     }
+    
+    class func isSettingAllowedDetails(setting:EPSettingType) -> Bool {
+        switch setting {
+            case .EqualizerActive, .ScrobbleWithLastFm:
+                return true
+            default:
+                return false
+        }
+    }
 }

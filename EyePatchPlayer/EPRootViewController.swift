@@ -33,6 +33,8 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
         self.rightMenuViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RightMenuViewController")
 
         self.performMenuSetup()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogout", name: "LogoutComplete", object: nil)
     }
 
     func performMenuSetup() {
@@ -157,9 +159,9 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
     }
 
     func vkSdkReceivedNewToken(newToken: VKAccessToken!) {
-        print("")
-        if (VKSdk.isLoggedIn()) {
-            
+        print("vkSdkReceivedNewToken")
+        if (VKSdk.isLoggedIn() && VKSdk.getAccessToken() != nil) {
+            NSNotificationCenter.defaultCenter().postNotificationName("LoginComplete", object: nil)
             EPUserData.setUserEmail(VKSdk.getAccessToken().email)
             EPUserData.setUserVKID(VKSdk.getAccessToken().userId)
             
@@ -172,5 +174,13 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
 
     func vkSdkIsBasicAuthorization() -> Bool {
         return true
+    }
+    
+    func handleLogout() {
+        VKSdk.authorize([VK_PER_STATS, VK_PER_STATUS, VK_PER_EMAIL, VK_PER_FRIENDS, VK_PER_AUDIO], revokeAccess: true, forceOAuth: false, inApp: true)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

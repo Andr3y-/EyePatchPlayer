@@ -13,7 +13,5 @@ protocol EPMusicPlayerDelegate: class {
 
     func playbackTrackUpdate()
 
-    func trackCachedWithResult(result: Bool)
-
     func trackRetrievedArtworkImage(image: UIImage)
 }
