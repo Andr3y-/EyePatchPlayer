@@ -120,6 +120,7 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             EPCache.removeAllTracks()
             EPSettings.setLastfmSession("")
             EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: false)
+            EPHTTPTrackDownloadManager.cancelAllDownloads()
             VKSdk.forceLogout()
             EPMusicPlayer.sharedInstance.pause()
             NSNotificationCenter.defaultCenter().postNotificationName("LogoutComplete", object: nil)

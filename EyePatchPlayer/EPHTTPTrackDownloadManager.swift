@@ -155,4 +155,8 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
         
         return false
     }
+    
+    class func cancelAllDownloads() {
+        sharedInstance.operationQueue.cancelAllOperations()
+    }
 }
