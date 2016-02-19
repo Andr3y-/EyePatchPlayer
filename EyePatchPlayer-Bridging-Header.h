@@ -16,6 +16,7 @@
 #import <Realm/Realm.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDWebImageManager.h>
+#import <Mantle/Mantle.h>
 //#import "AFNetworkActivityIndicatorManager.h"
 
 #endif

@@ -782,6 +782,7 @@
                         <segue destination="v3r-1Z-BCn" kind="show" identifier="segueFriendList" id="bc5-K6-Jzg"/>
                         <segue destination="oSH-oe-2C1" kind="show" identifier="segueMessages" id="rOV-wk-SNb"/>
                         <segue destination="cD3-YQ-UXV" kind="show" identifier="segueRecommended" id="Xcu-lI-ZkN"/>
+                        <segue destination="8AQ-hE-yTb" kind="show" identifier="segueAlbums" id="7lP-9B-DRV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -837,6 +838,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1562" y="613"/>
+        </scene>
+        <!--Album List View Controller-->
+        <scene sceneID="9jJ-8l-9j3">
+            <objects>
+                <viewController id="8AQ-hE-yTb" customClass="EPAlbumListViewController" customModule="EyePatchPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aCx-FH-Qxf"/>
+                        <viewControllerLayoutGuide type="bottom" id="f2b-5R-Oj8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="23A-8K-yIM">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OWv-p6-2J9">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OWv-p6-2J9" firstAttribute="top" secondItem="aCx-FH-Qxf" secondAttribute="bottom" id="BGH-ME-h01"/>
+                            <constraint firstItem="OWv-p6-2J9" firstAttribute="leading" secondItem="23A-8K-yIM" secondAttribute="leading" id="bzO-Bp-OKy"/>
+                            <constraint firstAttribute="trailing" secondItem="OWv-p6-2J9" secondAttribute="trailing" id="oT8-dk-ZLK"/>
+                            <constraint firstItem="f2b-5R-Oj8" firstAttribute="top" secondItem="OWv-p6-2J9" secondAttribute="bottom" id="uQ0-WS-CMn">
+                                <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                            </constraint>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="OWv-p6-2J9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="BGH-ME-h01"/>
+                                <exclude reference="bzO-Bp-OKy"/>
+                                <exclude reference="oT8-dk-ZLK"/>
+                                <exclude reference="uQ0-WS-CMn"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="OWv-p6-2J9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="BGH-ME-h01"/>
+                                <include reference="bzO-Bp-OKy"/>
+                                <include reference="oT8-dk-ZLK"/>
+                                <include reference="uQ0-WS-CMn"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="OWv-p6-2J9" id="Rpx-F7-MX4"/>
+                        <segue destination="Vzn-pY-gG7" kind="show" identifier="seguePlaylist" id="kQs-Wc-HWH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="334-wK-slV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2349" y="333"/>
         </scene>
         <!--Library-->
         <scene sceneID="Sms-SF-CHa">
@@ -1569,7 +1627,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0TR-YH-j1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2348" y="361"/>
+            <point key="canvasLocation" x="2349" y="1032.75"/>
         </scene>
     </scenes>
     <resources>
@@ -1579,6 +1637,6 @@
         <image name="lastfm" width="1000" height="252"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Zcv-nt-qiL"/>
+        <segue reference="kQs-Wc-HWH"/>
     </inferredMetricsTieBreakers>
 </document>
