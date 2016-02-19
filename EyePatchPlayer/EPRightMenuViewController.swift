@@ -45,9 +45,6 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
 
         // Add the vibrancy view to the blur view
         blurEffectView.contentView.addSubview(vibrancyEffectView)
-
-//        self.view.addSubview(tableView)
-        // Do any additional setup after loading the view.
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -73,16 +70,11 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
             cell!.textLabel!.highlightedTextColor = UIColor.lightGrayColor()
             cell!.selectedBackgroundView = UIView()
         }
-//        cell?.textLabel?.center = CGPointMake(((cell?.bounds.size.width)!/2), (cell?.textLabel?.center.y)!)
+        
         cell?.textLabel?.text = tableEntryStrings[(indexPath.row)]
         cell?.textLabel?.textAlignment = NSTextAlignment.Left
         cell?.textLabel?.shadowColor = UIColor.blackColor()
         cell?.textLabel?.shadowOffset = CGSizeMake(0.0, 0.0)
-//        cell?.textLabel?.font = UIFont(name:"ProximaNova-Regular", size:21.0)
-//        cell?.textLabel?.layer.shadowRadius = 8.0
-//        cell?.textLabel?.layer.shadowOpacity = 0.8
-//        cell?.textLabel?.layer.masksToBounds = false
-//        cell?.textLabel?.layer.shouldRasterize = true
 
         if indexPath.row == selectedItemIndex {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))

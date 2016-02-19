@@ -13,7 +13,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var playlistsTableView: UITableView!
 
-    var playlists = ["My Music", "Friends", "Recommended", "Messages"]
+    var playlists = ["My Music", "Friends", "Recommended", "Messages", "Albums"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +67,9 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
             case "Messages":
                 self.performSegueWithIdentifier("segueMessages", sender: selectedText)
                 break
+            case "Albums":
+                self.performSegueWithIdentifier("segueAlbums", sender: selectedText)
+                break
             default:
                 print("unhandled selection of cell with text: \(selectedText)")
                 deselectRow()
@@ -108,6 +111,13 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 print("segueing to ...)")
 
             }
+            
+        case "segueAlbums":
+            print("segueing to Albums list")
+            let destinationViewController = segue.destinationViewController as! EPAlbumListViewController
+            destinationViewController.userID = userID
+            break
+            
         case "segueFriendList":
             let destinationViewController = segue.destinationViewController as! EPFriendListViewController
             destinationViewController.userID = userID

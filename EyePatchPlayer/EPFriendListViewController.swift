@@ -118,15 +118,6 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
 
         cell!.textLabel?.text = friend.firstName + " " + friend.lastName
 
-//        if let firstName = friend["first_name"] as? String {
-//            if let lastName = friend["last_name"] as? String {
-//                cell!.textLabel?.text = firstName + " " + lastName
-//            }
-//        }
-
-//        cell!.textLabel?.text = track["first_name"] as? String
-//        cell!.textLabel?.text = track["last_name"] as? String
-
         return cell!
     }
 

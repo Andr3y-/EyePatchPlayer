@@ -50,7 +50,7 @@ class EPTrackTableViewCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.None
         let primaryTapper = UITapGestureRecognizer(target: self, action: "mainTap:")
         self.mainTapArea.addGestureRecognizer(primaryTapper)
-
+        self.durationLabel.font = self.durationLabel.font.monospacedDigitFont
         let secondaryTapper = UITapGestureRecognizer(target: self, action: "secondaryTap:")
         self.secondaryTapArea.addGestureRecognizer(secondaryTapper)
         // Initialization code
