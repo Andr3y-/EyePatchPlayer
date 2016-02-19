@@ -26,6 +26,9 @@ PODS:
   - CryptoSwift (0.2.2)
   - DGActivityIndicatorView (2.0)
   - Fabric (1.6.4)
+  - Mantle (2.0.6):
+    - Mantle/extobjc (= 2.0.6)
+  - Mantle/extobjc (2.0.6)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
   - Realm (0.95.3):
@@ -45,6 +48,7 @@ DEPENDENCIES:
   - CryptoSwift
   - DGActivityIndicatorView
   - Fabric
+  - Mantle (~> 2.0.6)
   - Parse
   - Realm (~> 0.95.0)
   - RESideMenu (~> 4.0.7)
@@ -60,6 +64,7 @@ SPEC CHECKSUMS:
   CryptoSwift: d382228d6301c09474132417878a741c2a2e68cd
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   Fabric: ed41fd62173c6bdea24ab02c9d7707161eabb750
+  Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   Realm: 55885fa05865344994ad8b56da96669ffa39fbf1
   RESideMenu: f24c508404b49c667344c54aba7e590883533958

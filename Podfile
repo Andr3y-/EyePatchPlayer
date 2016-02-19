@@ -15,4 +15,5 @@ pod 'Crashlytics'
 pod 'DGActivityIndicatorView'
 pod 'CryptoSwift'
 pod 'Parse'
+pod 'Mantle', '~>2.0.6'
 
