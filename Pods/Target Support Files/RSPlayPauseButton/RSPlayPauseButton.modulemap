@@ -1,6 +1,0 @@
-framework module RSPlayPauseButton {
-  umbrella header "RSPlayPauseButton-umbrella.h"
-
-  export *
-  module * { export * }
-}

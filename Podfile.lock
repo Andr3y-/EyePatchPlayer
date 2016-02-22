@@ -35,7 +35,6 @@ PODS:
     - Realm/Headers (= 0.95.3)
   - Realm/Headers (0.95.3)
   - RESideMenu (4.0.7)
-  - RSPlayPauseButton (1.0.1)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
@@ -44,17 +43,16 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
-  - Crashlytics
-  - CryptoSwift
-  - DGActivityIndicatorView
-  - Fabric
+  - Crashlytics (~> 3.6.0)
+  - CryptoSwift (~> 0.2.2)
+  - DGActivityIndicatorView (~> 2.0)
+  - Fabric (~> 1.6.3)
   - Mantle (~> 2.0.6)
-  - Parse
+  - Parse (~> 1.12.0)
   - Realm (~> 0.95.0)
   - RESideMenu (~> 4.0.7)
-  - RSPlayPauseButton (~> 1.0)
   - SDWebImage (~> 3.7)
-  - StreamingKit
+  - StreamingKit (~> 0.1.29)
   - VK-ios-sdk (~> 1.2.2)
 
 SPEC CHECKSUMS:
@@ -68,7 +66,6 @@ SPEC CHECKSUMS:
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   Realm: 55885fa05865344994ad8b56da96669ffa39fbf1
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
-  RSPlayPauseButton: 9def027a1259ded3a6ecfeb0e57df1775ff22fb0
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   VK-ios-sdk: f4b7df0d4e277e06d60fef6dc472be4260eeda6d

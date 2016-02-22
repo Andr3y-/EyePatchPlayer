@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RSPlayPauseButton
 
 class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
