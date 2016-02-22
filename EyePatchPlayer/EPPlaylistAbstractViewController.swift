@@ -427,11 +427,19 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     }
 
     func handleShake() {
+        
+        if self.playlist == nil {
+            //  This may occur when playlist has not yet been loaded (VK Request Pending) but shake was detected
+            return
+        }
+        
         EPPlayerWidgetView.sharedInstance.shuffleButtonView.setOn(true, animated: true)
+        
         if self.hasFilterActive() {
             self.filteredPlaylist.reshuffle()
         } else {
             self.playlist.reshuffle()
         }
+        
     }
 }

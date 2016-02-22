@@ -22,6 +22,10 @@ class EPHTTPTrackMetadataManager: NSObject {
         artworkDownloadManager.operationQueue.cancelAllOperations()
         
         let searchQuery = EPArtworkSearchQueryFilter.searchQueryForTrack(track)
+        
+        //  keeping ID separately to limit references to track itself, which can become invalidated
+        let trackID = track.ID
+        
         artworkDownloadManager.GET("https://itunes.apple.com/search", parameters: ["term": searchQuery], success: {
             (operation, response) -> Void in
             //            print(response)
@@ -33,7 +37,7 @@ class EPHTTPTrackMetadataManager: NSObject {
                                 guard let url = NSURL(string: URLString100x100.stringByReplacingOccurrencesOfString("100x100", withString: EPSettings.preferredArtworkSizeString())) else {
                                     print("album art iTunes request failed (url is null)")
                                     if completion != nil {
-                                        completion!(result: false, image: UIImage(), trackID: track.ID)
+                                        completion!(result: false, image: UIImage(), trackID: trackID)
                                     }
                                     return
                                 }
@@ -41,15 +45,20 @@ class EPHTTPTrackMetadataManager: NSObject {
                                 SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: {
                                     (downloadedImage: UIImage!, error: NSError!, cacheType: SDImageCacheType, isDownloaded: Bool, withURL: NSURL!) -> Void in
                                     if isDownloaded && downloadedImage != nil {
-                                        track.addArtworkImage(downloadedImage)
-                                        if completion != nil {
-                                            completion!(result: true, image: downloadedImage, trackID: track.ID)
+                                        
+                                        if !track.invalidated {
+                                            track.addArtworkImage(downloadedImage)
                                         }
+                                        
+                                        if completion != nil {
+                                            completion!(result: true, image: downloadedImage, trackID: trackID)
+                                        }
+                                        
                                         return
                                     } else {
                                         print("album art iTunes request failed (no image downloaded)")
                                         if completion != nil {
-                                            completion!(result: false, image: UIImage(), trackID: track.ID)
+                                            completion!(result: false, image: UIImage(), trackID: trackID)
                                         }
                                     }
                                     
@@ -64,14 +73,14 @@ class EPHTTPTrackMetadataManager: NSObject {
             } else {
                 print("album art iTunes request failed (no search results received)")
                 if completion != nil {
-                    completion!(result: false, image: UIImage(), trackID: track.ID)
+                    completion!(result: false, image: UIImage(), trackID: trackID)
                 }
             }
             }) {
                 (opeation, error) -> Void in
                 print("album art iTunes request failed (request failure)")
                 if completion != nil {
-                    completion!(result: false, image: UIImage(), trackID: track.ID)
+                    completion!(result: false, image: UIImage(), trackID: trackID)
                 }
         }
     }

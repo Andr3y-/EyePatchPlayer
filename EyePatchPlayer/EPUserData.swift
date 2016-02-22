@@ -13,30 +13,6 @@ import VK_ios_sdk
 
 class EPUserData: NSObject {
     
-    class func setUserEmail(email: String) {
-        
-        Crashlytics.sharedInstance().setUserEmail("\(email)")
-        
-        if let currentUser = PFUser.currentUser() {
-            //user existing one
-            currentUser["email"] = email
-            currentUser.saveInBackground()
-        } else {
-            //register one from scratch
-            PFAnonymousUtils.logInWithBlock({ (user: PFUser?, error:NSError?) -> Void in
-                if (error != nil) {
-                    print("parse anonynoums login succeeded")
-                    if let user = user {
-                        user["email"] = email
-                        user.saveInBackground()
-                    }
-                } else {
-                    print("parse anonymous login failed")
-                }
-            })
-        }
-    }
-    
     class func setUserVKID(vkID: String) {
         
         Crashlytics.sharedInstance().setUserIdentifier("VKID:\(vkID)")
