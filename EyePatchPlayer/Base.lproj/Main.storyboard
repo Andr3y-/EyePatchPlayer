@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="69q-fL-M2m">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="69q-fL-M2m">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -848,6 +848,7 @@
                         <viewControllerLayoutGuide type="bottom" id="f2b-5R-Oj8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="23A-8K-yIM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OWv-p6-2J9">
@@ -869,10 +870,10 @@
                                 <exclude reference="OWv-p6-2J9"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="uQ0-WS-CMn"/>
                                 <exclude reference="BGH-ME-h01"/>
                                 <exclude reference="bzO-Bp-OKy"/>
                                 <exclude reference="oT8-dk-ZLK"/>
-                                <exclude reference="uQ0-WS-CMn"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -880,10 +881,10 @@
                                 <include reference="OWv-p6-2J9"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="uQ0-WS-CMn"/>
                                 <include reference="BGH-ME-h01"/>
                                 <include reference="bzO-Bp-OKy"/>
                                 <include reference="oT8-dk-ZLK"/>
-                                <include reference="uQ0-WS-CMn"/>
                             </mask>
                         </variation>
                     </view>
@@ -1637,6 +1638,6 @@
         <image name="lastfm" width="1000" height="252"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kQs-Wc-HWH"/>
+        <segue reference="HbV-JP-ZLU"/>
     </inferredMetricsTieBreakers>
 </document>

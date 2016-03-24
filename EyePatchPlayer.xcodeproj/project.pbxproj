@@ -1041,7 +1041,7 @@
 			baseConfigurationReference = FADE91D9E5AFA011EFC06B61 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gokul Selvaraj (7Z3ZH6KY3A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -1055,7 +1055,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "32f0db99-81d7-4faf-a2f5-7817e478d6a5";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/andr3y/repos/EyePatchPlayer/EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Debug;
@@ -1081,7 +1081,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ed0342d-9afe-43a1-afc7-caf1594ffe08";
+				PROVISIONING_PROFILE = "d0495c07-356f-4910-b513-9d10479c7a8d";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/andr3y/repos/EyePatchPlayer/EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Release;

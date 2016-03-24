@@ -38,8 +38,8 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
     func handleTrackCached(notification: NSNotification) {
         print("handleTrackCached")
         if let track: EPTrack = notification.object as? EPTrack {
-            self.playlist.addTrack(track)
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.playlist.trackCount - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
+            self.playlist.addTrack(track, atEnd: false)
+            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
         }
     }
 

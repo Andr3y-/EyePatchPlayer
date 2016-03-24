@@ -254,6 +254,18 @@ class EPMusicPlaylist: AnyObject {
         return resultLinear && resultShuffled
     }
 
+    func addTrack(track: EPTrack, atEnd:Bool) {
+        if atEnd {
+            self.originalTracks.append(track)
+            self.shuffledTracks = self.originalTracks.shuffle()
+            self.trackCount = self.originalTracks.count
+        } else {
+            self.originalTracks.insert(track, atIndex: 0)
+            self.shuffledTracks = self.originalTracks.shuffle()
+            self.trackCount = self.originalTracks.count
+        }
+    }
+    
     func addTrack(track: EPTrack) {
         self.originalTracks.append(track)
         self.shuffledTracks = self.originalTracks.shuffle()
@@ -327,6 +339,7 @@ class EPMusicPlaylist: AnyObject {
                     playlist.originalTracks.append(track)
                 }
             }
+            playlist.originalTracks = playlist.originalTracks.reverse()
         } else {
             print("results[\"items\" is empty]")
         }
