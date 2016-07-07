@@ -1066,7 +1066,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Apppli limited (536JQ4BA38)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -1081,7 +1081,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d0495c07-356f-4910-b513-9d10479c7a8d";
+				PROVISIONING_PROFILE = "d6ca5fe6-aec8-42e3-9961-f3e440e56951";
 				SWIFT_OBJC_BRIDGING_HEADER = "./EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Release;
