@@ -25,6 +25,7 @@ class EPMusicPlayerRemoteManager: NSObject {
         let commandCenter = MPRemoteCommandCenter.sharedCommandCenter()
         commandCenter.playCommand.addTarget(self, action: "remoteCommandPlay:")
         commandCenter.pauseCommand.addTarget(self, action: "remoteCommandPause:")
+        commandCenter.togglePlayPauseCommand.addTarget(self, action: "remoteCommandTogglePlayback:")
         commandCenter.nextTrackCommand.addTarget(self, action: "remoteCommandNext:")
         commandCenter.previousTrackCommand.addTarget(self, action: "remoteCommandPrevious:")
         commandCenter.seekForwardCommand.addTarget(self, action: "seekForwardCommand:")
@@ -36,6 +37,10 @@ class EPMusicPlayerRemoteManager: NSObject {
         print(__FUNCTION__)
     }
 
+    func remoteCommandTogglePlayback(object: MPRemoteCommandEvent) {
+        EPMusicPlayer.sharedInstance.togglePlayPause()
+    }
+    
     func remoteCommandPause(object: MPRemoteCommandEvent) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
         print(__FUNCTION__)
