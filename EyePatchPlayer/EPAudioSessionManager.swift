@@ -29,4 +29,12 @@ class EPAudioSessionManager: NSObject {
             print("error setting preferred IO buffer duration")
         }
     }
+    
+    class func setAudioSessionActive(active: Bool) {
+        do {
+            try AVAudioSession.sharedInstance().setActive(active)
+        } catch _ {
+            print("error setting session active/deactive")
+        }
+    }
 }

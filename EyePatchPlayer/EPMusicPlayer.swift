@@ -237,9 +237,11 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         if (self.isPlaying()) {
             print("pausing")
             self.pause()
+            EPAudioSessionManager.setAudioSessionActive(false)
         } else {
             print("playing")
             self.play()
+            EPAudioSessionManager.setAudioSessionActive(true)
         }
     }
 

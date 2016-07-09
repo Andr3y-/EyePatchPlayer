@@ -49,9 +49,9 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
         let audioRequest: VKRequest!
         let searchQuery = self.searchBar.text!
         if !searchQueryEmpty() {
-            audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q: self.searchBar.text!, VK_API_COUNT: 100], andHttpMethod: "GET")
+            audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q: self.searchBar.text!, VK_API_COUNT: 300], andHttpMethod: "GET")
         } else {
-            audioRequest = VKRequest(method: "audio.getPopular", andParameters: ["only_eng": 1, VK_API_COUNT: 100], andHttpMethod: "GET")
+            audioRequest = VKRequest(method: "audio.getPopular", andParameters: ["only_eng": 1, VK_API_COUNT: 300], andHttpMethod: "GET")
         }
 
         audioRequest.executeWithResultBlock({
