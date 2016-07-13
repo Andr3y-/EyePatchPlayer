@@ -10,26 +10,43 @@ import Foundation
 
 struct EPConstants{
     
-//#if VKAPPID
+    static func loadPlistValues() {
+        
+        if let VKAppID = NSBundle.mainBundle().objectForInfoDictionaryKey("VKAppID") as? String {
+            VK.AppID = VKAppID
+        }
+        
+        if let ParseKey = NSBundle.mainBundle().objectForInfoDictionaryKey("ParseKey") as? String {
+            Parse.Key = ParseKey
+        }
+        
+        if let ParseAppID = NSBundle.mainBundle().objectForInfoDictionaryKey("ParseAppID") as? String {
+            Parse.AppID = ParseAppID
+        }
+        
+        if let LastFMAPIKey = NSBundle.mainBundle().objectForInfoDictionaryKey("LastFMAPIKey") as? String {
+            LastFM.APIKey = LastFMAPIKey
+        }
+        
+        if let LastFMSecret = NSBundle.mainBundle().objectForInfoDictionaryKey("LastFMSecret") as? String {
+            LastFM.Secret = LastFMSecret
+        }
+    }
+    
     struct VK {
-        static let AppID = "5070798"
+        static var AppID = ""
     }
-//#endif
     
-//#if PARSEAPPID
     struct Parse {
-        static let Key = "ivW39UauexSmxw1jkBNnzJvGGPupTRtDq2KNSp8k"
-        static let AppID = "EiNXLsL2dqGqFTfeRrEhKjI0pVwzqiiDaktKKBaN"
+        static var Key = ""
+        static var AppID = ""
     }
-//#endif
     
-//#if LASTFMAPIKEY
 
     struct LastFM {
-        static let APIKey = "e0f77b7ccf49aad3aa10d16bb432a5ed"
-        static let Secret = "93ec99df32f162bcf58985fb975d6014"
-        static let APIRootURL = "https://ws.audioscrobbler.com/2.0/"
+        static var APIKey = ""
+        static var Secret = ""
+        static var APIRootURL = "https://ws.audioscrobbler.com/2.0/"
     }
-//#endif
 
 }
