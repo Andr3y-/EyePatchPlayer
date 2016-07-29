@@ -87,7 +87,7 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             self.performSegueWithIdentifier("segueEqualizer", sender: nil)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         case EPSettings.currentSettingsSet().count:
-            self.presentLogoutWarning()
+            self.presentLogoutOptions()
         default:
             break
         }
@@ -108,7 +108,30 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
 
     }
     
-    func presentLogoutWarning() {
+    func presentLogoutOptions() {
+        let alertController = UIAlertController(title: nil, message: "Logout:\nDo you want to Remove or Keep your downloaded library?", preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+            // ...
+        }
+        alertController.addAction(cancelAction)
+        
+        let fullLogoutAction = UIAlertAction(title: "Remove tracks", style: .Default) { (action) in
+            self.presentFullLogoutWarning()
+        }
+        alertController.addAction(fullLogoutAction)
+        
+        let accountLogoutAction = UIAlertAction(title: "Keep tracks", style: .Default) { (action) in
+            self.presentExperimentalLogoutWarning()
+        }
+        alertController.addAction(accountLogoutAction)
+        
+        self.presentViewController(alertController, animated: true) {
+            // ...
+        }
+    }
+    
+    func presentFullLogoutWarning() {
         let alertController = UIAlertController(title: "Confirm logout?", message: "All of your downloaded tracks will be deleted.", preferredStyle: UIAlertControllerStyle.Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action:UIAlertAction) -> Void in
             print("logout cancelled")
@@ -134,4 +157,28 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
+    func presentExperimentalLogoutWarning() {
+        let alertController = UIAlertController(title: "Warning:\nConfirm account logout?", message: "All of your downloaded tracks will be SAVED. \nThis feature is experimental.", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action:UIAlertAction) -> Void in
+            print("logout cancelled")
+        }
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive) { (action:UIAlertAction) -> Void in
+            print("logout confirmed")
+            
+            EPSettings.setLastfmSession("")
+            EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: false)
+            EPHTTPTrackDownloadManager.cancelAllDownloads()
+            VKSdk.forceLogout()
+            EPMusicPlayer.sharedInstance.pause()
+            NSNotificationCenter.defaultCenter().postNotificationName("LogoutComplete", object: nil)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        self.presentViewController(alertController, animated: true) { () -> Void in
+            
+        }
+    }
 }
