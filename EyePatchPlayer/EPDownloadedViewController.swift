@@ -18,12 +18,10 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
 
     override func loadData() {
         let cachedTracks = EPTrack.allObjects()
-        if EPMusicPlayer.sharedInstance.playlist.source == .Local {
-            self.playlist = EPMusicPlayer.sharedInstance.playlist
-        } else {
-            self.playlist = EPMusicPlaylist.initWithRLMResults(cachedTracks)
-            self.playlist.identifier = "Library"
-        }
+        
+        self.playlist = EPMusicPlaylist.initWithRLMResults(cachedTracks)
+        self.playlist.identifier = "Library"
+        
         dataReady()
     }
     
