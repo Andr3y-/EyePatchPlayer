@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -50,18 +50,18 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LastFMAPIKey</key>
-	<string>${LASTFMAPIKEY}</string>
+	<string>e0f77b7ccf49aad3aa10d16bb432a5ed</string>
 	<key>LastFMSecret</key>
-	<string>${LASTFMSECRET}</string>
+	<string>93ec99df32f162bcf58985fb975d6014</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
 	<key>ParseAppID</key>
-	<string>${PARSEAPPID}</string>
+	<string>ivW39UauexSmxw1jkBNnzJvGGPupTRtDq2KNSp8k</string>
 	<key>ParseKey</key>
-	<string>${PARSEKEY}</string>
+	<string>EiNXLsL2dqGqFTfeRrEhKjI0pVwzqiiDaktKKBaN</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ProximaNova-Bold.ttf</string>

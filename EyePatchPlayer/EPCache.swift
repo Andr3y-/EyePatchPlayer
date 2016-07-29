@@ -77,7 +77,6 @@ class EPCache: NSObject {
         if let artworkToSave = track.artworkUIImage {
             print("artwork downloaded, trying to add to cache too")
             track.addArtworkImage(artworkToSave)
-
         } else {
             print("artwork is missing trying to download")
             EPHTTPTrackMetadataManager.getAlbumCoverImage(track, completion: {
@@ -99,7 +98,6 @@ class EPCache: NSObject {
             RLMRealm.defaultRealm().beginWriteTransaction()
             RLMRealm.defaultRealm().addOrUpdateObject(track)
             RLMRealm.defaultRealm().commitWriteTransaction()
-
         }
         
         result = true
@@ -173,15 +171,9 @@ class EPCache: NSObject {
 //    static var cacheRetrievalExecutionTime:CFAbsoluteTime = 0
 
     class func cacheStatusForTrack(track: EPTrack) -> (Bool) {
-//        let startTime = CFAbsoluteTimeGetCurrent()
 
-        let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "ID = %d", track.ID))
+        let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "(ID = %d) AND (ownerID = %d)", track.ID, track.ownerID))
 
-//        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-//        print("cacheStatusForTrack Time: \(timeElapsed)")
-
-//        cacheRetrievalExecutionTime += timeElapsed
-//        print("cacheStatusForTrack TotalTime: \(cacheRetrievalExecutionTime)")
         if (existingObjects.count == 0) {
             return false
         } else {
@@ -224,15 +216,14 @@ class EPCache: NSObject {
                 // file does not exist
                 try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
             } catch _ {
+                
             }
         }
     }
 
-
     class func checkTrackFileExistsInDownload(track: EPTrack) -> Bool {
         return NSFileManager.defaultManager().fileExistsAtPath(pathForTrackToSave(track))
     }
-
 
     class func pathForTrackToSave(track: EPTrack) -> (String) {
         return (EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("\(track.ID).mp3")
@@ -307,7 +298,6 @@ class EPCache: NSObject {
                     }
                 }
             }
-
         }
 
         return nil
