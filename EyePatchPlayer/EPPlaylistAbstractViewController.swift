@@ -30,7 +30,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "becomeFirstResponder", name: "MenuDidHide", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(becomeFirstResponder), name: "MenuDidHide", object: nil)
 
         self.automaticallyAdjustsScrollViewInsets = false
         loadCell()
@@ -164,7 +164,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
         if hasFilterActive() {
             for trackObject in self.filteredPlaylist.tracks {
                 if let track: EPTrack = trackObject {
-                    if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                    if track.uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
                         if let index = self.filteredPlaylist.tracks.indexOf(trackObject) {
                             self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
 
@@ -174,7 +174,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
             }
         } else {
             for track in self.playlist.tracks {
-                if track.ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+                if track.uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
                     if let index = self.playlist.tracks.indexOf(track) {
                         self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: scroll ? UITableViewScrollPosition.Middle : UITableViewScrollPosition.None)
                     }
@@ -240,7 +240,7 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
             selectedTrack = self.playlist.tracks[indexPath.row]
         }
 
-        if selectedTrack.ID != EPMusicPlayer.sharedInstance.activeTrack.ID {
+        if selectedTrack.uniqueID != EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
             tableView.deselectRowAtIndexPath(indexPath, animated: false)
         }
     }

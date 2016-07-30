@@ -21,11 +21,11 @@ class EPArtworkSearchQueryFilter: NSObject {
             //check for [] remove all inbetween
 
             if let startRange = queryString.rangeOfString("["), let endRange = queryString.rangeOfString("]") {
-                queryString = queryString.stringByReplacingCharactersInRange(Range<String.Index>(start: startRange.startIndex, end: endRange.endIndex), withString: "")
+                queryString = queryString.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
             }
             //check for () remove all inbetween
             if let startRange = queryString.rangeOfString("("), let endRange = queryString.rangeOfString(")") {
-                queryString = queryString.stringByReplacingCharactersInRange(Range<String.Index>(start: startRange.startIndex, end: endRange.endIndex), withString: "")
+                queryString = queryString.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
             }
 
             for string in self.excludedStrings {

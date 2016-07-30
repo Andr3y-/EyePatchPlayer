@@ -29,7 +29,11 @@ public class RLMGenerator: GeneratorType {
         if i >= collection.count {
             return .None
         } else {
-            return collection[i++] as? RLMObject
+
+            let object = collection[i] as? RLMObject
+            i += 1
+            
+            return object
         }
     }
 }

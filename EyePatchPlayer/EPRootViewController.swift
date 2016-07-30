@@ -34,7 +34,7 @@ class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
 
         self.performMenuSetup()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogout", name: "LogoutComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleLogout), name: "LogoutComplete", object: nil)
     }
 
     func performMenuSetup() {

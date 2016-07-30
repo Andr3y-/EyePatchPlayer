@@ -33,7 +33,7 @@ class EPEqualizerConfigurationViewController: UIViewController {
             displayEQSettings()
             
             for bandSlider in self.verticalBandSliders {
-                bandSlider.addTarget(self, action: "bandSliderValueChanged:", forControlEvents: UIControlEvents.EditingDidEnd)
+                bandSlider.addTarget(self, action: #selector(bandSliderValueChanged), forControlEvents: UIControlEvents.EditingDidEnd)
             }
             
         }

@@ -83,44 +83,44 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.shuffleButtonView.tintColor = UIColor.whiteColor()
         setupInteractions()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogout", name: "LogoutComplete", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogin", name: "LoginComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPPlayerWidgetView.handleLogout), name: "LogoutComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPPlayerWidgetView.handleLogin), name: "LoginComplete", object: nil)
 
     }
 
     func setupInteractions() {
         //widget
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "interactionTap:")
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionTap(_:)))
         self.interactionView.addGestureRecognizer(tapRecognizer)
 
-        let swipeRecognizerRight = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
+        let swipeRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
         swipeRecognizerRight.direction = .Right
         self.interactionView.addGestureRecognizer(swipeRecognizerRight)
 
-        let swipeRecognizerLeft = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
+        let swipeRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
         swipeRecognizerLeft.direction = .Left
         self.interactionView.addGestureRecognizer(swipeRecognizerLeft)
 
-        let panGestureUp = UIPanGestureRecognizer(target: self, action: "panGesture:")
+        let panGestureUp = UIPanGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.panGesture(_:)))
         self.interactionView.addGestureRecognizer(panGestureUp)
 
         //main
 
-        let swipeRecognizerRightMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
+        let swipeRecognizerRightMain = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
         swipeRecognizerRightMain.direction = .Right
         self.interactionViewMain.addGestureRecognizer(swipeRecognizerRightMain)
 
-        let swipeRecognizerLeftMain = UISwipeGestureRecognizer(target: self, action: "interactionSwipe:")
+        let swipeRecognizerLeftMain = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
         swipeRecognizerLeftMain.direction = .Left
         self.interactionViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
 
-        let panGestureDown = UIPanGestureRecognizer(target: self, action: "panGestureMain:")
+        let panGestureDown = UIPanGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.panGestureMain(_:)))
         self.playerHeaderView.addGestureRecognizer(panGestureDown)
 
-        let longPressRight = UILongPressGestureRecognizer(target: self, action: "seekForwardCommand:")
+        let longPressRight = UILongPressGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.seekForwardCommand(_:)))
         longPressRight.minimumPressDuration = 0.7
         self.nextTrackButton.addGestureRecognizer(longPressRight)
-        let longPressLeft = UILongPressGestureRecognizer(target: self, action: "seekBackwardCommand:")
+        let longPressLeft = UILongPressGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.seekBackwardCommand(_:)))
         longPressLeft.minimumPressDuration = 0.7
         self.prevTrackButton.addGestureRecognizer(longPressLeft)
 
@@ -131,14 +131,14 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         if playPauseButton == nil {
             playPauseButton = RSPlayPauseButton(frame: playPauseButtonPlaceholder.frame)
             playPauseButton?.tintColor = UIView.defaultTintColor()
-            playPauseButton?.addTarget(self, action: "playPauseTap:", forControlEvents: UIControlEvents.TouchUpInside)
+            playPauseButton?.addTarget(self, action: #selector(EPPlayerWidgetView.playPauseTap(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.playPauseButtonPlaceholder.backgroundColor = UIColor.clearColor()
             self.contentViewWidget.addSubview(playPauseButton!)
         }
 
         if playPauseButtonBig == nil {
             playPauseButtonBig = RSPlayPauseButton(frame: playPauseButtonPlaceholderBig.frame)
-            playPauseButtonBig?.addTarget(self, action: "playPauseTap:", forControlEvents: UIControlEvents.TouchUpInside)
+            playPauseButtonBig?.addTarget(self, action: #selector(EPPlayerWidgetView.playPauseTap(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.playPauseButtonPlaceholderBig.backgroundColor = UIColor.clearColor()
             self.vibrancyContentView.addSubview(playPauseButtonBig!)
         }

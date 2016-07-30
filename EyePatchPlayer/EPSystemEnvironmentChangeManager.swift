@@ -18,8 +18,8 @@ class EPSystemEnvironmentChangeManager: NSObject {
     override init() {
         super.init()
         print("EPSystemEnvironmentChangeManager init")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "interruptionEvent:", name: AVAudioSessionInterruptionNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "routeChanged:", name: AVAudioSessionRouteChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPSystemEnvironmentChangeManager.interruptionEvent(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPSystemEnvironmentChangeManager.routeChanged(_:)), name: AVAudioSessionRouteChangeNotification, object: nil)
     }
     
     deinit {
