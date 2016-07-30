@@ -76,9 +76,9 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
         print(searchText)
         if (searchText.characters.count > 0) {
             
-            let predicate = NSPredicate(format: "firstName contains[c] %@ OR lastName contains[c] %@", searchText, searchText) // if you need case sensitive search avoid '[c]' in the predicate
-            let arrayCast = self.albumList as NSArray
-            self.filteredAlbumList = arrayCast.filteredArrayUsingPredicate(predicate) as! [EPAlbum]
+            self.filteredAlbumList = self.albumList.filter({ (album:EPAlbum) -> Bool in
+                album.title.lowercaseString.containsString(searchText.lowercaseString)
+            })
             self.tableView.reloadData()
         } else {
             self.filteredAlbumList = [EPAlbum]()

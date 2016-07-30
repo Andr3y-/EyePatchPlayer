@@ -86,9 +86,10 @@ class EPFriendListViewController: UIViewController, UITableViewDelegate, UITable
         print(searchText)
         if (searchText.characters.count > 0) {
 
-            let predicate = NSPredicate(format: "firstName contains[c] %@ OR lastName contains[c] %@", searchText, searchText) // if you need case sensitive search avoid '[c]' in the predicate
-            let arrayCast = self.friends as NSArray
-            self.filteredFriends = arrayCast.filteredArrayUsingPredicate(predicate) as! [EPFriend]
+            self.filteredFriends = self.friends.filter({ (friend:EPFriend) -> Bool in
+                friend.firstName.lowercaseString.containsString(searchText.lowercaseString) || friend.lastName.lowercaseString.containsString(searchText.lowercaseString)
+            })
+            
             self.tableView.reloadData()
         } else {
             self.filteredFriends = [EPFriend]()

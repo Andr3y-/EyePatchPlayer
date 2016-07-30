@@ -155,9 +155,26 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
     }
 
     func filterSongsInArray() {
-        let predicate = NSPredicate(format: "artist contains[c] %@ OR title contains[c] %@", self.searchBar.text!, self.searchBar.text!) // if you need case sensitive search avoid '[c]' in the predicate
-        let arrayCast = self.playlist.tracks as NSArray
-        self.filteredPlaylist = EPMusicPlaylist(tracks: arrayCast.filteredArrayUsingPredicate(predicate) as! [EPTrack])
+        
+        guard let searchText = searchBar.text?.lowercaseString else {
+            return
+        }
+        
+        let searchTextWords = searchText.componentsSeparatedByString(" ").filter { (word) -> Bool in
+            word.characters.count > 0
+        }
+        
+        self.filteredPlaylist = EPMusicPlaylist(tracks: self.playlist.tracks.filter({ (track:EPTrack) -> Bool in
+            var matchCount = 0
+            
+            for word in searchTextWords {
+                if track.artist.lowercaseString.containsString(word) || track.title.lowercaseString.containsString(word) {
+                    matchCount += 1
+                }
+            }
+            
+            return matchCount == searchTextWords.count
+        }))
     }
 
     func highlightActiveTrack(scroll: Bool, animated: Bool) {
