@@ -99,6 +99,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>VKAppID</key>
-	<string>5070798</string>
+	<string>${VKAPPID}</string>
 </dict>
 </plist>
