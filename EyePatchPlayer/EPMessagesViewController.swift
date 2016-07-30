@@ -14,13 +14,13 @@ class EPMessagesViewController: EPPlaylistAbstractViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadData", name: "VK_AUTHORISED_MESSAGES", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPPlaylistAbstractViewController.loadData), name: "VK_AUTHORISED_MESSAGES", object: nil)
         self.navigationItem.title = "Messages"
     }
 
     override func performAdditionalSetup() {
         shouldDrawSearchBar = false
-//        self.setupRefresh(false)
+
     }
 
     override func loadData() {
@@ -41,7 +41,7 @@ class EPMessagesViewController: EPPlaylistAbstractViewController {
 
         EPHTTPVKManager.getLastAudiosFromMessages(10, intermediateResultBlock: {
             (track) -> Void in
-            print(track.ID)
+            print(track.uniqueID)
             self.playlist.addTrack(track)
             if self.playlist.trackCount == 1 {
                 self.tableView.alpha = 1

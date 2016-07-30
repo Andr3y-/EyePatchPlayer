@@ -28,7 +28,7 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
     func subscribeForCacheNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(
         self,
-                selector: "handleTrackCached:",
+                selector: #selector(EPDownloadedViewController.handleTrackCached(_:)),
                 name: "TrackCached",
                 object: nil)
     }
@@ -48,16 +48,10 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
 
             if hasFilterActive() {
                 track = self.filteredPlaylist.tracks[indexPath.row]
-//                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-//                    EPMusicPlayer.sharedInstance.playNextSong()
-//                }
                 self.playlist.removeTrack(track)
                 filterSongsInArray()
             } else {
                 track = self.playlist.tracks[indexPath.row]
-//                if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
-//                    EPMusicPlayer.sharedInstance.playNextSong()
-//                }
                 self.playlist.removeTrack(track)
             }
 

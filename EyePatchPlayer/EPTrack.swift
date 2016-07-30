@@ -17,7 +17,10 @@ class EPTrack: RLMObject {
     dynamic var ID: Int = 0
     dynamic var URLString: String = ""
     dynamic var isCached = false
-
+    
+    var uniqueID:String {
+        return "\(ownerID)_\(ID)"
+    }
     //  KVO pair
     private dynamic var isArtworkCached = false
     internal dynamic var downloadProgress: EPDownloadProgress?
@@ -77,9 +80,18 @@ class EPTrack: RLMObject {
         self.artworkUIImage = image
 
         if self.isCached && !self.isArtworkCached {
-            let artworkImageData = UIImageJPEGRepresentation(image, 1.0)
-            print(EPCache.pathForTrackArtwork(self))
-            if artworkImageData!.writeToFile(EPCache.pathForTrackArtwork(self), atomically: true) {
+            
+            guard let artworkImageData = UIImageJPEGRepresentation(image, 1.0) else {
+                print("Failed to cache artwork UIImageJPEGRepresentation nil")
+                return
+            }
+            
+            let artworkSavePath = (EPCache.pathForTrackArtwork(self))
+            
+            print("Attempting to cache artwork at:\n\(artworkSavePath)")
+            
+            if artworkImageData.writeToFile(artworkSavePath, atomically: true) {
+                
                 print("caching artwork for cached track")
                 
                 if self.observationInfo != nil {
@@ -136,7 +148,7 @@ class EPTrack: RLMObject {
     }
     
     override class func ignoredProperties() -> [AnyObject]? {
-        return ["artworkUIImage", "downloadProgress", "lyricsID"]
+        return ["artworkUIImage", "downloadProgress", "lyricsID", "uniqueID"]
     }
 
     override class func primaryKey() -> String {

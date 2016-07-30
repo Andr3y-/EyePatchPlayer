@@ -26,7 +26,9 @@ class EPLastFMScrobble: RLMObject {
 
 
         if let startRange = track.title.rangeOfString("["), let endRange = track.title.rangeOfString("]") {
-            scrobble.track = track.title.stringByReplacingCharactersInRange(Range<String.Index>(start: startRange.startIndex, end: endRange.endIndex), withString: "")
+
+            scrobble.track = track.title.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
+            
         } else {
             scrobble.track = track.title
         }
@@ -42,7 +44,7 @@ class EPLastFMScrobble: RLMObject {
         self.timestamp = Int(NSDate().timeIntervalSince1970 - EPLastFMScrobbleManager.playbackPercentCompleteToScrobble * Double(track.duration))
 
         if let startRange = track.title.rangeOfString("["), let endRange = track.title.rangeOfString("]") {
-            self.track = track.title.stringByReplacingCharactersInRange(Range<String.Index>(start: startRange.startIndex, end: endRange.endIndex), withString: "")
+            self.track = track.title.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
         } else {
             self.track = track.title
         }

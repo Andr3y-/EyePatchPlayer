@@ -38,7 +38,7 @@ class EPMusicPlaylist: AnyObject {
         
         var index: Int?
         for i in (0 ... shuffledTracksLazy.count - 1) {
-            if shuffledTracksLazy[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+            if shuffledTracksLazy[i].uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
                 index = i
                 break
             }
@@ -77,7 +77,7 @@ class EPMusicPlaylist: AnyObject {
     func indexOfTrack(track: EPTrack) -> Int? {
 
         for iteratedTrack in self.tracks {
-            if track.ID == iteratedTrack.ID {
+            if track.uniqueID == iteratedTrack.uniqueID {
                 return self.tracks.indexOf(iteratedTrack)
             }
         }
@@ -98,7 +98,7 @@ class EPMusicPlaylist: AnyObject {
         var index: Int?
 
         for i in (0 ... tracks.count - 1) {
-            if tracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+            if tracks[i].uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
                 index = i
                 break
             }
@@ -139,7 +139,7 @@ class EPMusicPlaylist: AnyObject {
         var index: Int?
 
         for i in (0 ... tracks.count - 1) {
-            if tracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+            if tracks[i].uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
                 index = i
                 break
             }
@@ -183,7 +183,7 @@ class EPMusicPlaylist: AnyObject {
         
         var index: Int?
         for i in (0 ... shuffledTracks.count - 1) {
-            if shuffledTracks[i].ID == EPMusicPlayer.sharedInstance.activeTrack.ID {
+            if shuffledTracks[i].uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
                 index = i
                 break
             }
@@ -205,7 +205,7 @@ class EPMusicPlaylist: AnyObject {
 
         if self.originalTracks.count > 0 {
             for index in 0 ... self.originalTracks.count - 1 {
-                if self.originalTracks[index].ID == track.ID {
+                if self.originalTracks[index].uniqueID == track.uniqueID {
                     self.originalTracks.removeAtIndex(index)
                     resultLinear = true
                     break
@@ -215,7 +215,7 @@ class EPMusicPlaylist: AnyObject {
 
         if self.shuffledTracks.count > 0 {
             for index in 0 ... self.shuffledTracks.count - 1 {
-                if self.shuffledTracks[index].ID == track.ID {
+                if self.shuffledTracks[index].uniqueID == track.uniqueID {
                     self.shuffledTracks.removeAtIndex(index)
                     resultShuffled = true
                     break
@@ -223,7 +223,7 @@ class EPMusicPlaylist: AnyObject {
             }
         }
 
-        if EPMusicPlayer.sharedInstance.activeTrack.ID == track.ID {
+        if EPMusicPlayer.sharedInstance.activeTrack.uniqueID == track.uniqueID {
             if let _ = nextTrack() {
                 EPMusicPlayer.sharedInstance.playNextSong()
             } else if let _ = previousTrack() {
@@ -353,7 +353,7 @@ class EPMusicPlaylist: AnyObject {
     //MARK: Notifications
 
     func subscribeForPlaylistNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleTrackDelete:", name: "Track.Delete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPMusicPlaylist.handleTrackDelete(_:)), name: "Track.Delete", object: nil)
     }
 
     func unsubscribeFromPlaylistNotifications() {
@@ -367,13 +367,13 @@ class EPMusicPlaylist: AnyObject {
             case .Web:
                 print("handleTrackDelete - web")
                 for matchingTrack in self.originalTracks {
-                    if matchingTrack.ID == track.ID {
+                    if matchingTrack.uniqueID == track.uniqueID {
                         matchingTrack.isCached = false
                     }
                 }
 
                 for matchingTrack in self.shuffledTracks {
-                    if matchingTrack.ID == track.ID {
+                    if matchingTrack.uniqueID == track.uniqueID {
                         matchingTrack.isCached = false
                     }
                 }

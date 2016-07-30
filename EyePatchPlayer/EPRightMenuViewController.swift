@@ -15,7 +15,7 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
     let tableEntryStrings = ["Lists", "Search", "Library", "Settings"]
     override func viewDidLoad() {
         print("Menu: viewDidLoad")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLogout", name: "LogoutComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPRightMenuViewController.handleLogout), name: "LogoutComplete", object: nil)
         super.viewDidLoad()
         tableView = UITableView(frame: CGRectMake(self.view.frame.size.width / 1.5, (self.view.frame.size.height - 54 * CGFloat(tableEntryStrings.count)) / 2.0, self.view.frame.size.width / 1.5, 54 * CGFloat(tableEntryStrings.count)))
 

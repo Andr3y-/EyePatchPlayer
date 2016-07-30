@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.16</string>
+	<string>1.0.17</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,11 +32,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>1</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
-		<string>3573f7e7df513dc16bb29fbd7591c75bbf3df5aa</string>
+		<string>${FABRICAPIKEY}</string>
 		<key>Kits</key>
 		<array>
 			<dict>
@@ -50,18 +50,18 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LastFMAPIKey</key>
-	<string>e0f77b7ccf49aad3aa10d16bb432a5ed</string>
+	<string>${LASTFMAPIKEY}</string>
 	<key>LastFMSecret</key>
-	<string>93ec99df32f162bcf58985fb975d6014</string>
+	<string>${LASTFMSECRET}</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
 	<key>ParseAppID</key>
-	<string>ivW39UauexSmxw1jkBNnzJvGGPupTRtDq2KNSp8k</string>
+	<string>${PARSEAPPID}</string>
 	<key>ParseKey</key>
-	<string>EiNXLsL2dqGqFTfeRrEhKjI0pVwzqiiDaktKKBaN</string>
+	<string>${PARSEKEY}</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ProximaNova-Bold.ttf</string>

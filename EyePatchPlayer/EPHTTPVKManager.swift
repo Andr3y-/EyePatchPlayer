@@ -86,7 +86,7 @@ class EPHTTPVKManager: NSObject {
         if !AFNetworkReachabilityManager.sharedManager().reachable {
             return
         }
-        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio": "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
+        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio": "\(track.uniqueID)"], andHttpMethod: "GET")
         broadcastRequest.executeWithResultBlock({
             (response) -> Void in
             print("broadcasting track success result: \(response.json)")
@@ -120,15 +120,27 @@ class EPHTTPVKManager: NSObject {
                     addRequest.executeWithResultBlock({
                         (response) -> Void in
                         
-                        let newID = response.json as! Int
+                        var result: Bool = false
+                        
+                        defer {
+                            if let completion = completion {
+                                completion(result: result, track: track)
+                            }
+                        }
+                        
+                        guard let
+                            newID = response.json as? Int,
+                            newOwnerID = Int(VKSdk.getAccessToken().userId) else {
+                                return
+                        }
                         
                         print("adding track to playlist success result: \(newID)")
                         //update track ID
-                        track.ID = newID
                         
-                        if completion != nil {
-                            completion!(result: true, track: track)
-                        }
+                        track.ID = newID
+                        track.ownerID = newOwnerID
+                        
+                        result = true
                         
                         }, errorBlock: {
                             (error) -> Void in
@@ -189,18 +201,18 @@ class EPHTTPVKManager: NSObject {
         })
     }
     
-    class func getLyricsForTrack(track: EPTrack, completion: ((result:Bool, lyrics:EPLyrics?, trackID:Int) -> Void)?) {
+    class func getLyricsForTrack(track: EPTrack, completion: ((result:Bool, lyrics:EPLyrics?, trackUniqueID:String) -> Void)?) {
         
         print("checking lyrics for track")
-        let trackID = track.ID
-        let trackDetailsRequest: VKRequest = VKRequest(method: "audio.getById", andParameters: ["audios": "\(track.ownerID)_\(track.ID)"], andHttpMethod: "GET")
+        let trackUniqueID = track.uniqueID
+        let trackDetailsRequest: VKRequest = VKRequest(method: "audio.getById", andParameters: ["audios": "\(track.uniqueID)"], andHttpMethod: "GET")
         trackDetailsRequest.executeWithResultBlock({
             (response) -> Void in
             print(response)
             if let responseArray = response.json as? [NSDictionary] {
                 if responseArray.count < 1 {
                     if completion != nil {
-                        completion!(result: false, lyrics: nil, trackID: trackID)
+                        completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
                     }
                     return
                 }
@@ -212,7 +224,7 @@ class EPHTTPVKManager: NSObject {
                         if let responseDictionary = response.json as? NSDictionary {
                             let lyrics = EPLyrics(dictionary: responseDictionary)
                             if completion != nil {
-                                completion!(result: true, lyrics: lyrics, trackID: trackID)
+                                completion!(result: true, lyrics: lyrics, trackUniqueID: trackUniqueID)
                             }
                             return
                         }
@@ -223,13 +235,13 @@ class EPHTTPVKManager: NSObject {
                     })
                 } else {
                     if completion != nil {
-                        completion!(result: false, lyrics: nil, trackID: trackID)
+                        completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
                     }
                     return
                 }
             } else {
                 if completion != nil {
-                    completion!(result: false, lyrics: nil, trackID: trackID)
+                    completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
                 }
                 return
             }
@@ -237,7 +249,7 @@ class EPHTTPVKManager: NSObject {
             }, errorBlock: {
                 (error) -> Void in
                 if completion != nil {
-                    completion!(result: false, lyrics: nil, trackID: trackID)
+                    completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
                 }
                 return
         })

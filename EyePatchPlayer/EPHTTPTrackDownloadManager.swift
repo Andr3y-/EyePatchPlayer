@@ -29,7 +29,7 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
     class func downloadProgressForTrack(track: EPTrack) -> EPDownloadProgress? {
         
         for (trackEnum, _) in sharedInstance.downloadingTrackOperationMap {
-            if track.ID == trackEnum.ID {
+            if track.uniqueID == trackEnum.uniqueID {
                 if let downloadProgress = trackEnum.downloadProgress {
                     return downloadProgress
                 }
@@ -143,7 +143,7 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
     class func cancelTrackDownload(track:EPTrack) -> Bool {
         
         for (trackEnum, operation) in sharedInstance.downloadingTrackOperationMap {
-            if track.ID == trackEnum.ID {
+            if track.uniqueID == trackEnum.uniqueID {
                 operation.setCompletionBlockWithSuccess(nil, failure: nil)
                 operation.cancel()
                 trackEnum.downloadProgress?.finished = false

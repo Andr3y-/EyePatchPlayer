@@ -65,7 +65,6 @@
 		C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */; };
 		C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */; };
 		C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */; };
-		C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */; };
 		C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */; };
 		C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */; };
 		C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */; };
@@ -95,6 +94,7 @@
 		C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */; };
 		C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */; };
 		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
+		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,7 +177,6 @@
 		C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceMeasure.swift; sourceTree = "<group>"; };
 		C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistDelegate.swift; sourceTree = "<group>"; };
 		C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessagesViewController.swift; sourceTree = "<group>"; };
-		C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Refresh.swift"; sourceTree = "<group>"; };
 		C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPEqualizerConfigurationViewController.swift; sourceTree = "<group>"; };
 		C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPVerticalBandSlider.swift; sourceTree = "<group>"; };
 		C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPBandSliderThumbLayer.swift; sourceTree = "<group>"; };
@@ -210,6 +209,7 @@
 		D1B9D8DBB3A30A41AF4B43C1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DCC42ACA9DACC5A7B17FAC73 /* Pods-EyePatchPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyePatchPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyePatchPlayer/Pods-EyePatchPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		FADE91D9E5AFA011EFC06B61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMigration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +344,7 @@
 		C42A430B1C0DF5A9005890F6 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */,
 				C4E60D3C1BAC190800C950AA /* EPCache.swift */,
 				C4E828F51C5683D5004DFB04 /* EPUserData.swift */,
 			);
@@ -595,7 +596,6 @@
 				C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */,
 				C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */,
 				C4D80D761BCE7D600095E2D7 /* UIViewController+RightMenuItem.swift */,
-				C4D5C0121BDFBA56009F7710 /* UIViewController+Refresh.swift */,
 				C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */,
 				C4A32D151C77394B00EEF7F7 /* UIFont+Monospaced.swift */,
 			);
@@ -859,7 +859,6 @@
 				C49E418C1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
 				C469F2F31C6CAA5C0070B68B /* EPHTTPVKManager.swift in Sources */,
-				C4D5C0131BDFBA56009F7710 /* UIViewController+Refresh.swift in Sources */,
 				C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */,
 				C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */,
 				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
@@ -881,6 +880,7 @@
 				C480CF251C7B372500142DF8 /* RSPlayPauseButton.m in Sources */,
 				C4A32D181C777D7E00EEF7F7 /* EPAlbumListViewController.swift in Sources */,
 				C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */,
+				FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
 				C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */,
 				C4E828F41C568340004DFB04 /* EPInternalScrobbleManager.swift in Sources */,
@@ -1055,7 +1055,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5ce05aa0-0bc2-4e48-b011-a91c029ec0ca";
 				SWIFT_OBJC_BRIDGING_HEADER = "./EyePatchPlayer-Bridging-Header.h";
 			};
 			name = Debug;

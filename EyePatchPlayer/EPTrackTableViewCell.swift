@@ -48,10 +48,10 @@ class EPTrackTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionIndicatorView.backgroundColor = UIView.defaultTintColor()
         self.selectionStyle = UITableViewCellSelectionStyle.None
-        let primaryTapper = UITapGestureRecognizer(target: self, action: "mainTap:")
+        let primaryTapper = UITapGestureRecognizer(target: self, action: #selector(mainTap))
         self.mainTapArea.addGestureRecognizer(primaryTapper)
         self.durationLabel.font = self.durationLabel.font.monospacedDigitFont
-        let secondaryTapper = UITapGestureRecognizer(target: self, action: "secondaryTap:")
+        let secondaryTapper = UITapGestureRecognizer(target: self, action: #selector(secondaryTap))
         self.secondaryTapArea.addGestureRecognizer(secondaryTapper)
         // Initialization code
     }

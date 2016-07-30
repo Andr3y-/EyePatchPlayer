@@ -12,7 +12,7 @@ extension UIViewController {
     
     func drawRightMenuButton() {
         
-        let anotherButton = UIBarButtonItem(image:UIImage(named: "icon_burger_menu_raw_small"), style:UIBarButtonItemStyle.Plain, target:self, action:"presentRightMenuViewController:")
+        let anotherButton = UIBarButtonItem(image:UIImage(named: "icon_burger_menu_raw_small"), style:UIBarButtonItemStyle.Plain, target:self, action:#selector(presentRightMenuViewController))
         anotherButton.tintColor = UIView.defaultTintColor()
         self.navigationItem.rightBarButtonItem = anotherButton;
     }

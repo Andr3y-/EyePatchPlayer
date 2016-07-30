@@ -171,8 +171,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             } else {
                 if EPSettings.shouldDownloadArtwork() {
                     EPHTTPTrackMetadataManager.getAlbumCoverImage(self.activeTrack, completion: {
-                        (result, image, trackID) -> Void in
-                        if result && trackID == self.activeTrack.ID {
+                        (result, image, trackUniqueID) -> Void in
+                        if result && trackUniqueID == self.activeTrack.uniqueID {
                             self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                             self.remoteManager.addTrackCoverToNowPlaying(self.activeTrack)
                         }
@@ -183,8 +183,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         } else {
             if EPSettings.shouldDownloadArtwork() {
                 EPHTTPTrackMetadataManager.getAlbumCoverImage(self.activeTrack, completion: {
-                    (result, image, trackID) -> Void in
-                    if result == true && trackID == self.activeTrack.ID {
+                    (result, image, trackUniqueID) -> Void in
+                    if result == true && trackUniqueID == self.activeTrack.uniqueID {
                         self.delegate?.trackRetrievedArtworkImage(self.activeTrack.artworkImage()!)
                         self.remoteManager.addTrackCoverToNowPlaying(self.activeTrack)
                     }
@@ -194,7 +194,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         }
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-            if !track.invalidated && track.ID == self.activeTrack.ID && self.isPlaying() {
+            if !track.invalidated && track.uniqueID == self.activeTrack.uniqueID && self.isPlaying() {
                 if EPSettings.shouldBroadcastStatus() {
                     EPHTTPVKManager.broadcastTrack(self.activeTrack)
                     EPHTTPLastFMManager.broadcastTrack(self.activeTrack, completion: nil)
@@ -219,14 +219,14 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
             self.updateProgressTimer?.invalidate()
         }
 
-        updateProgressTimer = NSTimer.scheduledTimerWithTimeInterval(updateProgressFrequency, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+        updateProgressTimer = NSTimer.scheduledTimerWithTimeInterval(updateProgressFrequency, target: self, selector: #selector(EPMusicPlayer.updateProgress), userInfo: nil, repeats: true)
 
     }
 
     func playTrackFromPlaylist(track: EPTrack, playlist: EPMusicPlaylist) {
         self.playlist = playlist
 
-        if (track.ID != activeTrack.ID) {
+        if (track.uniqueID != activeTrack.uniqueID) {
             setTrack(track, force: true)
         }
     }
