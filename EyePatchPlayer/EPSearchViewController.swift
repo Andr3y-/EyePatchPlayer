@@ -10,7 +10,9 @@ import UIKit
 import VK_ios_sdk
 
 class EPSearchViewController: EPPlaylistAbstractViewController {
+    
     var lastExecutedSearchQuery = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         shouldHideSearchBarWhenLoaded = false
@@ -48,38 +50,46 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
 
         let audioRequest: VKRequest!
         let searchQuery = self.searchBar.text!
-        if !searchQueryEmpty() {
-            audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q: self.searchBar.text!, VK_API_COUNT: 300], andHttpMethod: "GET")
-        } else {
+        if searchQueryEmpty() {
             audioRequest = VKRequest(method: "audio.getPopular", andParameters: ["only_eng": 1, VK_API_COUNT: 300], andHttpMethod: "GET")
+
+        } else {
+            audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q: self.searchBar.text!, VK_API_COUNT: 300], andHttpMethod: "GET")
         }
 
         audioRequest.executeWithResultBlock({
-            (response) -> Void in
+            [weak self] (response) -> Void in
 
-            if searchQuery != self.searchBar.text! {
+            guard let strongSelf = self else {
+                return
+            }
+            
+            print("response: \(response)")
+            
+            if searchQuery != strongSelf.searchBar.text! {
                 return
             }
 
-            if !self.searchQueryEmpty() {
-                if let responseDictionary = response.json as? NSDictionary where responseDictionary.count != 0 {
-                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+            if strongSelf.searchQueryEmpty() {
+                //  This is for popular
+                if let responseArray = response.json as? [[String: AnyObject]] {
+                    strongSelf.playlist = EPMusicPlaylist.initWithResponseArray(responseArray)
                 }
             } else {
-                if let responseArray = response.json as? NSArray where responseArray.count != 0 {
-                    self.playlist = EPMusicPlaylist.initWithResponseArray(responseArray)
+                //  This is for search requests
+                if let responseDictionary = response.json as? [String: AnyObject] {
+                    strongSelf.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
                 }
             }
 
-            if let searchText = self.searchBar.text where searchText.characters.count > 0 {
+            if let searchText = strongSelf.searchBar.text where searchText.characters.count > 0 {
                 print("reloading table")
-//                self.tableView.reloadData()
-                self.dataReady()
+                strongSelf.dataReady()
             } else {
-                self.dataReady()
+                strongSelf.dataReady()
             }
 
-            print("loadedTracks.count = \(self.playlist.tracks.count)")
+            print("loadedTracks.count = \(strongSelf.playlist.tracks.count)")
 
         }, errorBlock: {
             (error) -> Void in

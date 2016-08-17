@@ -13,14 +13,17 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
     var tableView: UITableView!
     var selectedItemIndex: Int = 0
     let tableEntryStrings = ["Lists", "Search", "Library", "Settings"]
+    
     override func viewDidLoad() {
         print("Menu: viewDidLoad")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPRightMenuViewController.handleLogout), name: "LogoutComplete", object: nil)
         super.viewDidLoad()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPRightMenuViewController.handleLogout), name: "LogoutComplete", object: nil)
         tableView = UITableView(frame: CGRectMake(self.view.frame.size.width / 1.5, (self.view.frame.size.height - 54 * CGFloat(tableEntryStrings.count)) / 2.0, self.view.frame.size.width / 1.5, 54 * CGFloat(tableEntryStrings.count)))
 
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
         tableView.autoresizingMask = [.FlexibleRightMargin, .FlexibleLeftMargin, .FlexibleBottomMargin, .FlexibleTopMargin]
-
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.opaque = false;
@@ -60,53 +63,72 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = self.tableView.dequeueReusableCellWithIdentifier("Cell")
-
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-            cell!.backgroundColor = UIColor.clearColor()
-            cell!.textLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 21)
-            cell!.textLabel!.textColor = UIColor.whiteColor()// UIColor.whiteColor()
-            cell!.textLabel!.highlightedTextColor = UIColor.lightGrayColor()
-            cell!.selectedBackgroundView = UIView()
-        }
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
-        cell?.textLabel?.text = tableEntryStrings[(indexPath.row)]
-        cell?.textLabel?.textAlignment = NSTextAlignment.Left
-        cell?.textLabel?.shadowColor = UIColor.blackColor()
-        cell?.textLabel?.shadowOffset = CGSizeMake(0.0, 0.0)
+        cell.backgroundColor = UIColor.clearColor()
+        cell.textLabel!.font = UIFont.boldSystemFontOfSize(21)
+        cell.textLabel!.textColor = UIColor.whiteColor()// UIColor.whiteColor()
+        cell.textLabel!.highlightedTextColor = UIColor.lightGrayColor()
+        cell.selectedBackgroundView = UIView()
+        
+        cell.textLabel?.text = tableEntryStrings[(indexPath.row)]
+        cell.textLabel?.textAlignment = NSTextAlignment.Left
+        cell.textLabel?.shadowColor = UIColor.blackColor()
+        cell.textLabel?.shadowOffset = CGSizeMake(0.0, 0.0)
 
         if indexPath.row == selectedItemIndex {
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self.applySelectionToCell(cell!)
-            }
+            self.applySelectionToCell(cell)
         }
 
-        return cell!
+        return cell
     }
 
     func selectActiveCell() {
         let indexPath = NSIndexPath(forRow: selectedItemIndex, inSection: 0)
-        self.applySelectionToCell(self.tableView.cellForRowAtIndexPath(indexPath)!)
+        guard let newActiveCell = self.tableView.cellForRowAtIndexPath(indexPath) else {
+            return
+        }
+        self.applySelectionToCell(newActiveCell)
     }
 
     func applySelectionToCell(cell: UITableViewCell) {
-        let view: UIView = cell.contentView as UIView
         let gradient: CAGradientLayer = CAGradientLayer()
 
-        gradient.frame = view.bounds
+        gradient.frame = cell.contentView.bounds
         gradient.colors = [UIColor.clearColor().CGColor, UIColor.whiteColor().CGColor]
         gradient.startPoint = CGPointMake(0.0, 0.5)
         gradient.endPoint = CGPointMake(1.0, 0.5)
-
-        view.layer.insertSublayer(gradient, atIndex: 0)
+        gradient.opacity = 0
+        
+        cell.contentView.layer.insertSublayer(gradient, atIndex: 0)
+        
+        let gradientAnimation = CABasicAnimation(keyPath: "opacity")
+        gradientAnimation.fromValue = 0
+        gradientAnimation.toValue = 1
+        gradientAnimation.duration = 0.2
+        gradientAnimation.removedOnCompletion = false
+        gradientAnimation.fillMode = kCAFillModeForwards
+        gradient.addAnimation(gradientAnimation, forKey: "opacityAnimation")
     }
 
     func clearSelectonOnCell(cell: UITableViewCell) {
-        let view: UIView = cell.contentView as UIView
-        if view.layer.sublayers?.count > 0 {
-            view.layer.sublayers![0].removeFromSuperlayer()
+        if cell.contentView.layer.sublayers?.count > 0 {
+            CATransaction.begin()
+            
+            let gradientAnimation = CABasicAnimation(keyPath: "opacity")
+            gradientAnimation.fromValue = 1
+            gradientAnimation.toValue = 0
+            gradientAnimation.duration = 0.2
+            gradientAnimation.removedOnCompletion = false
+            gradientAnimation.fillMode = kCAFillModeForwards
+            
+            CATransaction.setCompletionBlock({ 
+                cell.contentView.layer.sublayers?[0].removeFromSuperlayer()
+            })
+            
+            cell.contentView.layer.sublayers?[0].addAnimation(gradientAnimation, forKey: "opacityAnimation")
+            
+            CATransaction.commit()
         }
     }
 
