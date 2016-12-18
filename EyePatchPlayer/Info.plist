@@ -36,7 +36,7 @@
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
-		<string>${FABRICAPIKEY}</string>
+		<string>3573f7e7df513dc16bb29fbd7591c75bbf3df5aa</string>
 		<key>Kits</key>
 		<array>
 			<dict>
@@ -50,18 +50,18 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LastFMAPIKey</key>
-	<string>${LASTFMAPIKEY}</string>
+	<string>e0f77b7ccf49aad3aa10d16bb432a5ed</string>
 	<key>LastFMSecret</key>
-	<string>${LASTFMSECRET}</string>
+	<string>93ec99df32f162bcf58985fb975d6014</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
 	<key>ParseAppID</key>
-	<string>${PARSEAPPID}</string>
+	<string>ivW39UauexSmxw1jkBNnzJvGGPupTRtDq2KNSp8k</string>
 	<key>ParseKey</key>
-	<string>${PARSEKEY}</string>
+	<string>EiNXLsL2dqGqFTfeRrEhKjI0pVwzqiiDaktKKBaN</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ProximaNova-Bold.ttf</string>
@@ -99,6 +99,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>VKAppID</key>
-	<string>${VKAPPID}</string>
+	<string>5070798</string>
 </dict>
 </plist>
