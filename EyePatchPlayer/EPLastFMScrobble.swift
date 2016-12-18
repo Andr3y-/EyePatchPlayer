@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 
 class EPLastFMScrobble: RLMObject {
 

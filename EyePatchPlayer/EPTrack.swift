@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 
 class EPTrack: RLMObject {
 
@@ -97,20 +98,31 @@ class EPTrack: RLMObject {
                 if self.observationInfo != nil {
                     print("track observation info is non-nil, however addOrUpdateObject is called")
                     if let selfCopy = self.copy() as? EPTrack {
-//                        self.isArtworkCached = true
-                        RLMRealm.defaultRealm().beginWriteTransaction()
-                        selfCopy.isArtworkCached = true
-                        RLMRealm.defaultRealm().addOrUpdateObject(selfCopy)
-                        RLMRealm.defaultRealm().commitWriteTransaction()
+
+                        do {
+                            RLMRealm.defaultRealm().beginWriteTransaction()
+                            selfCopy.isArtworkCached = true
+                            RLMRealm.defaultRealm().addOrUpdateObject(selfCopy)
+                            try RLMRealm.defaultRealm().commitWriteTransaction()
+
+                        } catch {
+
+                        }
 
                         
                     }
                     
                 } else {
-                    RLMRealm.defaultRealm().beginWriteTransaction()
-                    self.isArtworkCached = true
-                    RLMRealm.defaultRealm().addOrUpdateObject(self)
-                    RLMRealm.defaultRealm().commitWriteTransaction()
+
+                    do {
+                        RLMRealm.defaultRealm().beginWriteTransaction()
+                        self.isArtworkCached = true
+                        RLMRealm.defaultRealm().addOrUpdateObject(self)
+                        try RLMRealm.defaultRealm().commitWriteTransaction()
+                        
+                    } catch {
+                        
+                    }
                 }
 
             } else {
@@ -147,11 +159,11 @@ class EPTrack: RLMObject {
         return track
     }
     
-    override class func ignoredProperties() -> [AnyObject]? {
+    override static func ignoredProperties() -> [String] {
         return ["artworkUIImage", "downloadProgress", "lyricsID", "uniqueID"]
     }
 
-    override class func primaryKey() -> String {
+    override static func primaryKey() -> String {
         return "ID"
     }
     

@@ -7,7 +7,6 @@
 //
 
 import AFNetworking
-import CryptoSwift
 
 class EPHTTPLastFMManager: NSObject {
     
@@ -188,6 +187,6 @@ class EPHTTPLastFMManager: NSObject {
         //construction complete, return md5
         //        print("signature: \(rawSignature)")
         //        print("md5 sign:  \(rawSignature.md5())")
-        return rawSignature.md5()
+        return rawSignature//.md5()
     }
 }

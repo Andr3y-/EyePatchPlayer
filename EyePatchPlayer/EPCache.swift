@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 
 protocol EPCacheDelegate: class {
     func cacheDidUpdate()
@@ -14,14 +15,14 @@ protocol EPCacheDelegate: class {
 
 class EPCache: NSObject {
 
-    class func addTrackToDownloadWithFileAtPath(track: EPTrack, filePath: String) -> (Bool) {
+    static func addTrackToDownloadWithFileAtPath(track: EPTrack, filePath: String) -> (Bool) {
         var result: Bool = false
 
         //check if already exists
         if checkTrackFileExistsInDownload(track) {
             //file already exists, handling
 
-            let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "(ID = %d) AND (ownerID = %d)", track.ID, track.ownerID))
+            let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "ID = %d", track.ID))
 
             if (existingObjects.count == 0) {
                 //we're good to go
@@ -90,14 +91,24 @@ class EPCache: NSObject {
         if track.observationInfo != nil {
             print("track observation info is non-nil, however addOrUpdateObject is called")
             if let trackCopy = track.copy() as? EPTrack {
-                RLMRealm.defaultRealm().beginWriteTransaction()
-                RLMRealm.defaultRealm().addOrUpdateObject(trackCopy)
-                RLMRealm.defaultRealm().commitWriteTransaction()
+                do {
+                    RLMRealm.defaultRealm().beginWriteTransaction()
+                    RLMRealm.defaultRealm().addOrUpdateObject(trackCopy)
+                    try RLMRealm.defaultRealm().commitWriteTransaction()
+                } catch {
+
+                }
+
             }
         } else {
-            RLMRealm.defaultRealm().beginWriteTransaction()
-            RLMRealm.defaultRealm().addOrUpdateObject(track)
-            RLMRealm.defaultRealm().commitWriteTransaction()
+            do {
+                RLMRealm.defaultRealm().beginWriteTransaction()
+                RLMRealm.defaultRealm().addOrUpdateObject(track)
+                try RLMRealm.defaultRealm().commitWriteTransaction()
+            } catch {
+
+            }
+
         }
         
         result = true
@@ -107,7 +118,7 @@ class EPCache: NSObject {
         return result
     }
 
-    class func addTrackToDownloadWithFileData(track: EPTrack, data: NSData) -> (Bool) {
+    static func addTrackToDownloadWithFileData(track: EPTrack, data: NSData) -> (Bool) {
         let result: Bool = false
 
         //check if already exists,
@@ -115,7 +126,7 @@ class EPCache: NSObject {
         return result
     }
 
-    class func deleteTrackFromDownload(track: EPTrack) -> (Bool) {
+    static func deleteTrackFromDownload(track: EPTrack) -> (Bool) {
         var result: Bool
 
         NSNotificationCenter.defaultCenter().postNotificationName("Track.Delete", object: nil, userInfo: ["track": track])
@@ -135,9 +146,15 @@ class EPCache: NSObject {
         }
 
         if let _ = trackCachedInstanceForTrack(track) {
-            RLMRealm.defaultRealm().beginWriteTransaction()
-            RLMRealm.defaultRealm().deleteObject(track)
-            RLMRealm.defaultRealm().commitWriteTransaction()
+
+            do {
+                RLMRealm.defaultRealm().beginWriteTransaction()
+                RLMRealm.defaultRealm().deleteObject(track)
+                try RLMRealm.defaultRealm().commitWriteTransaction()
+                
+            } catch {
+                
+            }
 
         }
 
@@ -145,9 +162,9 @@ class EPCache: NSObject {
         //check if already exists,
     }
 
-    class func trackCachedInstanceForTrack(track: EPTrack) -> (EPTrack)? {
-        let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "(ID = %d) AND (ownerID = %d)", track.ID, track.ownerID))
-
+    static func trackCachedInstanceForTrack(track: EPTrack) -> (EPTrack)? {
+        let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "ID = %d", track.ID))
+//        println("existingObjects: \(existingObjects)")
         if (existingObjects.count == 0) {
             return nil
 
@@ -168,7 +185,9 @@ class EPCache: NSObject {
         }
     }
 
-    class func cacheStatusForTrack(track: EPTrack) -> (Bool) {
+//    static var cacheRetrievalExecutionTime:CFAbsoluteTime = 0
+
+    static func cacheStatusForTrack(track: EPTrack) -> (Bool) {
 
         let existingObjects = EPTrack.objectsWithPredicate(NSPredicate(format: "(ID = %d) AND (ownerID = %d)", track.ID, track.ownerID))
 
@@ -179,7 +198,7 @@ class EPCache: NSObject {
         }
     }
 
-    class func downloadDirectory() -> (String) {
+    static func downloadDirectory() -> (String) {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         return documentsPath.stringByAppendingPathComponent("download")
     }
@@ -189,17 +208,16 @@ class EPCache: NSObject {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         return documentsPath.stringByAppendingPathComponent("artwork")
     }
-    
-    class func cacheDirectory() -> (String) {
+    static func cacheDirectory() -> (String) {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         return documentsPath.stringByAppendingPathComponent("cache")
     }
 
-    class func cacheEnabled() -> (Bool) {
+    static func cacheEnabled() -> (Bool) {
         return true
     }
 
-    class func maxDiskCacheSize() -> (Int) {
+    static func maxDiskCacheSize() -> (Int) {
         return 100 * 1024 * 1024
     }
 
@@ -207,13 +225,11 @@ class EPCache: NSObject {
         print("EPCache perform start checks")
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.downloadDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.downloadDirectory())
-        EPCache.checkDirectoryExistsCreateIfNot(EPCache.artworkDirectory())
-        EPCache.listFilesInDirectoryWithPath(EPCache.artworkDirectory())
         EPCache.checkDirectoryExistsCreateIfNot(EPCache.cacheDirectory())
         EPCache.listFilesInDirectoryWithPath(EPCache.cacheDirectory())
     }
 
-    class func checkDirectoryExistsCreateIfNot(path: String) {
+    static func checkDirectoryExistsCreateIfNot(path: String) {
         var isDir: ObjCBool = false
         if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir) {
             // exists, no action needed
@@ -221,22 +237,21 @@ class EPCache: NSObject {
             do {
                 // file does not exist
                 try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
-                print("Directory created: \(path)")
             } catch _ {
                 
             }
         }
     }
 
-    class func checkTrackFileExistsInDownload(track: EPTrack) -> Bool {
+    static func checkTrackFileExistsInDownload(track: EPTrack) -> Bool {
         return NSFileManager.defaultManager().fileExistsAtPath(pathForTrackToSave(track))
     }
 
-    class func pathForTrackToSave(track: EPTrack) -> (String) {
-        return (EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("\(track.uniqueID).mp3")
+    static func pathForTrackToSave(track: EPTrack) -> (String) {
+        return (EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("\(track.ID).mp3")
     }
 
-    class func trackCoverImageIfExists(track: EPTrack) -> (UIImage?) {
+    static func trackCoverImageIfExists(track: EPTrack) -> (UIImage?) {
         if let image = UIImage(contentsOfFile: pathForTrackArtwork(track)) {
             print("retrieving image for track \(track.artist) - \(track.title)")
             return image
@@ -246,7 +261,7 @@ class EPCache: NSObject {
 
     }
 
-    class func cacheStateUponTermination(track: EPTrack, playlist: EPMusicPlaylist) -> Bool {
+    static func cacheStateUponTermination(track: EPTrack, playlist: EPMusicPlaylist) -> Bool {
 
         if playlist.tracks.count == 0 || track.ID == 0 {
             print("cacheStateUponTermination - Fail (Empty track or playlist)")
@@ -259,7 +274,7 @@ class EPCache: NSObject {
             if let responseJSONData = try? NSJSONSerialization.dataWithJSONObject(responseJSON, options: NSJSONWritingOptions(rawValue: 0)) {
                 if responseJSONData.writeToFile((cacheDirectory() as NSString).stringByAppendingPathComponent("cachedPlaylist.json"), atomically: true) {
                     //now save the track ID for resuming next time on it
-                    NSUserDefaults.standardUserDefaults().setObject(track.uniqueID, forKey: "LastTrackUniqueID")
+                    NSUserDefaults.standardUserDefaults().setObject(track.ID, forKey: "LastTrackID")
                     print("cacheStateUponTermination - OK (JSON)")
                     return true
                 }
@@ -275,33 +290,32 @@ class EPCache: NSObject {
                 print("remove cached playlist throw")
             }
             print("cacheStateUponTermination - OK (Lib)")
-            NSUserDefaults.standardUserDefaults().setObject(track.uniqueID, forKey: "LastTrackUniqueID")
+            NSUserDefaults.standardUserDefaults().setObject(track.ID, forKey: "LastTrackID")
 
             return true
         }
 
     }
 
-    class func cacheStateUponLaunch() -> (track:EPTrack, playlist:EPMusicPlaylist)? {
+    static func cacheStateUponLaunch() -> (track:EPTrack, playlist:EPMusicPlaylist)? {
 
         if let responseJSONData = NSData(contentsOfFile: (cacheDirectory() as NSString).stringByAppendingPathComponent("cachedPlaylist.json")) {
             if let responseJSON = try? NSJSONSerialization.JSONObjectWithData(responseJSONData, options: NSJSONReadingOptions(rawValue: 0)) {
                 let playlist = EPMusicPlaylist.initWithResponse(responseJSON as! NSDictionary)
                 playlist.identifier = "Cached Generic"
-                if let lastTrackUniqueID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackUniqueID") as? String {
-                    for track in playlist.tracks {
-                        if track.uniqueID == lastTrackUniqueID {
-                            return (track, playlist)
-                        }
+                let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as! Int
+                for track in playlist.tracks {
+                    if track.ID == lastTrackID {
+                        return (track, playlist)
                     }
                 }
             }
         } else {
-            if let lastTrackUniqueID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackUniqueID") as? String {
+            if let lastTrackID = NSUserDefaults.standardUserDefaults().objectForKey("LastTrackID") as? Int {
                 let playlist = EPMusicPlaylist.initWithRLMResults(EPTrack.allObjects())
                 playlist.identifier = "Cached Library"
                 for track in playlist.tracks {
-                    if track.uniqueID == lastTrackUniqueID {
+                    if track.ID == lastTrackID {
                         return (track, playlist)
                     }
                 }
@@ -311,31 +325,36 @@ class EPCache: NSObject {
         return nil
     }
 
-    class func pathForTrackArtwork(track: EPTrack) -> (String) {
-        return (EPCache.artworkDirectory() as NSString).stringByAppendingPathComponent("\(track.uniqueID).jpg")
+    static func pathForTrackArtwork(track: EPTrack) -> (String) {
+        return ((EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("artwork") as NSString).stringByAppendingPathComponent("\(track.ID).jpg")
     }
 
-    class func listFilesInDirectoryWithPath(path: String) {
+    static func listFilesInDirectoryWithPath(path: String) {
         print("listFilesInDirectoryWithPath: \(path)")
-
-        guard let enumerator: NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(path) else {
-            return
-        }
+        let fileManager = NSFileManager.defaultManager()
+        let enumerator: NSDirectoryEnumerator = fileManager.enumeratorAtPath(path)!
         var count = 1
 
-        for url in enumerator.allObjects {
+        for _ in enumerator.allObjects {
 
-            print("\(count) : \(url)")
+//            print("\(count) : \(url)")
 
             count += 1
         }
     }
     
-    class func removeAllTracks() {
-        
-        RLMRealm.defaultRealm().beginWriteTransaction()
-        RLMRealm.defaultRealm().deleteAllObjects()
-        RLMRealm.defaultRealm().commitWriteTransaction()
+    static func removeAllTracks() {
+
+
+        do {
+
+            RLMRealm.defaultRealm().beginWriteTransaction()
+            RLMRealm.defaultRealm().deleteAllObjects()
+            try RLMRealm.defaultRealm().commitWriteTransaction()
+            
+        } catch {
+            
+        }
         
         let fileManager = NSFileManager.defaultManager()
         
@@ -363,19 +382,6 @@ class EPCache: NSObject {
             }
         } catch {
             print("unable to load files at download directory")
-        }
-        
-        do {
-            let fileList = try fileManager.contentsOfDirectoryAtPath(self.artworkDirectory())
-            for file in fileList {
-                do {
-                    try fileManager.removeItemAtPath(file)
-                } catch let error as NSError {
-                    print("unable to delete file: \(file)\n\(error.description)")
-                }
-            }
-        } catch {
-            print("unable to load files at artwork directory")
         }
 
     }

@@ -11,7 +11,6 @@
 
 #import <StreamingKit/STKAudioPlayer.h>
 #import <AFNetworking/AFNetworking.h>
-#import <Realm/Realm.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDWebImageManager.h>
 #import <Mantle/Mantle.h>

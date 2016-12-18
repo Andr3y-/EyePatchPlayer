@@ -23,7 +23,6 @@ PODS:
   - Bolts/Tasks (1.6.0)
   - Crashlytics (3.6.0):
     - Fabric (~> 1.6.3)
-  - CryptoSwift (0.2.2)
   - DGActivityIndicatorView (2.0)
   - Fabric (1.6.4)
   - Mantle (2.0.6):
@@ -31,9 +30,9 @@ PODS:
   - Mantle/extobjc (2.0.6)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
-  - Realm (0.95.3):
-    - Realm/Headers (= 0.95.3)
-  - Realm/Headers (0.95.3)
+  - Realm (2.1.1):
+    - Realm/Headers (= 2.1.1)
+  - Realm/Headers (2.1.1)
   - RESideMenu (4.0.7)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
@@ -44,12 +43,11 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
   - Crashlytics (~> 3.6.0)
-  - CryptoSwift (~> 0.2.2)
   - DGActivityIndicatorView (~> 2.0)
   - Fabric (~> 1.6.3)
   - Mantle (~> 2.0.6)
   - Parse (~> 1.12.0)
-  - Realm (~> 0.95.0)
+  - Realm
   - RESideMenu (~> 4.0.7)
   - SDWebImage (~> 3.7)
   - StreamingKit (~> 0.1.29)
@@ -59,15 +57,16 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   Crashlytics: e4e8d02914f2608fbc7bf42b1a7af838b0db67a2
-  CryptoSwift: d382228d6301c09474132417878a741c2a2e68cd
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   Fabric: ed41fd62173c6bdea24ab02c9d7707161eabb750
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
-  Realm: 55885fa05865344994ad8b56da96669ffa39fbf1
+  Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   VK-ios-sdk: f4b7df0d4e277e06d60fef6dc472be4260eeda6d
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: cc140909872b5903044bbedb37b325a3b0770b5f
+
+COCOAPODS: 1.1.0.rc.2

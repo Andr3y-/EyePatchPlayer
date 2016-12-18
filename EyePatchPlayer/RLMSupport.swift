@@ -5,6 +5,7 @@
 //  Created by Andr3y on 23/09/2015.
 //  Copyright (c) 2015 Apppli. All rights reserved.
 //
+import Realm
 
 extension RLMObject {
     // Swift query convenience functions
@@ -29,11 +30,7 @@ public class RLMGenerator: GeneratorType {
         if i >= collection.count {
             return .None
         } else {
-
-            let object = collection[i] as? RLMObject
-            i += 1
-            
-            return object
+            return collection[i++] as? RLMObject
         }
     }
 }

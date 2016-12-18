@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import Realm
 
 class EPLastFMScrobbleManager: NSObject {
 
@@ -61,9 +62,14 @@ class EPLastFMScrobbleManager: NSObject {
     private class func postponeScrobble(scrobble: EPLastFMScrobble) {
         print("postpone scrobble: \(scrobble.artist) - \(scrobble.track)")
         queueIsEmpty = false
-        RLMRealm.defaultRealm().beginWriteTransaction()
-        RLMRealm.defaultRealm().addObject(scrobble)
-        RLMRealm.defaultRealm().commitWriteTransaction()
+
+        do {
+            RLMRealm.defaultRealm().beginWriteTransaction()
+            RLMRealm.defaultRealm().addObject(scrobble)
+            try RLMRealm.defaultRealm().commitWriteTransaction()
+        } catch {
+
+        }
 
     }
 
@@ -77,9 +83,15 @@ class EPLastFMScrobbleManager: NSObject {
                     if result {
                         scrobbleQueueArray.removeFirst()
                         if !scrobble.invalidated {
-                            RLMRealm.defaultRealm().beginWriteTransaction()
-                            RLMRealm.defaultRealm().deleteObject(scrobble)
-                            RLMRealm.defaultRealm().commitWriteTransaction()
+
+                            do {
+                                RLMRealm.defaultRealm().beginWriteTransaction()
+                                RLMRealm.defaultRealm().deleteObject(scrobble)
+                                try RLMRealm.defaultRealm().commitWriteTransaction()
+                            } catch {
+                                
+                            }
+
                         }
                         self.scrobbleQueue(scrobbleQueueArray)
                     } else {
