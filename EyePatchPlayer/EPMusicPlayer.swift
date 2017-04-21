@@ -66,7 +66,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
         let options: STKAudioPlayerOptions = STKAudioPlayerOptions(flushQueueOnSeek: true, enableVolumeMixer: true, equalizerBandFrequencies: equalizerB, readBufferSize: 0, bufferSizeInSeconds: 0, secondsRequiredToStartPlaying: 0, gracePeriodAfterSeekInSeconds: 0, secondsRequiredToStartPlayingAfterBufferUnderun: 0)
 
         self.setupStream(options)
-        EPSystemEnvironmentChangeManager.sharedInstance
+        let _ = EPSystemEnvironmentChangeManager.sharedInstance
     }
 
     func setupStream(_ options: STKAudioPlayerOptions?) {
@@ -513,7 +513,7 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
     }
 
-    func audioPlayer(_ audioPlayer: STKAudioPlayer, didCancelQueuedItems queuedItems: [AnyObject]) {
+    private func audioPlayer(_ audioPlayer: STKAudioPlayer, didCancelQueuedItems queuedItems: [AnyObject]) {
 
     }
 

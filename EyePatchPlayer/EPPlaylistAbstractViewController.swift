@@ -179,15 +179,15 @@ class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource,
 
     func highlightActiveTrack(_ scroll: Bool, animated: Bool) {
         if hasFilterActive() {
-            for trackObject in self.filteredPlaylist.tracks {
-                if let track: EPTrack = trackObject {
-                    if track.uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
-                        if let index = self.filteredPlaylist.tracks.index(of: trackObject) {
-                            self.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: UITableViewScrollPosition.none)
+            for track in self.filteredPlaylist.tracks {
 
-                        }
+                if track.uniqueID == EPMusicPlayer.sharedInstance.activeTrack.uniqueID {
+                    if let index = self.filteredPlaylist.tracks.index(of: track) {
+                        self.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: UITableViewScrollPosition.none)
+
                     }
                 }
+
             }
         } else {
             for track in self.playlist.tracks {

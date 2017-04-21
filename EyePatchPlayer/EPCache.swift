@@ -261,7 +261,7 @@ class EPCache: NSObject {
 
     }
 
-    static func cacheStateUponTermination(_ track: EPTrack, playlist: EPMusicPlaylist) -> Bool {
+    @discardableResult static func cacheStateUponTermination(_ track: EPTrack, playlist: EPMusicPlaylist) -> Bool {
 
         if playlist.tracks.count == 0 || track.ID == 0 {
             print("cacheStateUponTermination - Fail (Empty track or playlist)")

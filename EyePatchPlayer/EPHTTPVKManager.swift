@@ -75,10 +75,8 @@ class EPHTTPVKManager: NSObject {
                 EPHTTPVKManager.getAudiosFromMessagesWithCountOffset(requiredCount, messagesPerRequestCount: messagesPerRequestCount, offset: offset + messagesPerRequestCount, tracksArray: tracksArray, intermediateCompletion: intermediateCompletion, finalCompletion: finalCompletion)
             }
             
-            }, errorBlock: {
-                (error) -> Void in
-                
-                print(error)
+            }, errorBlock: { error in
+                print(error?.localizedDescription ?? "unknown error")
         })
     }
     
@@ -91,9 +89,8 @@ class EPHTTPVKManager: NSObject {
         broadcastRequest.execute(resultBlock: {
             (response) -> Void in
             print("broadcasting track success result: \(response?.json)")
-            }, errorBlock: {
-                (error) -> Void in
-                print(error)
+            }, errorBlock: { error in
+                print(error?.localizedDescription ?? "unknown error")
         })
     }
     
@@ -149,7 +146,7 @@ class EPHTTPVKManager: NSObject {
                                 completion!(false, nil)
                             }
                             
-                            print(error)
+                            print(error ?? "unknown error")
                     })
                 }
                 

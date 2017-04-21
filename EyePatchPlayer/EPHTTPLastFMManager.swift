@@ -50,13 +50,11 @@ class EPHTTPLastFMManager: NSObject {
                 (operation, error) -> Void in
                 print("lastfm track.updateNowPlaying failure")
                 
-                if let operation = operation {
-                    print(operation.response)
+                if let response = operation?.response {
+                    print(response)
                 }
-                
-                if completion != nil {
-                    completion!(false)
-                }
+
+                completion?(false)
         }
     }
     

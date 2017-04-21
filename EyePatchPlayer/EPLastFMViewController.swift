@@ -88,7 +88,7 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
                     })
                     self.authorized = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double((Int64)(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
-                        self.navigationController?.popViewController(animated: true)
+                        let _ = self.navigationController?.popViewController(animated: true)
                         self.authorizeButton.isUserInteractionEnabled = true
                     })
                 } else {

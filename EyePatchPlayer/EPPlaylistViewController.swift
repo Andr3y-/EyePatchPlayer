@@ -53,7 +53,7 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController {
                         style: .default,
                         handler: {
                             (action) -> Void in
-                            self.navigationController?.popViewController(animated: true)
+                            let _ = self.navigationController?.popViewController(animated: true)
                         }) //You can use a block here to handle a press on this button
                 alertController.addAction(actionOk)
 
