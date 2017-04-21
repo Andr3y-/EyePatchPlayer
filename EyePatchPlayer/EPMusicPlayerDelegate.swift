@@ -7,11 +7,11 @@
 //
 
 protocol EPMusicPlayerDelegate: class {
-    func playbackProgressUpdate(currentTime: Int, bufferedPercent: Double)
+    func playbackProgressUpdate(_ currentTime: Int, bufferedPercent: Double)
 
-    func playbackStatusUpdate(playbackStatus: PlaybackStatus)
+    func playbackStatusUpdate(_ playbackStatus: PlaybackStatus)
 
     func playbackTrackUpdate()
 
-    func trackRetrievedArtworkImage(image: UIImage)
+    func trackRetrievedArtworkImage(_ image: UIImage)
 }

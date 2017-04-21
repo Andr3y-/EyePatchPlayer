@@ -16,13 +16,13 @@ class EPMusicPlayerRemoteManager: NSObject {
     override init() {
         super.init()
         print("EPMusicPlayerRemoteManager init")
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        UIApplication.shared.beginReceivingRemoteControlEvents()
         registerForRemoteCommands()
     }
 
     //remote controls listener
     func registerForRemoteCommands() {
-        let commandCenter = MPRemoteCommandCenter.sharedCommandCenter()
+        let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.addTarget(self, action: #selector(remoteCommandPlay))
         commandCenter.pauseCommand.addTarget(self, action: #selector(remoteCommandPause))
         commandCenter.togglePlayPauseCommand.addTarget(self, action: #selector(remoteCommandTogglePlayback))
@@ -32,33 +32,33 @@ class EPMusicPlayerRemoteManager: NSObject {
         commandCenter.seekBackwardCommand.addTarget(self, action: #selector(seekBackwardCommand))
     }
 
-    func remoteCommandPlay(object: MPRemoteCommandEvent) {
+    func remoteCommandPlay(_ object: MPRemoteCommandEvent) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
         print(#function)
     }
 
-    func remoteCommandTogglePlayback(object: MPRemoteCommandEvent) {
+    func remoteCommandTogglePlayback(_ object: MPRemoteCommandEvent) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
     }
     
-    func remoteCommandPause(object: MPRemoteCommandEvent) {
+    func remoteCommandPause(_ object: MPRemoteCommandEvent) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
         print(#function)
     }
 
-    func remoteCommandNext(object: MPRemoteCommandEvent) {
+    func remoteCommandNext(_ object: MPRemoteCommandEvent) {
         EPMusicPlayer.sharedInstance.playNextSong()
         print(#function)
     }
 
-    func remoteCommandPrevious(object: MPRemoteCommandEvent) {
+    func remoteCommandPrevious(_ object: MPRemoteCommandEvent) {
         EPMusicPlayer.sharedInstance.playPrevSong()
         print(#function)
     }
 
-    func configureNowPlayingInfo(track: EPTrack?) {
+    func configureNowPlayingInfo(_ track: EPTrack?) {
         
-        let info = MPNowPlayingInfoCenter.defaultCenter()
+        let info = MPNowPlayingInfoCenter.default()
         var newInfo = [String: AnyObject]()
         let newTrack: EPTrack!
         
@@ -68,10 +68,10 @@ class EPMusicPlayerRemoteManager: NSObject {
             newTrack = EPMusicPlayer.sharedInstance.activeTrack
         }
         print("configureNowPlayingInfo \(newTrack.title) - \(newTrack.artist)")
-        newInfo[MPMediaItemPropertyTitle] = newTrack.title
-        newInfo[MPMediaItemPropertyArtist] = newTrack.artist
-        newInfo[MPMediaItemPropertyPlaybackDuration] = newTrack.duration
-        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = 0
+        newInfo[MPMediaItemPropertyTitle] = newTrack.title as AnyObject?
+        newInfo[MPMediaItemPropertyArtist] = newTrack.artist as AnyObject?
+        newInfo[MPMediaItemPropertyPlaybackDuration] = newTrack.duration as AnyObject?
+        newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = 0 as AnyObject?
 
         if let artworkImage = newTrack.artworkImage() {
             let artwork = MPMediaItemArtwork(image: artworkImage)
@@ -88,8 +88,8 @@ class EPMusicPlayerRemoteManager: NSObject {
     }
 
     func checkNowPlayingInfoForNewInfoAcceptance() {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-            let center = MPNowPlayingInfoCenter.defaultCenter()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+            let center = MPNowPlayingInfoCenter.default()
             if center.nowPlayingInfo?[MPMediaItemPropertyTitle] as! String != self.currentNowPlayingInfo[MPMediaItemPropertyTitle] as! String &&
                 center.nowPlayingInfo?[MPMediaItemPropertyArtist] as! String != self.currentNowPlayingInfo[MPMediaItemPropertyTitle] as! String {
                     print("attempting: center = newInfo")
@@ -101,37 +101,37 @@ class EPMusicPlayerRemoteManager: NSObject {
         })
     }
     
-    func addTrackCoverToNowPlaying(track: EPTrack) {
+    func addTrackCoverToNowPlaying(_ track: EPTrack) {
         if let artworkImage = track.artworkImage() {
             let artwork = MPMediaItemArtwork(image: artworkImage)
             currentNowPlayingInfo[MPMediaItemPropertyArtwork] = artwork
-            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = currentNowPlayingInfo
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = currentNowPlayingInfo
         }
     }
     
     func updatePlaybackStatus() {
-        if var newInfo = MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo {
+        if var newInfo = MPNowPlayingInfoCenter.default().nowPlayingInfo {
             newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
             newInfo[MPNowPlayingInfoPropertyPlaybackRate] = EPMusicPlayer.sharedInstance.isPlaying() ? 1.0 : 0.0
-            let info = MPNowPlayingInfoCenter.defaultCenter()
+            let info = MPNowPlayingInfoCenter.default()
             info.nowPlayingInfo = newInfo
         }
     }
 
     func updatePlaybackTime() {
-        if var newInfo = MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo {
+        if var newInfo = MPNowPlayingInfoCenter.default().nowPlayingInfo {
             newInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = EPMusicPlayer.sharedInstance.playbackTime()
-            let info = MPNowPlayingInfoCenter.defaultCenter()
+            let info = MPNowPlayingInfoCenter.default()
             info.nowPlayingInfo = newInfo
         }
     }
 
-    func seekForwardCommand(object: MPRemoteCommandEvent) {
+    func seekForwardCommand(_ object: MPRemoteCommandEvent) {
         print(#function)
         EPMusicPlayer.sharedInstance.toggleForwardSeek()
     }
 
-    func seekBackwardCommand(object: MPRemoteCommandEvent) {
+    func seekBackwardCommand(_ object: MPRemoteCommandEvent) {
         print(#function)
         EPMusicPlayer.sharedInstance.toggleBackwardSeek()
     }

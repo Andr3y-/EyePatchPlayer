@@ -12,7 +12,7 @@ class FileMigration: AnyObject {
     
     class func performMigrationIfNeeded() {
         
-        let migrationCompleteValue = NSUserDefaults.standardUserDefaults().boolForKey("FileMigrationComplete")
+        let migrationCompleteValue = UserDefaults.standard.bool(forKey: "FileMigrationComplete")
         
         if !migrationCompleteValue {
             //begin animation
@@ -25,12 +25,12 @@ class FileMigration: AnyObject {
             if performMigration() {
                 //completion set bool
                 print("File migration complete")
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FileMigrationComplete")
+                UserDefaults.standard.set(true, forKey: "FileMigrationComplete")
             } else {
                 print("File migration failed")
             }
             
-            UIView.animateWithDuration(0.2, animations: { 
+            UIView.animate(withDuration: 0.2, animations: { 
                 loadingView.alpha = 0
                 }, completion: { (animationFinished) in
                     loadingView.removeFromSuperview()
@@ -40,39 +40,39 @@ class FileMigration: AnyObject {
         }
     }
     
-    private class func performMigration() -> Bool {
+    fileprivate class func performMigration() -> Bool {
         //start animation on UIWindow
         
         var result: Bool = false
         
         let allTrackResults = EPTrack.allObjects()
-        
-        for trackResult in allTrackResults {
+
+        for i in 0..<allTrackResults.count {
             
-            guard let track = trackResult as? EPTrack else {
+            guard let track = allTrackResults[i] as? EPTrack else {
                 return result
             }
             
-            let oldTrackPath = (EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("\(track.ID).mp3")
-            let oldTrackFileExists = NSFileManager.defaultManager().fileExistsAtPath(oldTrackPath)
+            let oldTrackPath = (EPCache.downloadDirectory() as NSString).appendingPathComponent("\(track.ID).mp3")
+            let oldTrackFileExists = FileManager.default.fileExists(atPath: oldTrackPath)
             
             if oldTrackFileExists {
                 //move file to new path
                 do {
-                    try NSFileManager.defaultManager().moveItemAtPath(oldTrackPath, toPath: EPCache.pathForTrackToSave(track))
+                    try FileManager.default.moveItem(atPath: oldTrackPath, toPath: EPCache.pathForTrackToSave(track))
                     print("\(track.ID).mp3 -> \(track.uniqueID).mp3")
                 } catch {
                     return result
                 }
             }
             
-            let oldArtworkPath = ((EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent("artwork") as NSString).stringByAppendingPathComponent("\(track.ID).jpg")
-            let oldArtworkFileExists = NSFileManager.defaultManager().fileExistsAtPath(oldArtworkPath)
+            let oldArtworkPath = ((EPCache.downloadDirectory() as NSString).appendingPathComponent("artwork") as NSString).appendingPathComponent("\(track.ID).jpg")
+            let oldArtworkFileExists = FileManager.default.fileExists(atPath: oldArtworkPath)
             
             if oldArtworkFileExists {
                 //move file to new path
                 do {
-                    try NSFileManager.defaultManager().moveItemAtPath(oldArtworkPath, toPath: EPCache.pathForTrackArtwork(track))
+                    try FileManager.default.moveItem(atPath: oldArtworkPath, toPath: EPCache.pathForTrackArtwork(track))
                     print("\(track.ID).jpg -> \(track.uniqueID).jpg")
                 } catch {
                     return result
@@ -91,13 +91,13 @@ class FileMigration: AnyObject {
     class func removeBadFiles() {
         
         
-        guard let trackFiles: NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(EPCache.downloadDirectory()) else {
+        guard let trackFiles: FileManager.DirectoryEnumerator = FileManager.default.enumerator(atPath: EPCache.downloadDirectory()) else {
             return
         }
         
         var tracksPathsToDelete: [String] = []
         while let path = trackFiles.nextObject() as? String {
-            if !path.containsString("_") { // checks the extension
+            if !path.contains("_") { // checks the extension
                 tracksPathsToDelete.append(path)
             }
         }
@@ -106,20 +106,20 @@ class FileMigration: AnyObject {
         
         for badTrackPath in tracksPathsToDelete {
             do {
-                try NSFileManager.defaultManager().removeItemAtPath((EPCache.downloadDirectory() as NSString).stringByAppendingPathComponent(badTrackPath))
+                try FileManager.default.removeItem(atPath: (EPCache.downloadDirectory() as NSString).appendingPathComponent(badTrackPath))
                 print("Removed: \(badTrackPath)")
             } catch {
                 
             }
         }
         
-        guard let artworkFiles: NSDirectoryEnumerator = NSFileManager.defaultManager().enumeratorAtPath(EPCache.artworkDirectory()) else {
+        guard let artworkFiles: FileManager.DirectoryEnumerator = FileManager.default.enumerator(atPath: EPCache.artworkDirectory()) else {
             return
         }
         
         var artworkPathsToDelete: [String] = []
         while let path = artworkFiles.nextObject() as? String {
-            if !path.containsString("_") { // checks the extension
+            if !path.contains("_") { // checks the extension
                 artworkPathsToDelete.append(path)
             }
         }
@@ -128,7 +128,7 @@ class FileMigration: AnyObject {
 
         for badArtworkPath in artworkPathsToDelete {
             do {
-                try NSFileManager.defaultManager().removeItemAtPath((EPCache.artworkDirectory() as NSString).stringByAppendingPathComponent(badArtworkPath))
+                try FileManager.default.removeItem(atPath: (EPCache.artworkDirectory() as NSString).appendingPathComponent(badArtworkPath))
                 print("Removed: \(badArtworkPath)")
             } catch {
                 
@@ -141,15 +141,15 @@ class FileMigration: AnyObject {
     
     class func showLoadingOverlay() -> UIView? {
         
-        guard let delegate = UIApplication.sharedApplication().delegate, window = delegate.window else {
+        guard let delegate = UIApplication.shared.delegate, let window = delegate.window else {
             return nil
         }
         
-        let loadingView = UIView(frame: UIScreen.mainScreen().bounds)
-        loadingView.backgroundColor = .whiteColor()
+        let loadingView = UIView(frame: UIScreen.main.bounds)
+        loadingView.backgroundColor = .white
         loadingView.alpha = 0
         
-        let loadingViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        let loadingViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         loadingViewIndicator.startAnimating()
         loadingView.addSubview(loadingViewIndicator)
         
@@ -157,7 +157,7 @@ class FileMigration: AnyObject {
         
         window?.addSubview(loadingView)
         
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             loadingView.alpha = 1
         })
 

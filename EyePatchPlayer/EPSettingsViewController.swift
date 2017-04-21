@@ -20,22 +20,22 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.dataSource = self
         self.tableView.delegate = self
 
-        self.tableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
+        self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
         drawRightMenuButton()
 
     }
 
     func loadCell() {
         let nibName = UINib(nibName: "EPSettingsTableViewCell", bundle: nil)
-        self.tableView.registerNib(nibName, forCellReuseIdentifier: "SettingCell")
+        self.tableView.register(nibName, forCellReuseIdentifier: "SettingCell")
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell: EPSettingsTableViewCell? = self.tableView.dequeueReusableCellWithIdentifier("SettingCell") as? EPSettingsTableViewCell
+        var cell: EPSettingsTableViewCell? = self.tableView.dequeueReusableCell(withIdentifier: "SettingCell") as? EPSettingsTableViewCell
 
         if cell == nil {
-            cell = EPSettingsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SettingCell")
+            cell = EPSettingsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SettingCell")
         }
 
         
@@ -44,19 +44,19 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             case EPSettings.currentSettingsSet().count - 1:
                 let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
                 cell!.setContent(type, value: value, name: name)
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+                cell!.selectionStyle = UITableViewCellSelectionStyle.none
             
             case EPSettings.currentSettingsSet().count:
                 cell!.titleLabel.text = "Log Out"
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
-                cell!.secondaryButton.hidden = true
-                cell!.valueSwitch.hidden = true
+                cell!.selectionStyle = UITableViewCellSelectionStyle.none
+                cell!.secondaryButton.isHidden = true
+                cell!.valueSwitch.isHidden = true
                 cell!.titleLabel.textColor = UIView.defaultTintColor()
 
             default:
                 let (type, value, name) = EPSettings.currentSettingsSet()[indexPath.row]
                 cell!.setContent(type, value: value, name: name)
-                cell!.selectionStyle = UITableViewCellSelectionStyle.None
+                cell!.selectionStyle = UITableViewCellSelectionStyle.none
             
         }
         
@@ -65,27 +65,27 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell!
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return EPSettings.currentSettingsSet().count + 1
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.row {
         case 2:
-            self.performSegueWithIdentifier("segueLastfm", sender: nil)
-            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            self.performSegue(withIdentifier: "segueLastfm", sender: nil)
+            self.tableView.deselectRow(at: indexPath, animated: true)
         case EPSettings.currentSettingsSet().count - 1:
-            self.performSegueWithIdentifier("segueEqualizer", sender: nil)
-            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            self.performSegue(withIdentifier: "segueEqualizer", sender: nil)
+            self.tableView.deselectRow(at: indexPath, animated: true)
         case EPSettings.currentSettingsSet().count:
             self.presentLogoutOptions()
         default:
@@ -94,90 +94,90 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
 
     }
 
-    func valueSwitchTapForCell(cell: EPSettingsTableViewCell) {
-        if cell.type == .ScrobbleWithLastFm {
+    func valueSwitchTapForCell(_ cell: EPSettingsTableViewCell) {
+        if cell.type == .scrobbleWithLastFm {
             if EPSettings.lastfmMobileSession().characters.count > 1 {
                 //do nothing
             } else {
-                self.performSegueWithIdentifier("segueLastfm", sender: nil)
+                self.performSegue(withIdentifier: "segueLastfm", sender: nil)
             }
         }
     }
 
-    func secondaryButtonTapForCell(cell: EPSettingsTableViewCell) {
+    func secondaryButtonTapForCell(_ cell: EPSettingsTableViewCell) {
 
     }
     
     func presentLogoutOptions() {
-        let alertController = UIAlertController(title: nil, message: "Logout:\nDo you want to Remove or Keep your downloaded library?", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: nil, message: "Logout:\nDo you want to Remove or Keep your downloaded library?", preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             // ...
         }
         alertController.addAction(cancelAction)
         
-        let fullLogoutAction = UIAlertAction(title: "Remove tracks", style: .Default) { (action) in
+        let fullLogoutAction = UIAlertAction(title: "Remove tracks", style: .default) { (action) in
             self.presentFullLogoutWarning()
         }
         alertController.addAction(fullLogoutAction)
         
-        let accountLogoutAction = UIAlertAction(title: "Keep tracks", style: .Default) { (action) in
+        let accountLogoutAction = UIAlertAction(title: "Keep tracks", style: .default) { (action) in
             self.presentExperimentalLogoutWarning()
         }
         alertController.addAction(accountLogoutAction)
         
-        self.presentViewController(alertController, animated: true) {
+        self.present(alertController, animated: true) {
             // ...
         }
     }
     
     func presentFullLogoutWarning() {
-        let alertController = UIAlertController(title: "Confirm logout?", message: "All of your downloaded tracks will be deleted.", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action:UIAlertAction) -> Void in
+        let alertController = UIAlertController(title: "Confirm logout?", message: "All of your downloaded tracks will be deleted.", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction) -> Void in
             print("logout cancelled")
         }
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive) { (action:UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive) { (action:UIAlertAction) -> Void in
             print("logout confirmed")
             
             EPCache.removeAllTracks()
             EPSettings.setLastfmSession("")
-            EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: false)
+            EPSettings.changeSetting(EPSettingType.scrobbleWithLastFm, value: false as AnyObject?)
             EPHTTPTrackDownloadManager.cancelAllDownloads()
             VKSdk.forceLogout()
             EPMusicPlayer.sharedInstance.pause()
-            NSNotificationCenter.defaultCenter().postNotificationName("LogoutComplete", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "LogoutComplete"), object: nil)
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         
-        self.presentViewController(alertController, animated: true) { () -> Void in
+        self.present(alertController, animated: true) { () -> Void in
             
         }
     }
 
     func presentExperimentalLogoutWarning() {
-        let alertController = UIAlertController(title: "Warning:\nConfirm account logout?", message: "All of your downloaded tracks will be SAVED. \nThis feature is experimental.", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action:UIAlertAction) -> Void in
+        let alertController = UIAlertController(title: "Warning:\nConfirm account logout?", message: "All of your downloaded tracks will be SAVED. \nThis feature is experimental.", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction) -> Void in
             print("logout cancelled")
         }
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive) { (action:UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive) { (action:UIAlertAction) -> Void in
             print("logout confirmed")
             
             EPSettings.setLastfmSession("")
-            EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: false)
+            EPSettings.changeSetting(EPSettingType.scrobbleWithLastFm, value: false as AnyObject?)
             EPHTTPTrackDownloadManager.cancelAllDownloads()
             VKSdk.forceLogout()
             EPMusicPlayer.sharedInstance.pause()
-            NSNotificationCenter.defaultCenter().postNotificationName("LogoutComplete", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "LogoutComplete"), object: nil)
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         
-        self.presentViewController(alertController, animated: true) { () -> Void in
+        self.present(alertController, animated: true) { () -> Void in
             
         }
     }

@@ -21,7 +21,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         self.playlistsTableView.delegate = self
         self.playlistsTableView.dataSource = self
-        self.playlistsTableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
+        self.playlistsTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
         
         drawRightMenuButton()
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,12 +29,12 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     //tableview
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell: UITableViewCell? = self.playlistsTableView.dequeueReusableCellWithIdentifier("CellIdentifier")
+        var cell: UITableViewCell? = self.playlistsTableView.dequeueReusableCell(withIdentifier: "CellIdentifier")
 
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CellIdentifier")
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "CellIdentifier")
         }
 
         cell!.textLabel?.text = self.playlists[indexPath.row]
@@ -42,12 +42,12 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell!
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlists.count
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell: UITableViewCell = self.playlistsTableView.cellForRowAtIndexPath(indexPath)!
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell: UITableViewCell = self.playlistsTableView.cellForRow(at: indexPath)!
 
         guard let token = VKSdk.getAccessToken(), let _ = token.userId else {
             print("unable to segue due to no user permissions (userID cannot be obtained)")
@@ -57,18 +57,18 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let selectedText = selectedCell.textLabel?.text {
             switch selectedText {
             case "My Music":
-                self.performSegueWithIdentifier("seguePlaylist", sender: selectedText)
+                self.performSegue(withIdentifier: "seguePlaylist", sender: selectedText)
                 break
             case "Recommended":
-                self.performSegueWithIdentifier("segueRecommended", sender: selectedText)
+                self.performSegue(withIdentifier: "segueRecommended", sender: selectedText)
                 break
             case "Friends":
-                self.performSegueWithIdentifier("segueFriendList", sender: selectedText)
+                self.performSegue(withIdentifier: "segueFriendList", sender: selectedText)
             case "Messages":
-                self.performSegueWithIdentifier("segueMessages", sender: selectedText)
+                self.performSegue(withIdentifier: "segueMessages", sender: selectedText)
                 break
             case "Albums":
-                self.performSegueWithIdentifier("segueAlbums", sender: selectedText)
+                self.performSegue(withIdentifier: "segueAlbums", sender: selectedText)
                 break
             default:
                 print("unhandled selection of cell with text: \(selectedText)")
@@ -77,7 +77,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         guard let userID = Int(VKSdk.getAccessToken().userId) else {
             print("unable to segue due to no user permissions (userID cannot be obtained)")
@@ -89,7 +89,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
             switch sender as! String {
             case "My Music":
                 print("segueing to playlist (My)")
-                let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
+                let destinationViewController = segue.destination as! EPPlaylistViewController
                 destinationViewController.userID = userID
                 break
             case "Recommended":
@@ -100,7 +100,7 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 break
             case "Friends":
                 print("segueing to Friends list")
-                let destinationViewController = segue.destinationViewController as! EPFriendListViewController
+                let destinationViewController = segue.destination as! EPFriendListViewController
                 destinationViewController.userID = userID
                 break
             case "Messages":
@@ -114,12 +114,12 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         case "segueAlbums":
             print("segueing to Albums list")
-            let destinationViewController = segue.destinationViewController as! EPAlbumListViewController
+            let destinationViewController = segue.destination as! EPAlbumListViewController
             destinationViewController.userID = userID
             break
             
         case "segueFriendList":
-            let destinationViewController = segue.destinationViewController as! EPFriendListViewController
+            let destinationViewController = segue.destination as! EPFriendListViewController
             destinationViewController.userID = userID
             break
 
@@ -129,14 +129,14 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectRow()
     }
 
     func deselectRow() {
         if (self.playlistsTableView.indexPathForSelectedRow != nil) {
-            self.playlistsTableView.deselectRowAtIndexPath(self.playlistsTableView.indexPathForSelectedRow!, animated: true)
+            self.playlistsTableView.deselectRow(at: self.playlistsTableView.indexPathForSelectedRow!, animated: true)
         }
     }
 }

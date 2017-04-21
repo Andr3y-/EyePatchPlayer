@@ -11,14 +11,14 @@ import Parse
 
 class EPInternalScrobbleManager: NSObject {
     
-    class func enqueueTrackForScrobbling(track: EPTrack) {
+    class func enqueueTrackForScrobbling(_ track: EPTrack) {
         let scrobble = PFObject(className: "Scrobble")
 
         scrobble["artist"] = track.artist
         scrobble["title"] = track.title
         scrobble["VKUserID"] = EPUserData.VKID()
-        scrobble["time"] = NSDate()
-        scrobble.saveInBackgroundWithBlock { (succeeded: Bool, error:NSError?) -> Void in
+        scrobble["time"] = Date()
+        scrobble.saveInBackground { (succeeded: Bool, error:Error?) -> Void in
             if (succeeded) {
                 print("parse: scrobble succeeded")
             } else {

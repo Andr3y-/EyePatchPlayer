@@ -16,12 +16,12 @@ class EPRootNavigationController: UINavigationController {
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         self.performWidgetSetup()
@@ -29,25 +29,25 @@ class EPRootNavigationController: UINavigationController {
 
     func performWidgetSetup() {
         print("performWidgetSetup")
-        if let widgetViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PlayerWidget") {
+        if let widgetViewController = self.storyboard?.instantiateViewController(withIdentifier: "PlayerWidget") {
 
             let widgetView = widgetViewController.view as! EPPlayerWidgetView
             widgetView.translatesAutoresizingMaskIntoConstraints = false
-            let keyWindow = UIApplication.sharedApplication().delegate?.window
+            let keyWindow = UIApplication.shared.delegate?.window
 
             keyWindow?!.addSubview(widgetView)
-            keyWindow?!.bringSubviewToFront(widgetView)
+            keyWindow?!.bringSubview(toFront: widgetView)
 
-            widgetView.topOffsetConstaint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: widgetView.superview, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: -60)
+            widgetView.topOffsetConstaint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: widgetView.superview, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: -60)
             widgetView.superview?.addConstraint(widgetView.topOffsetConstaint)
 
-            let leftConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: widgetView.superview, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
+            let leftConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: widgetView.superview, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
             widgetView.superview?.addConstraint(leftConstraint)
 
-            let widthConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 0, constant: (keyWindow??.bounds.width)!)
+            let widthConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 0, constant: (keyWindow??.bounds.width)!)
             widgetView.superview?.addConstraint(widthConstraint)
 
-            let heightConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 0, constant: (keyWindow??.bounds.height)!)
+            let heightConstraint = NSLayoutConstraint(item: widgetView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 0, constant: (keyWindow??.bounds.height)!)
             widgetView.addConstraint(heightConstraint)
 
 

@@ -10,8 +10,8 @@ import UIKit
 import Realm
 
 enum PlaylistSource {
-    case Web
-    case Local
+    case web
+    case local
 }
 
 class EPMusicPlaylist: AnyObject {
@@ -23,10 +23,10 @@ class EPMusicPlaylist: AnyObject {
     }
 
     weak var delegate: EPPlaylistDelegate?
-    var source = PlaylistSource.Web
+    var source = PlaylistSource.web
     var identifier = "Unspecified"
 
-    private var originalTracks: [EPTrack] = []
+    fileprivate var originalTracks: [EPTrack] = []
 
     lazy var shuffledTracks: [EPTrack] = {
         print("lazily loading shuffled playlist")
@@ -54,7 +54,7 @@ class EPMusicPlaylist: AnyObject {
         return shuffledTracksLazy
     }()
     
-    var createdDate: NSDate!
+    var createdDate: Date!
     var trackCount: Int = 0
     var shuffleOn: Bool = false {
         didSet {
@@ -75,11 +75,11 @@ class EPMusicPlaylist: AnyObject {
 
     //MARK: Navigation
 
-    func indexOfTrack(track: EPTrack) -> Int? {
+    func indexOfTrack(_ track: EPTrack) -> Int? {
 
         for iteratedTrack in self.tracks {
             if track.ID == iteratedTrack.ID {
-                return self.tracks.indexOf(iteratedTrack)
+                return self.tracks.index(of: iteratedTrack)
             }
         }
 
@@ -199,7 +199,7 @@ class EPMusicPlaylist: AnyObject {
     
     //MARK: Playlist Editing
 
-    func removeTrack(track: EPTrack) -> Bool {
+    @discardableResult func removeTrack(_ track: EPTrack) -> Bool {
 
         var resultLinear = false
         var resultShuffled = false
@@ -207,7 +207,7 @@ class EPMusicPlaylist: AnyObject {
         if self.originalTracks.count > 0 {
             for index in 0 ... self.originalTracks.count - 1 {
                 if self.originalTracks[index].ID == track.ID {
-                    self.originalTracks.removeAtIndex(index)
+                    self.originalTracks.remove(at: index)
                     resultLinear = true
                     break
                 }
@@ -217,7 +217,7 @@ class EPMusicPlaylist: AnyObject {
         if self.shuffledTracks.count > 0 {
             for index in 0 ... self.shuffledTracks.count - 1 {
                 if self.shuffledTracks[index].ID == track.ID {
-                    self.shuffledTracks.removeAtIndex(index)
+                    self.shuffledTracks.remove(at: index)
                     resultShuffled = true
                     break
                 }
@@ -234,7 +234,7 @@ class EPMusicPlaylist: AnyObject {
                 //handle if no tracks left to switch to
                 let emergencyTrack = EPTrack()
 
-                if track.invalidated {
+                if track.isInvalidated {
                     emergencyTrack.title = "No Track Selected"
                     emergencyTrack.artist = ""
                     emergencyTrack.duration = 0
@@ -255,19 +255,19 @@ class EPMusicPlaylist: AnyObject {
         return resultLinear && resultShuffled
     }
 
-    func addTrack(track: EPTrack, atEnd:Bool) {
+    func addTrack(_ track: EPTrack, atEnd:Bool) {
         if atEnd {
             self.originalTracks.append(track)
             self.shuffledTracks = self.originalTracks.shuffle()
             self.trackCount = self.originalTracks.count
         } else {
-            self.originalTracks.insert(track, atIndex: 0)
+            self.originalTracks.insert(track, at: 0)
             self.shuffledTracks = self.originalTracks.shuffle()
             self.trackCount = self.originalTracks.count
         }
     }
     
-    func addTrack(track: EPTrack) {
+    func addTrack(_ track: EPTrack) {
         self.originalTracks.append(track)
         self.shuffledTracks = self.originalTracks.shuffle()
         self.trackCount = self.originalTracks.count
@@ -275,7 +275,7 @@ class EPMusicPlaylist: AnyObject {
 
     //MARK: Init methods
     init() {
-        self.createdDate = NSDate()
+        self.createdDate = Date()
         subscribeForPlaylistNotifications()
     }
 
@@ -289,7 +289,7 @@ class EPMusicPlaylist: AnyObject {
         self.trackCount = self.originalTracks.count
     }
 
-    class func initWithResponseArray(response: NSArray) -> EPMusicPlaylist {
+    class func initWithResponseArray(_ response: NSArray) -> EPMusicPlaylist {
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
 
         for trackJSON in response {
@@ -306,11 +306,11 @@ class EPMusicPlaylist: AnyObject {
 
     }
 
-    class func initWithResponse(response: NSDictionary) -> EPMusicPlaylist {
+    class func initWithResponse(_ response: NSDictionary) -> EPMusicPlaylist {
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
 
         playlist.responseJSON = response
-        playlist.trackCount = response["count"]!.integerValue
+        playlist.trackCount = (response["count"]! as AnyObject).intValue
 
         //        EPCache.cacheRetrievalExecutionTime = 0
         if let JSONArray: NSArray = response["items"] as? NSArray {
@@ -331,16 +331,18 @@ class EPMusicPlaylist: AnyObject {
         return playlist
     }
 
-    class func initWithRLMResults(results: RLMResults) -> EPMusicPlaylist {
+    class func initWithRLMResults(_ results: RLMResults<RLMObject>) -> EPMusicPlaylist {
         let playlist: EPMusicPlaylist = EPMusicPlaylist()
-        playlist.source = .Local
+        playlist.source = .local
         if (results.count > 0) {
-            for trackRLM in results {
-                if let track: EPTrack = trackRLM as? EPTrack {
+
+            for i in 0..<results.count {
+                if let track: EPTrack = results[i] as? EPTrack {
                     playlist.originalTracks.append(track)
                 }
             }
-            playlist.originalTracks = playlist.originalTracks.reverse()
+
+            playlist.originalTracks = playlist.originalTracks.reversed()
         } else {
             print("results[\"items\" is empty]")
         }
@@ -354,18 +356,18 @@ class EPMusicPlaylist: AnyObject {
     //MARK: Notifications
 
     func subscribeForPlaylistNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleTrackDelete:", name: "Track.Delete", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EPMusicPlaylist.handleTrackDelete(_:)), name: NSNotification.Name(rawValue: "Track.Delete"), object: nil)
     }
 
     func unsubscribeFromPlaylistNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    @objc func handleTrackDelete(notification: NSNotification) {
+    @objc func handleTrackDelete(_ notification: Notification) {
         print("handleTrackDelete:\nplaylist: \(self.identifier) created @ \(self.createdDate)")
         if let userInfo = notification.userInfo as? [String:EPTrack], let track: EPTrack = userInfo["track"] {
             switch self.source {
-            case .Web:
+            case .web:
                 print("handleTrackDelete - web")
                 for matchingTrack in self.originalTracks {
                     if matchingTrack.ID == track.ID {
@@ -380,7 +382,7 @@ class EPMusicPlaylist: AnyObject {
                 }
                 break
 
-            case .Local:
+            case .local:
                 print("handleTrackDelete - local")
                 self.removeTrack(track)
 

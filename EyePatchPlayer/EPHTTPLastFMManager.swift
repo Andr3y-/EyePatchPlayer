@@ -10,15 +10,15 @@ import AFNetworking
 
 class EPHTTPLastFMManager: NSObject {
     
-    private static var lastfmManager:AFHTTPRequestOperationManager = {
+    fileprivate static var lastfmManager:AFHTTPRequestOperationManager = {
         var manager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFJSONResponseSerializer()
         manager.operationQueue.maxConcurrentOperationCount = 3
         return manager
     }()
 
-    class func broadcastTrack(track: EPTrack, completion: ((result:Bool) -> Void)?) {
-        if EPSettings.lastfmMobileSession().characters.count < 1 || !AFNetworkReachabilityManager.sharedManager().reachable {
+    class func broadcastTrack(_ track: EPTrack, completion: ((_ result:Bool) -> Void)?) {
+        if EPSettings.lastfmMobileSession().characters.count < 1 || !AFNetworkReachabilityManager.shared().isReachable {
             return
         }
         
@@ -35,16 +35,16 @@ class EPHTTPLastFMManager: NSObject {
         
         guard let URL = self.URLStringForMethod(parameters) else {
             if completion != nil {
-                completion!(result: false)
+                completion!(false)
             }
             return
         }
         
-        lastfmManager.POST(URL, parameters: nil, success: {
+        lastfmManager.post(URL, parameters: nil, success: {
             (operation, response) -> Void in
             print("lastfm track.updateNowPlaying success")
             if completion != nil {
-                completion!(result: true)
+                completion!(true)
             }
             }) {
                 (operation, error) -> Void in
@@ -55,13 +55,13 @@ class EPHTTPLastFMManager: NSObject {
                 }
                 
                 if completion != nil {
-                    completion!(result: false)
+                    completion!(false)
                 }
         }
     }
     
-    class func scrobbleTrack(scrobble: EPLastFMScrobble, completion: ((result:Bool) -> Void)?) {
-        if scrobble.invalidated {
+    class func scrobbleTrack(_ scrobble: EPLastFMScrobble, completion: ((_ result:Bool) -> Void)?) {
+        if scrobble.isInvalidated {
             return
         }
         
@@ -78,37 +78,28 @@ class EPHTTPLastFMManager: NSObject {
         
         guard let URL = self.URLStringForMethod(parameters) else {
             if completion != nil {
-                completion!(result: false)
+                completion!(false)
             }
             return
         }
         
-        lastfmManager.POST(URL, parameters: nil, success: {
+        lastfmManager.post(URL, parameters: nil, success: {
             (operation, response) -> Void in
             print("lastfm scrobbling success")
-            if completion != nil {
-                completion!(result: true)
-            }
+
+            completion?(true)
+
             }) {
-                (operation, error: NSError) -> Void in
-                if let data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? NSData {
-                    if let errorResponse = String(data: data, encoding: NSUTF8StringEncoding) {
-                        print("lastfm scrobbling failure:\ncode:\(error.code)\nresponse:\(errorResponse)")
-                        if completion != nil {
-                            completion!(result: false)
-                        }
-                        return
-                    }
-                }
-                print("lastfm scrobbling failure:\ncode:\(error.code)\nresponse: no data")
-                if completion != nil {
-                    completion!(result: false)
-                }
+                (operation, error: Error) -> Void in
+                print("lastfm scrobbling failure:\ncode:\(error.localizedDescription)\nresponse: no data")
+
+                completion?(false)
+
                 return
         }
     }
     
-    class func authenticate(username: String, password: String, completion: ((result:Bool, session:String) -> Void)?) {
+    class func authenticate(_ username: String, password: String, completion: ((_ result:Bool, _ session:String) -> Void)?) {
         print("lastfmAuthenticate initiated")
         let parameters =
         [
@@ -121,69 +112,74 @@ class EPHTTPLastFMManager: NSObject {
         
         guard let URL = self.URLStringForMethod(parameters) else {
             if completion != nil {
-                completion!(result: false, session: "")
+                completion!(false, "")
             }
             return
         }
-        lastfmManager.POST(URL, parameters: nil, success: {
+        lastfmManager.post(URL, parameters: nil, success: {
             (operation, response) -> Void in
+
+            guard let response = response as? [String : AnyObject] else {
+                fatalError()
+            }
+
             print("lastfm auth success: \(response)")
             if let sessionObject: AnyObject = response["session"] {
                 if let sessionDictionary = sessionObject as? [String:AnyObject] {
                     if let sessionKey = sessionDictionary["key"] as? String {
                         if completion != nil {
-                            completion!(result: true, session: sessionKey)
+                            completion!(true, sessionKey)
                         }
                     }
                 }
             }
             
             }) {
-                (operation, error: NSError) -> Void in
-                print("lastfm auth failure:\ncode:\(error.code)")
+                (operation, error: Error) -> Void in
+                print("lastfm auth failure:\ncode:\(error.localizedDescription)")
                 if completion != nil {
-                    completion!(result: false, session: "")
+                    completion!(false, "")
                 }
         }
     }
     
-    private class func URLStringForMethod(parameters: [String:String]) -> String? {
+    fileprivate class func URLStringForMethod(_ parameters: [String:String]) -> String? {
         var URL = "\(EPConstants.LastFM.APIRootURL)?"
         for (key, value) in parameters {
             
-            URL.appendContentsOf(key)
-            URL.appendContentsOf("=")
-            if let clearedValue = value.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()) {
-                URL.appendContentsOf(clearedValue.stringByReplacingOccurrencesOfString("&", withString: "%26"))
+            URL.append(key)
+            URL.append("=")
+            if let clearedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                URL.append(clearedValue.replacingOccurrences(of: "&", with: "%26"))
             } else {
                 return nil
             }
-            URL.appendContentsOf("&")
+            URL.append("&")
         }
         guard let api_sig = self.methodSignature(parameters) else {
             return nil
         }
-        URL.appendContentsOf("api_sig=")
-        URL.appendContentsOf(api_sig)
-        URL.appendContentsOf("&format=json")
+        URL.append("api_sig=")
+        URL.append(api_sig)
+        URL.append("&format=json")
         //        print("URL to sign: \(URL)")
         return URL
     }
     
-    private class func methodSignature(parameters: [String:String]) -> String? {
+    fileprivate class func methodSignature(_ parameters: [String:String]) -> String? {
         //sort abc...xyz
-        let parametersSorted = parameters.keys.sort()
+        let parametersSorted = parameters.keys.sorted()
         var rawSignature = ""
         //construct rawSignature step 1
         for key in parametersSorted {
-            rawSignature.appendContentsOf(key)
+            rawSignature.append(key)
             guard let appendingValue = parameters[key] else {
                 return nil
             }
-            rawSignature.appendContentsOf(appendingValue)
+            rawSignature.append(appendingValue)
         }
         //construct rawSignature step 2
-        rawSignature.appendContentsOf(EPConstants.LastFM.Secret)
+        rawSignature.append(EPConstants.LastFM.Secret)
         //construction complete, return md5
         //        print("signature: \(rawSignature)")
         //        print("md5 sign:  \(rawSignature.md5())")

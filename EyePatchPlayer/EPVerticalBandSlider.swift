@@ -43,21 +43,21 @@ class EPVerticalBandSlider: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        trackLayer.backgroundColor = UIColor.lightGrayColor().CGColor
-        thumbLayer.backgroundColor = UIColor.blueColor().CGColor
+        trackLayer.backgroundColor = UIColor.lightGray.cgColor
+        thumbLayer.backgroundColor = UIColor.blue.cgColor
         
         layer.addSublayer(trackLayer)
         layer.addSublayer(thumbLayer)
         
         thumbLayer.bandSlider = self
         
-        textLayer.contentsScale = UIScreen.mainScreen().scale
+        textLayer.contentsScale = UIScreen.main.scale
         textLayer.string = "00"
         textLayer.fontSize = 12
         textLayer.alignmentMode = kCAAlignmentCenter
             
-        textLayer.backgroundColor = UIColor.blueColor().CGColor
-        textLayer.foregroundColor = UIColor.darkGrayColor().CGColor
+        textLayer.backgroundColor = UIColor.blue.cgColor
+        textLayer.foregroundColor = UIColor.darkGray.cgColor
         layer.addSublayer(self.textLayer)
         
         updateLayerFrames()
@@ -66,7 +66,7 @@ class EPVerticalBandSlider: UIControl {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        trackLayer.backgroundColor = UIColor.lightGrayColor().CGColor
+        trackLayer.backgroundColor = UIColor.lightGray.cgColor
 //        thumbLayer.fillColor = UIColor.blueColor().CGColor
         
         layer.addSublayer(trackLayer)
@@ -74,18 +74,18 @@ class EPVerticalBandSlider: UIControl {
         layer.addSublayer(textLayer)
         thumbLayer.bandSlider = self
         
-        textLayer.contentsScale = UIScreen.mainScreen().scale
+        textLayer.contentsScale = UIScreen.main.scale
         textLayer.string = "00"
         textLayer.fontSize = 16
         textLayer.alignmentMode = kCAAlignmentCenter
-        textLayer.backgroundColor = UIColor.whiteColor().CGColor
-        textLayer.foregroundColor = UIColor.darkGrayColor().CGColor
+        textLayer.backgroundColor = UIColor.white.cgColor
+        textLayer.foregroundColor = UIColor.darkGray.cgColor
         
         updateLayerFrames()
     }
     
     override func awakeFromNib() {
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
 
     //MARK: Layout
@@ -99,7 +99,7 @@ class EPVerticalBandSlider: UIControl {
             width: thumbWidth, height: thumbWidth)
         thumbLayer.setNeedsDisplay()
         
-        textLayer.frame = CGRectMake(0,self.bounds.height-textLayer.fontSize*1.1,self.bounds.width, textLayer.fontSize*1.1)
+        textLayer.frame = CGRect(x: 0,y: self.bounds.height-textLayer.fontSize*1.1,width: self.bounds.width, height: textLayer.fontSize*1.1)
         print(textLayer.frame)
         textLayer.setNeedsDisplay()
     }
@@ -109,13 +109,13 @@ class EPVerticalBandSlider: UIControl {
         updateLayerFrames()
     }
     
-    func positionForValue(value: Double) -> Double {
+    func positionForValue(_ value: Double) -> Double {
         return Double(self.bounds.height-textLayer.fontSize*1.1) - (Double(self.bounds.height-textLayer.fontSize*1.1 - thumbWidth) * (value - minimumValue) /
             (maximumValue - minimumValue) + Double(thumbWidth / 2.0))
     }
     
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-            previousLocation = touch.locationInView(self)
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+            previousLocation = touch.location(in: self)
             
             // Hit test the thumb layers
             if thumbLayer.frame.contains(previousLocation) {
@@ -124,12 +124,12 @@ class EPVerticalBandSlider: UIControl {
         return thumbLayer.highlighted
     }
     
-    func boundValue(value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
+    func boundValue(_ value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
         return min(max(value, lowerValue), upperValue)
     }
     
-    override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        let location = touch.locationInView(self)
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
         
         // 1. Determine by how much the user has dragged
         let deltaLocation = -Double(location.y - previousLocation.y)
@@ -150,19 +150,19 @@ class EPVerticalBandSlider: UIControl {
         updateLayerFrames()
         
         CATransaction.commit()
-        sendActionsForControlEvents(.ValueChanged)
+        sendActions(for: .valueChanged)
         return true
     }
 
-    override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
-        sendActionsForControlEvents(.EditingDidEnd)
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        sendActions(for: .editingDidEnd)
         thumbLayer.highlighted = false
     }
 
-    func setValue(value:Double, animated: Bool) {
+    func setValue(_ value:Double, animated: Bool) {
         if animated {
             self.currentValue = value
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
 //                self.setNeedsDisplay()
                 self.updateLayerFrames()
             })

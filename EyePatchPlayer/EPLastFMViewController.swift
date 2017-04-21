@@ -24,83 +24,83 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
 
 
         if (EPSettings.lastfmMobileSession().characters.count > 1) {
-            self.authorizeButton.setTitle("Deauthorize Last.fm", forState: .Normal)
+            self.authorizeButton.setTitle("Deauthorize Last.fm", for: UIControlState())
             self.usernameTextField.superview?.alpha = 0
             self.authorized = true
         }
         // Do any additional setup after loading the view.
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
 
-    @IBAction func authorizeButtonTap(sender: AnyObject) {
+    @IBAction func authorizeButtonTap(_ sender: AnyObject) {
 
         if authorized {
-            self.authorizeButton.userInteractionEnabled = false
+            self.authorizeButton.isUserInteractionEnabled = false
             startLoadingAnimation()
-            UIView.animateWithDuration(0.2, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 () -> Void in
                 self.usernameTextField.superview?.alpha = 1
             })
             //erase authorisation signature
             EPSettings.setLastfmSession("")
-            EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: false)
+            EPSettings.changeSetting(EPSettingType.scrobbleWithLastFm, value: false as AnyObject?)
             if let viewController = self.navigationController?.viewControllers.first {
                 if let settingsViewController = viewController as? EPSettingsViewController {
                     settingsViewController.tableView.reloadData()
                 }
             }
-            UIView.transitionWithView(self.authorizeButton, duration: 0.2, options: .TransitionCrossDissolve, animations: {
+            UIView.transition(with: self.authorizeButton, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 () -> Void in
-                self.authorizeButton.setTitle("Authorize Last.fm", forState: .Normal)
+                self.authorizeButton.setTitle("Authorize Last.fm", for: UIControlState())
             }, completion: nil)
             stopLoadingAnimation()
             self.authorized = false
-            self.authorizeButton.userInteractionEnabled = true
+            self.authorizeButton.isUserInteractionEnabled = true
         } else {
 
             if self.usernameTextField.text?.characters.count == 0 || self.passwordTextField.text?.characters.count == 0 {
                 return
             }
-            self.authorizeButton.userInteractionEnabled = false
+            self.authorizeButton.isUserInteractionEnabled = false
             startLoadingAnimation()
             //request authorisation signature and save it
             EPHTTPLastFMManager.authenticate(usernameTextField.text!, password: passwordTextField.text!, completion: {
                 (result, session) -> Void in
                 if result {
-                    UIView.animateWithDuration(0.2, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         () -> Void in
                         self.usernameTextField.superview?.alpha = 0
                         print("sessionKey: \(session)")
                         EPSettings.setLastfmSession(session)
-                        EPSettings.changeSetting(EPSettingType.ScrobbleWithLastFm, value: true)
+                        EPSettings.changeSetting(EPSettingType.scrobbleWithLastFm, value: true as AnyObject?)
                         if let viewController = self.navigationController?.viewControllers.first {
                             if let settingsViewController = viewController as? EPSettingsViewController {
                                 settingsViewController.tableView.reloadData()
                             }
                         }
-                        UIView.transitionWithView(self.authorizeButton, duration: 0.2, options: .TransitionCrossDissolve, animations: {
+                        UIView.transition(with: self.authorizeButton, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             () -> Void in
-                            self.authorizeButton.setTitle("Authorized", forState: .Normal)
+                            self.authorizeButton.setTitle("Authorized", for: UIControlState())
                         }, completion: nil)
                     })
                     self.authorized = true
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-                        self.navigationController?.popViewControllerAnimated(true)
-                        self.authorizeButton.userInteractionEnabled = true
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double((Int64)(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
+                        self.navigationController?.popViewController(animated: true)
+                        self.authorizeButton.isUserInteractionEnabled = true
                     })
                 } else {
                     //handle incorrect entry or internet access
-                    let alertController = UIAlertController(title: "Error", message: "Unable to authorize with these credentials", preferredStyle: .Alert)
+                    let alertController = UIAlertController(title: "Error", message: "Unable to authorize with these credentials", preferredStyle: .alert)
                     let actionOk = UIAlertAction(title: "OK",
-                            style: .Default,
+                            style: .default,
                             handler: nil)
                     alertController.addAction(actionOk)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
 
-                    self.authorizeButton.userInteractionEnabled = true
+                    self.authorizeButton.isUserInteractionEnabled = true
                 }
 
                 self.stopLoadingAnimation()
@@ -110,7 +110,7 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.usernameTextField {
             textField.resignFirstResponder()
             self.passwordTextField.becomeFirstResponder()
@@ -123,10 +123,10 @@ class EPLastFMViewController: UIViewController, UITextFieldDelegate {
     }
 
     func startLoadingAnimation() {
-        activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
+        activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.lineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
         self.view.addSubview(activityIndicatorView)
         //            self.view.insertSubview(activityIndicatorView, belowSubview: self.tableView)
-        activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds))
+        activityIndicatorView.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
         activityIndicatorView.startAnimating()
     }
 

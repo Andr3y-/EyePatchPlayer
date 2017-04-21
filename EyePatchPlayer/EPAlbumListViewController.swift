@@ -24,18 +24,18 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.navigationItem.title = "Albums"
         
-        activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
+        activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.lineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
         self.view.addSubview(activityIndicatorView)
         //            self.view.insertSubview(activityIndicatorView, belowSubview: self.tableView)
-        activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds))
+        activityIndicatorView.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
         activityIndicatorView.startAnimating()
         
         self.tableView.alpha = 0
-        self.searchBar = UISearchBar(frame: CGRectMake(0, 0, 320, 44));
+        self.searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44));
         self.searchBar.delegate = self
         
         self.tableView.tableHeaderView = searchBar;
-        self.tableView.tableFooterView = UIView(frame: CGRectMake(0, 0, 1, 1))
+        self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
         
         drawRightMenuButton()
         loadData()
@@ -56,28 +56,28 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
                     self.tableView.reloadData()
                     self.applyOffset()
                     
-                    UIView.animateWithDuration(0.2, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         () -> Void in
                         //animations
                         self.tableView.alpha = 1
                         self.activityIndicatorView.alpha = 0
                         
-                        }) {
+                        }, completion: {
                             (result: Bool) -> Void in
                             //completion
                             self.activityIndicatorView.stopAnimating()
-                    }
+                    }) 
                 }
             }
         }
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
         if (searchText.characters.count > 0) {
             
             self.filteredAlbumList = self.albumList.filter({ (album:EPAlbum) -> Bool in
-                album.title.lowercaseString.containsString(searchText.lowercaseString)
+                album.title.lowercased().contains(searchText.lowercased())
             })
             self.tableView.reloadData()
         } else {
@@ -88,16 +88,16 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func applyOffset() {
         var contentOffset = self.tableView.contentOffset
-        contentOffset.y += CGRectGetHeight(self.searchBar!.frame)
+        contentOffset.y += self.searchBar!.frame.height
         self.tableView.contentOffset = contentOffset
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell? = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier")
+        var cell: UITableViewCell? = self.tableView.dequeueReusableCell(withIdentifier: "CellIdentifier")
         
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "CellIdentifier")
+            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "CellIdentifier")
         }
         let album: EPAlbum
         if (self.filteredAlbumList.count > 0) {
@@ -111,14 +111,14 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
         return cell!
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let text = searchBar.text else {
             return 0
         }
         return text.characters.count > 0 ? self.filteredAlbumList.count : self.albumList.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var selectedAlbum: EPAlbum!
         guard let text = searchBar.text else {
@@ -130,19 +130,19 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
             selectedAlbum = self.albumList[indexPath.row]
         }
         
-        self.performSegueWithIdentifier("seguePlaylist", sender: selectedAlbum)
+        self.performSegue(withIdentifier: "seguePlaylist", sender: selectedAlbum)
     }
     
     
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "seguePlaylist":
             if let selectedAlbum = sender as? EPAlbum {
                 
-                let destinationViewController = segue.destinationViewController as! EPPlaylistViewController
+                let destinationViewController = segue.destination as! EPPlaylistViewController
                 destinationViewController.album = selectedAlbum
                 destinationViewController.userID = userID
             }
@@ -153,14 +153,14 @@ class EPAlbumListViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectRow()
     }
     
     func deselectRow() {
         if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+            self.tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
 }

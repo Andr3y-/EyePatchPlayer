@@ -59,13 +59,13 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        if UIScreen.mainScreen().bounds.height == 480 {
+        if UIScreen.main.bounds.height == 480 {
             //iPhone 4
             self.trackDataContainerConstraint.constant = -20
             self.controlsViewConstraint.constant = -20
         }
         self.progressBarPlayback.progressTintColor = UIView.defaultTintColor()
-        self.userInteractionEnabled = false
+        self.isUserInteractionEnabled = false
 
         EPPlayerWidgetView.sharedInstance = self
         EPMusicPlayer.sharedInstance.delegate = self
@@ -73,18 +73,18 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         EPMusicPlayer.sharedInstance.loadDataFromCache {
             (result) -> Void in
             if result {
-                UIView.animateWithDuration(0.15, animations: {
+                UIView.animate(withDuration: 0.15, animations: {
                     () -> Void in
-                    self.userInteractionEnabled = true
+                    self.isUserInteractionEnabled = true
                 })
             }
         }
-        self.repeatButtonView.tintColor = UIColor.whiteColor()
-        self.shuffleButtonView.tintColor = UIColor.whiteColor()
+        self.repeatButtonView.tintColor = UIColor.white
+        self.shuffleButtonView.tintColor = UIColor.white
         setupInteractions()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPPlayerWidgetView.handleLogout), name: "LogoutComplete", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPPlayerWidgetView.handleLogin), name: "LoginComplete", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EPPlayerWidgetView.handleLogout), name: NSNotification.Name(rawValue: "LogoutComplete"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EPPlayerWidgetView.handleLogin), name: NSNotification.Name(rawValue: "LoginComplete"), object: nil)
 
     }
 
@@ -94,11 +94,11 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.interactionView.addGestureRecognizer(tapRecognizer)
 
         let swipeRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
-        swipeRecognizerRight.direction = .Right
+        swipeRecognizerRight.direction = .right
         self.interactionView.addGestureRecognizer(swipeRecognizerRight)
 
         let swipeRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
-        swipeRecognizerLeft.direction = .Left
+        swipeRecognizerLeft.direction = .left
         self.interactionView.addGestureRecognizer(swipeRecognizerLeft)
 
         let panGestureUp = UIPanGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.panGesture(_:)))
@@ -107,11 +107,11 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         //main
 
         let swipeRecognizerRightMain = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
-        swipeRecognizerRightMain.direction = .Right
+        swipeRecognizerRightMain.direction = .right
         self.interactionViewMain.addGestureRecognizer(swipeRecognizerRightMain)
 
         let swipeRecognizerLeftMain = UISwipeGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.interactionSwipe(_:)))
-        swipeRecognizerLeftMain.direction = .Left
+        swipeRecognizerLeftMain.direction = .left
         self.interactionViewMain.addGestureRecognizer(swipeRecognizerLeftMain)
 
         let panGestureDown = UIPanGestureRecognizer(target: self, action: #selector(EPPlayerWidgetView.panGestureMain(_:)))
@@ -131,15 +131,15 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         if playPauseButton == nil {
             playPauseButton = RSPlayPauseButton(frame: playPauseButtonPlaceholder.frame)
             playPauseButton?.tintColor = UIView.defaultTintColor()
-            playPauseButton?.addTarget(self, action: #selector(EPPlayerWidgetView.playPauseTap(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            self.playPauseButtonPlaceholder.backgroundColor = UIColor.clearColor()
+            playPauseButton?.addTarget(self, action: #selector(EPPlayerWidgetView.playPauseTap(_:)), for: UIControlEvents.touchUpInside)
+            self.playPauseButtonPlaceholder.backgroundColor = UIColor.clear
             self.contentViewWidget.addSubview(playPauseButton!)
         }
 
         if playPauseButtonBig == nil {
             playPauseButtonBig = RSPlayPauseButton(frame: playPauseButtonPlaceholderBig.frame)
-            playPauseButtonBig?.addTarget(self, action: #selector(EPPlayerWidgetView.playPauseTap(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            self.playPauseButtonPlaceholderBig.backgroundColor = UIColor.clearColor()
+            playPauseButtonBig?.addTarget(self, action: #selector(EPPlayerWidgetView.playPauseTap(_:)), for: UIControlEvents.touchUpInside)
+            self.playPauseButtonPlaceholderBig.backgroundColor = UIColor.clear
             self.vibrancyContentView.addSubview(playPauseButtonBig!)
         }
         self.playPauseButtonBig?.frame.origin = self.playPauseButtonPlaceholderBig.frame.origin
@@ -148,14 +148,13 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     }
 
     func processViews() {
-        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, repeatButtonView] {
-            if view.superview! != self.vibrancyContentView {
+        for view in [leftPlaybackTimeLabel, rightPlaybackTimeLabel, artistLabelBig, titleLabelBig, shuffleButtonView, repeatButtonView] as [UIView] {
+            if (view as AnyObject).superview! != self.vibrancyContentView {
 
-                let oldFrame = view.frame
-                let newRect = view.convertRect(view.bounds, toView: self.vibrancyContentView)
+                let newRect = view.convert(view.bounds, to: self.vibrancyContentView)
+
                 view.removeConstraints(view.constraints)
-                print("old: \(oldFrame)")
-                print("new: \(newRect)")
+
                 self.vibrancyContentView.addSubview(view)
                 view.frame = newRect
             }
@@ -164,26 +163,26 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
     //Interactions
 
-    func seekForwardCommand(recognizer: UILongPressGestureRecognizer) {
-        if recognizer.state == .Began {
+    func seekForwardCommand(_ recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began {
             EPMusicPlayer.sharedInstance.toggleForwardSeek()
-        } else if recognizer.state == .Ended {
+        } else if recognizer.state == .ended {
             EPMusicPlayer.sharedInstance.toggleForwardSeek()
         }
     }
 
-    func seekBackwardCommand(recognizer: UILongPressGestureRecognizer) {
-        if recognizer.state == .Began {
+    func seekBackwardCommand(_ recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began {
             EPMusicPlayer.sharedInstance.toggleBackwardSeek()
-        } else if recognizer.state == .Ended {
+        } else if recognizer.state == .ended {
             EPMusicPlayer.sharedInstance.toggleBackwardSeek()
         }
     }
 
-    func panGesture(sender: UIPanGestureRecognizer) {
-        let window = UIApplication.sharedApplication().keyWindow!
-        let location: CGPoint = sender.locationInView(window)
-        let translation: CGPoint = sender.translationInView(sender.view)
+    func panGesture(_ sender: UIPanGestureRecognizer) {
+        let window = UIApplication.shared.keyWindow!
+        let location: CGPoint = sender.location(in: window)
+        let translation: CGPoint = sender.translation(in: sender.view)
         //detect horizonal swipe
 
         let hiddenConst: CGFloat = -60.0
@@ -196,12 +195,12 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             newConstantForConstraint = shownConst
         }
 
-        if sender.state != UIGestureRecognizerState.Ended {
+        if sender.state != UIGestureRecognizerState.ended {
             self.contentViewWidget.alpha = 1 - ((newConstantForConstraint - hiddenConst) * (shownConst / (shownConst - hiddenConst)) / shownConst)
             topOffsetConstaint.constant = newConstantForConstraint
         }
 
-        if sender.state == UIGestureRecognizerState.Ended {
+        if sender.state == UIGestureRecognizerState.ended {
 
             if abs(translation.x) > 3 * abs(translation.y) {
                 print("x: \(translation.x)")
@@ -223,7 +222,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
                 if newConstantForConstraint != -60 {
                     self.topOffsetConstaint.constant = hiddenConst
-                    UIView.animateWithDuration(0.4, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(), animations: {
                         () -> Void in
                         //animate back down
                         self.contentViewWidget.alpha = 1
@@ -240,7 +239,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             }
 
 
-            var finalPoint = (sender.translationInView(window).y + sender.velocityInView(window).y * 1.0)
+            var finalPoint = (sender.translation(in: window).y + sender.velocity(in: window).y * 1.0)
 
             if finalPoint < shownConst {
                 finalPoint = shownConst
@@ -250,7 +249,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
             print("final y: \(finalPoint)")
 
-            let duration = min(1.0, NSTimeInterval(abs((finalPoint - newConstantForConstraint) / sender.velocityInView(window).y)))
+            let duration = min(1.0, TimeInterval(abs((finalPoint - newConstantForConstraint) / sender.velocity(in: window).y)))
             print("final move dur: \(duration)")
 
 
@@ -258,9 +257,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
                 topOffsetConstaint.constant = shownConst
 
-                UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+                UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
 
-                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     () -> Void in
                     //animations
 
@@ -276,14 +275,14 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             } else {
                 topOffsetConstaint.constant = finalPoint
 
-                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     () -> Void in
                     self.contentViewWidget.alpha = 1 - ((finalPoint - hiddenConst) * (shownConst / (shownConst - hiddenConst)) / shownConst)
                     self.layoutIfNeeded()
                 }, completion: {
                     (result: Bool) -> Void in
                     self.topOffsetConstaint.constant = hiddenConst
-                    UIView.animateWithDuration(duration * 2 / 3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    UIView.animate(withDuration: duration * 2 / 3, delay: 0, options: UIViewAnimationOptions(), animations: {
                         () -> Void in
                         //animate back down
                         self.contentViewWidget.alpha = 1
@@ -297,9 +296,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
     }
 
-    func panGestureMain(sender: UIPanGestureRecognizer) {
-        let window = UIApplication.sharedApplication().keyWindow!
-        let location: CGPoint = sender.translationInView(window)
+    func panGestureMain(_ sender: UIPanGestureRecognizer) {
+        let window = UIApplication.shared.keyWindow!
+        let location: CGPoint = sender.translation(in: window)
 
         let hiddenConst: CGFloat = -60.0
         let shownConst: CGFloat = -window.bounds.size.height
@@ -311,9 +310,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             newConstantForConstraint = shownConst
         }
 
-        if sender.state == UIGestureRecognizerState.Ended {
+        if sender.state == UIGestureRecognizerState.ended {
 
-            var finalPoint = (sender.translationInView(window).y + sender.velocityInView(window).y * 1.0)
+            var finalPoint = (sender.translation(in: window).y + sender.velocity(in: window).y * 1.0)
 
             if finalPoint < shownConst {
                 finalPoint = shownConst
@@ -323,7 +322,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
             print("final y: \(finalPoint)")
 
-            let duration = min(1.0, NSTimeInterval(abs((finalPoint - newConstantForConstraint) / sender.velocityInView(window).y)))
+            let duration = min(1.0, TimeInterval(abs((finalPoint - newConstantForConstraint) / sender.velocity(in: window).y)))
             print("final move dur: \(duration)")
 
 
@@ -331,9 +330,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
                 topOffsetConstaint.constant = hiddenConst
 
-                UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+                UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: true)
 
-                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     () -> Void in
                     //animations
 
@@ -350,14 +349,14 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
                 topOffsetConstaint.constant = finalPoint
 
-                UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     () -> Void in
                     self.contentViewWidget.alpha = 1 - ((finalPoint - hiddenConst) * (shownConst / (shownConst - hiddenConst)) / shownConst)
                     self.layoutIfNeeded()
                 }, completion: {
                     (result: Bool) -> Void in
                     self.topOffsetConstaint.constant = shownConst
-                    UIView.animateWithDuration(duration * 2 / 3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    UIView.animate(withDuration: duration * 2 / 3, delay: 0, options: UIViewAnimationOptions(), animations: {
                         () -> Void in
                         //animate back down
                         self.contentViewWidget.alpha = 0
@@ -375,7 +374,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
     }
 
-    func interactionTap(sender: AnyObject) {
+    func interactionTap(_ sender: AnyObject) {
         print("interaction: tap")
 
         if isShown {
@@ -386,7 +385,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
     }
 
-    @IBAction func hideButtonTap(sender: UIButton) {
+    @IBAction func hideButtonTap(_ sender: UIButton) {
         if isShown {
             self.setPlayerShown(false, animated: true)
         } else {
@@ -394,14 +393,14 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
     }
 
-    @IBAction func moreButtonTap(sender: AnyObject) {
+    @IBAction func moreButtonTap(_ sender: AnyObject) {
         self.toggleShowMore()
     }
 
     func toggleShowMore() {
         if let extrasView = self.extrasView {
             print("removing extras")
-            UIView.animateWithDuration(0.2, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 () -> Void in
                 extrasView.alpha = 0
             }, completion: {
@@ -431,9 +430,9 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
     }
 
-    func interactionSwipe(sender: UISwipeGestureRecognizer) {
+    func interactionSwipe(_ sender: UISwipeGestureRecognizer) {
         switch sender.direction {
-        case UISwipeGestureRecognizerDirection.Left:
+        case UISwipeGestureRecognizerDirection.left:
             if !EPSettings.isSwipeReverseEnabled() {
                 EPMusicPlayer.sharedInstance.playNextSong()
             } else {
@@ -443,7 +442,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
             break
 
-        case UISwipeGestureRecognizerDirection.Right:
+        case UISwipeGestureRecognizerDirection.right:
             if EPSettings.isSwipeReverseEnabled() {
                 EPMusicPlayer.sharedInstance.playNextSong()
             } else {
@@ -459,29 +458,29 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         }
     }
 
-    @IBAction func repeatTap(sender: AnyObject) {
+    @IBAction func repeatTap(_ sender: AnyObject) {
         self.repeatButtonView.setOn(!self.repeatButtonView.isOn, animated: true)
         EPMusicPlayer.sharedInstance.repeatOn = self.repeatButtonView.isOn
     }
 
-    @IBAction func shuffleTap(sender: AnyObject) {
+    @IBAction func shuffleTap(_ sender: AnyObject) {
         self.shuffleButtonView.setOn(!self.shuffleButtonView.isOn, animated: true)
         EPMusicPlayer.sharedInstance.playlist.shuffleOn = self.shuffleButtonView.isOn
     }
     
-    func playPauseTap(button: RSPlayPauseButton) {
+    func playPauseTap(_ button: RSPlayPauseButton) {
         EPMusicPlayer.sharedInstance.togglePlayPause()
     }
 
-    @IBAction func nextTrackTap(sender: AnyObject) {
+    @IBAction func nextTrackTap(_ sender: AnyObject) {
         EPMusicPlayer.sharedInstance.playNextSong()
     }
 
-    @IBAction func prevTrackTap(sender: AnyObject) {
+    @IBAction func prevTrackTap(_ sender: AnyObject) {
         EPMusicPlayer.sharedInstance.playPrevSong()
     }
 
-    func setPlayerShown(value: Bool, animated: Bool) {
+    func setPlayerShown(_ value: Bool, animated: Bool) {
         if value {
             if isShown {
                 print("showing cancelled, already shown")
@@ -500,19 +499,19 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
             isShown = false
         }
 
-        UIApplication.sharedApplication().setStatusBarStyle(value ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default, animated: true)
+        UIApplication.shared.setStatusBarStyle(value ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default, animated: true)
 
-        topOffsetConstaint.constant = value ? -(UIApplication.sharedApplication().keyWindow?.bounds.height)! : -self.contentViewWidget.bounds.height
+        topOffsetConstaint.constant = value ? -(UIApplication.shared.keyWindow?.bounds.height)! : -self.contentViewWidget.bounds.height
 
-        UIView.animateWithDuration(animated ? 0.15 : 0) {
+        UIView.animate(withDuration: animated ? 0.15 : 0, animations: {
             () -> Void in
             self.layoutIfNeeded()
             self.contentViewWidget.alpha = value ? 0 : 1
-        }
+        }) 
     }
 
     //EPMusicPlayerDelegate
-    func playbackProgressUpdate(currentTime: Int, bufferedPercent: Double) {
+    func playbackProgressUpdate(_ currentTime: Int, bufferedPercent: Double) {
         let playbackPercent = Float(currentTime) / Float(EPMusicPlayer.sharedInstance.activeTrack.duration)
 
         self.leftPlaybackTimeLabel.text = currentTime.durationString
@@ -527,14 +526,14 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         self.progressViewPlaybackBig.setProgress(playbackPercent, animated: false)
     }
 
-    func playbackStatusUpdate(playbackStatus: PlaybackStatus) {
+    func playbackStatusUpdate(_ playbackStatus: PlaybackStatus) {
         print("EPPlayerWidgetView: playbackStatusUpdate: \(playbackStatus)")
         switch playbackStatus {
-        case PlaybackStatus.Play:
+        case PlaybackStatus.play:
             self.playPauseButton?.setPaused(false, animated: true)
             self.playPauseButtonBig?.setPaused(false, animated: true)
 
-        case PlaybackStatus.Pause:
+        case PlaybackStatus.pause:
             self.playPauseButton?.setPaused(!false, animated: true)
             self.playPauseButtonBig?.setPaused(!false, animated: true)
 
@@ -549,10 +548,10 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         updateUIForNewTrack()
     }
 
-    func trackRetrievedArtworkImage(image: UIImage) {
+    func trackRetrievedArtworkImage(_ image: UIImage) {
         print("trackRetrievedArtworkImage")
         setArtworkImage(image)
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             () -> Void in
             self.albumArtImageView.alpha = 1.0
         })
@@ -561,7 +560,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     //UI Updates
     func updateUIForNewTrack() {
 
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
 
         if EPMusicPlayer.sharedInstance.activeTrack.artworkImage() == nil {
             setPlaceholderArtworkImage()
@@ -598,42 +597,43 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
         let image = UIImage(named: "icon_cover_placeholder_1")
         let backgroundBlurredImage = UIImage(named: "background_ep_gradient")
 
-        UIView.transitionWithView(self.albumArtImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transition(with: self.albumArtImageView, duration: 0.2, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
             () -> Void in
             self.albumArtImageView.image = image
         }, completion: nil)
 
-        UIView.transitionWithView(self.albumArtImageViewBig, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transition(with: self.albumArtImageViewBig, duration: 0.2, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
             () -> Void in
             self.albumArtImageViewBig.image = nil
         }, completion: nil)
 
-        UIView.transitionWithView(self.backgroundAlbumArtImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transition(with: self.backgroundAlbumArtImageView, duration: 0.2, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
             () -> Void in
             self.backgroundAlbumArtImageView.image = backgroundBlurredImage
         }, completion: nil)
     }
 
-    func setArtworkImage(var image: UIImage) {
-        image = image.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+    func setArtworkImage(_ image: UIImage) {
+        var image = image
+        image = image.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
 
-        UIView.transitionWithView(self.albumArtImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transition(with: self.albumArtImageView, duration: 0.2, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
             () -> Void in
             self.albumArtImageView.image = image
         }, completion: nil)
 
-        UIView.transitionWithView(self.albumArtImageViewBig, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transition(with: self.albumArtImageViewBig, duration: 0.2, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
             () -> Void in
             self.albumArtImageViewBig.image = image
         }, completion: nil)
 
-        UIView.transitionWithView(self.backgroundAlbumArtImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transition(with: self.backgroundAlbumArtImageView, duration: 0.2, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
             () -> Void in
             self.backgroundAlbumArtImageView.image = image
         }, completion: nil)
     }
     
-    @IBAction func progressViewDidEndDragging(sender: AnyObject) {
+    @IBAction func progressViewDidEndDragging(_ sender: AnyObject) {
         print("end dragging progress")
         EPMusicPlayer.sharedInstance.seekToProgress(self.progressViewPlaybackBig.editingProgress)
     }
@@ -641,16 +641,16 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
     //  Logout / Login Handlers
     
     func handleLogout() {
-        self.hidden = true
-        self.userInteractionEnabled = false
+        self.isHidden = true
+        self.isUserInteractionEnabled = false
     }
     
     func handleLogin() {
-        self.hidden = false
-        self.userInteractionEnabled = true
+        self.isHidden = false
+        self.isUserInteractionEnabled = true
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

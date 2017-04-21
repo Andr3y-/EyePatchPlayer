@@ -12,7 +12,7 @@ import Mantle
 
 class EPHTTPVKManager: NSObject {
     
-    class func getLastAudiosFromMessages(count: Int, intermediateResultBlock: ((track:EPTrack) -> Void)?, completion: ((result:Bool, tracks:[EPTrack]?) -> Void)?) {
+    class func getLastAudiosFromMessages(_ count: Int, intermediateResultBlock: ((_ track:EPTrack) -> Void)?, completion: ((_ result:Bool, _ tracks:[EPTrack]?) -> Void)?) {
         if let _ = VKSdk.getAccessToken().userId {
             print("VKGetLastAudiosFromMessages request")
             
@@ -23,7 +23,7 @@ class EPHTTPVKManager: NSObject {
                 (tracks) -> Void in
                 print("tracks parsed: \(tracks.count)")
                 if completion != nil {
-                    completion!(result: count >= tracks.count, tracks: tracks)
+                    completion!(count >= tracks.count, tracks)
                 }
             })
             
@@ -31,18 +31,19 @@ class EPHTTPVKManager: NSObject {
             print("VKGetLastAudiosFromMessages: could not resolve VK UserID")
             
             if completion != nil {
-                completion!(result: false, tracks: nil)
+                completion!(false, nil)
             }
         }
     }
     
-    private class func getAudiosFromMessagesWithCountOffset(requiredCount: Int, messagesPerRequestCount: Int, offset: Int, var tracksArray: [EPTrack], intermediateCompletion: ((track:EPTrack) -> Void)?, finalCompletion: ((tracks:[EPTrack]) -> Void)?) {
+    private class func getAudiosFromMessagesWithCountOffset(_ requiredCount: Int, messagesPerRequestCount: Int, offset: Int, tracksArray: [EPTrack], intermediateCompletion: ((_ track:EPTrack) -> Void)?, finalCompletion: ((_ tracks:[EPTrack]) -> Void)?) {
+        var tracksArray = tracksArray
         print("VKGETAudiosFromMessagesWithCount: \(requiredCount) Offset: \(offset) CurrentTracksCount: \(tracksArray.count)")
         
         let addRequest: VKRequest = VKRequest(method: "messages.get", andParameters: ["count": "\(messagesPerRequestCount)", "offset": "\(offset)"], andHttpMethod: "GET")
-        addRequest.executeWithResultBlock({
+        addRequest.execute(resultBlock: {
             (response) -> Void in
-            if let messagesArray = (response.json as! NSDictionary)["items"] as? [NSDictionary] {
+            if let messagesArray = (response?.json as! NSDictionary)["items"] as? [NSDictionary] {
                 for messageJSON in messagesArray {
                     let message = EPMessage(response: messageJSON)
                     if let messageAttachments = message.attachments {
@@ -53,7 +54,7 @@ class EPHTTPVKManager: NSObject {
                                     tracksArray.append(track)
                                     print("track parsed")
                                     if intermediateCompletion != nil {
-                                        intermediateCompletion!(track: track)
+                                        intermediateCompletion!(track)
                                     }
                                 }
                             }
@@ -67,7 +68,7 @@ class EPHTTPVKManager: NSObject {
             if tracksArray.count >= requiredCount {
                 print("enough tracks parsed: \(tracksArray.count)")
                 if finalCompletion != nil {
-                    finalCompletion!(tracks: tracksArray)
+                    finalCompletion!(tracksArray)
                 }
                 return
             } else {
@@ -81,28 +82,28 @@ class EPHTTPVKManager: NSObject {
         })
     }
     
-    class func broadcastTrack(track: EPTrack) {
+    class func broadcastTrack(_ track: EPTrack) {
         //        print("broadcasting track")
-        if !AFNetworkReachabilityManager.sharedManager().reachable {
+        if !AFNetworkReachabilityManager.shared().isReachable {
             return
         }
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio": "\(track.uniqueID)"], andHttpMethod: "GET")
-        broadcastRequest.executeWithResultBlock({
+        broadcastRequest.execute(resultBlock: {
             (response) -> Void in
-            print("broadcasting track success result: \(response.json)")
+            print("broadcasting track success result: \(response?.json)")
             }, errorBlock: {
                 (error) -> Void in
                 print(error)
         })
     }
     
-    class func addTrackToPlaylistIfNeeded(track: EPTrack, completion: ((result:Bool, track:EPTrack?) -> Void)?) {
+    class func addTrackToPlaylistIfNeeded(_ track: EPTrack, completion: ((_ result:Bool, _ track:EPTrack?) -> Void)?) {
         print("adding track to playlist")
         
         if !EPSettings.shouldAutomaticallySaveToPlaylist() {
             //  If not required, call completion handled immediately (exit)
             if completion != nil {
-                completion!(result: false, track: track)
+                completion!(false, track)
             }
         } else {
             //  If required, add track to playlist first, then call the callback to initiate a track download
@@ -112,25 +113,25 @@ class EPHTTPVKManager: NSObject {
                     //track already in the playlist
                     print("adding track to playlist success result: track is already in the playlist")
                     if completion != nil {
-                        completion!(result: true, track: track)
+                        completion!(true, track)
                     }
                 } else {
                     //track is not in the playlist, adding it
                     let addRequest: VKRequest = VKRequest(method: "audio.add", andParameters: ["audio_id": "\(track.ID)", "owner_id": track.ownerID], andHttpMethod: "GET")
-                    addRequest.executeWithResultBlock({
+                    addRequest.execute(resultBlock: {
                         (response) -> Void in
                         
                         var result: Bool = false
                         
                         defer {
                             if let completion = completion {
-                                completion(result: result, track: track)
+                                completion(result, track)
                             }
                         }
                         
                         guard let
-                            newID = response.json as? Int,
-                            newOwnerID = Int(VKSdk.getAccessToken().userId) else {
+                            newID = response?.json as? Int,
+                            let newOwnerID = Int(VKSdk.getAccessToken().userId) else {
                                 return
                         }
                         
@@ -145,7 +146,7 @@ class EPHTTPVKManager: NSObject {
                         }, errorBlock: {
                             (error) -> Void in
                             if completion != nil {
-                                completion!(result: false, track: nil)
+                                completion!(false, nil)
                             }
                             
                             print(error)
@@ -156,13 +157,13 @@ class EPHTTPVKManager: NSObject {
                 print("adding track to playlist success result: could not resolve VK UserID")
                 
                 if completion != nil {
-                    completion!(result: false, track: nil)
+                    completion!(false, nil)
                 }
             }
         }
     }
     
-    class func getPlaylistOfUserWithID(userID: Int?, count: Int?, completion: ((result:Bool, playlist:EPMusicPlaylist?) -> Void)?) {
+    class func getPlaylistOfUserWithID(_ userID: Int?, count: Int?, completion: ((_ result:Bool, _ playlist:EPMusicPlaylist?) -> Void)?) {
         var specificUserID = 3677921
         
         if let userID = userID {
@@ -184,47 +185,47 @@ class EPHTTPVKManager: NSObject {
         
         let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID: specificUserID, VK_API_COUNT: count != nil ? count! : 2000, "need_user": 0], andHttpMethod: "GET")
         
-        audioRequest.executeWithResultBlock({
+        audioRequest.execute(resultBlock: {
             (response) -> Void in
             
-            let playlist = EPMusicPlaylist.initWithResponse(response.json as! NSDictionary)
+            let playlist = EPMusicPlaylist.initWithResponse(response?.json as! NSDictionary)
             
             if completion != nil {
-                completion!(result: true, playlist: playlist)
+                completion!(true, playlist)
             }
             
             }, errorBlock: {
                 (error) -> Void in
                 if completion != nil {
-                    completion!(result: false, playlist: nil)
+                    completion!(false, nil)
                 }
         })
     }
     
-    class func getLyricsForTrack(track: EPTrack, completion: ((result:Bool, lyrics:EPLyrics?, trackUniqueID:String) -> Void)?) {
+    class func getLyricsForTrack(_ track: EPTrack, completion: ((_ result:Bool, _ lyrics:EPLyrics?, _ trackUniqueID:String) -> Void)?) {
         
         print("checking lyrics for track")
         let trackUniqueID = track.uniqueID
         let trackDetailsRequest: VKRequest = VKRequest(method: "audio.getById", andParameters: ["audios": "\(track.uniqueID)"], andHttpMethod: "GET")
-        trackDetailsRequest.executeWithResultBlock({
+        trackDetailsRequest.execute(resultBlock: {
             (response) -> Void in
-            print(response)
-            if let responseArray = response.json as? [NSDictionary] {
+
+            if let responseArray = response?.json as? [NSDictionary] {
                 if responseArray.count < 1 {
                     if completion != nil {
-                        completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
+                        completion!(false, nil, trackUniqueID)
                     }
                     return
                 }
                 let downloadedTrack = EPTrack.initWithResponse(responseArray.first!)
                 if let lyricsID = downloadedTrack.lyricsID {
                     let lyricsRequest: VKRequest = VKRequest(method: "audio.getLyrics", andParameters: ["lyrics_id": "\(lyricsID)"], andHttpMethod: "GET")
-                    lyricsRequest.executeWithResultBlock({
+                    lyricsRequest.execute(resultBlock: {
                         (response) -> Void in
-                        if let responseDictionary = response.json as? NSDictionary {
+                        if let responseDictionary = response?.json as? NSDictionary {
                             let lyrics = EPLyrics(dictionary: responseDictionary)
                             if completion != nil {
-                                completion!(result: true, lyrics: lyrics, trackUniqueID: trackUniqueID)
+                                completion!(true, lyrics, trackUniqueID)
                             }
                             return
                         }
@@ -235,13 +236,13 @@ class EPHTTPVKManager: NSObject {
                     })
                 } else {
                     if completion != nil {
-                        completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
+                        completion!(false, nil, trackUniqueID)
                     }
                     return
                 }
             } else {
                 if completion != nil {
-                    completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
+                    completion!(false, nil, trackUniqueID)
                 }
                 return
             }
@@ -249,26 +250,26 @@ class EPHTTPVKManager: NSObject {
             }, errorBlock: {
                 (error) -> Void in
                 if completion != nil {
-                    completion!(result: false, lyrics: nil, trackUniqueID: trackUniqueID)
+                    completion!(false, nil, trackUniqueID)
                 }
                 return
         })
     }
     
-    class func getAlbumsOfUserWithID(userID: Int, count: Int?, completion: ((result:Bool, albums:[EPAlbum]?) -> Void)?) {
+    class func getAlbumsOfUserWithID(_ userID: Int, count: Int?, completion: ((_ result:Bool, _ albums:[EPAlbum]?) -> Void)?) {
         
         let audioRequest: VKRequest = VKRequest(method: "audio.getAlbums", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: count != nil ? count! : 100], andHttpMethod: "GET")
         
-        audioRequest.executeWithResultBlock({
+        audioRequest.execute(resultBlock: {
             (response) -> Void in
             
             var albums = [EPAlbum]()
             
-            if let albumsArray = (response.json as! NSDictionary)["items"] as? [[NSObject : AnyObject]] {
+            if let albumsArray = (response?.json as! NSDictionary)["items"] as? [[AnyHashable: Any]] {
                 for albumDictionary in albumsArray {
                     
                     do {
-                        if let album = try MTLJSONAdapter.modelOfClass(EPAlbum.self, fromJSONDictionary: albumDictionary) as? EPAlbum {
+                        if let album = try MTLJSONAdapter.model(of: EPAlbum.self, fromJSONDictionary: albumDictionary) as? EPAlbum {
                             albums.append(album)
                         }
                     } catch let error {
@@ -281,13 +282,13 @@ class EPHTTPVKManager: NSObject {
             }
             
             if completion != nil {
-                completion!(result: true, albums: albums)
+                completion!(true, albums)
             }
             
             }, errorBlock: {
                 (error) -> Void in
                 if completion != nil {
-                    completion!(result: false, albums: nil)
+                    completion!(false, nil)
                 }
         })
     }

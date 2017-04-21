@@ -15,10 +15,10 @@ class EPLastFMScrobbleManager: NSObject {
     static let playbackPercentCompleteToScrobble = 0.25
     static var queueIsEmpty = false
 
-    class func enqueueTrackForScrobbling(track: EPTrack) {
+    class func enqueueTrackForScrobbling(_ track: EPTrack) {
         //create Scrobble Instance for backup if on-the-spot scrobbling fails
         let scrobble = EPLastFMScrobble.initWithTrack(track)
-        if AFNetworkReachabilityManager.sharedManager().reachable {
+        if AFNetworkReachabilityManager.shared().isReachable {
             //attempt to scrobble now
             EPHTTPLastFMManager.scrobbleTrack(scrobble, completion: {
                 (result) -> Void in
@@ -45,8 +45,8 @@ class EPLastFMScrobbleManager: NSObject {
         if results.count > 0 {
             var scrobbleQueueArray = [EPLastFMScrobble]()
 
-            for scrobbleItem in results {
-                if let scrobble = scrobbleItem as? EPLastFMScrobble {
+            for i in 0..<results.count {
+                if let scrobble = results[i] as? EPLastFMScrobble {
                     scrobbleQueueArray.append(scrobble)
                 }
             }
@@ -59,21 +59,22 @@ class EPLastFMScrobbleManager: NSObject {
 
     }
 
-    private class func postponeScrobble(scrobble: EPLastFMScrobble) {
+    fileprivate class func postponeScrobble(_ scrobble: EPLastFMScrobble) {
         print("postpone scrobble: \(scrobble.artist) - \(scrobble.track)")
         queueIsEmpty = false
 
         do {
-            RLMRealm.defaultRealm().beginWriteTransaction()
-            RLMRealm.defaultRealm().addObject(scrobble)
-            try RLMRealm.defaultRealm().commitWriteTransaction()
+            RLMRealm.default().beginWriteTransaction()
+            RLMRealm.default().add(scrobble)
+            try RLMRealm.default().commitWriteTransaction()
         } catch {
 
         }
 
     }
 
-    private class func scrobbleQueue(var scrobbleQueueArray: [EPLastFMScrobble]) {
+    private class func scrobbleQueue(_ scrobbleQueueArray: [EPLastFMScrobble]) {
+        var scrobbleQueueArray = scrobbleQueueArray
         print("scrobbleQueue called")
         if (scrobbleQueueArray.count > 0) {
             print("scrobbleQueue: \(scrobbleQueueArray.count) items")
@@ -82,12 +83,12 @@ class EPLastFMScrobbleManager: NSObject {
                     (result) -> Void in
                     if result {
                         scrobbleQueueArray.removeFirst()
-                        if !scrobble.invalidated {
+                        if !scrobble.isInvalidated {
 
                             do {
-                                RLMRealm.defaultRealm().beginWriteTransaction()
-                                RLMRealm.defaultRealm().deleteObject(scrobble)
-                                try RLMRealm.defaultRealm().commitWriteTransaction()
+                                RLMRealm.default().beginWriteTransaction()
+                                RLMRealm.default().delete(scrobble)
+                                try RLMRealm.default().commitWriteTransaction()
                             } catch {
                                 
                             }

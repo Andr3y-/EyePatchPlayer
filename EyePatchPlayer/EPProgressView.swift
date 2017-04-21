@@ -11,12 +11,12 @@ import UIKit
 class EPProgressView: UIControl {
     
     var lineThickness: CGFloat = 2.0
-    private(set) internal var progress: Float = 0.0
-    private(set) internal var editingProgress: Float = 0.0
-    private(set) internal var isEditing: Bool = false
-    private var tipWidth: CGFloat = 1.0
+    fileprivate(set) internal var progress: Float = 0.0
+    fileprivate(set) internal var editingProgress: Float = 0.0
+    fileprivate(set) internal var isEditing: Bool = false
+    fileprivate var tipWidth: CGFloat = 1.0
     
-    var progressTintColor: UIColor = UIColor.whiteColor() {
+    var progressTintColor: UIColor = UIColor.white {
         didSet {
             setupLayers()
         }
@@ -27,9 +27,9 @@ class EPProgressView: UIControl {
         }
     }
     
-    private var progressLayer = CAShapeLayer()
-    private var trackLayer = CAShapeLayer()
-    private var tipLayer = CAShapeLayer()
+    fileprivate var progressLayer = CAShapeLayer()
+    fileprivate var trackLayer = CAShapeLayer()
+    fileprivate var tipLayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,40 +42,41 @@ class EPProgressView: UIControl {
     }
     
     func setupLayers() {
-        self.backgroundColor = .clearColor()
-        self.progressLayer.backgroundColor = progressTintColor.CGColor
+        self.backgroundColor = .clear
+        self.progressLayer.backgroundColor = progressTintColor.cgColor
         
-        self.trackLayer.frame = CGRectMake(0, (CGRectGetHeight(frame)-lineThickness)/2, CGRectGetWidth(frame), lineThickness)
+        self.trackLayer.frame = CGRect(x: 0, y: (frame.height-lineThickness)/2, width: frame.width, height: lineThickness)
         
         if let trackColor = trackTintColor {
-            trackLayer.backgroundColor = trackColor.CGColor
+            trackLayer.backgroundColor = trackColor.cgColor
             trackLayer.cornerRadius = lineThickness/2
             trackLayer.masksToBounds = false
         }
         
         layer.addSublayer(trackLayer)
         
-        progressLayer.frame = CGRectMake(0, 0, CGRectGetWidth(frame) * CGFloat(progress), lineThickness)
+        progressLayer.frame = CGRect(x: 0, y: 0, width: frame.width * CGFloat(progress), height: lineThickness)
         progressLayer.cornerRadius = lineThickness/2
         progressLayer.masksToBounds = false
         
         trackLayer.addSublayer(progressLayer)
         
-        tipLayer.frame = CGRectMake(min(CGRectGetWidth(progressLayer.frame),max(CGRectGetWidth(progressLayer.frame) - tipWidth, 0)), 0, tipWidth, lineThickness)
+        tipLayer.frame = CGRect(x: min(progressLayer.frame.width,max(progressLayer.frame.width - tipWidth, 0)), y: 0, width: tipWidth, height: lineThickness)
 
         let shadowRadius: CGFloat = 5.0
-        tipLayer.backgroundColor = progressTintColor.CGColor
-        tipLayer.shadowColor = progressTintColor.CGColor
-        tipLayer.shadowOffset = CGSizeZero
+        tipLayer.backgroundColor = progressTintColor.cgColor
+        tipLayer.shadowColor = progressTintColor.cgColor
+        tipLayer.shadowOffset = CGSize.zero
         tipLayer.shadowRadius = shadowRadius
         tipLayer.shadowOpacity = 1.0
         print("self.boudns: \(self.bounds)")
-        tipLayer.shadowPath = UIBezierPath(rect: CGRectMake(-shadowRadius/2, -shadowRadius/2, shadowRadius, shadowRadius)).CGPath
+        tipLayer.shadowPath = UIBezierPath(rect: CGRect(x: -shadowRadius/2, y: -shadowRadius/2, width: shadowRadius, height: shadowRadius)).cgPath
         
         trackLayer.addSublayer(tipLayer)
     }
     
-    func setProgress(var value: Float, animated: Bool) {
+    func setProgress(_ value: Float, animated: Bool) {
+        var value = value
         if (value != value) {
             print("progressView: value supplied is Nan")
             value = 0
@@ -102,17 +103,17 @@ class EPProgressView: UIControl {
         
     }
     
-    func updateFrames(animated: Bool) {
+    func updateFrames(_ animated: Bool) {
         if animated {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
         }
         if !isEditing {
-            progressLayer.frame = CGRectMake(0, 0, CGRectGetWidth(frame) * CGFloat(progress), lineThickness)
-            tipLayer.frame = CGRectMake(min(CGRectGetWidth(progressLayer.frame),max(CGRectGetWidth(progressLayer.frame) - tipWidth, 0)), 0, tipWidth, lineThickness)
+            progressLayer.frame = CGRect(x: 0, y: 0, width: frame.width * CGFloat(progress), height: lineThickness)
+            tipLayer.frame = CGRect(x: min(progressLayer.frame.width,max(progressLayer.frame.width - tipWidth, 0)), y: 0, width: tipWidth, height: lineThickness)
         } else {
-            progressLayer.frame = CGRectMake(0, 0, CGRectGetWidth(frame) * CGFloat(editingProgress), lineThickness)
-            tipLayer.frame = CGRectMake(min(CGRectGetWidth(progressLayer.frame),max(CGRectGetWidth(progressLayer.frame) - tipWidth, 0)), 0, tipWidth, lineThickness)
+            progressLayer.frame = CGRect(x: 0, y: 0, width: frame.width * CGFloat(editingProgress), height: lineThickness)
+            tipLayer.frame = CGRect(x: min(progressLayer.frame.width,max(progressLayer.frame.width - tipWidth, 0)), y: 0, width: tipWidth, height: lineThickness)
         }
         
         if animated {
@@ -126,21 +127,21 @@ class EPProgressView: UIControl {
         self.setupLayers()
     }
     
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         print("begin")
         isEditing = true
-        let location = touch.locationInView(self)
+        let location = touch.location(in: self)
         if self.bounds.contains(location) {
-            editingProgress = Float(location.x / CGRectGetWidth(frame))
+            editingProgress = Float(location.x / frame.width)
         }
         return true
     }
     
-    override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        let location = touch.locationInView(self)
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let location = touch.location(in: self)
         print("continue")
         
-        var newEditingProgress = Float(location.x / CGRectGetWidth(frame))
+        var newEditingProgress = Float(location.x / frame.width)
         if newEditingProgress > 1 {
             newEditingProgress = 1
         } else {
@@ -163,15 +164,15 @@ class EPProgressView: UIControl {
         return true
     }
     
-    override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         print("end")
-        sendActionsForControlEvents(.ValueChanged)
+        sendActions(for: .valueChanged)
         isEditing = false
         progress = editingProgress
         self.updateFrames(false)
     }
     
-    override func cancelTrackingWithEvent(event: UIEvent?) {
+    override func cancelTracking(with event: UIEvent?) {
         print("cancel")
         isEditing = false
     }

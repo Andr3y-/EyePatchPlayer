@@ -7,7 +7,7 @@
 //
 
 protocol EPTrackTableViewCellDelegate: class {
-    func cellDetectedPrimaryTap(cell: EPTrackTableViewCell)
+    func cellDetectedPrimaryTap(_ cell: EPTrackTableViewCell)
 
-    func cellDetectedSecondaryTap(cell: EPTrackTableViewCell)
+    func cellDetectedSecondaryTap(_ cell: EPTrackTableViewCell)
 }

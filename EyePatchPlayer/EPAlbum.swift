@@ -14,7 +14,7 @@ class EPAlbum: MTLModel, MTLJSONSerializing {
     var ownerID:Int = 0
     var title:String = ""
     
-    class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
+    class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any]! {
         
         return [
             "ID" : "id",

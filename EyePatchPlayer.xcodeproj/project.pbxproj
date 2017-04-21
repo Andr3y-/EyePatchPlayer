@@ -93,7 +93,6 @@
 		C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */; };
 		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
 		E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */; };
-		FE753E721E06C24800FAAA13 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE753E711E06C24800FAAA13 /* RLMSupport.swift */; };
 		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
 /* End PBXBuildFile section */
 
@@ -206,7 +205,6 @@
 		C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+DefaultTintColor.swift"; sourceTree = "<group>"; };
 		C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorWithHEX.swift"; sourceTree = "<group>"; };
 		CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyePatchPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE753E711E06C24800FAAA13 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
 		FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMigration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -585,7 +583,6 @@
 		C4C61D4D1BBD56DA00501EE1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				FE753E711E06C24800FAAA13 /* RLMSupport.swift */,
 				C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */,
 				C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */,
 				C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */,
@@ -716,6 +713,7 @@
 					C489EAC01BA83D1D00D788E0 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 536JQ4BA38;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -724,6 +722,7 @@
 					};
 					C489EAD71BA83D1D00D788E0 = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0820;
 						TestTargetID = C489EAC01BA83D1D00D788E0;
 					};
 				};
@@ -829,7 +828,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -858,7 +857,6 @@
 				C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */,
 				C489EAF71BA8659D00D788E0 /* EPSettingsViewController.swift in Sources */,
 				C489EB091BA86C4C00D788E0 /* EPPlaylistViewController.swift in Sources */,
-				FE753E721E06C24800FAAA13 /* RLMSupport.swift in Sources */,
 				C4D80D731BCE5F2F0095E2D7 /* EPRootViewController.swift in Sources */,
 				C4C61DB11BC6D58A00501EE1 /* EPFriend.swift in Sources */,
 				C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */,
@@ -1056,7 +1054,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5ce05aa0-0bc2-4e48-b011-a91c029ec0ca";
 				SWIFT_OBJC_BRIDGING_HEADER = "./EyePatchPlayer-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1086,7 +1084,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d6ca5fe6-aec8-42e3-9961-f3e440e56951";
 				SWIFT_OBJC_BRIDGING_HEADER = "./EyePatchPlayer-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1105,6 +1103,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyePatchPlayer.app/EyePatchPlayer";
 			};
 			name = Debug;
@@ -1120,6 +1119,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyePatchPlayer.app/EyePatchPlayer";
 			};
 			name = Release;

@@ -14,7 +14,7 @@ class EPMessagesViewController: EPPlaylistAbstractViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPPlaylistAbstractViewController.loadData), name: "VK_AUTHORISED_MESSAGES", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EPPlaylistAbstractViewController.loadData), name: NSNotification.Name(rawValue: "VK_AUTHORISED_MESSAGES"), object: nil)
         self.navigationItem.title = "Messages"
     }
 
@@ -46,7 +46,7 @@ class EPMessagesViewController: EPPlaylistAbstractViewController {
             if self.playlist.trackCount == 1 {
                 self.tableView.alpha = 1
             }
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.playlist.trackCount - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
+            self.tableView.insertRows(at: [IndexPath(row: self.playlist.trackCount - 1, section: 0)], with: UITableViewRowAnimation.right)
 
             self.highlightActiveTrack(false, animated: false)
         }) {

@@ -26,23 +26,23 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
     }
     
     func subscribeForCacheNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
         self,
                 selector: #selector(EPDownloadedViewController.handleTrackCached(_:)),
-                name: "TrackCached",
+                name: NSNotification.Name(rawValue: "TrackCached"),
                 object: nil)
     }
 
-    func handleTrackCached(notification: NSNotification) {
+    func handleTrackCached(_ notification: Notification) {
         print("handleTrackCached")
         if let track: EPTrack = notification.object as? EPTrack {
             self.playlist.addTrack(track, atEnd: false)
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
+            self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: UITableViewRowAnimation.right)
         }
     }
 
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
+    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
 
             let track: EPTrack
 
@@ -56,36 +56,36 @@ class EPDownloadedViewController: EPPlaylistAbstractViewController {
             }
 
             if EPCache.deleteTrackFromDownload(track) {
-                self.tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath) as! [NSIndexPath], withRowAnimation: UITableViewRowAnimation.Left)
+                self.tableView.deleteRows(at: NSArray(object: indexPath) as! [IndexPath], with: UITableViewRowAnimation.left)
             }
 
             highlightActiveTrack(false, animated: false)
         }
     }
 
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         if let selectedIndexPaths = self.tableView.indexPathsForSelectedRows {
             
             super.setEditing(editing, animated: animated)
 
             for indexPath in selectedIndexPaths {
-                self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
         } else {
             super.setEditing(editing, animated: animated)
         }
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    override func cellDetectedSecondaryTap(cell: EPTrackTableViewCell) {
+    override func cellDetectedSecondaryTap(_ cell: EPTrackTableViewCell) {
         //handle delete
     }
 
     deinit {
-        self.tableView.editing = false
+        self.tableView.isEditing = false
     }
 
 }

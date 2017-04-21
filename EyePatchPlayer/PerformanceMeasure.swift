@@ -9,7 +9,7 @@
 //import Foundation
 
 class Performance {
-    class func measure(title: String, block: (() -> ()) -> ()) {
+    class func measure(_ title: String, block: (() -> ()) -> ()) {
         
         let startTime = CFAbsoluteTimeGetCurrent()
         

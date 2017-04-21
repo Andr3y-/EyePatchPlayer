@@ -84,7 +84,7 @@ class EyePatchPlayerTests: XCTestCase {
     
     func testMessagesParsing() {
         
-        let expectation = self.expectationWithDescription("testMessagesParsing Expectation")
+        let expectation = self.expectation(description: "testMessagesParsing Expectation")
         
         var parsedTracks = [EPTrack]()
 //        var parsedTracksFinal = [EPTrack]()
@@ -102,7 +102,7 @@ class EyePatchPlayerTests: XCTestCase {
                 }
         }
         
-        self.waitForExpectationsWithTimeout(30) { (error) -> Void in
+        self.waitForExpectations(timeout: 30) { (error) -> Void in
             
         }
     }

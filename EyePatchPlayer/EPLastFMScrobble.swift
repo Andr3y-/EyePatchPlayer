@@ -20,15 +20,15 @@ class EPLastFMScrobble: RLMObject {
         super.init()
     }
 
-    class func initWithTrack(track: EPTrack) -> EPLastFMScrobble {
+    class func initWithTrack(_ track: EPTrack) -> EPLastFMScrobble {
         let scrobble = EPLastFMScrobble()
 
-        scrobble.timestamp = Int(NSDate().timeIntervalSince1970 - EPLastFMScrobbleManager.playbackPercentCompleteToScrobble * Double(track.duration))
+        scrobble.timestamp = Int(Date().timeIntervalSince1970 - EPLastFMScrobbleManager.playbackPercentCompleteToScrobble * Double(track.duration))
 
 
-        if let startRange = track.title.rangeOfString("["), let endRange = track.title.rangeOfString("]") {
+        if let startRange = track.title.range(of: "["), let endRange = track.title.range(of: "]") {
 
-            scrobble.track = track.title.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
+            scrobble.track = track.title.replacingCharacters(in: (startRange.lowerBound..<endRange.upperBound), with: "")
             
         } else {
             scrobble.track = track.title
@@ -42,10 +42,10 @@ class EPLastFMScrobble: RLMObject {
 
     init(track: EPTrack) {
 
-        self.timestamp = Int(NSDate().timeIntervalSince1970 - EPLastFMScrobbleManager.playbackPercentCompleteToScrobble * Double(track.duration))
+        self.timestamp = Int(Date().timeIntervalSince1970 - EPLastFMScrobbleManager.playbackPercentCompleteToScrobble * Double(track.duration))
 
-        if let startRange = track.title.rangeOfString("["), let endRange = track.title.rangeOfString("]") {
-            self.track = track.title.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
+        if let startRange = track.title.range(of: "["), let endRange = track.title.range(of: "]") {
+            self.track = track.title.replacingCharacters(in: (startRange.lowerBound..<endRange.upperBound), with: "")
         } else {
             self.track = track.title
         }

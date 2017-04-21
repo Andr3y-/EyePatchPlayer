@@ -33,7 +33,7 @@ class EPEqualizerConfigurationViewController: UIViewController {
             displayEQSettings()
             
             for bandSlider in self.verticalBandSliders {
-                bandSlider.addTarget(self, action: #selector(bandSliderValueChanged), forControlEvents: UIControlEvents.EditingDidEnd)
+                bandSlider.addTarget(self, action: #selector(bandSliderValueChanged), for: UIControlEvents.editingDidEnd)
             }
             
         }
@@ -46,9 +46,9 @@ class EPEqualizerConfigurationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bandSliderValueChanged(bandSlider: EPVerticalBandSlider) {
-        print("Range slider #\(self.verticalBandSliders.indexOf(bandSlider)) value changed: (\(bandSlider.currentValue))")
-        switch Int(self.verticalBandSliders.indexOf(bandSlider)!) {
+    func bandSliderValueChanged(_ bandSlider: EPVerticalBandSlider) {
+        print("Range slider #\(self.verticalBandSliders.index(of: bandSlider)) value changed: (\(bandSlider.currentValue))")
+        switch Int(self.verticalBandSliders.index(of: bandSlider)!) {
             
         case 0:
             EPMusicPlayer.sharedInstance.audioStreamSTK!.setGain(Float(bandSlider.currentValue), forEqualizerBand: 0)
@@ -95,7 +95,7 @@ class EPEqualizerConfigurationViewController: UIViewController {
             verticalBandSliders[7].currentValue
         ]
         
-        NSUserDefaults.standardUserDefaults().setObject(EQGains, forKey: "EQGains")
+        UserDefaults.standard.set(EQGains, forKey: "EQGains")
     }
     
     func displayEQSettings() {
@@ -112,7 +112,7 @@ class EPEqualizerConfigurationViewController: UIViewController {
     }
     
     func loadEQSettings() -> [Double] {
-        if let EQGains = NSUserDefaults.standardUserDefaults().objectForKey("EQGains") as? [Double] {
+        if let EQGains = UserDefaults.standard.object(forKey: "EQGains") as? [Double] {
            return EQGains
         } else {
             
@@ -127,12 +127,12 @@ class EPEqualizerConfigurationViewController: UIViewController {
                 0.0
             ]
             
-            NSUserDefaults.standardUserDefaults().setObject(EQGains, forKey: "EQGains")
+            UserDefaults.standard.set(EQGains, forKey: "EQGains")
             
             return EQGains
         }
     }
-    @IBAction func presetButtonTap(sender: AnyObject) {
+    @IBAction func presetButtonTap(_ sender: AnyObject) {
         if true {//default
             let EQGains = [
                 0.0,
@@ -166,7 +166,7 @@ class EPEqualizerConfigurationViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveEQSettings()
     }

@@ -20,7 +20,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
         self.tableView.alpha = 1
     }
 
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !self.searchQueryEmpty() {
 
             if lastExecutedSearchQuery == self.searchBar.text! {
@@ -35,7 +35,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
         }
     }
 
-    override func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
     }
 
@@ -57,7 +57,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
             audioRequest = VKRequest(method: "audio.search", andParameters: [VK_API_Q: self.searchBar.text!, VK_API_COUNT: 300], andHttpMethod: "GET")
         }
 
-        audioRequest.executeWithResultBlock({
+        audioRequest.execute(resultBlock: {
             [weak self] (response) -> Void in
 
             guard let strongSelf = self else {
@@ -72,17 +72,17 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
 
             if strongSelf.searchQueryEmpty() {
                 //  This is for popular
-                if let responseArray = response.json as? [[String: AnyObject]] {
-                    strongSelf.playlist = EPMusicPlaylist.initWithResponseArray(responseArray)
+                if let responseArray = response?.json as? [[String: AnyObject]] {
+                    strongSelf.playlist = EPMusicPlaylist.initWithResponseArray(responseArray as NSArray)
                 }
             } else {
                 //  This is for search requests
-                if let responseDictionary = response.json as? [String: AnyObject] {
-                    strongSelf.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+                if let responseDictionary = response?.json as? [String: AnyObject] {
+                    strongSelf.playlist = EPMusicPlaylist.initWithResponse(responseDictionary as NSDictionary)
                 }
             }
 
-            if let searchText = strongSelf.searchBar.text where searchText.characters.count > 0 {
+            if let searchText = strongSelf.searchBar.text, searchText.characters.count > 0 {
                 print("reloading table")
                 strongSelf.dataReady()
             } else {
@@ -98,14 +98,14 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
     }
 
     func searchQueryEmpty() -> Bool {
-        if let searchText = searchBar.text where searchText.characters.count > 0 {
+        if let searchText = searchBar.text, searchText.characters.count > 0 {
             return false
         } else {
             return true
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.playlist.tracks.count
     }
 }

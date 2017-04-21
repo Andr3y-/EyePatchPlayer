@@ -12,7 +12,7 @@ class EPArtworkSearchQueryFilter: NSObject {
 
     static let excludedStrings = ["edit", "remix", ",", ".", "@", "feat", "ft", "featt", "featuring", "|", "Instrumental", "mix", "rework", "cover", "version", "&", "\""]
 
-    class func searchQueryForTrack(track: EPTrack) -> String {
+    class func searchQueryForTrack(_ track: EPTrack) -> String {
         var queryString = "\(track.artist) \(track.title)"
 
         Performance.measure("filtering") {
@@ -20,16 +20,16 @@ class EPArtworkSearchQueryFilter: NSObject {
             print("filtering...\ninput: \(queryString)")
             //check for [] remove all inbetween
 
-            if let startRange = queryString.rangeOfString("["), let endRange = queryString.rangeOfString("]") {
-                queryString = queryString.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
+            if let startRange = queryString.range(of: "["), let endRange = queryString.range(of: "]") {
+                queryString = queryString.replacingCharacters(in: (startRange.lowerBound..<endRange.upperBound), with: "")
             }
             //check for () remove all inbetween
-            if let startRange = queryString.rangeOfString("("), let endRange = queryString.rangeOfString(")") {
-                queryString = queryString.stringByReplacingCharactersInRange((startRange.startIndex..<endRange.endIndex), withString: "")
+            if let startRange = queryString.range(of: "("), let endRange = queryString.range(of: ")") {
+                queryString = queryString.replacingCharacters(in: (startRange.lowerBound..<endRange.upperBound), with: "")
             }
 
             for string in self.excludedStrings {
-                queryString = queryString.stringByReplacingOccurrencesOfString(string, withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+                queryString = queryString.replacingOccurrences(of: string, with: "", options: NSString.CompareOptions.caseInsensitive, range: nil)
             }
             print("output: \(queryString)")
             block()

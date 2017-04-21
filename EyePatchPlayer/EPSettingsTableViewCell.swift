@@ -9,9 +9,9 @@
 import UIKit
 
 protocol EPSettingsTableViewCellDelegate: class {
-    func secondaryButtonTapForCell(cell: EPSettingsTableViewCell)
+    func secondaryButtonTapForCell(_ cell: EPSettingsTableViewCell)
 
-    func valueSwitchTapForCell(cell: EPSettingsTableViewCell)
+    func valueSwitchTapForCell(_ cell: EPSettingsTableViewCell)
 }
 
 class EPSettingsTableViewCell: UITableViewCell {
@@ -23,31 +23,31 @@ class EPSettingsTableViewCell: UITableViewCell {
 
     weak var delegate: EPSettingsTableViewCellDelegate?
 
-    func setContent(type: EPSettingType, value: Any, name: String) {
+    func setContent(_ type: EPSettingType, value: Any, name: String) {
 
         switch type {
 
-        case .DownloadArtwork, .ScrobbleWithLastFm, .BroadcastStatus, .SaveToPlaylist, .ShakeToShuffle, .ReverseSwipeDirection:
+        case .downloadArtwork, .scrobbleWithLastFm, .broadcastStatus, .saveToPlaylist, .shakeToShuffle, .reverseSwipeDirection:
 
-            self.secondaryButton.hidden = true
-            self.valueSwitch.hidden = false
+            self.secondaryButton.isHidden = true
+            self.valueSwitch.isHidden = false
             self.valueSwitch.setOn(value as! Bool, animated: false)
             self.titleLabel.text = name
             self.type = type
 
             break
 
-        case .ArtworkSize:
-            self.secondaryButton.hidden = false
-            self.valueSwitch.hidden = true
-            self.secondaryButton.setTitle(EPSettings.preferredArtworkSizeString(), forState: .Normal)
+        case .artworkSize:
+            self.secondaryButton.isHidden = false
+            self.valueSwitch.isHidden = true
+            self.secondaryButton.setTitle(EPSettings.preferredArtworkSizeString(), for: UIControlState())
             self.titleLabel.text = name
             self.type = type
             break
-        case .EqualizerActive:
-            self.secondaryButton.hidden = false
-            self.valueSwitch.hidden = true
-            self.secondaryButton.setTitle(EPSettings.isEqualizerActive() ? "Active" : "Not Active", forState: .Normal)
+        case .equalizerActive:
+            self.secondaryButton.isHidden = false
+            self.valueSwitch.isHidden = true
+            self.secondaryButton.setTitle(EPSettings.isEqualizerActive() ? "Active" : "Not Active", for: UIControlState())
             self.titleLabel.text = name
             self.type = type
             break
@@ -58,7 +58,7 @@ class EPSettingsTableViewCell: UITableViewCell {
         }
         
         if !EPSettings.enabledStatusForSettingType(type) {
-            self.userInteractionEnabled = false
+            self.isUserInteractionEnabled = false
             self.contentView.alpha = 0.3
         }
     }
@@ -72,19 +72,19 @@ class EPSettingsTableViewCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
-        self.titleLabel?.textColor = .blackColor()
-        self.secondaryButton.hidden = false
-        self.valueSwitch.hidden = false
+        self.titleLabel?.textColor = .black
+        self.secondaryButton.isHidden = false
+        self.valueSwitch.isHidden = false
     }
-    @IBAction func secondaryButtonTap(sender: AnyObject) {
+    @IBAction func secondaryButtonTap(_ sender: AnyObject) {
         if self.type != nil {
-            if self.type == .EqualizerActive {
+            if self.type == .equalizerActive {
                 if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
-                    self.secondaryButton.setTitle(newValue ? "Active" : "Not Active", forState: .Normal)
+                    self.secondaryButton.setTitle(newValue ? "Active" : "Not Active", for: UIControlState())
                 }
             } else {
                 if let newButtonText = EPSettings.changeSetting(self.type, value: nil) as? String {
-                    self.secondaryButton.setTitle(newButtonText, forState: .Normal)
+                    self.secondaryButton.setTitle(newButtonText, for: UIControlState())
                 }
             }
         }
@@ -92,9 +92,9 @@ class EPSettingsTableViewCell: UITableViewCell {
         self.delegate?.secondaryButtonTapForCell(self)
     }
 
-    @IBAction func valueSwitchTap(sender: AnyObject) {
+    @IBAction func valueSwitchTap(_ sender: AnyObject) {
         if self.type != nil {
-            if self.type == .ScrobbleWithLastFm {
+            if self.type == .scrobbleWithLastFm {
                 if EPSettings.lastfmMobileSession().characters.count > 1 {
                     if let newValue = EPSettings.changeSetting(self.type, value: nil) as? Bool {
                         self.valueSwitch.setOn(newValue, animated: true)

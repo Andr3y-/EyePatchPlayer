@@ -65,7 +65,7 @@ class EPStatusIndicatorView: UIView {
         super.init(frame: frame)
         self.frame = frame
 
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
 
         setupCircle()
         setupTick()
@@ -75,7 +75,7 @@ class EPStatusIndicatorView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
 
         setupCircle()
         setupTick()
@@ -83,44 +83,44 @@ class EPStatusIndicatorView: UIView {
     }
 
     func setupCircle() {
-        circlePathLayer.contentsScale = UIScreen.mainScreen().scale
+        circlePathLayer.contentsScale = UIScreen.main.scale
         circlePathLayer.frame = bounds
         circlePathLayer.lineWidth = circleLineWidth
-        circlePathLayer.anchorPoint = CGPointMake(0.5, 0.5)
-        circlePathLayer.fillColor = UIColor.clearColor().CGColor
-        circlePathLayer.strokeColor = UIView.defaultTintColor().CGColor
+        circlePathLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        circlePathLayer.fillColor = UIColor.clear.cgColor
+        circlePathLayer.strokeColor = UIView.defaultTintColor().cgColor
         layer.addSublayer(circlePathLayer)
     }
 
     func setupTick() {
-        tickPathLayer.contentsScale = UIScreen.mainScreen().scale
-        tickPathLayer.strokeColor = UIView.defaultTintColor().CGColor
+        tickPathLayer.contentsScale = UIScreen.main.scale
+        tickPathLayer.strokeColor = UIView.defaultTintColor().cgColor
         tickPathLayer.lineWidth = tickLineWidth
-        tickPathLayer.fillColor = UIColor.clearColor().CGColor
+        tickPathLayer.fillColor = UIColor.clear.cgColor
 
         layer.addSublayer(tickPathLayer)
     }
 
     func setupPlus() {
-        plusPathLayer.contentsScale = UIScreen.mainScreen().scale
-        plusPathLayer.strokeColor = UIView.defaultTintColor().CGColor
+        plusPathLayer.contentsScale = UIScreen.main.scale
+        plusPathLayer.strokeColor = UIView.defaultTintColor().cgColor
         plusPathLayer.lineWidth = plusLineWidth
-        plusPathLayer.fillColor = UIColor.clearColor().CGColor
+        plusPathLayer.fillColor = UIColor.clear.cgColor
 
         layer.addSublayer(plusPathLayer)
     }
 
     func tickFrame() -> CGRect {
         var tickFrame = CGRect(x: 0, y: 0, width: 2 * circleRadius, height: 2 * circleRadius)
-        tickFrame.origin.x = CGRectGetMidX(tickPathLayer.bounds) - CGRectGetMidX(tickFrame)
-        tickFrame.origin.y = CGRectGetMidY(tickPathLayer.bounds) - CGRectGetMidY(tickFrame)
+        tickFrame.origin.x = tickPathLayer.bounds.midX - tickFrame.midX
+        tickFrame.origin.y = tickPathLayer.bounds.midY - tickFrame.midY
         return tickFrame
     }
 
     func circleFrame() -> CGRect {
         var circleFrame = CGRect(x: 0, y: 0, width: 2 * circleRadius, height: 2 * circleRadius)
-        circleFrame.origin.x = CGRectGetMidX(circlePathLayer.bounds) - CGRectGetMidX(circleFrame)
-        circleFrame.origin.y = CGRectGetMidY(circlePathLayer.bounds) - CGRectGetMidY(circleFrame)
+        circleFrame.origin.x = circlePathLayer.bounds.midX - circleFrame.midX
+        circleFrame.origin.y = circlePathLayer.bounds.midY - circleFrame.midY
         return circleFrame
     }
 
@@ -128,21 +128,21 @@ class EPStatusIndicatorView: UIView {
 
         let plusBezier = UIBezierPath()
         //first point
-        plusBezier.moveToPoint(CGPoint(
-        x: CGRectGetMidX(tickFrame()) - plusRadius,
-                y: CGRectGetMidY(tickFrame())
+        plusBezier.move(to: CGPoint(
+        x: tickFrame().midX - plusRadius,
+                y: tickFrame().midY
         ))
-        plusBezier.addLineToPoint(CGPoint(
-        x: CGRectGetMidX(tickFrame()) + plusRadius,
-                y: CGRectGetMidY(tickFrame())
+        plusBezier.addLine(to: CGPoint(
+        x: tickFrame().midX + plusRadius,
+                y: tickFrame().midY
         ))
-        plusBezier.moveToPoint(CGPoint(
-        x: CGRectGetMidX(tickFrame()),
-                y: CGRectGetMidY(tickFrame()) - plusRadius
+        plusBezier.move(to: CGPoint(
+        x: tickFrame().midX,
+                y: tickFrame().midY - plusRadius
         ))
-        plusBezier.addLineToPoint(CGPoint(
-        x: CGRectGetMidX(tickFrame()),
-                y: CGRectGetMidY(tickFrame()) + plusRadius
+        plusBezier.addLine(to: CGPoint(
+        x: tickFrame().midX,
+                y: tickFrame().midY + plusRadius
         ))
 
         return plusBezier
@@ -152,27 +152,27 @@ class EPStatusIndicatorView: UIView {
 
         let tickBezier = UIBezierPath()
         //first point
-        tickBezier.moveToPoint(CGPoint(
-        x: CGRectGetWidth(tickFrame()) * 0.22,
-                y: CGRectGetHeight(tickFrame()) * 3 / 5
+        tickBezier.move(to: CGPoint(
+        x: tickFrame().width * 0.22,
+                y: tickFrame().height * 3 / 5
         ))
-        tickBezier.addLineToPoint(CGPoint(
-        x: CGRectGetWidth(tickFrame()) * 1 / 3 * 1.3,
-                y: CGRectGetHeight(tickFrame()) * 4 / 5
+        tickBezier.addLine(to: CGPoint(
+        x: tickFrame().width * 1 / 3 * 1.3,
+                y: tickFrame().height * 4 / 5
         ))
-        tickBezier.addLineToPoint(CGPoint(
-        x: CGRectGetWidth(tickFrame()) * 4 / 5,
-                y: CGRectGetHeight(tickFrame()) * 1.5 / 5
+        tickBezier.addLine(to: CGPoint(
+        x: tickFrame().width * 4 / 5,
+                y: tickFrame().height * 1.5 / 5
         ))
 
         return tickBezier
     }
 
     func circlePath() -> UIBezierPath {
-        return UIBezierPath(ovalInRect: circleFrame())
+        return UIBezierPath(ovalIn: circleFrame())
     }
 
-    func setStatusComplete(value: Bool, animated: Bool) {
+    func setStatusComplete(_ value: Bool, animated: Bool) {
 
         if !animated {
 
@@ -194,21 +194,21 @@ class EPStatusIndicatorView: UIView {
                 animation.repeatCount = 1
                 animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 animation.fillMode = kCAFillModeForwards
-                animation.removedOnCompletion = false
+                animation.isRemovedOnCompletion = false
 
-                self.tickPathLayer.addAnimation(animation, forKey: "stroke")
+                self.tickPathLayer.add(animation, forKey: "stroke")
 
                 let animationScale = CABasicAnimation(keyPath: "transform.scale")
-                animationScale.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
-                animationScale.toValue = NSValue(CATransform3D: CATransform3DMakeScale(1.15, 1.15, 1.0))
+                animationScale.fromValue = NSValue(caTransform3D: CATransform3DIdentity)
+                animationScale.toValue = NSValue(caTransform3D: CATransform3DMakeScale(1.15, 1.15, 1.0))
                 animationScale.duration = 0.4
                 animationScale.beginTime = CACurrentMediaTime() + 0.3
                 animationScale.autoreverses = true
                 animationScale.fillMode = kCAFillModeForwards
                 animationScale.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                animationScale.removedOnCompletion = true
+                animationScale.isRemovedOnCompletion = true
 
-                self.circlePathLayer.addAnimation(animationScale, forKey: "scale")
+                self.circlePathLayer.add(animationScale, forKey: "scale")
 
 
             } else {
@@ -221,16 +221,16 @@ class EPStatusIndicatorView: UIView {
                 animation.repeatCount = 1
                 animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 animation.fillMode = kCAFillModeForwards
-                animation.removedOnCompletion = false
+                animation.isRemovedOnCompletion = false
 
-                self.plusPathLayer.addAnimation(animation, forKey: "stroke")
+                self.plusPathLayer.add(animation, forKey: "stroke")
 
             }
         }
 
     }
 
-    func animateProgress(value: CGFloat) {
+    func animateProgress(_ value: CGFloat) {
         print("rotation animation started")
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
@@ -238,9 +238,9 @@ class EPStatusIndicatorView: UIView {
         animation.duration = 0.25
         animation.repeatCount = 1
         animation.fillMode = kCAFillModeForwards
-        animation.removedOnCompletion = false
+        animation.isRemovedOnCompletion = false
         
-        self.circlePathLayer.addAnimation(animation, forKey: "stroke")
+        self.circlePathLayer.add(animation, forKey: "stroke")
     }
 
     func animateCompletion() {
@@ -250,8 +250,8 @@ class EPStatusIndicatorView: UIView {
         animationAlpha.duration = 0.25
         animationAlpha.repeatCount = 1
         animationAlpha.fillMode = kCAFillModeForwards
-        animationAlpha.removedOnCompletion = false
-        self.plusPathLayer.addAnimation(animationAlpha, forKey: "opacity")
+        animationAlpha.isRemovedOnCompletion = false
+        self.plusPathLayer.add(animationAlpha, forKey: "opacity")
 
         self.animateProgress(1.0)
 
@@ -261,11 +261,11 @@ class EPStatusIndicatorView: UIView {
     
     func animateCancellation() {        
         self.progress = 1.0
-        self.circlePathLayer.removeAnimationForKey("rotation")
-        self.plusPathLayer.removeAnimationForKey("rotation")
+        self.circlePathLayer.removeAnimation(forKey: "rotation")
+        self.plusPathLayer.removeAnimation(forKey: "rotation")
     }
 
-    func animateRotation(value: Bool) {
+    func animateRotation(_ value: Bool) {
         
         //outer circle
         if (!value) {
@@ -280,9 +280,9 @@ class EPStatusIndicatorView: UIView {
         animationCircle.duration = 5.0
         animationCircle.repeatCount = Float.infinity
         animationCircle.fillMode = kCAFillModeForwards
-        animationCircle.removedOnCompletion = false
+        animationCircle.isRemovedOnCompletion = false
 
-        self.circlePathLayer.addAnimation(animationCircle, forKey: "rotation")
+        self.circlePathLayer.add(animationCircle, forKey: "rotation")
 
         //inner plus
         print("rotation animation started")
@@ -291,19 +291,19 @@ class EPStatusIndicatorView: UIView {
         animationPlus.duration = 2.0
         animationPlus.repeatCount = Float.infinity
         animationPlus.fillMode = kCAFillModeForwards
-        animationPlus.removedOnCompletion = false
+        animationPlus.isRemovedOnCompletion = false
         animationPlus.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.plusPathLayer.addAnimation(animationPlus, forKey: "rotation")
+        self.plusPathLayer.add(animationPlus, forKey: "rotation")
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         circlePathLayer.frame = bounds
-        circlePathLayer.path = circlePath().CGPath
+        circlePathLayer.path = circlePath().cgPath
         tickPathLayer.frame = bounds
-        tickPathLayer.path = tickPath().CGPath
+        tickPathLayer.path = tickPath().cgPath
         plusPathLayer.frame = bounds
-        plusPathLayer.path = plusPath().CGPath
+        plusPathLayer.path = plusPath().cgPath
     }
     
 }

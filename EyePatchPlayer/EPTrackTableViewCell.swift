@@ -47,7 +47,7 @@ class EPTrackTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionIndicatorView.backgroundColor = UIView.defaultTintColor()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.selectionStyle = UITableViewCellSelectionStyle.none
         let primaryTapper = UITapGestureRecognizer(target: self, action: #selector(mainTap))
         self.mainTapArea.addGestureRecognizer(primaryTapper)
         self.durationLabel.font = self.durationLabel.font.monospacedDigitFont
@@ -56,13 +56,13 @@ class EPTrackTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         constraintSelectionIndicator.constant = selected ? 0 : -4
         if animated {
-            UIView.animateWithDuration(0.3) {
+            UIView.animate(withDuration: 0.3, animations: {
                 () -> Void in
                 self.contentView.layoutIfNeeded()
-            }
+            }) 
         }
     }
 
@@ -79,15 +79,15 @@ class EPTrackTableViewCell: UITableViewCell {
         self.downloadProgress = nil
     }
 
-    func mainTap(sender: AnyObject) {
+    func mainTap(_ sender: AnyObject) {
         self.delegate?.cellDetectedPrimaryTap(self)
     }
 
-    func secondaryTap(sender: AnyObject) {
+    func secondaryTap(_ sender: AnyObject) {
         self.delegate?.cellDetectedSecondaryTap(self)
     }
 
-    func setupDownloadProgress(downloadProgress: EPDownloadProgress) {
+    func setupDownloadProgress(_ downloadProgress: EPDownloadProgress) {
         print("setupDownloadProgress")
 
         if self.downloadProgress != nil {
@@ -99,11 +99,11 @@ class EPTrackTableViewCell: UITableViewCell {
         self.progressIndicatorView.progress = CGFloat(downloadProgress.percentComplete)
         self.progressIndicatorView.animateRotation(true)
 
-        self.downloadProgress!.addObserver(self, forKeyPath: "percentComplete", options: [.New, .Old], context: nil)
-        self.downloadProgress!.addObserver(self, forKeyPath: "finished", options: [.New, .Old], context: nil)
+        self.downloadProgress!.addObserver(self, forKeyPath: "percentComplete", options: [.new, .old], context: nil)
+        self.downloadProgress!.addObserver(self, forKeyPath: "finished", options: [.new, .old], context: nil)
     }
 
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String:AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey:Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "percentComplete" {
 
             if let newProgress = object as? EPDownloadProgress {
@@ -135,7 +135,7 @@ class EPTrackTableViewCell: UITableViewCell {
         }
     }
 
-    func setupLayoutForTrack(track: EPTrack) {
+    func setupLayoutForTrack(_ track: EPTrack) {
 
         self.track = track
 
@@ -148,11 +148,11 @@ class EPTrackTableViewCell: UITableViewCell {
             progressIndicatorView.setStatusComplete(false, animated: false)
         }
 
-        self.track.addObserver(self, forKeyPath: "downloadProgress", options: [.New, .Old], context: nil)
+        self.track.addObserver(self, forKeyPath: "downloadProgress", options: [.new, .old], context: nil)
 
     }
 
-    func setCacheStatus(status: Bool) {
+    func setCacheStatus(_ status: Bool) {
         if status {
 //            self.statusImageView.image = UIImage(named: "icon_tick")
             progressIndicatorView.setStatusComplete(true, animated: false)

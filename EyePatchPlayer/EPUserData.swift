@@ -13,17 +13,17 @@ import VK_ios_sdk
 
 class EPUserData: NSObject {
     
-    class func setUserVKID(vkID: String) {
+    class func setUserVKID(_ vkID: String) {
         
         Crashlytics.sharedInstance().setUserIdentifier("VKID:\(vkID)")
         
-        if let currentUser = PFUser.currentUser() {
+        if let currentUser = PFUser.current() {
             //user existing one
             currentUser["VKID"] = vkID
             currentUser.saveInBackground()
         } else {
             //register one from scratch
-            PFAnonymousUtils.logInWithBlock({ (user: PFUser?, error:NSError?) -> Void in
+            PFAnonymousUtils.logIn(block: { (user, error) in
                 if (error != nil) {
                     print("parse anonynoums login succeeded")
                     if let user = user {
@@ -38,7 +38,7 @@ class EPUserData: NSObject {
     }
     
     class func VKID() -> String! {
-        if let currentUser = PFUser.currentUser() {
+        if let currentUser = PFUser.current() {
             //user existing one
             if let vkID = currentUser["VKID"] as? String {
                 return vkID

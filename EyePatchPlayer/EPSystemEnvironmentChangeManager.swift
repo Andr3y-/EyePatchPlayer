@@ -12,26 +12,26 @@ import AVFoundation
 class EPSystemEnvironmentChangeManager: NSObject {
     
     static let sharedInstance = EPSystemEnvironmentChangeManager()
-    static var onceToken: dispatch_once_t = 0
+    static var onceToken: Int = 0
     var shouldResumeOnRouteChange = false
     
     override init() {
         super.init()
         print("EPSystemEnvironmentChangeManager init")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPSystemEnvironmentChangeManager.interruptionEvent(_:)), name: AVAudioSessionInterruptionNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPSystemEnvironmentChangeManager.routeChanged(_:)), name: AVAudioSessionRouteChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EPSystemEnvironmentChangeManager.interruptionEvent(_:)), name: NSNotification.Name.AVAudioSessionInterruption, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EPSystemEnvironmentChangeManager.routeChanged(_:)), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func interruptionEvent(notification: NSNotification) {
-        if notification.name == AVAudioSessionInterruptionNotification {
+    func interruptionEvent(_ notification: Notification) {
+        if notification.name == NSNotification.Name.AVAudioSessionInterruption {
             if let interruptionType = notification.userInfo?[AVAudioSessionInterruptionTypeKey] {
                 
                 let interruptionTypeNumber = interruptionType as! NSNumber
-                if Int(interruptionTypeNumber) == Int(AVAudioSessionInterruptionType.Began.rawValue) {
+                if Int(interruptionTypeNumber) == Int(AVAudioSessionInterruptionType.began.rawValue) {
                     EPMusicPlayer.sharedInstance.pause()
                 } else {
 //                    EPMusicPlayer.sharedInstance.play()
@@ -40,13 +40,13 @@ class EPSystemEnvironmentChangeManager: NSObject {
         }
     }
     
-    func routeChanged(notification: NSNotification) {
+    func routeChanged(_ notification: Notification) {
         print("routeChanged")
         if let userDict = notification.userInfo as? Dictionary<String, AnyObject> {
             if let newValue = userDict[AVAudioSessionRouteChangeReasonKey] as? UInt {
                 let reason = AVAudioSessionRouteChangeReason(rawValue: newValue)
                 switch reason! {
-                case .NewDeviceAvailable:
+                case .newDeviceAvailable:
                     print("NewDeviceAvailable - connected")
 //                    dispatch_async(dispatch_get_main_queue()) {
 //                        if EPMusicPlayer.sharedInstance.isPlaying() == false && self.shouldResumeOnRouteChange {
@@ -57,9 +57,9 @@ class EPSystemEnvironmentChangeManager: NSObject {
                     
                     break
                     
-                case .OldDeviceUnavailable:
+                case .oldDeviceUnavailable:
                     print("OldDeviceUnavailable - disconnected")
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         if EPMusicPlayer.sharedInstance.isPlaying() == true {
                             self.shouldResumeOnRouteChange = true
                             EPMusicPlayer.sharedInstance.pause()

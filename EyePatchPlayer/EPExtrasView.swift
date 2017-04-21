@@ -10,11 +10,11 @@ import UIKit
 import DGActivityIndicatorView
 
 extension UIView {
-    class func loadFromNibNamed(nibNamed: String, bundle: NSBundle? = nil) -> UIView? {
+    class func loadFromNibNamed(_ nibNamed: String, bundle: Bundle? = nil) -> UIView? {
         return UINib(
         nibName: nibNamed,
                 bundle: bundle
-        ).instantiateWithOwner(nil, options: nil)[0] as? UIView
+        ).instantiate(withOwner: nil, options: nil)[0] as? UIView
     }
 }
 
@@ -22,28 +22,28 @@ class EPExtrasView: UIView {
     @IBOutlet weak var rootContentView: UIView!
     var activityIndicatorView: DGActivityIndicatorView?
     @IBOutlet weak var lyricsTextView: UITextView!
-    @IBAction func lyricsButtonTap(sender: AnyObject) {
+    @IBAction func lyricsButtonTap(_ sender: AnyObject) {
         print("lyrics tap")
         updateContent(false)
     }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        UIView.animateWithDuration(0.2) {
+        UIView.animate(withDuration: 0.2, animations: {
             () -> Void in
             self.alpha = 1
-        }
+        }) 
     }
 
-    override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
+    override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         self.alpha = 0
     }
 
-    func updateContent(delay: Bool) {
+    func updateContent(_ delay: Bool) {
 
         if delay {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
                 self.updateContent(false)
             })
             return
@@ -78,11 +78,11 @@ class EPExtrasView: UIView {
 
 
         if activityIndicatorView == nil {
-            activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.LineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
-            activityIndicatorView!.tintColor = UIColor.whiteColor()
+            activityIndicatorView = DGActivityIndicatorView(type: DGActivityIndicatorAnimationType.lineScaleParty, tintColor: UIView.defaultTintColor(), size: 30)
+            activityIndicatorView!.tintColor = UIColor.white
 
             self.rootContentView.addSubview(activityIndicatorView!)
-            activityIndicatorView!.center = CGPointMake(CGRectGetMidX(self.rootContentView.bounds), CGRectGetMidY(self.rootContentView.bounds))
+            activityIndicatorView!.center = CGPoint(x: self.rootContentView.bounds.midX, y: self.rootContentView.bounds.midY)
         }
 
         guard let activityIndicatorView = self.activityIndicatorView else {
@@ -98,10 +98,10 @@ class EPExtrasView: UIView {
 
         activityIndicatorView.alpha = 0
         activityIndicatorView.startAnimating()
-        UIView.animateWithDuration(0.2) {
+        UIView.animate(withDuration: 0.2, animations: {
             () -> Void in
             activityIndicatorView.alpha = 1
-        }
+        }) 
     }
 
     func stopLoadingAnimation() {
@@ -118,24 +118,24 @@ class EPExtrasView: UIView {
         print("stopLoadingAnimation")
 
         activityIndicatorView.alpha = 1
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             () -> Void in
             activityIndicatorView.alpha = 0
-        }) {
+        }, completion: {
             (result: Bool) -> Void in
             activityIndicatorView.stopAnimating()
             activityIndicatorView.alpha = 0
-        }
+        }) 
     }
 
-    func hideLyrics(animated: Bool) {
-        UIView.animateWithDuration(animated ? 0.2 : 0.0, animations: {
+    func hideLyrics(_ animated: Bool) {
+        UIView.animate(withDuration: animated ? 0.2 : 0.0, animations: {
             self.lyricsTextView.alpha = 0
         })
     }
 
-    func showLyrics(animated: Bool) {
-        UIView.animateWithDuration(animated ? 0.2 : 0.0, animations: {
+    func showLyrics(_ animated: Bool) {
+        UIView.animate(withDuration: animated ? 0.2 : 0.0, animations: {
             self.lyricsTextView.alpha = 1
         })
     }

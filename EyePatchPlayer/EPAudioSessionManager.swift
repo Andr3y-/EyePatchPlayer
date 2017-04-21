@@ -23,14 +23,14 @@ class EPAudioSessionManager: NSObject {
         }
 
         do {
-            let bufferLength: NSTimeInterval = 0.1
+            let bufferLength: TimeInterval = 0.1
             try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(bufferLength)
         } catch _ {
             print("error setting preferred IO buffer duration")
         }
     }
     
-    class func setAudioSessionActive(active: Bool) {
+    class func setAudioSessionActive(_ active: Bool) {
         do {
             try AVAudioSession.sharedInstance().setActive(active)
         } catch _ {

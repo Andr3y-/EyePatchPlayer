@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -18,30 +42,30 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         print("Menu: viewDidLoad")
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EPRightMenuViewController.handleLogout), name: "LogoutComplete", object: nil)
-        tableView = UITableView(frame: CGRectMake(self.view.frame.size.width / 1.5, (self.view.frame.size.height - 54 * CGFloat(tableEntryStrings.count)) / 2.0, self.view.frame.size.width / 1.5, 54 * CGFloat(tableEntryStrings.count)))
+        NotificationCenter.default.addObserver(self, selector: #selector(EPRightMenuViewController.handleLogout), name: NSNotification.Name(rawValue: "LogoutComplete"), object: nil)
+        tableView = UITableView(frame: CGRect(x: self.view.frame.size.width / 1.5, y: (self.view.frame.size.height - 54 * CGFloat(tableEntryStrings.count)) / 2.0, width: self.view.frame.size.width / 1.5, height: 54 * CGFloat(tableEntryStrings.count)))
 
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        tableView.autoresizingMask = [.FlexibleRightMargin, .FlexibleLeftMargin, .FlexibleBottomMargin, .FlexibleTopMargin]
+        tableView.autoresizingMask = [.flexibleRightMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleTopMargin]
         tableView.delegate = self;
         tableView.dataSource = self;
-        tableView.opaque = false;
-        tableView.backgroundColor = UIColor.clearColor();
+        tableView.isOpaque = false;
+        tableView.backgroundColor = UIColor.clear;
         tableView.backgroundView = nil;
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none;
         tableView.bounces = false;
 
         // Blur Effect
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = UIScreen.mainScreen().bounds
+        blurEffectView.frame = UIScreen.main.bounds
         view.addSubview(blurEffectView)
 
         // Vibrancy Effect
-        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        vibrancyEffectView.frame = UIScreen.mainScreen().bounds
+        vibrancyEffectView.frame = UIScreen.main.bounds
 
         // Add tableView to the vibrancy view
         vibrancyEffectView.contentView.addSubview(tableView)
@@ -50,31 +74,31 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
         blurEffectView.contentView.addSubview(vibrancyEffectView)
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableEntryStrings.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel!.font = UIFont.boldSystemFontOfSize(21)
-        cell.textLabel!.textColor = UIColor.whiteColor()// UIColor.whiteColor()
-        cell.textLabel!.highlightedTextColor = UIColor.lightGrayColor()
+        cell.backgroundColor = UIColor.clear
+        cell.textLabel!.font = UIFont.boldSystemFont(ofSize: 21)
+        cell.textLabel!.textColor = UIColor.white// UIColor.whiteColor()
+        cell.textLabel!.highlightedTextColor = UIColor.lightGray
         cell.selectedBackgroundView = UIView()
         
         cell.textLabel?.text = tableEntryStrings[(indexPath.row)]
-        cell.textLabel?.textAlignment = NSTextAlignment.Left
-        cell.textLabel?.shadowColor = UIColor.blackColor()
-        cell.textLabel?.shadowOffset = CGSizeMake(0.0, 0.0)
+        cell.textLabel?.textAlignment = NSTextAlignment.left
+        cell.textLabel?.shadowColor = UIColor.black
+        cell.textLabel?.shadowOffset = CGSize(width: 0.0, height: 0.0)
 
         if indexPath.row == selectedItemIndex {
             self.applySelectionToCell(cell)
@@ -84,34 +108,34 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func selectActiveCell() {
-        let indexPath = NSIndexPath(forRow: selectedItemIndex, inSection: 0)
-        guard let newActiveCell = self.tableView.cellForRowAtIndexPath(indexPath) else {
+        let indexPath = IndexPath(row: selectedItemIndex, section: 0)
+        guard let newActiveCell = self.tableView.cellForRow(at: indexPath) else {
             return
         }
         self.applySelectionToCell(newActiveCell)
     }
 
-    func applySelectionToCell(cell: UITableViewCell) {
+    func applySelectionToCell(_ cell: UITableViewCell) {
         let gradient: CAGradientLayer = CAGradientLayer()
 
         gradient.frame = cell.contentView.bounds
-        gradient.colors = [UIColor.clearColor().CGColor, UIColor.whiteColor().CGColor]
-        gradient.startPoint = CGPointMake(0.0, 0.5)
-        gradient.endPoint = CGPointMake(1.0, 0.5)
+        gradient.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
         gradient.opacity = 0
         
-        cell.contentView.layer.insertSublayer(gradient, atIndex: 0)
+        cell.contentView.layer.insertSublayer(gradient, at: 0)
         
         let gradientAnimation = CABasicAnimation(keyPath: "opacity")
         gradientAnimation.fromValue = 0
         gradientAnimation.toValue = 1
         gradientAnimation.duration = 0.2
-        gradientAnimation.removedOnCompletion = false
+        gradientAnimation.isRemovedOnCompletion = false
         gradientAnimation.fillMode = kCAFillModeForwards
-        gradient.addAnimation(gradientAnimation, forKey: "opacityAnimation")
+        gradient.add(gradientAnimation, forKey: "opacityAnimation")
     }
 
-    func clearSelectonOnCell(cell: UITableViewCell) {
+    func clearSelectonOnCell(_ cell: UITableViewCell) {
         if cell.contentView.layer.sublayers?.count > 0 {
             CATransaction.begin()
             
@@ -119,50 +143,50 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
             gradientAnimation.fromValue = 1
             gradientAnimation.toValue = 0
             gradientAnimation.duration = 0.2
-            gradientAnimation.removedOnCompletion = false
+            gradientAnimation.isRemovedOnCompletion = false
             gradientAnimation.fillMode = kCAFillModeForwards
             
             CATransaction.setCompletionBlock({ 
                 cell.contentView.layer.sublayers?[0].removeFromSuperlayer()
             })
             
-            cell.contentView.layer.sublayers?[0].addAnimation(gradientAnimation, forKey: "opacityAnimation")
+            cell.contentView.layer.sublayers?[0].add(gradientAnimation, forKey: "opacityAnimation")
             
             CATransaction.commit()
         }
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: false)
 
         if indexPath.row == selectedItemIndex {
-            self.sideMenuViewController.hideMenuViewController()
+            self.sideMenuViewController.hideViewController()
             return
         } else {
-            self.clearSelectonOnCell(self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: selectedItemIndex, inSection: indexPath.section))!)
+            self.clearSelectonOnCell(self.tableView.cellForRow(at: IndexPath(row: selectedItemIndex, section: indexPath.section))!)
             selectedItemIndex = indexPath.row
             self.selectActiveCell()
         }
 
         switch indexPath.row {
         case 0:
-            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("ListsVC"))!), animated: true)
-            self.sideMenuViewController.hideMenuViewController()
+            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "ListsVC"))!), animated: true)
+            self.sideMenuViewController.hideViewController()
             break
 
         case 1:
-            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("SearchVC"))!), animated: true)
-            self.sideMenuViewController.hideMenuViewController()
+            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "SearchVC"))!), animated: true)
+            self.sideMenuViewController.hideViewController()
             break
 
         case 2:
-            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("LibraryVC"))!), animated: true)
-            self.sideMenuViewController.hideMenuViewController()
+            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "LibraryVC"))!), animated: true)
+            self.sideMenuViewController.hideViewController()
             break
 
         case 3:
-            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewControllerWithIdentifier("SettingsVC"))!), animated: true)
-            self.sideMenuViewController.hideMenuViewController()
+            self.sideMenuViewController.setContentViewController(UINavigationController(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "SettingsVC"))!), animated: true)
+            self.sideMenuViewController.hideViewController()
             break
         default:
 
@@ -171,10 +195,10 @@ class EPRightMenuViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func handleLogout() {
-        self.tableView(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        self.tableView(self.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

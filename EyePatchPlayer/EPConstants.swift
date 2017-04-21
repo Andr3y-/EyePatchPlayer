@@ -12,23 +12,23 @@ struct EPConstants{
     
     static func loadPlistValues() {
         
-        if let VKAppID = NSBundle.mainBundle().objectForInfoDictionaryKey("VKAppID") as? String {
+        if let VKAppID = Bundle.main.object(forInfoDictionaryKey: "VKAppID") as? String {
             VK.AppID = VKAppID
         }
         
-        if let ParseKey = NSBundle.mainBundle().objectForInfoDictionaryKey("ParseKey") as? String {
+        if let ParseKey = Bundle.main.object(forInfoDictionaryKey: "ParseKey") as? String {
             Parse.Key = ParseKey
         }
         
-        if let ParseAppID = NSBundle.mainBundle().objectForInfoDictionaryKey("ParseAppID") as? String {
+        if let ParseAppID = Bundle.main.object(forInfoDictionaryKey: "ParseAppID") as? String {
             Parse.AppID = ParseAppID
         }
         
-        if let LastFMAPIKey = NSBundle.mainBundle().objectForInfoDictionaryKey("LastFMAPIKey") as? String {
+        if let LastFMAPIKey = Bundle.main.object(forInfoDictionaryKey: "LastFMAPIKey") as? String {
             LastFM.APIKey = LastFMAPIKey
         }
         
-        if let LastFMSecret = NSBundle.mainBundle().objectForInfoDictionaryKey("LastFMSecret") as? String {
+        if let LastFMSecret = Bundle.main.object(forInfoDictionaryKey: "LastFMSecret") as? String {
             LastFM.Secret = LastFMSecret
         }
     }
