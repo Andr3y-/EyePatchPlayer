@@ -1,5 +1,8 @@
 EPConstants.swift
-.DS_Store
+*.DS_Store
+*.xcbkptlist
+*/*xcworkspace/xcuserdata/
+*/**/xcuserdata/
 Pods/
 Images/
 Images/ios/Icon-60.png
