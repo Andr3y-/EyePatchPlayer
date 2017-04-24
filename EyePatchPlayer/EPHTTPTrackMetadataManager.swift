@@ -7,30 +7,34 @@
 //
 
 import UIKit
-import AFNetworking
+import Alamofire
 import SDWebImage
 
 class EPHTTPTrackMetadataManager: NSObject {
     
-    fileprivate static var artworkDownloadManager: AFHTTPRequestOperationManager = {
-        var manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        return manager
-    }()
-    
     class func getAlbumCoverImage(_ track: EPTrack, completion: ((_ result:Bool, _ image:UIImage, _ trackUniqueID:String) -> Void)?) {
-        artworkDownloadManager.operationQueue.cancelAllOperations()
+
+        // TODO: Consider cancelling any active image downloads
         
         let searchQuery = EPArtworkSearchQueryFilter.searchQueryForTrack(track)
         
         //  keeping ID separately to limit references to track itself, which can become invalidated
         let trackUniqueID = track.uniqueID
-        
-        artworkDownloadManager.get("https://itunes.apple.com/search", parameters: ["term": searchQuery], success: {
-            (operation, response) -> Void in
 
-            guard let response = response as? [String: AnyObject] else {
-                fatalError()
+        var artworkSearchURLComponents = URLComponents(string: "https://itunes.apple.com/search")
+        artworkSearchURLComponents?.query = "term=\(searchQuery)"
+
+        guard let artworkSearchURL = artworkSearchURLComponents?.url else {
+            fatalError("unable to construct artwork search URL with specified search query")
+        }
+
+        Alamofire.request(artworkSearchURL).responseJSON { (response) in
+
+            guard let response = response.result.value as? [String: AnyObject] else {
+
+                print("album art iTunes request failed (request failure)")
+                completion?(false, UIImage(), trackUniqueID)
+                return
             }
 
             if let searchResults: AnyObject = response["results"] {
@@ -50,15 +54,15 @@ class EPHTTPTrackMetadataManager: NSObject {
                                 SDWebImageManager.shared().downloadImage(with: url, options: [], progress: nil, completed: { (downloadedImage, error, cacheType, isDownloaded, withURL) in
 
                                     if isDownloaded && downloadedImage != nil {
-                                        
+
                                         if !track.isInvalidated {
                                             track.addArtworkImage(downloadedImage!)
                                         }
-                                        
+
                                         if completion != nil {
                                             completion!(true, downloadedImage!, trackUniqueID)
                                         }
-                                        
+
                                         return
                                     } else {
                                         print("album art iTunes request failed (no image downloaded)")
@@ -66,13 +70,12 @@ class EPHTTPTrackMetadataManager: NSObject {
                                             completion!(false, UIImage(), trackUniqueID)
                                         }
                                     }
-                                    
+
                                 })
                             }
                         }
                     } else {
-                        
-                        print("no results for album artwork for query: \(searchQuery)\nfull query:\nhttps://itunes.apple.com/search?term=\(searchQuery)\noperation.request:\n\(operation.request.description)\nraw response:\n\(response)")
+                        print("no results for album artwork for query: \(searchQuery)")
                     }
                 }
             } else {
@@ -81,12 +84,7 @@ class EPHTTPTrackMetadataManager: NSObject {
                     completion!(false, UIImage(), trackUniqueID)
                 }
             }
-            }) {
-                (opeation, error) -> Void in
-                print("album art iTunes request failed (request failure)")
-                if completion != nil {
-                    completion!(false, UIImage(), trackUniqueID)
-                }
+
         }
     }
 }
