@@ -9,7 +9,6 @@
 
 import UIKit
 import VK_ios_sdk
-import AFNetworking
 import Fabric
 import Crashlytics
 import Realm
@@ -37,11 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //  File Migration
         FileMigration.performMigrationIfNeeded()
-        
-        //  Reachability
-        AFNetworkActivityIndicatorManager.shared().isEnabled = true
-        AFNetworkReachabilityManager.shared().startMonitoring()
-        
+
         //  Parse
         Parse.setApplicationId(EPConstants.Parse.AppID,
             clientKey: EPConstants.Parse.Key)
