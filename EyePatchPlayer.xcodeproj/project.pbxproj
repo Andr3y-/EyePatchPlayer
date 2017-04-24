@@ -93,6 +93,7 @@
 		C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */; };
 		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
 		E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */; };
+		FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; };
 		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
 /* End PBXBuildFile section */
 
@@ -205,6 +206,7 @@
 		C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+DefaultTintColor.swift"; sourceTree = "<group>"; };
 		C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorWithHEX.swift"; sourceTree = "<group>"; };
 		CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyePatchPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE9B4DFC1EAE333100BE446B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
 		FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMigration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +228,7 @@
 				C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */,
 				C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */,
 				C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */,
+				FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */,
 				E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +246,7 @@
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE9B4DFC1EAE333100BE446B /* Alamofire.framework */,
 				C42CB3AB1C63734E00A429E6 /* Pods.framework */,
 				C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */,
 				C4E828EF1C5678DD004DFB04 /* libz.tbd */,
@@ -1045,6 +1049,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1073,6 +1078,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
