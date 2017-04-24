@@ -9,7 +9,8 @@
 import UIKit
 
 class EPDownloadProgress: NSObject {
-    dynamic var percentComplete: Float = 0
+
+    dynamic var percentComplete: Double = 0
     dynamic var finished: Bool = false {
         willSet {
             self.percentComplete = 1.0

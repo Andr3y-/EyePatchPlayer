@@ -6,25 +6,15 @@
 //  Copyright © 2016 Apppli. All rights reserved.
 //
 
-import AFNetworking
+import Alamofire
 
-class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
+class EPHTTPTrackDownloadManager {
     
     static let sharedInstance = EPHTTPTrackDownloadManager()
-//    private var downloadingTracks = NSMutableArray()
-    fileprivate var operations = [AFHTTPRequestOperation]()
-    
-    fileprivate var downloadingTrackOperationMap = [EPTrack : AFHTTPRequestOperation]()
-    
-    override init(baseURL url: URL?) {
-        super.init(baseURL: url)
-        self.responseSerializer = AFJSONResponseSerializer()
-        self.operationQueue.maxConcurrentOperationCount = 1
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
+    fileprivate var requests = [Request]()
+
+    fileprivate var downloadingTrackOperationMap = [EPTrack : Request]()
     
     class func downloadProgressForTrack(_ track: EPTrack) -> EPDownloadProgress? {
         
@@ -39,11 +29,10 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
         return nil
     }
     
-    class func downloadTrack(_ track: EPTrack, completion: ((_ result:Bool, _ track:EPTrack) -> Void)?, progressBlock: ((_ progressValue:Float) -> Void)?) {
+    class func downloadTrack(_ track: EPTrack, completion: ((_ result:Bool, _ track:EPTrack) -> Void)?, progressBlock: ((_ progressValue: Double) -> Void)?) {
         print("downoadTrack called")
         
-        EPHTTPVKManager.addTrackToPlaylistIfNeeded(track, completion: {
-            (result, newTrack) -> Void in
+        EPHTTPVKManager.addTrackToPlaylistIfNeeded(track, completion: { (result, newTrack) in
             //download with adding to playlist first
             if let track = newTrack {
                 //update track ID to match the one of the playlist, only then create a copy
@@ -57,15 +46,38 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
                     }
                 }
 
-                let downloadOperationObject = sharedInstance.get(trackCopy.URLString, parameters: nil, success: {
-                    (operation, responseObject) -> Void in
-                    print("download successful")
-                    
+                let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+
+                    guard let fileURL = URL(string: EPCache.pathForTrackToSave(trackCopy)) else {
+                        fatalError("unable to convert pathForTrackToSave into URL")
+                    }
+
+                    return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+                }
+
+                let downloadRequest = Alamofire.download(trackCopy.URLString, to: destination)
+
+                downloadRequest.response(completionHandler: { (response) in
+
+                    guard response.error == nil, let _ = response.destinationURL?.path else {
+
+                        // handle failure
+
+                        track.downloadProgress?.finished = false
+                        track.downloadProgress = nil
+                        completion?(false, trackCopy)
+                        sharedInstance.downloadingTrackOperationMap.removeValue(forKey: track)
+
+                        return
+                    }
+
+                    // update everyone else, track has been saved
+
                     sharedInstance.downloadingTrackOperationMap.removeValue(forKey: track)
 
                     track.downloadProgress?.finished = true
                     track.downloadProgress = nil
-                    
+
                     var fileSize: UInt64
                     let attr: NSDictionary? = try! FileManager.default.attributesOfItem(atPath: EPCache.pathForTrackToSave(trackCopy)) as NSDictionary?
                     if let _attr = attr {
@@ -82,73 +94,40 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
                                 completion!(false, trackCopy)
                             }
                         }
-                        
+
                     } else {
                         if completion != nil {
                             completion!(false, trackCopy)
                         }
                     }
-                    
-                    
-                    }) {
-                        (operation, responseObject) -> Void in
-                        print("download unsuccessful")
-                        track.downloadProgress?.finished = false
-                        track.downloadProgress = nil
-                        if completion != nil {
-                            completion!(false, trackCopy)
-                        }
-                        sharedInstance.downloadingTrackOperationMap.removeValue(forKey: track)
 
-                    } as AFHTTPRequestOperation?
-                
-                guard let downloadOperation = downloadOperationObject else {
-                    print("download operation failed to init")
-                    return
-                }
-                
-                //  Created Operation, now add it to the list
+                })
+
                 track.downloadProgress = EPDownloadProgress()
-                sharedInstance.downloadingTrackOperationMap[track] = downloadOperation
-                
-                downloadOperation.setShouldExecuteAsBackgroundTaskWithExpirationHandler({ () -> Void in
-                    print("track download expired in background: \(trackCopy.artist) - \(trackCopy.title)")
+                sharedInstance.downloadingTrackOperationMap[track] = downloadRequest
+
+                downloadRequest.downloadProgress(closure: { (progress) in
+
+                    track.downloadProgress?.percentComplete = progress.fractionCompleted
+                    progressBlock?(progress.fractionCompleted)
+
                 })
-                
-                downloadOperation.outputStream = OutputStream(toFileAtPath: EPCache.pathForTrackToSave(trackCopy), append: false)
-                downloadOperation.outputStream?.open()
-                downloadOperation.setDownloadProgressBlock({
-                    (written, totalWritten, totalExpected) -> Void in
-                    let progress: Float = Float(totalWritten) / Float(totalExpected)
-                    
-                    if let downloadProgress = track.downloadProgress {
-                        downloadProgress.percentComplete = progress
-                    }
-                    
-                    if progressBlock != nil {
-                        progressBlock!(progress)
-                    }
-                })
-                downloadOperation.resume()
-                
-                if downloadOperation.isPaused() == false {
-                    print("download started")
-                } else {
-                    print("download failed to start")
-                }
+
+                downloadRequest.resume()
             }
         })
     }
     
     class func cancelTrackDownload(_ track:EPTrack) -> Bool {
         
-        for (trackEnum, operation) in sharedInstance.downloadingTrackOperationMap {
+        for (trackEnum, request) in sharedInstance.downloadingTrackOperationMap {
             if track.uniqueID == trackEnum.uniqueID {
-                operation.setCompletionBlockWithSuccess(nil, failure: nil)
-                operation.cancel()
+
+                request.cancel()
                 trackEnum.downloadProgress?.finished = false
                 trackEnum.downloadProgress = nil
                 sharedInstance.downloadingTrackOperationMap.removeValue(forKey: trackEnum)
+
                 return true
             }
         }
@@ -157,6 +136,6 @@ class EPHTTPTrackDownloadManager: AFHTTPRequestOperationManager {
     }
     
     class func cancelAllDownloads() {
-        sharedInstance.operationQueue.cancelAllOperations()
+        SessionManager.default.session.invalidateAndCancel()
     }
 }
