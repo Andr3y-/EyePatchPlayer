@@ -7,7 +7,12 @@
 		<key>EyePatchPlayer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>0</integer>
+		</dict>
+		<key>RESideMenuWrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>C489EAD71BA83D1D00D788E0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEAAB9E51EB25C90003E4CE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEAABA031EB25D2B003E4CE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RESideMenu
+import RESideMenuWrapper
 import VK_ios_sdk
 import Crashlytics
 

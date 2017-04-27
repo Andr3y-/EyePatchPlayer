@@ -92,6 +92,15 @@
 		E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */; };
 		FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; };
 		FE9B4DFF1EAE3B9600BE446B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FEAABA081EB25D2B003E4CE0 /* RESideMenuWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA061EB25D2B003E4CE0 /* RESideMenuWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEAABA171EB25D3D003E4CE0 /* RECommonFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA111EB25D3D003E4CE0 /* RECommonFunctions.h */; };
+		FEAABA181EB25D3D003E4CE0 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAABA121EB25D3D003E4CE0 /* RECommonFunctions.m */; };
+		FEAABA191EB25D3D003E4CE0 /* RESideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA131EB25D3D003E4CE0 /* RESideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEAABA1A1EB25D3D003E4CE0 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAABA141EB25D3D003E4CE0 /* RESideMenu.m */; };
+		FEAABA1B1EB25D3D003E4CE0 /* UIViewController+RESideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA151EB25D3D003E4CE0 /* UIViewController+RESideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEAABA1C1EB25D3D003E4CE0 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAABA161EB25D3D003E4CE0 /* UIViewController+RESideMenu.m */; };
+		FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */; };
+		FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +112,13 @@
 			remoteGlobalIDString = C489EAC01BA83D1D00D788E0;
 			remoteInfo = EyePatchPlayer;
 		};
+		FEAABA1F1EB25D96003E4CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C489EAB91BA83D1D00D788E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FEAABA031EB25D2B003E4CE0;
+			remoteInfo = RESideMenuWrapper;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -113,6 +129,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FE9B4DFF1EAE3B9600BE446B /* Alamofire.framework in Embed Frameworks */,
+				FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,6 +233,15 @@
 		C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorWithHEX.swift"; sourceTree = "<group>"; };
 		CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyePatchPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9B4DFC1EAE333100BE446B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
+		FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RESideMenuWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEAABA061EB25D2B003E4CE0 /* RESideMenuWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESideMenuWrapper.h; sourceTree = "<group>"; };
+		FEAABA071EB25D2B003E4CE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEAABA111EB25D3D003E4CE0 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		FEAABA121EB25D3D003E4CE0 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		FEAABA131EB25D3D003E4CE0 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
+		FEAABA141EB25D3D003E4CE0 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
+		FEAABA151EB25D3D003E4CE0 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		FEAABA161EB25D3D003E4CE0 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
 		FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMigration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +259,7 @@
 				C4E828E61C5678BB004DFB04 /* CoreLocation.framework in Frameworks */,
 				C4E828E41C5678B5004DFB04 /* CoreGraphics.framework in Frameworks */,
 				C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */,
+				FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */,
 				C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */,
 				C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */,
 				C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */,
@@ -249,12 +276,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEAABA001EB25D2B003E4CE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEAABA051EB25D2B003E4CE0 /* RESideMenuWrapper */,
 				FE9B4DFC1EAE333100BE446B /* Alamofire.framework */,
 				C42CB3AB1C63734E00A429E6 /* Pods.framework */,
 				C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */,
@@ -431,6 +466,7 @@
 			children = (
 				C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */,
 				C489EAD81BA83D1D00D788E0 /* EyePatchPlayerTests.xctest */,
+				FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -659,7 +695,44 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		FEAABA051EB25D2B003E4CE0 /* RESideMenuWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				FEAABA061EB25D2B003E4CE0 /* RESideMenuWrapper.h */,
+				FEAABA101EB25D35003E4CE0 /* Sources */,
+				FEAABA071EB25D2B003E4CE0 /* Info.plist */,
+			);
+			path = RESideMenuWrapper;
+			sourceTree = "<group>";
+		};
+		FEAABA101EB25D35003E4CE0 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FEAABA111EB25D3D003E4CE0 /* RECommonFunctions.h */,
+				FEAABA121EB25D3D003E4CE0 /* RECommonFunctions.m */,
+				FEAABA131EB25D3D003E4CE0 /* RESideMenu.h */,
+				FEAABA141EB25D3D003E4CE0 /* RESideMenu.m */,
+				FEAABA151EB25D3D003E4CE0 /* UIViewController+RESideMenu.h */,
+				FEAABA161EB25D3D003E4CE0 /* UIViewController+RESideMenu.m */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FEAABA011EB25D2B003E4CE0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEAABA191EB25D3D003E4CE0 /* RESideMenu.h in Headers */,
+				FEAABA1B1EB25D3D003E4CE0 /* UIViewController+RESideMenu.h in Headers */,
+				FEAABA171EB25D3D003E4CE0 /* RECommonFunctions.h in Headers */,
+				FEAABA081EB25D2B003E4CE0 /* RESideMenuWrapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		C489EAC01BA83D1D00D788E0 /* EyePatchPlayer */ = {
@@ -678,6 +751,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FEAABA201EB25D96003E4CE0 /* PBXTargetDependency */,
 			);
 			name = EyePatchPlayer;
 			productName = EyePatchPlayer;
@@ -701,6 +775,24 @@
 			productName = EyePatchPlayerTests;
 			productReference = C489EAD81BA83D1D00D788E0 /* EyePatchPlayerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FEAABA031EB25D2B003E4CE0 /* RESideMenuWrapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FEAABA0D1EB25D2B003E4CE0 /* Build configuration list for PBXNativeTarget "RESideMenuWrapper" */;
+			buildPhases = (
+				FEAAB9FF1EB25D2B003E4CE0 /* Sources */,
+				FEAABA001EB25D2B003E4CE0 /* Frameworks */,
+				FEAABA011EB25D2B003E4CE0 /* Headers */,
+				FEAABA021EB25D2B003E4CE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RESideMenuWrapper;
+			productName = RESideMenuWrapper;
+			productReference = FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -728,6 +820,10 @@
 						LastSwiftMigration = 0820;
 						TestTargetID = C489EAC01BA83D1D00D788E0;
 					};
+					FEAABA031EB25D2B003E4CE0 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = C489EABC1BA83D1D00D788E0 /* Build configuration list for PBXProject "EyePatchPlayer" */;
@@ -745,6 +841,7 @@
 			targets = (
 				C489EAC01BA83D1D00D788E0 /* EyePatchPlayer */,
 				C489EAD71BA83D1D00D788E0 /* EyePatchPlayerTests */,
+				FEAABA031EB25D2B003E4CE0 /* RESideMenuWrapper */,
 			);
 		};
 /* End PBXProject section */
@@ -767,6 +864,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C489EAD61BA83D1D00D788E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FEAABA021EB25D2B003E4CE0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -912,6 +1016,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEAAB9FF1EB25D2B003E4CE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEAABA1A1EB25D3D003E4CE0 /* RESideMenu.m in Sources */,
+				FEAABA181EB25D3D003E4CE0 /* RECommonFunctions.m in Sources */,
+				FEAABA1C1EB25D3D003E4CE0 /* UIViewController+RESideMenu.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -919,6 +1033,11 @@
 			isa = PBXTargetDependency;
 			target = C489EAC01BA83D1D00D788E0 /* EyePatchPlayer */;
 			targetProxy = C489EAD91BA83D1D00D788E0 /* PBXContainerItemProxy */;
+		};
+		FEAABA201EB25D96003E4CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FEAABA031EB25D2B003E4CE0 /* RESideMenuWrapper */;
+			targetProxy = FEAABA1F1EB25D96003E4CE0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1039,7 +1158,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 59B38DB8329BA8FEFEA202C9 /* Pods-EyePatchPlayer.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1068,7 +1186,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 496CB50997ABC1BD0FA68C5C /* Pods-EyePatchPlayer.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1130,6 +1247,57 @@
 			};
 			name = Release;
 		};
+		FEAABA0E1EB25D2B003E4CE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = RESideMenuWrapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andr3y.RESideMenuWrapper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FEAABA0F1EB25D2B003E4CE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = RESideMenuWrapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andr3y.RESideMenuWrapper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1159,6 +1327,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FEAABA0D1EB25D2B003E4CE0 /* Build configuration list for PBXNativeTarget "RESideMenuWrapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEAABA0E1EB25D2B003E4CE0 /* Debug */,
+				FEAABA0F1EB25D2B003E4CE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
