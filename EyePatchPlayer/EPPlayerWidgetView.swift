@@ -258,7 +258,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 topOffsetConstaint.constant = shownConst
 
                 UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
-
+                
                 UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     () -> Void in
                     //animations

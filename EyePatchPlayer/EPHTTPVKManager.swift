@@ -88,7 +88,7 @@ class EPHTTPVKManager: NSObject {
         let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio": "\(track.uniqueID)"], andHttpMethod: "GET")
         broadcastRequest.execute(resultBlock: {
             (response) -> Void in
-            print("broadcasting track success result: \(response?.json)")
+            print("broadcasting track success result: \(String(describing: response?.json))")
             }, errorBlock: { error in
                 print(error?.localizedDescription ?? "unknown error")
         })

@@ -47,7 +47,7 @@ class EPEqualizerConfigurationViewController: UIViewController {
     }
     
     func bandSliderValueChanged(_ bandSlider: EPVerticalBandSlider) {
-        print("Range slider #\(self.verticalBandSliders.index(of: bandSlider)) value changed: (\(bandSlider.currentValue))")
+        print("Range slider #\(String(describing: self.verticalBandSliders.index(of: bandSlider))) value changed: (\(bandSlider.currentValue))")
         switch Int(self.verticalBandSliders.index(of: bandSlider)!) {
             
         case 0:

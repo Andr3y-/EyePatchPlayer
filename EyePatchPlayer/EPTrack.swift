@@ -53,7 +53,7 @@ class EPTrack: RLMObject {
             print("fileSize: \(attr.fileSize())")
         } catch let error1 as NSError {
             error = error1
-            print("unable to retrieve a fileSize, \(error?.description)")
+            print("unable to retrieve a fileSize, \(String(describing: error?.description))")
         }
         return result
     }

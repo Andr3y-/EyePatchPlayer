@@ -64,7 +64,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
                 return
             }
             
-            print("response: \(response)")
+            print("response: \(String(describing: response))")
             
             if searchQuery != strongSelf.searchBar.text! {
                 return

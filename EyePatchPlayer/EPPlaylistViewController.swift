@@ -43,11 +43,11 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController {
                 self.dataReady()
             }, errorBlock: {
                 (error) -> Void in
-                print("unable to retrieve a playlist\n\(error?.localizedDescription)")
+                print("unable to retrieve a playlist\n\(String(describing: error?.localizedDescription))")
 
                 self.dataReady()
 
-                let alertController = UIAlertController(title: "Error", message: "Unable to retrieve playlist\n\(error?.localizedDescription)", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error", message: "Unable to retrieve playlist\n\(String(describing: error?.localizedDescription))", preferredStyle: .alert)
                 //We add buttons to the alert controller by creating UIAlertActions:
                 let actionOk = UIAlertAction(title: "OK",
                         style: .default,

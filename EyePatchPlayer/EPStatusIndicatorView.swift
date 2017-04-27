@@ -231,8 +231,7 @@ class EPStatusIndicatorView: UIView {
     }
 
     func animateProgress(_ value: CGFloat) {
-        print("rotation animation started")
-        
+
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = value
         animation.duration = 0.25
@@ -274,9 +273,8 @@ class EPStatusIndicatorView: UIView {
             return
         }
 
-        print("rotation animation started")
         let animationCircle = CABasicAnimation(keyPath: "transform.rotation")
-        animationCircle.toValue = -2.0 * CGFloat(M_PI)
+        animationCircle.toValue = -2.0 * Double.pi
         animationCircle.duration = 5.0
         animationCircle.repeatCount = Float.infinity
         animationCircle.fillMode = kCAFillModeForwards
@@ -285,9 +283,8 @@ class EPStatusIndicatorView: UIView {
         self.circlePathLayer.add(animationCircle, forKey: "rotation")
 
         //inner plus
-        print("rotation animation started")
         let animationPlus = CABasicAnimation(keyPath: "transform.rotation")
-        animationPlus.toValue = 2.0 * CGFloat(M_PI)
+        animationPlus.toValue = 2.0 * Double.pi
         animationPlus.duration = 2.0
         animationPlus.repeatCount = Float.infinity
         animationPlus.fillMode = kCAFillModeForwards
