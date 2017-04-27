@@ -8,7 +8,6 @@
 
 import VK_ios_sdk
 import AFNetworking
-import Mantle
 
 class EPHTTPVKManager: NSObject {
     
@@ -251,42 +250,5 @@ class EPHTTPVKManager: NSObject {
                 }
                 return
         })
-    }
-    
-    class func getAlbumsOfUserWithID(_ userID: Int, count: Int?, completion: ((_ result:Bool, _ albums:[EPAlbum]?) -> Void)?) {
-        
-        let audioRequest: VKRequest = VKRequest(method: "audio.getAlbums", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: count != nil ? count! : 100], andHttpMethod: "GET")
-        
-        audioRequest.execute(resultBlock: {
-            (response) -> Void in
-            
-            var albums = [EPAlbum]()
-            
-            if let albumsArray = (response?.json as! NSDictionary)["items"] as? [[AnyHashable: Any]] {
-                for albumDictionary in albumsArray {
-                    
-                    do {
-                        if let album = try MTLJSONAdapter.model(of: EPAlbum.self, fromJSONDictionary: albumDictionary) as? EPAlbum {
-                            albums.append(album)
-                        }
-                    } catch let error {
-                        print(error)
-                    }
-                    
-                }
-            } else {
-                print("albumsArray none")
-            }
-            
-            if completion != nil {
-                completion!(true, albums)
-            }
-            
-            }, errorBlock: {
-                (error) -> Void in
-                if completion != nil {
-                    completion!(false, nil)
-                }
-        })
-    }
+    }    
 }

@@ -16,14 +16,6 @@ struct EPConstants{
             VK.AppID = VKAppID
         }
         
-        if let ParseKey = Bundle.main.object(forInfoDictionaryKey: "ParseKey") as? String {
-            Parse.Key = ParseKey
-        }
-        
-        if let ParseAppID = Bundle.main.object(forInfoDictionaryKey: "ParseAppID") as? String {
-            Parse.AppID = ParseAppID
-        }
-        
         if let LastFMAPIKey = Bundle.main.object(forInfoDictionaryKey: "LastFMAPIKey") as? String {
             LastFM.APIKey = LastFMAPIKey
         }
@@ -36,12 +28,6 @@ struct EPConstants{
     struct VK {
         static var AppID = ""
     }
-    
-    struct Parse {
-        static var Key = ""
-        static var AppID = ""
-    }
-    
 
     struct LastFM {
         static var APIKey = ""

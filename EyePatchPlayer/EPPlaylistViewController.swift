@@ -13,14 +13,11 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController {
 
     var user: EPFriend?
     var userID: Int = 0
-    var album: EPAlbum?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let album = album {
-            self.navigationItem.title = album.title
-        } else if self.userID == Int(VKSdk.getAccessToken().userId)! {
+        if self.userID == Int(VKSdk.getAccessToken().userId)! {
             self.navigationItem.title = "My Music"
         } else if let user = self.user {
             self.navigationItem.title = user.firstName + "'s Music"
@@ -31,7 +28,7 @@ class EPPlaylistViewController: EPPlaylistAbstractViewController {
         if userID != 0 {
             print("loading playlist of a user with ID: \(userID)")
 
-            let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: 2000, "need_user": 0, VK_API_ALBUM_ID : album != nil ? album!.ID : 0], andHttpMethod: "GET")
+            let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: 2000, "need_user": 0], andHttpMethod: "GET")
             audioRequest.execute(resultBlock: {
                 (response) -> Void in
 

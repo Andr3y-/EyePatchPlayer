@@ -13,7 +13,6 @@
 #import <AFNetworking/AFNetworking.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDWebImageManager.h>
-#import <Mantle/Mantle.h>
 #import "RSPlayPauseButton.h"
 
 #endif

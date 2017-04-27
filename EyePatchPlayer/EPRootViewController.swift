@@ -10,7 +10,6 @@ import UIKit
 import RESideMenu
 import VK_ios_sdk
 import Crashlytics
-import Parse
 
 class EPRootViewController: RESideMenu, RESideMenuDelegate, VKSdkDelegate {
 

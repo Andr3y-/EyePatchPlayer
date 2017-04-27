@@ -14,8 +14,5 @@ pod 'RESideMenu', '~> 4.0.7'
 pod 'Fabric', '~> 1.6.3'
 pod 'Crashlytics', '~> 3.6.0'
 pod 'DGActivityIndicatorView', '~> 2.0'
-#pod 'CryptoSwift', '~> 0.2.2'
-pod 'Parse', '~> 1.12.0'
-pod 'Mantle', '~>2.0.6'
 
 end

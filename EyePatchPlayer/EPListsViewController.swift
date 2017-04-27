@@ -112,12 +112,6 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
             }
             
-        case "segueAlbums":
-            print("segueing to Albums list")
-            let destinationViewController = segue.destination as! EPAlbumListViewController
-            destinationViewController.userID = userID
-            break
-            
         case "segueFriendList":
             let destinationViewController = segue.destination as! EPFriendListViewController
             destinationViewController.userID = userID

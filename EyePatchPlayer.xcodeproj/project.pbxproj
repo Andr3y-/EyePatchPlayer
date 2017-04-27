@@ -47,8 +47,6 @@
 		C49E41931BE3AECE0012C0DD /* ProximaNova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */; };
 		C49E41941BE3AECE0012C0DD /* ProximaNova-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */; };
 		C4A32D161C77394B00EEF7F7 /* UIFont+Monospaced.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A32D151C77394B00EEF7F7 /* UIFont+Monospaced.swift */; };
-		C4A32D181C777D7E00EEF7F7 /* EPAlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A32D171C777D7E00EEF7F7 /* EPAlbumListViewController.swift */; };
-		C4A32D1A1C777DC300EEF7F7 /* EPAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A32D191C777DC300EEF7F7 /* EPAlbum.swift */; };
 		C4BB66F41BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */; };
 		C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */; };
 		C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */; };
@@ -83,7 +81,6 @@
 		C4E828EE1C5678D7004DFB04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E828ED1C5678D7004DFB04 /* SystemConfiguration.framework */; };
 		C4E828F01C5678DD004DFB04 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E828EF1C5678DD004DFB04 /* libz.tbd */; };
 		C4E828F21C5678E5004DFB04 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */; };
-		C4E828F41C568340004DFB04 /* EPInternalScrobbleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E828F31C568340004DFB04 /* EPInternalScrobbleManager.swift */; };
 		C4E828F61C5683D5004DFB04 /* EPUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E828F51C5683D5004DFB04 /* EPUserData.swift */; };
 		C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3661BAC655700197746 /* CFNetwork.framework */; };
 		C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3681BAC655C00197746 /* AudioToolbox.framework */; };
@@ -175,8 +172,6 @@
 		C49E41901BE3AECE0012C0DD /* ProximaNova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.ttf"; sourceTree = "<group>"; };
 		C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.ttf"; sourceTree = "<group>"; };
 		C4A32D151C77394B00EEF7F7 /* UIFont+Monospaced.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Monospaced.swift"; sourceTree = "<group>"; };
-		C4A32D171C777D7E00EEF7F7 /* EPAlbumListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAlbumListViewController.swift; sourceTree = "<group>"; };
-		C4A32D191C777DC300EEF7F7 /* EPAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAlbum.swift; sourceTree = "<group>"; };
 		C4BB66F31BDA3FAA00C36DB1 /* EPStatusIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPStatusIndicatorView.swift; sourceTree = "<group>"; };
 		C4C39F191BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrackTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAudioSessionManager.swift; sourceTree = "<group>"; };
@@ -211,7 +206,6 @@
 		C4E828ED1C5678D7004DFB04 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C4E828EF1C5678DD004DFB04 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		C4E828F31C568340004DFB04 /* EPInternalScrobbleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPInternalScrobbleManager.swift; sourceTree = "<group>"; };
 		C4E828F51C5683D5004DFB04 /* EPUserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPUserData.swift; sourceTree = "<group>"; };
 		C4FCB3661BAC655700197746 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C4FCB3681BAC655C00197746 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -328,7 +322,6 @@
 				C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */,
 				C468474E1BDE9C070066F616 /* EPMessage.swift */,
 				C4DA42BC1BEBA6CD003AA352 /* EPLyrics.swift */,
-				C4A32D191C777DC300EEF7F7 /* EPAlbum.swift */,
 			);
 			name = "Secondary Objects";
 			sourceTree = "<group>";
@@ -349,7 +342,6 @@
 			children = (
 				C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */,
 				C47D3F301C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift */,
-				C4E828F31C568340004DFB04 /* EPInternalScrobbleManager.swift */,
 			);
 			name = Scrobbling;
 			sourceTree = "<group>";
@@ -538,7 +530,6 @@
 				C489EB031BA86A0900D788E0 /* Search */,
 				C489EB041BA86A1100D788E0 /* Downloaded */,
 				C4C61DB61BC8199E00501EE1 /* TrackTableViewCell */,
-				C4A32D1D1C7793E100EEF7F7 /* AlbumList */,
 			);
 			name = TrackPlaylist;
 			sourceTree = "<group>";
@@ -589,14 +580,6 @@
 				C49E41911BE3AECE0012C0DD /* ProximaNova-Semibold.ttf */,
 			);
 			name = Fonts;
-			sourceTree = "<group>";
-		};
-		C4A32D1D1C7793E100EEF7F7 /* AlbumList */ = {
-			isa = PBXGroup;
-			children = (
-				C4A32D171C777D7E00EEF7F7 /* EPAlbumListViewController.swift */,
-			);
-			name = AlbumList;
 			sourceTree = "<group>";
 		};
 		C4C61D4D1BBD56DA00501EE1 /* Extensions */ = {
@@ -892,12 +875,10 @@
 				C4A32D161C77394B00EEF7F7 /* UIFont+Monospaced.swift in Sources */,
 				C489EAC91BA83D1D00D788E0 /* EPListsViewController.swift in Sources */,
 				C480CF251C7B372500142DF8 /* RSPlayPauseButton.m in Sources */,
-				C4A32D181C777D7E00EEF7F7 /* EPAlbumListViewController.swift in Sources */,
 				C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */,
 				FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
 				C46ED34F1BD8EBC300ACF9BB /* EPDownloadProgress.swift in Sources */,
-				C4E828F41C568340004DFB04 /* EPInternalScrobbleManager.swift in Sources */,
 				C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */,
 				C47D3F311C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift in Sources */,
 				C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */,
@@ -909,7 +890,6 @@
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
 				C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */,
 				C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */,
-				C4A32D1A1C777DC300EEF7F7 /* EPAlbum.swift in Sources */,
 				C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */,
 				C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */,
 				C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */,

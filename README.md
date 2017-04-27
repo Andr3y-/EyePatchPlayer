@@ -50,7 +50,6 @@ FEATURES IMPLEMENTED:
 - [x] Artwork search advanced filters (excludes specific symbols & words)
 - [x] Song Lyrics
 - [x] EPMusicPlayerRemoteManager controlling player (even when app is minimised)
-- [x] Playback history with Parse
 
 - [x] Visualised Adjustable Settings:
     - [x] Last.fm
@@ -62,7 +61,6 @@ FEATURES IMPLEMENTED:
 
 TODO:
 
-- [ ] Analytics with Parse
 - [ ] Backup downloaded lists
 - [ ] Playback Control from the Headset (e.g. Apple iPhone Earbuds)
 

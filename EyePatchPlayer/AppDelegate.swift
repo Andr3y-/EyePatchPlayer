@@ -12,8 +12,6 @@ import VK_ios_sdk
 import Fabric
 import Crashlytics
 import Realm
-import Parse
-import Bolts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,13 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //  File Migration
         FileMigration.performMigrationIfNeeded()
-
-        //  Parse
-        Parse.setApplicationId(EPConstants.Parse.AppID,
-            clientKey: EPConstants.Parse.Key)
-        
-        //  [Optional] Track statistics around application opens.
-        PFAnalytics.trackAppOpened(launchOptions: launchOptions)
         
         //  Shake to Shuffle support
         application.applicationSupportsShakeToEdit = true

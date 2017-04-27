@@ -199,8 +199,6 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
                     EPHTTPVKManager.broadcastTrack(self.activeTrack)
                     EPHTTPLastFMManager.broadcastTrack(self.activeTrack, completion: nil)
                 }
-                    
-                EPInternalScrobbleManager.enqueueTrackForScrobbling(self.activeTrack)
             }
         }
 
