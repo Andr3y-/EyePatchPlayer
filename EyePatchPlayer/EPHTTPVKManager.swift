@@ -7,7 +7,7 @@
 //
 
 import VK_ios_sdk
-import AFNetworking
+import Alamofire
 
 class EPHTTPVKManager: NSObject {
     
@@ -74,20 +74,6 @@ class EPHTTPVKManager: NSObject {
                 EPHTTPVKManager.getAudiosFromMessagesWithCountOffset(requiredCount, messagesPerRequestCount: messagesPerRequestCount, offset: offset + messagesPerRequestCount, tracksArray: tracksArray, intermediateCompletion: intermediateCompletion, finalCompletion: finalCompletion)
             }
             
-            }, errorBlock: { error in
-                print(error?.localizedDescription ?? "unknown error")
-        })
-    }
-    
-    class func broadcastTrack(_ track: EPTrack) {
-        //        print("broadcasting track")
-        if !AFNetworkReachabilityManager.shared().isReachable {
-            return
-        }
-        let broadcastRequest: VKRequest = VKRequest(method: "audio.setBroadcast", andParameters: ["audio": "\(track.uniqueID)"], andHttpMethod: "GET")
-        broadcastRequest.execute(resultBlock: {
-            (response) -> Void in
-            print("broadcasting track success result: \(String(describing: response?.json))")
             }, errorBlock: { error in
                 print(error?.localizedDescription ?? "unknown error")
         })
