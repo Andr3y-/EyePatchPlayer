@@ -94,7 +94,6 @@
 		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
 		E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */; };
 		FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; };
-		FE9B4DFE1EAE3B9600BE446B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; };
 		FE9B4DFF1EAE3B9600BE446B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
 /* End PBXBuildFile section */
@@ -246,7 +245,6 @@
 				C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */,
 				FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */,
 				E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */,
-				FE9B4DFE1EAE3B9600BE446B /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,7 +727,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Apppli;
 				TargetAttributes = {
 					C489EAC01BA83D1D00D788E0 = {
