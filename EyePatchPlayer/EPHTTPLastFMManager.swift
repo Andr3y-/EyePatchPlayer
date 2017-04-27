@@ -6,19 +6,12 @@
 //  Copyright © 2016 Apppli. All rights reserved.
 //
 
-import AFNetworking
+import Alamofire
 
 class EPHTTPLastFMManager: NSObject {
-    
-    fileprivate static var lastfmManager:AFHTTPRequestOperationManager = {
-        var manager = AFHTTPRequestOperationManager()
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.operationQueue.maxConcurrentOperationCount = 3
-        return manager
-    }()
 
     class func broadcastTrack(_ track: EPTrack, completion: ((_ result:Bool) -> Void)?) {
-        if EPSettings.lastfmMobileSession().characters.count < 1 || !AFNetworkReachabilityManager.shared().isReachable {
+        if EPSettings.lastfmMobileSession().characters.count < 1 {
             return
         }
         
@@ -39,22 +32,17 @@ class EPHTTPLastFMManager: NSObject {
             }
             return
         }
-        
-        lastfmManager.post(URL, parameters: nil, success: {
-            (operation, response) -> Void in
-            print("lastfm track.updateNowPlaying success")
-            if completion != nil {
-                completion!(true)
-            }
-            }) {
-                (operation, error) -> Void in
-                print("lastfm track.updateNowPlaying failure")
-                
-                if let response = operation?.response {
-                    print(response)
-                }
 
+        Alamofire.request(URL, method: .post).validate().responseJSON { (response) in
+
+            guard let _ = response.result.value as? [String: AnyObject] else {
+
+                print("lastfm track.updateNowPlaying failure")
                 completion?(false)
+                return
+            }
+
+            completion?(true)
         }
     }
     
@@ -80,21 +68,19 @@ class EPHTTPLastFMManager: NSObject {
             }
             return
         }
-        
-        lastfmManager.post(URL, parameters: nil, success: {
-            (operation, response) -> Void in
-            print("lastfm scrobbling success")
+
+        Alamofire.request(URL, method: .post).validate().responseJSON { (response) in
+
+            guard let _ = response.result.value as? [String: AnyObject] else {
+
+                print("lastfm scrobbling failure")
+                completion?(false)
+                return
+            }
 
             completion?(true)
-
-            }) {
-                (operation, error: Error) -> Void in
-                print("lastfm scrobbling failure:\ncode:\(error.localizedDescription)\nresponse: no data")
-
-                completion?(false)
-
-                return
         }
+
     }
     
     class func authenticate(_ username: String, password: String, completion: ((_ result:Bool, _ session:String) -> Void)?) {
@@ -114,31 +100,26 @@ class EPHTTPLastFMManager: NSObject {
             }
             return
         }
-        lastfmManager.post(URL, parameters: nil, success: {
-            (operation, response) -> Void in
 
-            guard let response = response as? [String : AnyObject] else {
-                fatalError()
+
+        Alamofire.request(URL, method: .post).validate().responseJSON { (response) in
+
+            guard let response = response.result.value as? [String: AnyObject] else {
+
+                print("lastfm auth failure")
+                completion?(false, "")
+                return
             }
 
             print("lastfm auth success: \(response)")
-            if let sessionObject: AnyObject = response["session"] {
-                if let sessionDictionary = sessionObject as? [String:AnyObject] {
-                    if let sessionKey = sessionDictionary["key"] as? String {
-                        if completion != nil {
-                            completion!(true, sessionKey)
-                        }
-                    }
+            if let sessionDictionary = response["session"] as? [String: AnyObject] {
+                if let sessionKey = sessionDictionary["key"] as? String {
+                        completion?(true, sessionKey)
                 }
             }
-            
-            }) {
-                (operation, error: Error) -> Void in
-                print("lastfm auth failure:\ncode:\(error.localizedDescription)")
-                if completion != nil {
-                    completion!(false, "")
-                }
         }
+
+
     }
     
     fileprivate class func URLStringForMethod(_ parameters: [String:String]) -> String? {
