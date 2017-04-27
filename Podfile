@@ -7,7 +7,6 @@ target 'EyePatchPlayer' do
 
 pod 'VK-ios-sdk', '~>1.2.2'
 pod 'Realm'
-pod 'AFNetworking', '~>2.6.3'
 pod 'SDWebImage', '~>3.7'
 pod 'StreamingKit', '~>0.1.29'
 pod 'RESideMenu', '~> 4.0.7'

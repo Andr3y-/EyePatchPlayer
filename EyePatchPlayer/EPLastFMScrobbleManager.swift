@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AFNetworking
 import Realm
 
 class EPLastFMScrobbleManager: NSObject {
@@ -18,7 +17,6 @@ class EPLastFMScrobbleManager: NSObject {
     class func enqueueTrackForScrobbling(_ track: EPTrack) {
         //create Scrobble Instance for backup if on-the-spot scrobbling fails
         let scrobble = EPLastFMScrobble.initWithTrack(track)
-        if AFNetworkReachabilityManager.shared().isReachable {
             //attempt to scrobble now
             EPHTTPLastFMManager.scrobbleTrack(scrobble, completion: {
                 (result) -> Void in
@@ -29,10 +27,6 @@ class EPLastFMScrobbleManager: NSObject {
                     postponeScrobble(scrobble)
                 }
             })
-        } else {
-            //store in database for postponed scrobbling
-            postponeScrobble(scrobble)
-        }
     }
 
     class func scrobbleFullQueue() {

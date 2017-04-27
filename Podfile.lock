@@ -1,25 +1,4 @@
 PODS:
-  - AFNetworking (2.6.3):
-    - AFNetworking/NSURLConnection (= 2.6.3)
-    - AFNetworking/NSURLSession (= 2.6.3)
-    - AFNetworking/Reachability (= 2.6.3)
-    - AFNetworking/Security (= 2.6.3)
-    - AFNetworking/Serialization (= 2.6.3)
-    - AFNetworking/UIKit (= 2.6.3)
-  - AFNetworking/NSURLConnection (2.6.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.3)
-  - AFNetworking/Security (2.6.3)
-  - AFNetworking/Serialization (2.6.3)
-  - AFNetworking/UIKit (2.6.3):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
   - Crashlytics (3.6.0):
     - Fabric (~> 1.6.3)
   - DGActivityIndicatorView (2.0)
@@ -35,7 +14,6 @@ PODS:
   - VK-ios-sdk (1.2.2)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.6.3)
   - Crashlytics (~> 3.6.0)
   - DGActivityIndicatorView (~> 2.0)
   - Fabric (~> 1.6.3)
@@ -46,7 +24,6 @@ DEPENDENCIES:
   - VK-ios-sdk (~> 1.2.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Crashlytics: e4e8d02914f2608fbc7bf42b1a7af838b0db67a2
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   Fabric: ed41fd62173c6bdea24ab02c9d7707161eabb750
@@ -56,6 +33,6 @@ SPEC CHECKSUMS:
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   VK-ios-sdk: f4b7df0d4e277e06d60fef6dc472be4260eeda6d
 
-PODFILE CHECKSUM: 23978d70bdf054c975589dcd9228883996e2a071
+PODFILE CHECKSUM: 73b90d06f1fc27ee065eb40ad8000249fb384f38
 
 COCOAPODS: 1.2.1
