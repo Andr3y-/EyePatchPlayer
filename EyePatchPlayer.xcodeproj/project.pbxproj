@@ -90,8 +90,9 @@
 		C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */; };
 		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
 		E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */; };
-		FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; };
-		FE9B4DFF1EAE3B9600BE446B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE9B4DFC1EAE333100BE446B /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FE81A5D31EB373F600AA696A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D21EB373F600AA696A /* Alamofire.framework */; };
+		FE81A5D61EB3745400AA696A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D41EB3745400AA696A /* Crashlytics.framework */; };
+		FE81A5D71EB3745400AA696A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D51EB3745400AA696A /* Fabric.framework */; };
 		FEAABA081EB25D2B003E4CE0 /* RESideMenuWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA061EB25D2B003E4CE0 /* RESideMenuWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEAABA171EB25D3D003E4CE0 /* RECommonFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA111EB25D3D003E4CE0 /* RECommonFunctions.h */; };
 		FEAABA181EB25D3D003E4CE0 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAABA121EB25D3D003E4CE0 /* RECommonFunctions.m */; };
@@ -128,7 +129,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FE9B4DFF1EAE3B9600BE446B /* Alamofire.framework in Embed Frameworks */,
 				FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -232,7 +232,9 @@
 		C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+DefaultTintColor.swift"; sourceTree = "<group>"; };
 		C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorWithHEX.swift"; sourceTree = "<group>"; };
 		CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyePatchPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE9B4DFC1EAE333100BE446B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Frameworks/Alamofire.framework; sourceTree = "<group>"; };
+		FE81A5D21EB373F600AA696A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
+		FE81A5D41EB3745400AA696A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		FE81A5D51EB3745400AA696A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RESideMenuWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEAABA061EB25D2B003E4CE0 /* RESideMenuWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESideMenuWrapper.h; sourceTree = "<group>"; };
 		FEAABA071EB25D2B003E4CE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -254,9 +256,12 @@
 				C4E828F01C5678DD004DFB04 /* libz.tbd in Frameworks */,
 				C4E828EE1C5678D7004DFB04 /* SystemConfiguration.framework in Frameworks */,
 				C4E828EC1C5678D1004DFB04 /* StoreKit.framework in Frameworks */,
+				FE81A5D31EB373F600AA696A /* Alamofire.framework in Frameworks */,
+				FE81A5D71EB3745400AA696A /* Fabric.framework in Frameworks */,
 				C4E828EA1C5678CB004DFB04 /* Security.framework in Frameworks */,
 				C4E828E81C5678C2004DFB04 /* QuartzCore.framework in Frameworks */,
 				C4E828E61C5678BB004DFB04 /* CoreLocation.framework in Frameworks */,
+				FE81A5D61EB3745400AA696A /* Crashlytics.framework in Frameworks */,
 				C4E828E41C5678B5004DFB04 /* CoreGraphics.framework in Frameworks */,
 				C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */,
 				FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */,
@@ -264,7 +269,6 @@
 				C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */,
 				C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */,
 				C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */,
-				FE9B4DFD1EAE333100BE446B /* Alamofire.framework in Frameworks */,
 				E76C8C420D47A9D015842202 /* Pods_EyePatchPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,8 +293,10 @@
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE81A5D41EB3745400AA696A /* Crashlytics.framework */,
+				FE81A5D51EB3745400AA696A /* Fabric.framework */,
 				FEAABA051EB25D2B003E4CE0 /* RESideMenuWrapper */,
-				FE9B4DFC1EAE333100BE446B /* Alamofire.framework */,
+				FE81A5D21EB373F600AA696A /* Alamofire.framework */,
 				C42CB3AB1C63734E00A429E6 /* Pods.framework */,
 				C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */,
 				C4E828EF1C5678DD004DFB04 /* libz.tbd */,
@@ -309,7 +315,7 @@
 				0BC98F3C40624CFA580E61ED /* Pods.framework */,
 				CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */,
 			);
-			name = Frameworks;
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		ABC3561153145A3211073BB6 /* Extras */ = {
@@ -921,7 +927,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3573f7e7df513dc16bb29fbd7591c75bbf3df5aa c8d346255a3f8791ba242e2b102a162c9af7d54b5e278a62a6ecec0358aa4d78";
+			shellScript = "\"${SRCROOT}/Frameworks/Fabric.framework/run\" 3573f7e7df513dc16bb29fbd7591c75bbf3df5aa c8d346255a3f8791ba242e2b102a162c9af7d54b5e278a62a6ecec0358aa4d78";
 		};
 		EC1EC43BCE32B762CC08C859 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1254,13 +1260,14 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RESideMenuWrapper/Info.plist;
+				INFOPLIST_FILE = frameworks/RESideMenuWrapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1280,12 +1287,13 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RESideMenuWrapper/Info.plist;
+				INFOPLIST_FILE = frameworks/RESideMenuWrapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1335,6 +1343,7 @@
 				FEAABA0F1EB25D2B003E4CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
