@@ -7,12 +7,12 @@
 		<key>EPPUIKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>2</integer>
 		</dict>
 		<key>EPPUIKitSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>3</integer>
 		</dict>
 		<key>EyePatchPlayer.xcscheme_^#shared#^_</key>
 		<dict>
@@ -23,6 +23,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>StreamingKitWrapper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -58,6 +63,11 @@
 			<true/>
 		</dict>
 		<key>FEAABA031EB25D2B003E4CE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEBF86EB1EB37AF900564B8A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

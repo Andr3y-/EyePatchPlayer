@@ -1,1 +1,2 @@
 github "Alamofire/Alamofire" ~> 4.4
+github "rs/SDWebImage" ~> 3.7.5

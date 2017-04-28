@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import StreamingKit
+import StreamingKitWrapper
 
 enum PlaybackStatus {
     case play

@@ -9,9 +9,6 @@
 #ifndef EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 #define EyePatchPlayer_EyePatchPlayer_Bridging_Header_h
 
-#import <StreamingKit/STKAudioPlayer.h>
-#import <SDWebImage/UIImageView+WebCache.h>
-#import <SDWebImage/SDWebImageManager.h>
 #import "RSPlayPauseButton.h"
 
 #endif

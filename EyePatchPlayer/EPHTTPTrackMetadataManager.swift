@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import SDWebImage
+import WebImage
 
 class EPHTTPTrackMetadataManager: NSObject {
     

@@ -179,6 +179,31 @@
 		FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */; };
 		FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
+		FEBF86F31EB37AF900564B8A /* StreamingKitWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */; };
+		FEBF86F41EB37AF900564B8A /* StreamingKitWrapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FEBF87101EB37B5B00564B8A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEBF86F91EB37B5B00564B8A /* Info.plist */; };
+		FEBF87241EB37B5B00564B8A /* StreamingKitWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF870F1EB37B5B00564B8A /* StreamingKitWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEBF87261EB37B9000564B8A /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87251EB37B9000564B8A /* WebImage.framework */; };
+		FEBF87271EB37C0400564B8A /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87251EB37B9000564B8A /* WebImage.framework */; };
+		FEBF87281EB37C0400564B8A /* WebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87251EB37B9000564B8A /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FEBF873C1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF872A1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.h */; };
+		FEBF873D1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF872B1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.m */; };
+		FEBF873E1EB37C5E00564B8A /* STKAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF872C1EB37C5E00564B8A /* STKAudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEBF873F1EB37C5E00564B8A /* STKAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF872D1EB37C5E00564B8A /* STKAudioPlayer.m */; };
+		FEBF87401EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF872E1EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.h */; };
+		FEBF87411EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF872F1EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.m */; };
+		FEBF87421EB37C5E00564B8A /* STKCoreFoundationDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF87301EB37C5E00564B8A /* STKCoreFoundationDataSource.h */; };
+		FEBF87431EB37C5E00564B8A /* STKCoreFoundationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87311EB37C5E00564B8A /* STKCoreFoundationDataSource.m */; };
+		FEBF87441EB37C5E00564B8A /* STKDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF87321EB37C5E00564B8A /* STKDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEBF87451EB37C5E00564B8A /* STKDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87331EB37C5E00564B8A /* STKDataSource.m */; };
+		FEBF87461EB37C5E00564B8A /* STKDataSourceWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF87341EB37C5E00564B8A /* STKDataSourceWrapper.h */; };
+		FEBF87471EB37C5E00564B8A /* STKDataSourceWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87351EB37C5E00564B8A /* STKDataSourceWrapper.m */; };
+		FEBF87481EB37C5E00564B8A /* STKHTTPDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF87361EB37C5E00564B8A /* STKHTTPDataSource.h */; };
+		FEBF87491EB37C5E00564B8A /* STKHTTPDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87371EB37C5E00564B8A /* STKHTTPDataSource.m */; };
+		FEBF874A1EB37C5E00564B8A /* STKLocalFileDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF87381EB37C5E00564B8A /* STKLocalFileDataSource.h */; };
+		FEBF874B1EB37C5E00564B8A /* STKLocalFileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87391EB37C5E00564B8A /* STKLocalFileDataSource.m */; };
+		FEBF874C1EB37C5E00564B8A /* STKQueueEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF873A1EB37C5E00564B8A /* STKQueueEntry.h */; };
+		FEBF874D1EB37C5E00564B8A /* STKQueueEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +228,13 @@
 			remoteGlobalIDString = FEAABA031EB25D2B003E4CE0;
 			remoteInfo = RESideMenuWrapper;
 		};
+		FEBF86F11EB37AF900564B8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C489EAB91BA83D1D00D788E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FEBF86EB1EB37AF900564B8A;
+			remoteInfo = StreamingKitWrapper;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -212,6 +244,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FEBF86F41EB37AF900564B8A /* StreamingKitWrapper.framework in Embed Frameworks */,
+				FEBF87281EB37C0400564B8A /* WebImage.framework in Embed Frameworks */,
 				FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */,
 				FE81A5D91EB3756000AA696A /* Alamofire.framework in Embed Frameworks */,
 				FE81A6091EB3765000AA696A /* EPPUIKit.framework in Embed Frameworks */,
@@ -404,6 +438,28 @@
 		FEAABA151EB25D3D003E4CE0 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		FEAABA161EB25D3D003E4CE0 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
 		FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMigration.swift; sourceTree = "<group>"; };
+		FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StreamingKitWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEBF86F91EB37B5B00564B8A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEBF870F1EB37B5B00564B8A /* StreamingKitWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamingKitWrapper.h; sourceTree = "<group>"; };
+		FEBF87251EB37B9000564B8A /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = "<group>"; };
+		FEBF872A1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+STKAudioPlayer.h"; sourceTree = "<group>"; };
+		FEBF872B1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+STKAudioPlayer.m"; sourceTree = "<group>"; };
+		FEBF872C1EB37C5E00564B8A /* STKAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKAudioPlayer.h; sourceTree = "<group>"; };
+		FEBF872D1EB37C5E00564B8A /* STKAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKAudioPlayer.m; sourceTree = "<group>"; };
+		FEBF872E1EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKAutoRecoveringHTTPDataSource.h; sourceTree = "<group>"; };
+		FEBF872F1EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKAutoRecoveringHTTPDataSource.m; sourceTree = "<group>"; };
+		FEBF87301EB37C5E00564B8A /* STKCoreFoundationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKCoreFoundationDataSource.h; sourceTree = "<group>"; };
+		FEBF87311EB37C5E00564B8A /* STKCoreFoundationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKCoreFoundationDataSource.m; sourceTree = "<group>"; };
+		FEBF87321EB37C5E00564B8A /* STKDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKDataSource.h; sourceTree = "<group>"; };
+		FEBF87331EB37C5E00564B8A /* STKDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKDataSource.m; sourceTree = "<group>"; };
+		FEBF87341EB37C5E00564B8A /* STKDataSourceWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKDataSourceWrapper.h; sourceTree = "<group>"; };
+		FEBF87351EB37C5E00564B8A /* STKDataSourceWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKDataSourceWrapper.m; sourceTree = "<group>"; };
+		FEBF87361EB37C5E00564B8A /* STKHTTPDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKHTTPDataSource.h; sourceTree = "<group>"; };
+		FEBF87371EB37C5E00564B8A /* STKHTTPDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKHTTPDataSource.m; sourceTree = "<group>"; };
+		FEBF87381EB37C5E00564B8A /* STKLocalFileDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKLocalFileDataSource.h; sourceTree = "<group>"; };
+		FEBF87391EB37C5E00564B8A /* STKLocalFileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKLocalFileDataSource.m; sourceTree = "<group>"; };
+		FEBF873A1EB37C5E00564B8A /* STKQueueEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKQueueEntry.h; sourceTree = "<group>"; };
+		FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKQueueEntry.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,12 +474,15 @@
 				FE81A5D31EB373F600AA696A /* Alamofire.framework in Frameworks */,
 				FE81A5D71EB3745400AA696A /* Fabric.framework in Frameworks */,
 				C4E828EA1C5678CB004DFB04 /* Security.framework in Frameworks */,
+				FEBF87261EB37B9000564B8A /* WebImage.framework in Frameworks */,
+				FEBF87271EB37C0400564B8A /* WebImage.framework in Frameworks */,
 				C4E828E81C5678C2004DFB04 /* QuartzCore.framework in Frameworks */,
 				C4E828E61C5678BB004DFB04 /* CoreLocation.framework in Frameworks */,
 				FE81A6081EB3765000AA696A /* EPPUIKit.framework in Frameworks */,
 				FE81A5D61EB3745400AA696A /* Crashlytics.framework in Frameworks */,
 				C4E828E41C5678B5004DFB04 /* CoreGraphics.framework in Frameworks */,
 				FE81A5D81EB3756000AA696A /* Alamofire.framework in Frameworks */,
+				FEBF86F31EB37AF900564B8A /* StreamingKitWrapper.framework in Frameworks */,
 				C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */,
 				FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */,
 				C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */,
@@ -455,12 +514,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEBF86E81EB37AF900564B8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEBF87251EB37B9000564B8A /* WebImage.framework */,
+				FEBF86F81EB37B5B00564B8A /* StreamingKitWrapper */,
 				FE81A6021EB3765000AA696A /* EPPUIKit */,
 				FE81A5D41EB3745400AA696A /* Crashlytics.framework */,
 				FE81A5D51EB3745400AA696A /* Fabric.framework */,
@@ -643,6 +711,7 @@
 				C489EAD81BA83D1D00D788E0 /* EyePatchPlayerTests.xctest */,
 				FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */,
 				FE81A6011EB3765000AA696A /* EPPUIKit.framework */,
+				FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -998,6 +1067,49 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
+		FEBF86F81EB37B5B00564B8A /* StreamingKitWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				FEBF86F91EB37B5B00564B8A /* Info.plist */,
+				FEBF86FA1EB37B5B00564B8A /* Sources */,
+				FEBF870F1EB37B5B00564B8A /* StreamingKitWrapper.h */,
+			);
+			path = StreamingKitWrapper;
+			sourceTree = "<group>";
+		};
+		FEBF86FA1EB37B5B00564B8A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FEBF87291EB37C5E00564B8A /* StreamingKit */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		FEBF87291EB37C5E00564B8A /* StreamingKit */ = {
+			isa = PBXGroup;
+			children = (
+				FEBF872A1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.h */,
+				FEBF872B1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.m */,
+				FEBF872C1EB37C5E00564B8A /* STKAudioPlayer.h */,
+				FEBF872D1EB37C5E00564B8A /* STKAudioPlayer.m */,
+				FEBF872E1EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.h */,
+				FEBF872F1EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.m */,
+				FEBF87301EB37C5E00564B8A /* STKCoreFoundationDataSource.h */,
+				FEBF87311EB37C5E00564B8A /* STKCoreFoundationDataSource.m */,
+				FEBF87321EB37C5E00564B8A /* STKDataSource.h */,
+				FEBF87331EB37C5E00564B8A /* STKDataSource.m */,
+				FEBF87341EB37C5E00564B8A /* STKDataSourceWrapper.h */,
+				FEBF87351EB37C5E00564B8A /* STKDataSourceWrapper.m */,
+				FEBF87361EB37C5E00564B8A /* STKHTTPDataSource.h */,
+				FEBF87371EB37C5E00564B8A /* STKHTTPDataSource.m */,
+				FEBF87381EB37C5E00564B8A /* STKLocalFileDataSource.h */,
+				FEBF87391EB37C5E00564B8A /* STKLocalFileDataSource.m */,
+				FEBF873A1EB37C5E00564B8A /* STKQueueEntry.h */,
+				FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */,
+			);
+			path = StreamingKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1056,6 +1168,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEBF86E91EB37AF900564B8A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEBF87241EB37B5B00564B8A /* StreamingKitWrapper.h in Headers */,
+				FEBF873E1EB37C5E00564B8A /* STKAudioPlayer.h in Headers */,
+				FEBF87441EB37C5E00564B8A /* STKDataSource.h in Headers */,
+				FEBF87461EB37C5E00564B8A /* STKDataSourceWrapper.h in Headers */,
+				FEBF874A1EB37C5E00564B8A /* STKLocalFileDataSource.h in Headers */,
+				FEBF874C1EB37C5E00564B8A /* STKQueueEntry.h in Headers */,
+				FEBF87421EB37C5E00564B8A /* STKCoreFoundationDataSource.h in Headers */,
+				FEBF873C1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.h in Headers */,
+				FEBF87481EB37C5E00564B8A /* STKHTTPDataSource.h in Headers */,
+				FEBF87401EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1077,6 +1206,7 @@
 			dependencies = (
 				FEAABA201EB25D96003E4CE0 /* PBXTargetDependency */,
 				FE81A6071EB3765000AA696A /* PBXTargetDependency */,
+				FEBF86F21EB37AF900564B8A /* PBXTargetDependency */,
 			);
 			name = EyePatchPlayer;
 			productName = EyePatchPlayer;
@@ -1137,6 +1267,24 @@
 			productReference = FEAABA041EB25D2B003E4CE0 /* RESideMenuWrapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		FEBF86EB1EB37AF900564B8A /* StreamingKitWrapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FEBF86F51EB37AFA00564B8A /* Build configuration list for PBXNativeTarget "StreamingKitWrapper" */;
+			buildPhases = (
+				FEBF86E71EB37AF900564B8A /* Sources */,
+				FEBF86E81EB37AF900564B8A /* Frameworks */,
+				FEBF86E91EB37AF900564B8A /* Headers */,
+				FEBF86EA1EB37AF900564B8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StreamingKitWrapper;
+			productName = StreamingKitWrapper;
+			productReference = FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1172,6 +1320,10 @@
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
+					FEBF86EB1EB37AF900564B8A = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = C489EABC1BA83D1D00D788E0 /* Build configuration list for PBXProject "EyePatchPlayer" */;
@@ -1191,6 +1343,7 @@
 				C489EAD71BA83D1D00D788E0 /* EyePatchPlayerTests */,
 				FEAABA031EB25D2B003E4CE0 /* RESideMenuWrapper */,
 				FE81A6001EB3765000AA696A /* EPPUIKit */,
+				FEBF86EB1EB37AF900564B8A /* StreamingKitWrapper */,
 			);
 		};
 /* End PBXProject section */
@@ -1230,6 +1383,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FEBF86EA1EB37AF900564B8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEBF87101EB37B5B00564B8A /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1424,6 +1585,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEBF86E71EB37AF900564B8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEBF87411EB37C5E00564B8A /* STKAutoRecoveringHTTPDataSource.m in Sources */,
+				FEBF87491EB37C5E00564B8A /* STKHTTPDataSource.m in Sources */,
+				FEBF87431EB37C5E00564B8A /* STKCoreFoundationDataSource.m in Sources */,
+				FEBF874B1EB37C5E00564B8A /* STKLocalFileDataSource.m in Sources */,
+				FEBF873F1EB37C5E00564B8A /* STKAudioPlayer.m in Sources */,
+				FEBF87471EB37C5E00564B8A /* STKDataSourceWrapper.m in Sources */,
+				FEBF87451EB37C5E00564B8A /* STKDataSource.m in Sources */,
+				FEBF873D1EB37C5E00564B8A /* NSMutableArray+STKAudioPlayer.m in Sources */,
+				FEBF874D1EB37C5E00564B8A /* STKQueueEntry.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1441,6 +1618,11 @@
 			isa = PBXTargetDependency;
 			target = FEAABA031EB25D2B003E4CE0 /* RESideMenuWrapper */;
 			targetProxy = FEAABA1F1EB25D96003E4CE0 /* PBXContainerItemProxy */;
+		};
+		FEBF86F21EB37AF900564B8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FEBF86EB1EB37AF900564B8A /* StreamingKitWrapper */;
+			targetProxy = FEBF86F11EB37AF900564B8A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1733,7 +1915,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = frameworks/RESideMenuWrapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andr3y.RESideMenuWrapper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1759,9 +1941,60 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = frameworks/RESideMenuWrapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andr3y.RESideMenuWrapper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FEBF86F61EB37AFA00564B8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Frameworks/StreamingKitWrapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andr3y.StreamingKitWrapper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FEBF86F71EB37AFA00564B8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Frameworks/StreamingKitWrapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andr3y.StreamingKitWrapper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1814,6 +2047,15 @@
 			buildConfigurations = (
 				FEAABA0E1EB25D2B003E4CE0 /* Debug */,
 				FEAABA0F1EB25D2B003E4CE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FEBF86F51EB37AFA00564B8A /* Build configuration list for PBXNativeTarget "StreamingKitWrapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEBF86F61EB37AFA00564B8A /* Debug */,
+				FEBF86F71EB37AFA00564B8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
