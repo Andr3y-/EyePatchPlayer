@@ -93,6 +93,8 @@
 		FE81A5D31EB373F600AA696A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D21EB373F600AA696A /* Alamofire.framework */; };
 		FE81A5D61EB3745400AA696A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D41EB3745400AA696A /* Crashlytics.framework */; };
 		FE81A5D71EB3745400AA696A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D51EB3745400AA696A /* Fabric.framework */; };
+		FE81A5D81EB3756000AA696A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D21EB373F600AA696A /* Alamofire.framework */; };
+		FE81A5D91EB3756000AA696A /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE81A5D21EB373F600AA696A /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEAABA081EB25D2B003E4CE0 /* RESideMenuWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA061EB25D2B003E4CE0 /* RESideMenuWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEAABA171EB25D3D003E4CE0 /* RECommonFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAABA111EB25D3D003E4CE0 /* RECommonFunctions.h */; };
 		FEAABA181EB25D3D003E4CE0 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAABA121EB25D3D003E4CE0 /* RECommonFunctions.m */; };
@@ -130,6 +132,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */,
+				FE81A5D91EB3756000AA696A /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +266,7 @@
 				C4E828E61C5678BB004DFB04 /* CoreLocation.framework in Frameworks */,
 				FE81A5D61EB3745400AA696A /* Crashlytics.framework in Frameworks */,
 				C4E828E41C5678B5004DFB04 /* CoreGraphics.framework in Frameworks */,
+				FE81A5D81EB3756000AA696A /* Alamofire.framework in Frameworks */,
 				C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */,
 				FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */,
 				C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */,
