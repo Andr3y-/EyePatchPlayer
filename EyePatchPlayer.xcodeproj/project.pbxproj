@@ -58,7 +58,6 @@
 		C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */; };
 		C4C61DBC1BCBD58000501EE1 /* PerformanceMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */; };
 		C4C61DBE1BCBF50400501EE1 /* EPPlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */; };
-		C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */; };
 		C4D6BB361BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */; };
 		C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */; };
 		C4D6BB3C1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */; };
@@ -319,7 +318,6 @@
 		C4C61DB91BC8312100501EE1 /* IntTimeToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntTimeToString.swift; sourceTree = "<group>"; };
 		C4C61DBB1BCBD58000501EE1 /* PerformanceMeasure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceMeasure.swift; sourceTree = "<group>"; };
 		C4C61DBD1BCBF50400501EE1 /* EPPlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPPlaylistDelegate.swift; sourceTree = "<group>"; };
-		C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessagesViewController.swift; sourceTree = "<group>"; };
 		C4D6BB351BE8D0EA0017C1BB /* EPEqualizerConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPEqualizerConfigurationViewController.swift; sourceTree = "<group>"; };
 		C4D6BB371BE8DF170017C1BB /* EPVerticalBandSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPVerticalBandSlider.swift; sourceTree = "<group>"; };
 		C4D6BB3B1BE8E4A30017C1BB /* EPBandSliderThumbLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPBandSliderThumbLayer.swift; sourceTree = "<group>"; };
@@ -803,7 +801,6 @@
 			isa = PBXGroup;
 			children = (
 				C49E41881BE289E00012C0DD /* EPPlaylistAbstractViewController.swift */,
-				C49E418E1BE295BA0012C0DD /* Messages Playlist */,
 				C49E418D1BE28AF00012C0DD /* Recommended Playlist */,
 				C49E418A1BE289E90012C0DD /* My Music Playlist */,
 				C489EB031BA86A0900D788E0 /* Search */,
@@ -841,14 +838,6 @@
 				C49E418B1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift */,
 			);
 			name = "Recommended Playlist";
-			sourceTree = "<group>";
-		};
-		C49E418E1BE295BA0012C0DD /* Messages Playlist */ = {
-			isa = PBXGroup;
-			children = (
-				C4D5C00D1BDF90AB009F7710 /* EPMessagesViewController.swift */,
-			);
-			name = "Messages Playlist";
 			sourceTree = "<group>";
 		};
 		C49E41951BE3AED10012C0DD /* Fonts */ = {
@@ -1509,7 +1498,6 @@
 				C489EAF51BA8658900D788E0 /* EPDownloadedViewController.swift in Sources */,
 				C489EAF31BA8506600D788E0 /* EPConstants.swift in Sources */,
 				C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */,
-				C4D5C00E1BDF90AB009F7710 /* EPMessagesViewController.swift in Sources */,
 				C44ADA621BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift in Sources */,
 				C4C39F1A1BCC04C400F1246C /* EPTrackTableViewCellDelegate.swift in Sources */,
 				C41CDB9D1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift in Sources */,

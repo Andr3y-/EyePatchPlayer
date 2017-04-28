@@ -32,9 +32,6 @@ class EPHTTPTrackDownloadManager {
     class func downloadTrack(_ track: EPTrack, completion: ((_ result:Bool, _ track:EPTrack) -> Void)?, progressBlock: ((_ progressValue: Double) -> Void)?) {
         print("downoadTrack called")
         
-        EPHTTPVKManager.addTrackToPlaylistIfNeeded(track, completion: { (result, newTrack) in
-            //download with adding to playlist first
-            if let track = newTrack {
                 //update track ID to match the one of the playlist, only then create a copy
                 
                 let trackCopy = track.copy() as! EPTrack
@@ -114,8 +111,6 @@ class EPHTTPTrackDownloadManager {
                 })
 
                 downloadRequest.resume()
-            }
-        })
     }
     
     class func cancelTrackDownload(_ track:EPTrack) -> Bool {
