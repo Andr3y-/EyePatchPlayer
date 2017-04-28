@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DGActivityIndicatorView
+import EPPUIKit
 
 extension UIView {
     class func loadFromNibNamed(_ nibNamed: String, bundle: Bundle? = nil) -> UIView? {

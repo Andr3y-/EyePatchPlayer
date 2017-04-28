@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>EPPUIKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>EPPUIKitSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>EyePatchPlayer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,7 +22,7 @@
 		<key>RESideMenuWrapper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -23,6 +33,21 @@
 			<true/>
 		</dict>
 		<key>C489EAD71BA83D1D00D788E0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE81A5DE1EB375A600AA696A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE81A5EF1EB375BD00AA696A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE81A6001EB3765000AA696A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

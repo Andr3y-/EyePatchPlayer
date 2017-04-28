@@ -9,7 +9,7 @@
 
 import UIKit
 import VK_ios_sdk
-import DGActivityIndicatorView
+import EPPUIKit
 
 class EPPlaylistAbstractViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, EPPlaylistDelegate, EPTrackTableViewCellDelegate {
 

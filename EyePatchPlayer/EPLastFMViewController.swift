@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DGActivityIndicatorView
+import EPPUIKit
 
 class EPLastFMViewController: UIViewController, UITextFieldDelegate {
 
