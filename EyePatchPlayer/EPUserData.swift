@@ -8,15 +8,11 @@
 
 import UIKit
 import Crashlytics
-import VK_ios_sdk
 
 class EPUserData: NSObject {
     
-    class func setUserVKID(_ vkID: String) {
-        Crashlytics.sharedInstance().setUserIdentifier("VKID:\(vkID)")
+    class func setUserID(_ ID: String) {
+        Crashlytics.sharedInstance().setUserIdentifier("UserID:\(ID)")
     }
-    
-    class func VKID() -> String! {
-        return VKSdk.getAccessToken().accessToken
-    }
+
 }

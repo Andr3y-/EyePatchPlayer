@@ -12,10 +12,6 @@ struct EPConstants{
     
     static func loadPlistValues() {
         
-        if let VKAppID = Bundle.main.object(forInfoDictionaryKey: "VKAppID") as? String {
-            VK.AppID = VKAppID
-        }
-        
         if let LastFMAPIKey = Bundle.main.object(forInfoDictionaryKey: "LastFMAPIKey") as? String {
             LastFM.APIKey = LastFMAPIKey
         }
@@ -23,10 +19,6 @@ struct EPConstants{
         if let LastFMSecret = Bundle.main.object(forInfoDictionaryKey: "LastFMSecret") as? String {
             LastFM.Secret = LastFMSecret
         }
-    }
-    
-    struct VK {
-        static var AppID = ""
     }
 
     struct LastFM {

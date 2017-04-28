@@ -7,55 +7,43 @@
 //
 
 import UIKit
-import VK_ios_sdk
 
 class EPPlaylistViewController: EPPlaylistAbstractViewController {
 
-    var user: EPFriend?
     var userID: Int = 0
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if self.userID == Int(VKSdk.getAccessToken().userId)! {
-            self.navigationItem.title = "My Music"
-        } else if let user = self.user {
-            self.navigationItem.title = user.firstName + "'s Music"
-        }
-    }
-
     override func loadData() {
+
         if userID != 0 {
             print("loading playlist of a user with ID: \(userID)")
 
-            let audioRequest: VKRequest = VKRequest(method: "audio.get", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: 2000, "need_user": 0], andHttpMethod: "GET")
-            audioRequest.execute(resultBlock: {
-                (response) -> Void in
-
-                if let responseDictionary = response?.json as? NSDictionary, responseDictionary.count != 0 {
-                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
-                    self.playlist.identifier = "General List"
-                }
-
-                self.dataReady()
-            }, errorBlock: {
-                (error) -> Void in
-                print("unable to retrieve a playlist\n\(String(describing: error?.localizedDescription))")
-
-                self.dataReady()
-
-                let alertController = UIAlertController(title: "Error", message: "Unable to retrieve playlist\n\(String(describing: error?.localizedDescription))", preferredStyle: .alert)
-                //We add buttons to the alert controller by creating UIAlertActions:
-                let actionOk = UIAlertAction(title: "OK",
-                        style: .default,
-                        handler: {
-                            (action) -> Void in
-                            let _ = self.navigationController?.popViewController(animated: true)
-                        }) //You can use a block here to handle a press on this button
-                alertController.addAction(actionOk)
-
-                self.present(alertController, animated: true, completion: nil)
-            })
+//            audioRequest.execute(resultBlock: {
+//                (response) -> Void in
+//
+//                if let responseDictionary = response?.json as? NSDictionary, responseDictionary.count != 0 {
+//                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+//                    self.playlist.identifier = "General List"
+//                }
+//
+//                self.dataReady()
+//            }, errorBlock: {
+//                (error) -> Void in
+//                print("unable to retrieve a playlist\n\(String(describing: error?.localizedDescription))")
+//
+//                self.dataReady()
+//
+//                let alertController = UIAlertController(title: "Error", message: "Unable to retrieve playlist\n\(String(describing: error?.localizedDescription))", preferredStyle: .alert)
+//                //We add buttons to the alert controller by creating UIAlertActions:
+//                let actionOk = UIAlertAction(title: "OK",
+//                        style: .default,
+//                        handler: {
+//                            (action) -> Void in
+//                            let _ = self.navigationController?.popViewController(animated: true)
+//                        }) //You can use a block here to handle a press on this button
+//                alertController.addAction(actionOk)
+//
+//                self.present(alertController, animated: true, completion: nil)
+//            })
         }
     }
 

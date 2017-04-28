@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import VK_ios_sdk
 
 class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EPSettingsTableViewCellDelegate {
 
@@ -144,7 +143,6 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             EPSettings.setLastfmSession("")
             EPSettings.changeSetting(EPSettingType.scrobbleWithLastFm, value: false as AnyObject?)
             EPHTTPTrackDownloadManager.cancelAllDownloads()
-            VKSdk.forceLogout()
             EPMusicPlayer.sharedInstance.pause()
             NotificationCenter.default.post(name: Notification.Name(rawValue: "LogoutComplete"), object: nil)
         }
@@ -169,7 +167,6 @@ class EPSettingsViewController: UIViewController, UITableViewDelegate, UITableVi
             EPSettings.setLastfmSession("")
             EPSettings.changeSetting(EPSettingType.scrobbleWithLastFm, value: false as AnyObject?)
             EPHTTPTrackDownloadManager.cancelAllDownloads()
-            VKSdk.forceLogout()
             EPMusicPlayer.sharedInstance.pause()
             NotificationCenter.default.post(name: Notification.Name(rawValue: "LogoutComplete"), object: nil)
         }

@@ -182,9 +182,8 @@ class EPMusicPlayer: NSObject, STKAudioPlayerDelegate {
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
             if !track.isInvalidated && track.uniqueID == self.activeTrack.uniqueID && self.isPlaying() {
-                if EPSettings.shouldBroadcastStatus() {
-                    EPHTTPLastFMManager.broadcastTrack(self.activeTrack, completion: nil)
-                }
+                EPHTTPLastFMManager.broadcastTrack(self.activeTrack, completion: nil)
+
             }
         }
 

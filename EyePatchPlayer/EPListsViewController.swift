@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import VK_ios_sdk
 
 class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var playlistsTableView: UITableView!
 
-    var playlists = ["My Music", "Friends", "Recommended", "Messages", "Albums"]
+    var playlists = ["My Music", "Recommended"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +48,6 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell: UITableViewCell = self.playlistsTableView.cellForRow(at: indexPath)!
 
-        guard let token = VKSdk.getAccessToken(), let _ = token.userId else {
-            print("unable to segue due to no user permissions (userID cannot be obtained)")
-            return
-        }
-
         if let selectedText = selectedCell.textLabel?.text {
             switch selectedText {
             case "My Music":
@@ -61,14 +55,6 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 break
             case "Recommended":
                 self.performSegue(withIdentifier: "segueRecommended", sender: selectedText)
-                break
-            case "Friends":
-                self.performSegue(withIdentifier: "segueFriendList", sender: selectedText)
-            case "Messages":
-                self.performSegue(withIdentifier: "segueMessages", sender: selectedText)
-                break
-            case "Albums":
-                self.performSegue(withIdentifier: "segueAlbums", sender: selectedText)
                 break
             default:
                 print("unhandled selection of cell with text: \(selectedText)")
@@ -79,25 +65,17 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        guard let userID = Int(VKSdk.getAccessToken().userId) else {
-            print("unable to segue due to no user permissions (userID cannot be obtained)")
-            return
-        }
-
         switch segue.identifier! {
+            
         case "seguePlaylist":
             switch sender as! String {
+
             case "My Music":
-                print("segueing to playlist (My)")
-                let destinationViewController = segue.destination as! EPPlaylistViewController
-                destinationViewController.userID = userID
-                break
+                print("segueing to my music")
+
             case "Recommended":
-                print("segueing to playlist (My)")
-//                    let destinationViewController = segue.destinationViewController as! EPRecommendedPlaylistViewController
-//                    destinationViewController.userID = userID
-//                    destinationViewController.recommendedMode = true
-                break
+                print("segueing to recommended")
+
             default:
                 break
             }

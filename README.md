@@ -41,7 +41,6 @@ FEATURES IMPLEMENTED:
 - [x] Display cached status for tracks (yes/no/partial if in progress)
 - [x] Player Widget visible across all screens of the application (UIWindow approach)
 - [x] Saving last played track & respective playlist for next application launch
-- [x] VK Status Broadcast & Last.fm Now Playing updating
 - [x] Download Queue (Max 1 concurrently)
 - [x] Tracks from Messages (Last 10)
 - [x] Play Filtered Selection
@@ -71,4 +70,3 @@ CONSIDER:
 
 TOFIX:
 
-- [ ] Double Authentication with VK

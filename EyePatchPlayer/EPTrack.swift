@@ -177,7 +177,7 @@ class EPTrack: RLMObject {
         track.duration = 243
         track.ownerID = 3677921
         track.ID = 96332345
-        track.URLString = "https://psv4.vk.me/c4536/u116195/audios/6bbca7b17bd9.mp3?extra=AJ8ypzFNOCJJY5tJ3vxeDUwNOyejIK0kwWLljK1qNwQLOnhcjFdo_MPZrqXKxEGV5bzTujCGSLHuElG1jO10aUOnwbI"
+        track.URLString = "https://archive.org/download/TheBeatles-LetItBe1970/TheBeatles-LetItBe1970.mp3"
         track.isCached = EPCache.cacheStatusForTrack(track)
         track.lyricsID = 8876171
         

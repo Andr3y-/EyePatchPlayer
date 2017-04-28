@@ -15,8 +15,6 @@ enum EPArtworkSize: Int {
 }
 
 enum EPSettingType: Int {
-    case saveToPlaylist = 0
-    case broadcastStatus = 1
     case scrobbleWithLastFm = 2
     case reverseSwipeDirection = 3
     case downloadArtwork = 4
@@ -29,8 +27,6 @@ class EPSettings: UserDefaults {
 
     class func currentSettingsSet() -> [(type:EPSettingType, value:Any, name:String)] {
         return [
-                (.saveToPlaylist, shouldAutomaticallySaveToPlaylist(), "Save to VK playlist if cached"),
-                (.broadcastStatus, shouldBroadcastStatus(), "VK status broadcast"),
                 (.scrobbleWithLastFm, shouldScrobbleWithLastFm(), "Scrobble with Last.fm"),
                 (.reverseSwipeDirection, isSwipeReverseEnabled(), "Reverse L/R Swipe Direction"),
                 (.downloadArtwork, shouldDownloadArtwork(), "Download artwork"),
@@ -53,31 +49,6 @@ class EPSettings: UserDefaults {
     @discardableResult class func changeSetting(_ type: EPSettingType, value: AnyObject?) -> AnyObject {
 
         switch type {
-        case .saveToPlaylist:
-
-            let specificValue: Bool!
-            if value != nil {
-                specificValue = value! as! Bool
-            } else {
-                specificValue = !shouldAutomaticallySaveToPlaylist()
-            }
-
-            UserDefaults.standard.set(specificValue, forKey: "SaveToPlaylist")
-            shouldAutomaticallySaveToPlaylistValue = specificValue
-            return shouldAutomaticallySaveToPlaylistValue! as AnyObject
-
-        case .broadcastStatus:
-
-            let specificValue: Bool!
-            if value != nil {
-                specificValue = value! as! Bool
-            } else {
-                specificValue = !shouldBroadcastStatus()
-            }
-
-            UserDefaults.standard.set(specificValue, forKey: "BroadcastStatus")
-            shouldBroadcastStatusValue = specificValue
-            return (specificValue as AnyObject)
 
         case .shakeToShuffle:
 
@@ -159,43 +130,7 @@ class EPSettings: UserDefaults {
             return preferredArtworkSizeString() as AnyObject
         }
     }
-
-    static var shouldAutomaticallySaveToPlaylistValue: Bool?
-    class func shouldAutomaticallySaveToPlaylist() -> Bool {
-        //read from NSUserDefaults()
-        if let value = shouldAutomaticallySaveToPlaylistValue {
-            return value
-        } else {
-
-            if let value = UserDefaults.standard.object(forKey: "SaveToPlaylist") as? Bool {
-                shouldAutomaticallySaveToPlaylistValue = value
-                return shouldAutomaticallySaveToPlaylistValue!
-            } else {
-                UserDefaults.standard.set(true, forKey: "SaveToPlaylist")
-                shouldAutomaticallySaveToPlaylistValue = true
-                return shouldAutomaticallySaveToPlaylistValue!
-            }
-        }
-    }
-
-    static var shouldBroadcastStatusValue: Bool?
-    class func shouldBroadcastStatus() -> (Bool) {
-        //read from NSUserDefaults()
-        if let value = shouldBroadcastStatusValue {
-            return value
-        } else {
-
-            if let value = UserDefaults.standard.object(forKey: "BroadcastStatus") as? Bool {
-                shouldBroadcastStatusValue = value
-                return shouldBroadcastStatusValue!
-            } else {
-                UserDefaults.standard.set(true, forKey: "BroadcastStatus")
-                shouldBroadcastStatusValue = true
-                return shouldBroadcastStatusValue!
-            }
-        }
-    }
-
+    
     static var shouldDetectShakeToShuffleValue: Bool?
     class func shouldDetectShakeToShuffle() -> (Bool) {
         //read from NSUserDefaults()

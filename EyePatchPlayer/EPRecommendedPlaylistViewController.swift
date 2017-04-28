@@ -7,36 +7,30 @@
 //
 
 import UIKit
-import VK_ios_sdk
 
 class EPRecommendedPlaylistViewController: EPPlaylistAbstractViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Recommended"
-        // Do any additional setup after loading the view.
+        navigationItem.title = "Recommended"
     }
 
     override func loadData() {
-        if let userID = VKSdk.getAccessToken().userId {
-            print("loading playlist of a user with ID: \(userID)")
 
-            let audioRequest: VKRequest = VKRequest(method: "audio.getRecommendations", andParameters: [VK_API_OWNER_ID: userID, VK_API_COUNT: 100, "shuffle": 1], andHttpMethod: "GET")
-            audioRequest.execute(resultBlock: {
-                (response) -> Void in
-
-                if let responseDictionary = response?.json as? NSDictionary, responseDictionary.count != 0 {
-                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
-                    self.playlist.identifier = "Recommended"
-                }
-
-
-                self.dataReady()
-
-            }, errorBlock: {
-                (error) -> Void in
-
-            })
-        }
+//            audioRequest.execute(resultBlock: {
+//                (response) -> Void in
+//
+//                if let responseDictionary = response?.json as? NSDictionary, responseDictionary.count != 0 {
+//                    self.playlist = EPMusicPlaylist.initWithResponse(responseDictionary)
+//                    self.playlist.identifier = "Recommended"
+//                }
+//
+//
+//                self.dataReady()
+//
+//            }, errorBlock: {
+//                (error) -> Void in
+//
+//            })
     }
 }
