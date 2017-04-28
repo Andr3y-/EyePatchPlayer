@@ -84,7 +84,6 @@
 		C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3661BAC655700197746 /* CFNetwork.framework */; };
 		C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB3681BAC655C00197746 /* AudioToolbox.framework */; };
 		C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36A1BAC656000197746 /* AVFoundation.framework */; };
-		C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36C1BAC656700197746 /* libxml2.dylib */; };
 		C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */; };
 		C4FEB2861C638C3400B3D618 /* UIView+DefaultTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */; };
 		C4FEB2881C638FA700B3D618 /* UIColor+ColorWithHEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */; };
@@ -261,7 +260,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0BC98F3C40624CFA580E61ED /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		496CB50997ABC1BD0FA68C5C /* Pods-EyePatchPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyePatchPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-EyePatchPlayer/Pods-EyePatchPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		59B38DB8329BA8FEFEA202C9 /* Pods-EyePatchPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyePatchPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyePatchPlayer/Pods-EyePatchPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		ABC356CF6C1CE277BA5570A6 /* EPExtrasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EPExtrasView.xib; sourceTree = "<group>"; };
@@ -269,12 +267,10 @@
 		ABC35CAED7CC7B9D835DE04F /* EPExtrasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPExtrasView.swift; sourceTree = "<group>"; };
 		C41A8BA11BB98B9D00AED0E2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C41CDB9C1BB1BBD000EF6C03 /* EPMusicPlayerRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerRemoteManager.swift; sourceTree = "<group>"; };
-		C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-0.95.0/ios/swift-1.2/RealmSwift.framework"; sourceTree = "<group>"; };
 		C41CDBA81BB2EAD100EF6C03 /* EPSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettings.swift; sourceTree = "<group>"; };
 		C4215B2D1BD79D8100D771F5 /* EPSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		C4215B2E1BD79D8100D771F5 /* EPSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		C42A43051C0DE982005890F6 /* EPSystemEnvironmentChangeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSystemEnvironmentChangeManager.swift; sourceTree = "<group>"; };
-		C42CB3AB1C63734E00A429E6 /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
 		C44ADA611BCFF26A00D2EFB0 /* UIView+EqualSizeConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+EqualSizeConstraints.swift"; sourceTree = "<group>"; };
 		C463B5271C5A34AD0018A708 /* EPRepeatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPRepeatButton.swift; sourceTree = "<group>"; };
 		C468474E1BDE9C070066F616 /* EPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMessage.swift; sourceTree = "<group>"; };
@@ -350,7 +346,6 @@
 		C4FCB3661BAC655700197746 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C4FCB3681BAC655C00197746 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4FCB36A1BAC656000197746 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C4FCB36C1BAC656700197746 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C4FEB2851C638C3400B3D618 /* UIView+DefaultTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+DefaultTintColor.swift"; sourceTree = "<group>"; };
 		C4FEB2871C638FA700B3D618 /* UIColor+ColorWithHEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorWithHEX.swift"; sourceTree = "<group>"; };
@@ -495,7 +490,6 @@
 				FEBF875F1EB3840100564B8A /* Realm.framework in Frameworks */,
 				C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */,
 				FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */,
-				C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */,
 				C4FCB36B1BAC656000197746 /* AVFoundation.framework in Frameworks */,
 				C4FCB3691BAC655C00197746 /* AudioToolbox.framework in Frameworks */,
 				C4FCB3671BAC655700197746 /* CFNetwork.framework in Frameworks */,
@@ -546,7 +540,6 @@
 				FE81A5D51EB3745400AA696A /* Fabric.framework */,
 				FEAABA051EB25D2B003E4CE0 /* RESideMenuWrapper */,
 				FE81A5D21EB373F600AA696A /* Alamofire.framework */,
-				C42CB3AB1C63734E00A429E6 /* Pods.framework */,
 				C4E828F11C5678E5004DFB04 /* libsqlite3.tbd */,
 				C4E828EF1C5678DD004DFB04 /* libz.tbd */,
 				C4E828ED1C5678D7004DFB04 /* SystemConfiguration.framework */,
@@ -555,13 +548,10 @@
 				C4E828E71C5678C2004DFB04 /* QuartzCore.framework */,
 				C4E828E51C5678BB004DFB04 /* CoreLocation.framework */,
 				C4E828E31C5678B5004DFB04 /* CoreGraphics.framework */,
-				C41CDBA21BB2AA4800EF6C03 /* RealmSwift.framework */,
 				C4FCB36E1BAC656C00197746 /* MediaPlayer.framework */,
-				C4FCB36C1BAC656700197746 /* libxml2.dylib */,
 				C4FCB36A1BAC656000197746 /* AVFoundation.framework */,
 				C4FCB3681BAC655C00197746 /* AudioToolbox.framework */,
 				C4FCB3661BAC655700197746 /* CFNetwork.framework */,
-				0BC98F3C40624CFA580E61ED /* Pods.framework */,
 				CB1813399836D2CBE82E685C /* Pods_EyePatchPlayer.framework */,
 			);
 			path = Frameworks;
