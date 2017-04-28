@@ -159,9 +159,11 @@ class EPTrack: RLMObject {
         return track
     }
     
-    override static func ignoredProperties() -> [String] {
+    override class func ignoredProperties() -> [String]? {
         return ["artworkUIImage", "downloadProgress", "lyricsID", "uniqueID"]
     }
+
+    
 
     override static func primaryKey() -> String {
         return "ID"

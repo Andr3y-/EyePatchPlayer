@@ -205,6 +205,9 @@
 		FEBF874D1EB37C5E00564B8A /* STKQueueEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */; };
 		FEBF87511EB37DC600564B8A /* RSPlayPauseButton.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF874F1EB37DC600564B8A /* RSPlayPauseButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEBF87521EB37DC600564B8A /* RSPlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87501EB37DC600564B8A /* RSPlayPauseButton.m */; };
+		FEBF875B1EB3832A00564B8A /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87591EB3832A00564B8A /* Realm.framework */; };
+		FEBF875F1EB3840100564B8A /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87591EB3832A00564B8A /* Realm.framework */; };
+		FEBF87601EB3840100564B8A /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87591EB3832A00564B8A /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,6 +251,7 @@
 				FEBF86F41EB37AF900564B8A /* StreamingKitWrapper.framework in Embed Frameworks */,
 				FEBF87281EB37C0400564B8A /* WebImage.framework in Embed Frameworks */,
 				FEAABA1E1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Embed Frameworks */,
+				FEBF87601EB3840100564B8A /* Realm.framework in Embed Frameworks */,
 				FE81A5D91EB3756000AA696A /* Alamofire.framework in Embed Frameworks */,
 				FE81A6091EB3765000AA696A /* EPPUIKit.framework in Embed Frameworks */,
 			);
@@ -462,6 +466,8 @@
 		FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKQueueEntry.m; sourceTree = "<group>"; };
 		FEBF874F1EB37DC600564B8A /* RSPlayPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSPlayPauseButton.h; sourceTree = "<group>"; };
 		FEBF87501EB37DC600564B8A /* RSPlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSPlayPauseButton.m; sourceTree = "<group>"; };
+		FEBF87591EB3832A00564B8A /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		FEBF875A1EB3832A00564B8A /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,10 +487,12 @@
 				C4E828E81C5678C2004DFB04 /* QuartzCore.framework in Frameworks */,
 				C4E828E61C5678BB004DFB04 /* CoreLocation.framework in Frameworks */,
 				FE81A6081EB3765000AA696A /* EPPUIKit.framework in Frameworks */,
+				FEBF875B1EB3832A00564B8A /* Realm.framework in Frameworks */,
 				FE81A5D61EB3745400AA696A /* Crashlytics.framework in Frameworks */,
 				C4E828E41C5678B5004DFB04 /* CoreGraphics.framework in Frameworks */,
 				FE81A5D81EB3756000AA696A /* Alamofire.framework in Frameworks */,
 				FEBF86F31EB37AF900564B8A /* StreamingKitWrapper.framework in Frameworks */,
+				FEBF875F1EB3840100564B8A /* Realm.framework in Frameworks */,
 				C4FCB36F1BAC656C00197746 /* MediaPlayer.framework in Frameworks */,
 				FEAABA1D1EB25D96003E4CE0 /* RESideMenuWrapper.framework in Frameworks */,
 				C4FCB36D1BAC656700197746 /* libxml2.dylib in Frameworks */,
@@ -529,6 +537,8 @@
 		58F4D19E494145291077016A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEBF87591EB3832A00564B8A /* Realm.framework */,
+				FEBF875A1EB3832A00564B8A /* RealmSwift.framework */,
 				FEBF87251EB37B9000564B8A /* WebImage.framework */,
 				FEBF86F81EB37B5B00564B8A /* StreamingKitWrapper */,
 				FE81A6021EB3765000AA696A /* EPPUIKit */,

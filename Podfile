@@ -6,6 +6,5 @@ use_frameworks!
 target 'EyePatchPlayer' do
 
 pod 'VK-ios-sdk', '~>1.2.2'
-pod 'Realm'
 
 end
