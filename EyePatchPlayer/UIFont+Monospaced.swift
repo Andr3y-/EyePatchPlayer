@@ -5,6 +5,7 @@
 //  Created by Andr3y on 19/02/2016.
 //  Copyright © 2016 Apppli. All rights reserved.
 //
+import UIKit
 
 extension UIFont {
     var monospacedDigitFont: UIFont {

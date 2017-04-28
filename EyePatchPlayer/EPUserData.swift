@@ -17,6 +17,6 @@ class EPUserData: NSObject {
     }
     
     class func VKID() -> String! {
-        return VKSdk.getAccessToken().userId
+        return VKSdk.getAccessToken().accessToken
     }
 }

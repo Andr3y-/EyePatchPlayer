@@ -14,3 +14,4 @@ FOUNDATION_EXPORT double EPPUIKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char EPPUIKitVersionString[];
 
 #import <EPPUIKit/DGActivityIndicatorView.h>
+#import <EPPUIKit/RSPlayPauseButton.h>

@@ -6,7 +6,7 @@
 //  Copyright © 2015 Apppli. All rights reserved.
 //
 
-//import Foundation
+import Foundation
 
 class Performance {
     class func measure(_ title: String, block: (() -> ()) -> ()) {

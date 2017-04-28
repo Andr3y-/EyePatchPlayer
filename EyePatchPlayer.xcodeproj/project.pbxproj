@@ -28,7 +28,6 @@
 		C47D3F2B1C036AA900E8CCCC /* EPLastFMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */; };
 		C47D3F2F1C05E3AC00E8CCCC /* EPLastFMScrobble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */; };
 		C47D3F311C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D3F301C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift */; };
-		C480CF251C7B372500142DF8 /* RSPlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CF241C7B372500142DF8 /* RSPlayPauseButton.m */; };
 		C489EAC71BA83D1D00D788E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */; };
 		C489EAC91BA83D1D00D788E0 /* EPListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EAC81BA83D1D00D788E0 /* EPListsViewController.swift */; };
 		C489EACB1BA83D1D00D788E0 /* EPSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489EACA1BA83D1D00D788E0 /* EPSearchViewController.swift */; };
@@ -204,6 +203,8 @@
 		FEBF874B1EB37C5E00564B8A /* STKLocalFileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87391EB37C5E00564B8A /* STKLocalFileDataSource.m */; };
 		FEBF874C1EB37C5E00564B8A /* STKQueueEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF873A1EB37C5E00564B8A /* STKQueueEntry.h */; };
 		FEBF874D1EB37C5E00564B8A /* STKQueueEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */; };
+		FEBF87511EB37DC600564B8A /* RSPlayPauseButton.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF874F1EB37DC600564B8A /* RSPlayPauseButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEBF87521EB37DC600564B8A /* RSPlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF87501EB37DC600564B8A /* RSPlayPauseButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,7 +296,6 @@
 		C489EAD81BA83D1D00D788E0 /* EyePatchPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EyePatchPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EADD1BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EADE1BA83D1D00D788E0 /* EyePatchPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyePatchPlayerTests.swift; sourceTree = "<group>"; };
-		C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EyePatchPlayer-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		C489EAF21BA8506600D788E0 /* EPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPConstants.swift; sourceTree = "<group>"; };
 		C489EAF41BA8658900D788E0 /* EPDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPDownloadedViewController.swift; sourceTree = "<group>"; };
 		C489EAF61BA8659D00D788E0 /* EPSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSettingsViewController.swift; sourceTree = "<group>"; };
@@ -460,6 +460,8 @@
 		FEBF87391EB37C5E00564B8A /* STKLocalFileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKLocalFileDataSource.m; sourceTree = "<group>"; };
 		FEBF873A1EB37C5E00564B8A /* STKQueueEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKQueueEntry.h; sourceTree = "<group>"; };
 		FEBF873B1EB37C5E00564B8A /* STKQueueEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKQueueEntry.m; sourceTree = "<group>"; };
+		FEBF874F1EB37DC600564B8A /* RSPlayPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSPlayPauseButton.h; sourceTree = "<group>"; };
+		FEBF87501EB37DC600564B8A /* RSPlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSPlayPauseButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -737,7 +739,6 @@
 				C49E41951BE3AED10012C0DD /* Fonts */,
 				C4C61D4D1BBD56DA00501EE1 /* Extensions */,
 				C4FCB3701BAC65A300197746 /* Libraries */,
-				C489EAEB1BA83F9500D788E0 /* EyePatchPlayer-Bridging-Header.h */,
 				C489EAC51BA83D1D00D788E0 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -953,6 +954,7 @@
 		FE81A60D1EB3769F00AA696A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FEBF874E1EB37DC600564B8A /* RSPlayPauseButton */,
 				FE81A69E1EB3783F00AA696A /* DGActivityIndicatorView */,
 			);
 			path = Sources;
@@ -1110,6 +1112,15 @@
 			path = StreamingKit;
 			sourceTree = "<group>";
 		};
+		FEBF874E1EB37DC600564B8A /* RSPlayPauseButton */ = {
+			isa = PBXGroup;
+			children = (
+				FEBF874F1EB37DC600564B8A /* RSPlayPauseButton.h */,
+				FEBF87501EB37DC600564B8A /* RSPlayPauseButton.m */,
+			);
+			path = RSPlayPauseButton;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1119,6 +1130,7 @@
 			files = (
 				FE81A6F31EB3783F00AA696A /* DGActivityIndicatorBallGridPulseAnimation.h in Headers */,
 				FE81A72C1EB3783F00AA696A /* DGActivityIndicatorView.h in Headers */,
+				FEBF87511EB37DC600564B8A /* RSPlayPauseButton.h in Headers */,
 				FE81A6ED1EB3783F00AA696A /* DGActivityIndicatorBallClipRotateMultipleAnimation.h in Headers */,
 				FE81A6051EB3765000AA696A /* EPPUIKit.h in Headers */,
 				FE81A7271EB3783F00AA696A /* DGActivityIndicatorTripleRingsAnimation.h in Headers */,
@@ -1495,7 +1507,6 @@
 				C4D80D7D1BCFCC670095E2D7 /* EPRootNavigationController.swift in Sources */,
 				C4A32D161C77394B00EEF7F7 /* UIFont+Monospaced.swift in Sources */,
 				C489EAC91BA83D1D00D788E0 /* EPListsViewController.swift in Sources */,
-				C480CF251C7B372500142DF8 /* RSPlayPauseButton.m in Sources */,
 				C4D6BB381BE8DF170017C1BB /* EPVerticalBandSlider.swift in Sources */,
 				FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */,
 				C4C61DBA1BC8312100501EE1 /* IntTimeToString.swift in Sources */,
@@ -1564,6 +1575,7 @@
 				FE81A6EC1EB3783F00AA696A /* DGActivityIndicatorBallClipRotateAnimation.m in Sources */,
 				FE81A6FC1EB3783F00AA696A /* DGActivityIndicatorBallScaleAnimation.m in Sources */,
 				FE81A7141EB3783F00AA696A /* DGActivityIndicatorLineScalePartyAnimation.m in Sources */,
+				FEBF87521EB37DC600564B8A /* RSPlayPauseButton.m in Sources */,
 				FE81A6F81EB3783F00AA696A /* DGActivityIndicatorBallPulseSyncAnimation.m in Sources */,
 				FE81A71A1EB3783F00AA696A /* DGActivityIndicatorNineDotsAnimation.m in Sources */,
 				FE81A7121EB3783F00AA696A /* DGActivityIndicatorLineScaleAnimation.m in Sources */,
@@ -1762,7 +1774,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5ce05aa0-0bc2-4e48-b011-a91c029ec0ca";
-				SWIFT_OBJC_BRIDGING_HEADER = "./EyePatchPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1791,7 +1803,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apppli.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d6ca5fe6-aec8-42e3-9961-f3e440e56951";
-				SWIFT_OBJC_BRIDGING_HEADER = "./EyePatchPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
