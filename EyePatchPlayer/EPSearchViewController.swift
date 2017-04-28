@@ -47,7 +47,7 @@ class EPSearchViewController: EPPlaylistAbstractViewController {
 
         lastExecutedSearchQuery = searchBarText
 
-        let searchQuery = self.searchBar.text!
+//        let searchQuery = self.searchBar.text!
 
 //        audioRequest.execute(resultBlock: {
 //            [weak self] (response) -> Void in

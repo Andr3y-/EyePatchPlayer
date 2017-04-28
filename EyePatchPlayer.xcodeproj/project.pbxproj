@@ -176,7 +176,6 @@
 		FEB22DCA1D4CE8BC00151CDE /* FileMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB22DC91D4CE8BC00151CDE /* FileMigration.swift */; };
 		FEBF86F31EB37AF900564B8A /* StreamingKitWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */; };
 		FEBF86F41EB37AF900564B8A /* StreamingKitWrapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF86EC1EB37AF900564B8A /* StreamingKitWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FEBF87101EB37B5B00564B8A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEBF86F91EB37B5B00564B8A /* Info.plist */; };
 		FEBF87241EB37B5B00564B8A /* StreamingKitWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FEBF870F1EB37B5B00564B8A /* StreamingKitWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEBF87261EB37B9000564B8A /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87251EB37B9000564B8A /* WebImage.framework */; };
 		FEBF87271EB37C0400564B8A /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBF87251EB37B9000564B8A /* WebImage.framework */; };
@@ -1357,7 +1356,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEBF87101EB37B5B00564B8A /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
