@@ -279,8 +279,6 @@
 		C47D3F2A1C036AA900E8CCCC /* EPLastFMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMViewController.swift; sourceTree = "<group>"; };
 		C47D3F2E1C05E3AC00E8CCCC /* EPLastFMScrobble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMScrobble.swift; sourceTree = "<group>"; };
 		C47D3F301C05E3BB00E8CCCC /* EPLastFMScrobbleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPLastFMScrobbleManager.swift; sourceTree = "<group>"; };
-		C480CF231C7B372500142DF8 /* RSPlayPauseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSPlayPauseButton.h; sourceTree = "<group>"; };
-		C480CF241C7B372500142DF8 /* RSPlayPauseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSPlayPauseButton.m; sourceTree = "<group>"; };
 		C489EAC11BA83D1D00D788E0 /* EyePatchPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyePatchPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C489EAC51BA83D1D00D788E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C489EAC61BA83D1D00D788E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -659,8 +657,6 @@
 		C42A43101C0DF61A005890F6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C480CF231C7B372500142DF8 /* RSPlayPauseButton.h */,
-				C480CF241C7B372500142DF8 /* RSPlayPauseButton.m */,
 				C489EACC1BA83D1D00D788E0 /* Main.storyboard */,
 				C489EAD11BA83D1D00D788E0 /* LaunchScreen.xib */,
 			);

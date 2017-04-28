@@ -226,7 +226,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                         () -> Void in
                         //animate back down
                         self.contentViewWidget.alpha = 1
-                        self.layoutIfNeeded()
+                        self.superview?.layoutIfNeeded()
                     }, completion: {
                         (result: Bool) -> Void in
                         //finished
@@ -264,7 +264,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                     //animations
 
                     self.contentViewWidget.alpha = 0
-                    self.layoutIfNeeded()
+                    self.superview?.layoutIfNeeded()
 
                 }, completion: {
                     (result: Bool) -> Void in
@@ -278,7 +278,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     () -> Void in
                     self.contentViewWidget.alpha = 1 - ((finalPoint - hiddenConst) * (shownConst / (shownConst - hiddenConst)) / shownConst)
-                    self.layoutIfNeeded()
+                    self.superview?.layoutIfNeeded()
                 }, completion: {
                     (result: Bool) -> Void in
                     self.topOffsetConstaint.constant = hiddenConst
@@ -286,7 +286,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                         () -> Void in
                         //animate back down
                         self.contentViewWidget.alpha = 1
-                        self.layoutIfNeeded()
+                        self.superview?.layoutIfNeeded()
                     }, completion: {
                         (result: Bool) -> Void in
                         //finished
@@ -337,7 +337,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                     //animations
 
                     self.contentViewWidget.alpha = 1
-                    self.layoutIfNeeded()
+                    self.superview?.layoutIfNeeded()
 
                 }, completion: {
                     (result: Bool) -> Void in
@@ -352,7 +352,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                 UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     () -> Void in
                     self.contentViewWidget.alpha = 1 - ((finalPoint - hiddenConst) * (shownConst / (shownConst - hiddenConst)) / shownConst)
-                    self.layoutIfNeeded()
+                    self.superview?.layoutIfNeeded()
                 }, completion: {
                     (result: Bool) -> Void in
                     self.topOffsetConstaint.constant = shownConst
@@ -360,7 +360,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
                         () -> Void in
                         //animate back down
                         self.contentViewWidget.alpha = 0
-                        self.layoutIfNeeded()
+                        self.superview?.layoutIfNeeded()
                     }, completion: {
                         (result: Bool) -> Void in
                         //finished
@@ -505,7 +505,7 @@ class EPPlayerWidgetView: UIView, EPMusicPlayerDelegate {
 
         UIView.animate(withDuration: animated ? 0.15 : 0, animations: {
             () -> Void in
-            self.layoutIfNeeded()
+            self.superview?.layoutIfNeeded()
             self.contentViewWidget.alpha = value ? 0 : 1
         }) 
     }
