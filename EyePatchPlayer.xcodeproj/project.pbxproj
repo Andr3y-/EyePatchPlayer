@@ -51,7 +51,6 @@
 		C4C39F1C1BCC1C5200F1246C /* EPAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */; };
 		C4C61D4C1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */; };
 		C4C61D4F1BBD572800501EE1 /* ShuffleArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */; };
-		C4C61DAC1BC6B8E800501EE1 /* EPFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */; };
 		C4C61DB11BC6D58A00501EE1 /* EPFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */; };
 		C4C61DB41BC8199500501EE1 /* EPTrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C61DB21BC8199500501EE1 /* EPTrackTableViewCell.swift */; };
 		C4C61DB51BC8199500501EE1 /* EPTrackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C61DB31BC8199500501EE1 /* EPTrackTableViewCell.xib */; };
@@ -313,7 +312,6 @@
 		C4C39F1B1BCC1C5200F1246C /* EPAudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPAudioSessionManager.swift; sourceTree = "<group>"; };
 		C4C61D4B1BBD537A00501EE1 /* EPMusicPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPMusicPlayerDelegate.swift; sourceTree = "<group>"; };
 		C4C61D4E1BBD572800501EE1 /* ShuffleArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleArray.swift; sourceTree = "<group>"; };
-		C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPFriendListViewController.swift; sourceTree = "<group>"; };
 		C4C61DB01BC6D58A00501EE1 /* EPFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPFriend.swift; sourceTree = "<group>"; };
 		C4C61DB21BC8199500501EE1 /* EPTrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPTrackTableViewCell.swift; sourceTree = "<group>"; };
 		C4C61DB31BC8199500501EE1 /* EPTrackTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPTrackTableViewCell.xib; sourceTree = "<group>"; };
@@ -769,7 +767,6 @@
 				ABC3583354735CF18F3D9BC1 /* Player */,
 				C4C61DAA1BC6B7D100501EE1 /* Lists */,
 				C489EB051BA86A1700D788E0 /* Settings */,
-				C4C61DAD1BC6B8EB00501EE1 /* FriendsList */,
 				C489EB0A1BA86C7600D788E0 /* TrackPlaylist */,
 			);
 			name = Controllers;
@@ -885,14 +882,6 @@
 				C489EAC81BA83D1D00D788E0 /* EPListsViewController.swift */,
 			);
 			name = Lists;
-			sourceTree = "<group>";
-		};
-		C4C61DAD1BC6B8EB00501EE1 /* FriendsList */ = {
-			isa = PBXGroup;
-			children = (
-				C4C61DAB1BC6B8E800501EE1 /* EPFriendListViewController.swift */,
-			);
-			name = FriendsList;
 			sourceTree = "<group>";
 		};
 		C4C61DB61BC8199E00501EE1 /* TrackTableViewCell */ = {
@@ -1485,7 +1474,6 @@
 				C4E60D3B1BAB22F700C950AA /* EPMusicPlayer.swift in Sources */,
 				C41CDBA91BB2EAD100EF6C03 /* EPSettings.swift in Sources */,
 				C489EAFF1BA8698700D788E0 /* EPTrack.swift in Sources */,
-				C4C61DAC1BC6B8E800501EE1 /* EPFriendListViewController.swift in Sources */,
 				C49E418C1BE28AEC0012C0DD /* EPRecommendedPlaylistViewController.swift in Sources */,
 				C4E60D3D1BAC190800C950AA /* EPCache.swift in Sources */,
 				C469F2F31C6CAA5C0070B68B /* EPHTTPVKManager.swift in Sources */,

@@ -98,27 +98,11 @@ class EPListsViewController: UIViewController, UITableViewDelegate, UITableViewD
 //                    destinationViewController.userID = userID
 //                    destinationViewController.recommendedMode = true
                 break
-            case "Friends":
-                print("segueing to Friends list")
-                let destinationViewController = segue.destination as! EPFriendListViewController
-                destinationViewController.userID = userID
-                break
-            case "Messages":
-                print("segueing to Messages list")
-//                    let destinationViewController = segue.destinationViewController as! EPMessagesViewController
-                break
             default:
-                print("segueing to ...)")
-
+                break
             }
-            
-        case "segueFriendList":
-            let destinationViewController = segue.destination as! EPFriendListViewController
-            destinationViewController.userID = userID
-            break
 
         default:
-            print("")
             break;
         }
     }
